@@ -5,7 +5,7 @@
 
     <parent>
         <groupId>it1901</groupId>
-        <artifactId>modules-template</artifactId>
+        <artifactId>cookbook-project</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
@@ -83,14 +83,12 @@
 	        </plugin>
 
             <plugin>
+                <!-- javafx:run -->
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
-                <!-- Default configuration for running -->
-                <!-- Usage: mvn javafx:run -->
                 <configuration>
-                    <!-- syntax: module-name/full-app-class-name -->
-                    <mainClass>calc.ui/ui.App</mainClass>
+                    <mainClass>calc.ui/ui.CookbookApp</mainClass>
                 </configuration>
             </plugin>
         </plugins>
