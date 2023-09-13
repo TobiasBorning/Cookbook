@@ -6,18 +6,18 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Cookbook {
-  private Collection<Recipie> recipies = new ArrayList<>();
+  private Collection<Recipe> recipies = new ArrayList<>();
 
   //adding and removing recipies
 
-  public void addRecipie(Recipie recipie) {
+  public void addRecipie(Recipe recipie) {
     if (recipie == null) {
       throw new IllegalArgumentException("Invalid recipie");
     }
     recipies.add(recipie);
   }
 
-  public void removeRecipie(Recipie recipie) {
+  public void removeRecipie(Recipe recipie) {
     if (!recipies.contains(recipie)) {
       throw new IllegalArgumentException("Recipie not in cookbook");
     }
@@ -26,8 +26,12 @@ public class Cookbook {
 
   //filter function
 
-  public Collection<Recipie> filterRecipies(Predicate<Recipie> p) {
+  public Collection<Recipe> filterRecipies(Predicate<Recipe> p) {
     return recipies.stream().filter(p).collect(Collectors.toList());
+  }
+
+
+  public static void main(String[] args) {
   }
 
 }

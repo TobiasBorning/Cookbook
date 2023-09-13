@@ -3,7 +3,7 @@ package core;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Recipie {
+public class Recipe {
     Map<Ingredient,Double> ingredients = new HashMap<>();
     String originCountry;
     String description;
