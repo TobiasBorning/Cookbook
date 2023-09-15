@@ -9,9 +9,10 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AppController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="426.8460388183594" minWidth="10.0" prefWidth="411.9300231933594" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.20220947265625" minWidth="10.0" prefWidth="188.56997680664062" />
@@ -21,7 +22,10 @@
     <RowConstraints maxHeight="352.60960388183594" minHeight="0.0" prefHeight="348.05226135253906" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+      <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+         <content>
+            <VBox id="yeet" fx:id="recipeList" prefHeight="200.0" prefWidth="409.0" />
+         </content></ScrollPane>
       <Label alignment="CENTER" prefHeight="55.0" prefWidth="425.0" style="-fx-background-color: BF90D9;" text="COOKBOOK">
          <font>
             <Font size="22.0" />

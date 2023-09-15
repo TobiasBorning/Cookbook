@@ -7,4 +7,8 @@ public class Ingredient {
   public Ingredient(String name) {
     this.name = name;
   }
+
+  public String toString() {
+    return this.name;
+  }
 }

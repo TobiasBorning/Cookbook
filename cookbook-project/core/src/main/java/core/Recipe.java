@@ -4,9 +4,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Recipe {
+    String name;
     Map<Ingredient,Double> ingredients = new HashMap<>();
     String originCountry;
     String description;
+
+    public Recipe(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Map<Ingredient,Double> getIngredients() {
+        return new HashMap<>(ingredients);
+    }
 
     public void setOriginCountry(String originCountry) {
         this.originCountry = originCountry;

@@ -1,135 +1,123 @@
 package ui;
 
-import core.Calc;
+import java.util.Map.Entry;
 
-import java.util.List;
-import java.util.function.BinaryOperator;
-import java.util.function.UnaryOperator;
-
-import javafx.event.ActionEvent;
+import core.Cookbook;
+import core.Ingredient;
+import core.Recipe;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
-import javafx.scene.control.ListView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 
 public class AppController {
 
-    private Calc calc;
+    private Cookbook cookbook = new Cookbook();
+    private Recipe tacoRecipe;
+    private Recipe pizzaRecipe;
+    private Recipe pastaCarbonaraRecipe;
 
-    public AppController() {
-        calc = new Calc(0.0, 0.0, 0.0);
+    public void makeRecipes() {
+      Ingredient cheese = new Ingredient("cheese");
+      Ingredient ham = new Ingredient("ham");
+      Ingredient spaghetti = new Ingredient("spaghetti");
+      Ingredient egg = new Ingredient("egg");
+
+      // Additional ingredients for a typical pizza
+      Ingredient pizzaDough = new Ingredient("pizza dough");
+      Ingredient tomatoSauce = new Ingredient("tomato sauce");
+      Ingredient pepperoni = new Ingredient("pepperoni");
+      Ingredient mushrooms = new Ingredient("mushrooms");
+      Ingredient onions = new Ingredient("onions");
+
+      // Additional ingredients for a typical taco
+      Ingredient tacoShell = new Ingredient("taco shell");
+      Ingredient groundBeef = new Ingredient("ground beef");
+      Ingredient lettuce = new Ingredient("lettuce");
+      Ingredient tomatoes = new Ingredient("tomatoes");
+      Ingredient salsa = new Ingredient("salsa");
+
+      // Additional ingredients for pasta carbonara
+      Ingredient bacon = new Ingredient("bacon");
+      Ingredient heavyCream = new Ingredient("heavy cream");
+      Ingredient parmesanCheese = new Ingredient("parmesan cheese");
+
+      // New recipes
+      this.tacoRecipe = new Recipe("Taco");
+      this.pizzaRecipe = new Recipe("Pizza");
+      this.pastaCarbonaraRecipe = new Recipe("Pasta Carbonara");
+
+      // Adding pizza ingredients
+      pizzaRecipe.addIngredient(cheese, 200.0);
+      pizzaRecipe.addIngredient(pizzaDough, 300.0);
+      pizzaRecipe.addIngredient(tomatoSauce, 150.0);
+      pizzaRecipe.addIngredient(pepperoni, 100.0);
+      pizzaRecipe.addIngredient(mushrooms, 50.0);
+      pizzaRecipe.addIngredient(onions, 30.0);
+
+      // Adding taco ingredients
+      tacoRecipe.addIngredient(cheese, 100.0);
+      tacoRecipe.addIngredient(tacoShell, 2.0);
+      tacoRecipe.addIngredient(groundBeef, 150.0);
+      tacoRecipe.addIngredient(lettuce, 50.0);
+      tacoRecipe.addIngredient(tomatoes, 50.0);
+      tacoRecipe.addIngredient(salsa, 30.0);
+
+      // Adding pasta carbonara ingredients
+      pastaCarbonaraRecipe.addIngredient(cheese, 50.0);
+      pastaCarbonaraRecipe.addIngredient(spaghetti, 200.0);
+      pastaCarbonaraRecipe.addIngredient(egg, 2.0);
+      pastaCarbonaraRecipe.addIngredient(bacon, 100.0);
+      pastaCarbonaraRecipe.addIngredient(heavyCream, 150.0);
+      pastaCarbonaraRecipe.addIngredient(parmesanCheese, 30.0);
+
     }
-
-    public Calc getCalc() {
-        return calc;
-    }
-
-    public void setCalc(Calc calc) {
-        this.calc = calc;
-        updateOperandsView();
-    }
-
+  
     @FXML
-    private ListView<Double> operandsView;
+    private VBox recipeList;
+    
+    public void initialize() {
+      
+      makeRecipes();
+      cookbook.addRecipie(pastaCarbonaraRecipe);
+      cookbook.addRecipie(pizzaRecipe);
+      cookbook.addRecipie(tacoRecipe);
 
-    @FXML
-    private Label operandView;
+      recipeList.setMinHeight(500);
 
-    @FXML
-    void initialize() {
-        updateOperandsView();
-    }
+      for(Recipe recipe : cookbook.getRecipes()) {
+        Pane pane = new Pane();
+            pane.setMinWidth(330);
+            pane.setMaxWidth(330);
+            pane.setMinHeight(70);
+            pane.setStyle("-fx-padding: 10 10 10 10;");
 
-    private void updateOperandsView() {
-        List<Double> operands = operandsView.getItems();
-        operands.clear();
-        int elementCount = Math.min(calc.getOperandCount(), 3);
-        for (int i = 0; i < elementCount; i++) {
-            operands.add(calc.peekOperand(elementCount - i - 1));
-        }
-    }
+        Label recipeName = new Label(recipe.getName());
+          Font font = Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 16);
+          recipeName.setFont(font);
+          recipeName.setLayoutX(10);
 
-    private String getOperandString() {
-        return operandView.getText();
-    }
+        Label ingredients = new Label("");
+          ingredients.setLayoutX(10);
+          for(Entry<Ingredient,Double> ingredient : recipe.getIngredients().entrySet()) {
+            String text = ingredients.getText();
+            ingredients.setText(text + "\n" + ingredient.getKey().toString() + ":  " + ingredient.getValue());
+          }
+          ingredients.setText(ingredients.getText() + "\n");
 
-    private boolean hasOperand() {
-        return ! getOperandString().isBlank();
-    }
+        Button button = new Button("View");
+      
+        button.setLayoutX(pane.getMinWidth() - button.getMinWidth()); // Adjust the x-coordinate as needed
+        button.setLayoutY(10); // Adjust the y-coordinate as needed
 
-    private double getOperand() {
-        return Double.valueOf(operandView.getText());
+        pane.getChildren().addAll(recipeName, ingredients, button);
+        recipeList.getChildren().add(pane);
+      }
     }
     
-    private void setOperand(String operandString) {
-        operandView.setText(operandString);
-    }
-
-    @FXML
-    void handleEnter() {
-        if (hasOperand()) {
-            calc.pushOperand(getOperand());
-        } else {
-            calc.dup();
-        }
-        setOperand("");
-        updateOperandsView();
-    }
-
-    private void appendToOperand(String s) {
-        // TODO
-    }
-
-    @FXML
-    void handleDigit(ActionEvent ae) {
-        if (ae.getSource() instanceof Labeled l) {
-            // TODO append button label to operand
-        }
-    }
-
-    @FXML
-    void handlePoint() {
-        var operandString = getOperandString();
-        if (operandString.contains(".")) {
-            // TODO remove characters after point
-        } else {
-            // TODO append point
-        }
-    }
-
-    @FXML
-    void handleClear() {
-        // TODO clear operand
-    }
-
-    @FXML
-    void handleSwap() {
-        // TODO clear operand
-    }
-
-    private void performOperation(UnaryOperator<Double> op) {
-        // TODO
-    }
-
-    private void performOperation(boolean swap, BinaryOperator<Double> op) {
-        if (hasOperand()) {
-            // TODO push operand first
-        }
-        // TODO perform operation, but swap first if needed
-    }
-
-    @FXML
-    void handleOpAdd() {
-        // TODO
-    }
-
-    @FXML
-    void handleOpSub() {
-        // TODO
-    }
-
-    @FXML
-    void handleOpMult() {
-        // TODO
-    }
 }

@@ -6,7 +6,9 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Cookbook {
+
   private Collection<Recipe> recipies = new ArrayList<>();
+
 
   //adding and removing recipies
 
@@ -30,6 +32,9 @@ public class Cookbook {
     return recipies.stream().filter(p).collect(Collectors.toList());
   }
 
+  public Collection<Recipe> getRecipes() {
+    return new ArrayList<>(recipies);
+  }
 
   public static void main(String[] args) {
   }
