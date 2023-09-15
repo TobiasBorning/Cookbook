@@ -4,13 +4,38 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Recipe {
-    String name;
+    public String name;
     Map<Ingredient,Double> ingredients = new HashMap<>();
     String originCountry;
     String description;
 
+    public Recipe(String name, Map<Ingredient, Double> ingredients) {
+        this.name = name;
+        this.ingredients = ingredients;
+    }
+
     public Recipe(String name) {
         this.name = name;
+    }
+
+    public Recipe() {
+        
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIngredients(Map<Ingredient, Double> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public String getOriginCountry() {
+        return originCountry;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public String getName() {

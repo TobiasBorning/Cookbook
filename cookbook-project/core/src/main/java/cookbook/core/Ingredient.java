@@ -8,6 +8,14 @@ public class Ingredient {
     this.name = name;
   }
 
+  public Ingredient() {
+    
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
   public String toString() {
     return this.name;
   }

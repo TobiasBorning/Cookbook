@@ -5,14 +5,17 @@ import java.util.Map.Entry;
 import cookbook.core.Cookbook;
 import cookbook.core.Ingredient;
 import cookbook.core.Recipe;
+import cookbook.json.CookbookHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+//import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+
+
 
 public class AppController {
 
@@ -74,6 +77,10 @@ public class AppController {
       pastaCarbonaraRecipe.addIngredient(bacon, 100.0);
       pastaCarbonaraRecipe.addIngredient(heavyCream, 150.0);
       pastaCarbonaraRecipe.addIngredient(parmesanCheese, 30.0);
+      
+      cookbook.addRecipie(pastaCarbonaraRecipe);
+      cookbook.addRecipie(pizzaRecipe);
+      cookbook.addRecipie(tacoRecipe);
 
     }
   
@@ -83,10 +90,11 @@ public class AppController {
     public void initialize() {
       
       makeRecipes();
-      cookbook.addRecipie(pastaCarbonaraRecipe);
-      cookbook.addRecipie(pizzaRecipe);
-      cookbook.addRecipie(tacoRecipe);
+      CookbookHandler ch = new CookbookHandler();
+      ch.writeToFile(cookbook);
+      cookbook = ch.readFromFile();
 
+    
       recipeList.setMinHeight(500);
 
       for(Recipe recipe : cookbook.getRecipes()) {
