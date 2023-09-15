@@ -1,4 +1,4 @@
-package core;
+package cookbook.core;
 
 //Data class capable of storing more information
 public class Ingredient { 

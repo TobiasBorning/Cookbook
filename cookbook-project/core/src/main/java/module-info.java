@@ -1,3 +1,4 @@
-module calc.core {
-    exports core;
+module core {
+    exports cookbook.core;
+    exports cookbook.json;
 }

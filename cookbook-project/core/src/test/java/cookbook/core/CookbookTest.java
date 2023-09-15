@@ -1,4 +1,4 @@
-package core;
+package cookbook.core;
 
 public class CookbookTest {
   

@@ -1,4 +1,4 @@
-package ui;
+package cookbook.ui;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +18,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
+
+import cookbook.ui.AppController;
 
 /**
  * TestFX App test
@@ -53,5 +55,4 @@ public class CookbookAppTest extends ApplicationTest {
             clickOn(LabeledMatchers.hasText(label));
         }
     }
-
 }

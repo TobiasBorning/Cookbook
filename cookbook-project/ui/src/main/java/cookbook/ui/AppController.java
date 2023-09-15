@@ -1,12 +1,11 @@
-package ui;
+package cookbook.ui;
 
 import java.util.Map.Entry;
 
-import core.Cookbook;
-import core.Ingredient;
-import core.Recipe;
+import cookbook.core.Cookbook;
+import cookbook.core.Ingredient;
+import cookbook.core.Recipe;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -24,7 +23,7 @@ public class AppController {
 
     public void makeRecipes() {
       Ingredient cheese = new Ingredient("cheese");
-      Ingredient ham = new Ingredient("ham");
+      //Ingredient ham = new Ingredient("ham");
       Ingredient spaghetti = new Ingredient("spaghetti");
       Ingredient egg = new Ingredient("egg");
 
@@ -91,17 +90,22 @@ public class AppController {
       recipeList.setMinHeight(500);
 
       for(Recipe recipe : cookbook.getRecipes()) {
+
+        //lager pane til å vise oppskrift
+
         Pane pane = new Pane();
             pane.setMinWidth(330);
             pane.setMaxWidth(330);
             pane.setMinHeight(70);
             pane.setStyle("-fx-padding: 10 10 10 10;");
 
+        //overskrift med navn på recipe
         Label recipeName = new Label(recipe.getName());
           Font font = Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 16);
           recipeName.setFont(font);
           recipeName.setLayoutX(10);
 
+        //legger til liste med ingredienser
         Label ingredients = new Label("");
           ingredients.setLayoutX(10);
           for(Entry<Ingredient,Double> ingredient : recipe.getIngredients().entrySet()) {
@@ -109,13 +113,15 @@ public class AppController {
             ingredients.setText(text + "\n" + ingredient.getKey().toString() + ":  " + ingredient.getValue());
           }
           ingredients.setText(ingredients.getText() + "\n");
-
+        
+        // legger til view button
+        /*
         Button button = new Button("View");
-      
         button.setLayoutX(pane.getMinWidth() - button.getMinWidth()); // Adjust the x-coordinate as needed
         button.setLayoutY(10); // Adjust the y-coordinate as needed
-
-        pane.getChildren().addAll(recipeName, ingredients, button);
+         */
+        
+        pane.getChildren().addAll(recipeName, ingredients);
         recipeList.getChildren().add(pane);
       }
     }

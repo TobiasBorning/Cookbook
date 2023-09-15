@@ -1,7 +1,9 @@
-package core;
+package cookbook.core;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import cookbook.core.Calc;
 
 public class CalcTest {
 

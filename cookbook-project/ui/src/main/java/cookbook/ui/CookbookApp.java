@@ -1,4 +1,4 @@
-package ui;
+package cookbook.ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

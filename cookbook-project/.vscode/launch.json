@@ -16,7 +16,7 @@
             "request": "launch",
             "mainClass": "calc.ui/ui.App",
             "projectName": "modules-ui",
-            "vmArgs": ["--add-opens", "calc.ui/ui=ALL-UNNAMED", "--add-exports", "javafx.graphics/com.sun.javafx.application=ALL-UNNAMED"]
+            "vmArgs": ["--add-opens", "ui/cookbook.ui=ALL-UNNAMED", "--add-exports", "javafx.graphics/com.sun.javafx.application=ALL-UNNAMED"]
 
         }
     ]

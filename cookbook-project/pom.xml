@@ -33,6 +33,14 @@
                 <version>5.10.0</version>
                 <scope>test</scope>
             </dependency>
+            
+            <!-- adding GSON for reading and wrtiting to file-->
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.10.1</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
