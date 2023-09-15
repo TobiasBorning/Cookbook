@@ -12,12 +12,12 @@ import cookbook.core.Recipe;
 
 public class CookbookHandler {
 
-    public void writeToFile(Cookbook cookbook) {
+    public void writeToFile(Cookbook cookbook, String path) {
       // making gson object
       Gson gson = new Gson();
       // converting 
       String json = gson.toJson(cookbook);
-      String filePath = "cookbook.json";
+      String filePath = path;
 
       try (FileWriter writer = new FileWriter(filePath)) {
           writer.write(json);
@@ -26,8 +26,8 @@ public class CookbookHandler {
       }
     }
 
-    public Cookbook readFromFile() {
-      String filePath = "cookbook.json";
+    public Cookbook readFromFile(String path) {
+      String filePath = path;
 
       try (Reader reader = new FileReader(filePath)) {
           // Create a Gson instance
@@ -46,11 +46,10 @@ public class CookbookHandler {
     }
 
 
-
     public static void main(String[] args) {
       CookbookHandler ch = new CookbookHandler();
 
-      System.out.println(ch.readFromFile());
+      System.out.println(ch.readFromFile("cookbook-project/cookbook.json").getRecipes().iterator().next().getIngredients());
       
     }
 }

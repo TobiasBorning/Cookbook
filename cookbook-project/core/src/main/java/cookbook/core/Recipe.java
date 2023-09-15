@@ -5,11 +5,11 @@ import java.util.Map;
 
 public class Recipe {
     public String name;
-    Map<Ingredient,Double> ingredients = new HashMap<>();
+    Map<String,Double> ingredients = new HashMap<>();
     String originCountry;
     String description;
 
-    public Recipe(String name, Map<Ingredient, Double> ingredients) {
+    public Recipe(String name, Map<String, Double> ingredients) {
         this.name = name;
         this.ingredients = ingredients;
     }
@@ -26,7 +26,7 @@ public class Recipe {
         this.name = name;
     }
 
-    public void setIngredients(Map<Ingredient, Double> ingredients) {
+    public void setIngredients(Map<String, Double> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -42,7 +42,7 @@ public class Recipe {
         return this.name;
     }
 
-    public Map<Ingredient,Double> getIngredients() {
+    public Map<String,Double> getIngredients() {
         return new HashMap<>(ingredients);
     }
 
@@ -57,14 +57,14 @@ public class Recipe {
     // Adding and removing ingredients
     // Could implement unit feature
     
-    public void addIngredient(Ingredient ingredient, Double amount) { 
+    public void addIngredient(String ingredient, Double amount) { 
         if (ingredients.keySet().contains(ingredient)) {
             throw new IllegalArgumentException("Ingredient allready in map");
         }
         ingredients.put(ingredient, amount);
     }
     
-    public void removeIngredient(Ingredient ingredient) { 
+    public void removeIngredient(String ingredient) { 
       if (!ingredients.keySet().contains(ingredient)) {
           throw new IllegalArgumentException("Ingredient allready in map");
       }

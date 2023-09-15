@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Cookbook",
+            "request": "launch",
+            "mainClass": "core/cookbook.core.Cookbook",
+            "projectName": "modules-core"
+        },
+        {
+            "type": "java",
+            "name": "CookbookHandler",
+            "request": "launch",
+            "mainClass": "core/cookbook.json.CookbookHandler",
+            "projectName": "modules-core"
+        },
+        {
+            "type": "java",
+            "name": "CookbookApp",
+            "request": "launch",
+            "mainClass": "ui/cookbook.ui.CookbookApp",
+            "projectName": "modules-ui"
+        },
+        {
+            "type": "java",
             "name": "CookbookApp",
             "request": "launch",
             "mainClass": "calc.ui/ui.CookbookApp",
