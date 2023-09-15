@@ -64,6 +64,7 @@ public class AppController {
         
         pane.getChildren().addAll(recipeName, ingredients);
         recipeList.getChildren().add(pane);
+        
       }
     }
 }
