@@ -59,7 +59,6 @@ public class CookbookHandler {
       }
     }
 
-
     public static void main(String[] args) {
       CookbookHandler ch = new CookbookHandler();
 
@@ -69,7 +68,5 @@ public class CookbookHandler {
       catch (Exception e) {
         System.out.println("File not found");
       }
-
-        
     }
 }

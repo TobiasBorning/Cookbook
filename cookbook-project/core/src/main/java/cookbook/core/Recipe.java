@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Recipe {
+    
     public String name;
     Map<String, Double> ingredients = new HashMap<>();
     String originCountry;
@@ -87,7 +88,7 @@ public class Recipe {
      * @return A copy of the ingredients map.
      */
     public Map<String, Double> getIngredients() {
-        return new HashMap<>(ingredients);
+        return ingredients;
     }
 
     /**
@@ -133,5 +134,6 @@ public class Recipe {
             throw new IllegalArgumentException("Ingredient not in map");
         }
         ingredients.remove(ingredient);
+        System.out.println(ingredients + ": " + ingredients.size());
     }
 }
