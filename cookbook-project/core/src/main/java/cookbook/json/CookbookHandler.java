@@ -1,5 +1,6 @@
 package cookbook.json;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,11 +9,18 @@ import java.io.Reader;
 import com.google.gson.Gson;
 
 import cookbook.core.Cookbook;
-import cookbook.core.Recipe;
 
 public class CookbookHandler {
 
-    public void writeToFile(Cookbook cookbook, String path) {
+    /**
+       * Writes cookbook to file using Gson.
+       *
+       * @param cookbook the cookbook to be written
+       * @param path     path of json file
+       *    
+       * @throws FileNotFoundException throws exception if the path is not found
+       */
+    public void writeToFile(Cookbook cookbook, String path) throws FileNotFoundException {
       // making gson object
       Gson gson = new Gson();
       // converting 
@@ -26,7 +34,14 @@ public class CookbookHandler {
       }
     }
 
-    public Cookbook readFromFile(String path) {
+    /**
+     * Reads cookbook from file via filepath using Gson.
+     *
+     * @param path  
+     * @return cookbook from json file
+     * @throws FileNotFoundException throws exception
+     */
+    public Cookbook readFromFile(String path) throws FileNotFoundException{
       String filePath = path;
 
       try (Reader reader = new FileReader(filePath)) {
@@ -40,8 +55,7 @@ public class CookbookHandler {
 
       } catch (IOException e) {
           e.printStackTrace();
-          System.out.println("File not found");
-          return null;
+          throw new FileNotFoundException("File not found");
       }
     }
 
@@ -49,7 +63,13 @@ public class CookbookHandler {
     public static void main(String[] args) {
       CookbookHandler ch = new CookbookHandler();
 
-      System.out.println(ch.readFromFile("cookbook-project/cookbook.json").getRecipes().iterator().next().getIngredients());
-      
+      try {
+        System.out.println(ch.readFromFile("cookbook-project/cookbook.json").getRecipes().iterator().next().getIngredients());
+      } 
+      catch (Exception e) {
+        System.out.println("File not found");
+      }
+
+        
     }
 }

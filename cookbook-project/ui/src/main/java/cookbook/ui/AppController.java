@@ -1,5 +1,6 @@
 package cookbook.ui;
 
+import java.io.FileNotFoundException;
 import java.util.Map.Entry;
 
 import cookbook.core.Cookbook;
@@ -26,7 +27,12 @@ public class AppController {
     public void initialize() {
 
       CookbookHandler ch = new CookbookHandler();
-      cookbook = ch.readFromFile("../cookbook.json");
+      try {
+        cookbook = ch.readFromFile("../cookbook.json");
+      } catch (FileNotFoundException e) {
+        //TODO Add feedback label 
+      }
+      
 
       recipeList.setMinHeight(cookbook.getRecipes().size()*130);
 
