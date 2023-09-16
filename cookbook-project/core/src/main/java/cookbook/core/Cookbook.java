@@ -1,5 +1,6 @@
 package cookbook.core;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Predicate;
@@ -9,35 +10,64 @@ import cookbook.json.CookbookHandler;
 
 public class Cookbook {
 
-  private Collection<Recipe> recipies = new ArrayList<>();
+  private Collection<Recipe> recipes = new ArrayList<>();
 
 
   //adding and removing recipies
 
-  public void addRecipie(Recipe recipie) {
-    if (recipie == null) {
-      throw new IllegalArgumentException("Invalid recipie");
+/**
+   * Adds recipe to Cookbook.
+   *
+   * @param recipe is added to the Collection of recipes
+   *     
+   * @throws IllegalArgumentException if recipe is null, or if recipe already
+   *    is in the cookbook.
+	 */
+  public void addRecipe(Recipe recipe) {
+    if (recipe == null) {
+      throw new IllegalArgumentException("Invalid recipe");
     }
-    recipies.add(recipie);
+    if (recipes.contains(recipe)){
+      throw new IllegalArgumentException("Recipe already in cook book");
+    }
+    recipes.add(recipe);
   }
 
+  /**
+   * Removes recipe from Cookbook.
+   *
+   * @param recipe is removed from the Collection of recipes
+   *     
+   * @throws IllegalArgumentException if the cook book does not contain the recipe
+	 */
   public void removeRecipie(Recipe recipie) {
-    if (!recipies.contains(recipie)) {
-      throw new IllegalArgumentException("Recipie not in cookbook");
+    if (!recipes.contains(recipie)) {
+      throw new IllegalArgumentException("Recipe not in cookbook");
     }
-    recipies.remove(recipie);
+    recipes.remove(recipie);
   }
 
   //filter function
-
-  public Collection<Recipe> filterRecipies(Predicate<Recipe> p) {
-    return recipies.stream().filter(p).collect(Collectors.toList());
+/**
+   * Filters the wanted recipes.
+   *
+   * @param pred is a predicate to filter out given recipes, 
+   *      Can filter on origin countries of different dishes, or on certain grocery items
+	 */
+  public Collection<Recipe> filterRecipies(Predicate<Recipe> pred) {
+    return recipes.stream().filter(pred).collect(Collectors.toList());
   }
-
+/**
+   * Retrieves certain recipes
+   *
+   * @return a Collection of Recipe objects
+	 */
   public Collection<Recipe> getRecipes() {
-    return new ArrayList<>(recipies);
+    return new ArrayList<>(recipes);
   }
-
+/**
+   * Generates recipes and writes them to file
+	 */
   public static void makeRecipes() {
 
     Cookbook cookbook = new Cookbook();
@@ -144,24 +174,26 @@ public class Cookbook {
     recipe10.addIngredient("cinnamon", 5.0);
 
     //add recipies
-    cookbook.addRecipie(tacoRecipe);
-    cookbook.addRecipie(pizzaRecipe);
-    cookbook.addRecipie(pastaCarbonaraRecipe);
-    cookbook.addRecipie(recipe1);
-    cookbook.addRecipie(recipe2);
-    cookbook.addRecipie(recipe3);
-    cookbook.addRecipie(recipe4);
-    cookbook.addRecipie(recipe5);
-    cookbook.addRecipie(recipe6);
-    cookbook.addRecipie(recipe7);
-    cookbook.addRecipie(recipe8);
-    cookbook.addRecipie(recipe9);
-    cookbook.addRecipie(recipe10);
+    cookbook.addRecipe(tacoRecipe);
+    cookbook.addRecipe(pizzaRecipe);
+    cookbook.addRecipe(pastaCarbonaraRecipe);
+    cookbook.addRecipe(recipe1);
+    cookbook.addRecipe(recipe2);
+    cookbook.addRecipe(recipe3);
+    cookbook.addRecipe(recipe4);
+    cookbook.addRecipe(recipe5);
+    cookbook.addRecipe(recipe6);
+    cookbook.addRecipe(recipe7);
+    cookbook.addRecipe(recipe8);
+    cookbook.addRecipe(recipe9);
+    cookbook.addRecipe(recipe10);
 
     CookbookHandler ch = new CookbookHandler();
-
-    ch.writeToFile(cookbook,"cookbook-project/cookbook.json");
-  
+    try {
+      ch.writeToFile(cookbook,"cookbook-project/cookbook.json");
+    } catch (FileNotFoundException e) {
+      System.out.println("File not found");
+    }
   }
 
   public static void main(String[] args) {
