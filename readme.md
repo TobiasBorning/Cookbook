@@ -2,13 +2,11 @@
 
 ## _Group 2322, IT1901_
 ---
-This is group 22's IT1901 project. We have made a cookbook app that helps people store and organize their recipes. More info about the cookbook project [here](/cookbook-project/readme.md)
+This is group 22's IT1901 project. We have made a cookbook app that helps people store and organize their recipes. More info about the cookbook project [here](/cookbook-project/readme.md). The project is built using maven 3.9.4 and Java 17.0.8
 
 ## _Release Documentation_
 ---
 Documentation for release 1 can be found [here](/docs/release1.md) 
-
-
 
 ## _Running the application_
 ---
@@ -33,8 +31,8 @@ mvn test
 
 ## _Contributors_
 ---
+Aurora Johansen \
 Birk Strand Bjørnaa \
 Hanna Jacobsen \
-Aurora Johansen \
 Tobias Borning
 
