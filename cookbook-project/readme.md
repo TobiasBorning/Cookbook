@@ -1,9 +1,5 @@
 # __Cookbook__
 
-<<<<<<< HEAD
-TODO: Write project description/documentation
-
-=======
 ## Project description
 
 The Cookbook is an application containing recipes, along with the ingredients needed for each respective recipe. The app will provide inspiration concerning what meals to make. On the app's homepage, the user can scroll through the list of recipes. When clicking the recipes, you get a more detailed description on how to make the dish.
@@ -13,7 +9,7 @@ As we progress through the iterations, we will further develop the app to allow 
 In addition to this, users will be able to add and remove recipes from the cookbook.
 
 
-![Bildebeskrivelse](IllustrationOfApp.jpeg)
+![Bildebeskrivelse](/assets/IllustrationOfApp.jpeg)
 
 
 ## User story
@@ -50,5 +46,3 @@ Read about the __core__ module [here](/cookbook-project/core/readme.md)
 ### ___ui___
 Read about the __ui__ module [here](/cookbook-project/ui/readme.md)
 
-## _User interface_
->>>>>>> 72e9c50 (App description in readme-file in cookbook-project folder)
