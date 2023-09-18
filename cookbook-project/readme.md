@@ -45,4 +45,3 @@ Read about the __core__ module [here](/cookbook-project/core/readme.md)
 
 ### ___ui___
 Read about the __ui__ module [here](/cookbook-project/ui/readme.md)
-
