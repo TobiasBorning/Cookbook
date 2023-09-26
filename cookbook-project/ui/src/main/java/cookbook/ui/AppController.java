@@ -1,14 +1,17 @@
 package cookbook.ui;
 
 import java.io.FileNotFoundException;
+import java.util.Collection;
 import java.util.Map.Entry;
 
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
 import cookbook.json.CookbookHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 //import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -23,23 +26,31 @@ public class AppController {
   
     @FXML
     private VBox recipeList;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Button searchButton;
+    @FXML
+    private Label feedbackLabel;
     
     public void initialize() {
 
       CookbookHandler ch = new CookbookHandler();
       try {
         cookbook = ch.readFromFile("../cookbook.json");
-      } catch (FileNotFoundException e) {
-        //TODO Add feedback label 
+      } catch (FileNotFoundException e) { 
+        feedbackLabel.setText("File not found");
       }
       
-
       recipeList.setMinHeight(cookbook.getRecipes().size()*130);
+      fillCookbook(cookbook.getRecipes());
 
-      for(Recipe recipe : cookbook.getRecipes()) {
+    }
 
+    private void fillCookbook(Collection<Recipe> cookbooklist) {
+      recipeList.getChildren().clear();
+      for(Recipe recipe : cookbooklist) {
         //lager pane til å vise oppskrift
-
         Pane pane = new Pane();
             pane.setMinWidth(330);
             pane.setMaxWidth(330);
@@ -73,4 +84,21 @@ public class AppController {
         
       }
     }
+
+    public void search() {
+      String search = searchField.getText();
+      if (search.isEmpty()) {
+        fillCookbook(cookbook.getRecipes());
+      }
+      else {
+        Collection<Recipe> searched = cookbook.filterRecipies(recipe -> recipe.getName().toLowerCase().contains(search.toLowerCase()));
+        if (searched.isEmpty()) {
+          feedbackLabel.setText("No recipes matching search");
+        }
+        else {
+          fillCookbook(searched);
+        }
+      }
+    }
+
 }
