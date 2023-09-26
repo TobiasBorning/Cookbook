@@ -30,9 +30,9 @@ public class CookbookTest {
     public void testRemoveRecipe() {
         Recipe recipe = new Recipe("Test Recipe"); //creates recipe
         cookbook.addRecipe(recipe); //adds recipe
-        cookbook.removeRecipie(recipe); //removes recipe
+        cookbook.removeRecipe(recipe); //removes recipe
         assertFalse(cookbook.getRecipes().contains(recipe)); // tests that cookbook is empty
-        assertThrows(IllegalArgumentException.class, () -> cookbook.removeRecipie(recipe)); //cannot remove 'nonexisting' recipe
+        assertThrows(IllegalArgumentException.class, () -> cookbook.removeRecipe(recipe)); //cannot remove 'nonexisting' recipe
     }
 
     @Test
