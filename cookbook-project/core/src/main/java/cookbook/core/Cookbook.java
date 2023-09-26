@@ -40,11 +40,11 @@ public class Cookbook {
    *     
    * @throws IllegalArgumentException if the cook book does not contain the recipe
 	 */
-  public void removeRecipie(Recipe recipie) {
-    if (!recipes.contains(recipie)) {
+  public void removeRecipe(Recipe recipe) {
+    if (!recipes.contains(recipe)) {
       throw new IllegalArgumentException("Recipe not in cookbook");
     }
-    recipes.remove(recipie);
+    recipes.remove(recipe);
   }
 
   //filter function
