@@ -62,6 +62,49 @@ public class AppController {
       //lager pane til å vise oppskrift
       Pane pane = new Pane();
           pane.setMinWidth(330);
+          pane.setMaxWidth(400);
+          pane.setMinHeight(70);
+          pane.setStyle("-fx-padding: 10 10 10 10; -fx-border-width: 0px 0px 3px 0px; -fx-border-color: #000000;");
+
+      //overskrift med navn på recipe
+      Label recipeName = new Label(recipe.getName());
+        Font font = Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 16);
+        recipeName.setFont(font);
+        recipeName.setLayoutX(10);
+        recipeName.setLayoutY(10);
+
+      // Add remove button
+      Button buttonRemove = new Button("Remove");
+      buttonRemove.setLayoutX(pane.getMinWidth() - buttonRemove.getMinWidth()); // Adjust the x-coordinate as needed
+      buttonRemove.setLayoutY(10); // Adjust the y-coordinate as needed
+      buttonRemove.onActionProperty().set(e -> {
+        removeRecipe();
+      });
+      
+      // Add view button
+      Button buttonView = new Button("View");
+      buttonView.setLayoutX(pane.getMinWidth() - buttonView.getMinWidth() - buttonRemove.getMinWidth() - 50); // Adjust the x-coordinate as needed
+      buttonView.setLayoutY(10); // Adjust the y-coordinate as needed
+      buttonView.onActionProperty().set(e -> {
+        //viewRecipe(recipe);
+        System.out.println("View recipe");
+      });
+      
+      
+      
+      pane.getChildren().addAll(recipeName, buttonView, buttonRemove);
+      recipeList.getChildren().add(pane);
+    }
+
+    //Fill filter dropdown menu with origins from cookbook
+    fillFilterDropdown();
+  }
+
+  public void kodesomkanbrukes() {
+    Recipe recipe  = new Recipe();
+
+    Pane pane = new Pane();
+          pane.setMinWidth(330);
           pane.setMaxWidth(330);
           pane.setMinHeight(70);
           pane.setStyle("-fx-padding: 10 10 10 10;");
@@ -81,19 +124,6 @@ public class AppController {
         }
         ingredients.setText(ingredients.getText() + "\n");
       
-      // legger til view button
-      /*
-      Button button = new Button("View");
-      button.setLayoutX(pane.getMinWidth() - button.getMinWidth()); // Adjust the x-coordinate as needed
-      button.setLayoutY(10); // Adjust the y-coordinate as needed
-        */
-      
-      pane.getChildren().addAll(recipeName, ingredients);
-      recipeList.getChildren().add(pane);
-    }
-
-    //Fill filter dropdown menu with origins from cookbook
-    fillFilterDropdown();
   }
 
   public void search() {
@@ -153,4 +183,11 @@ public class AppController {
     filterOrigin.setValue(filterValue);
   }
 
+  public void removeRecipe() {
+    System.out.println("Recipe removed");
+  }
 }
+
+
+
+
