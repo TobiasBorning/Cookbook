@@ -99,7 +99,13 @@ public class AppController {
       buttonView.setLayoutY(10); // Adjust the y-coordinate as needed
       buttonView.onActionProperty().set(e -> {
         //viewRecipe(recipe);
-        System.out.println("View recipe");
+        try {
+          switchToViewRecipe(e);
+        }
+        catch (IOException ex) {
+          System.err.println(ex);
+        }
+        
       });
       
       
@@ -196,7 +202,6 @@ public class AppController {
   }
 
   public void switchToViewRecipe(ActionEvent event) throws IOException {
-
     Parent root = FXMLLoader.load(getClass().getResource("RecipeView.fxml"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
@@ -207,7 +212,3 @@ public class AppController {
     System.out.println("Recipe removed");
   }
 }
-
-
-
-
