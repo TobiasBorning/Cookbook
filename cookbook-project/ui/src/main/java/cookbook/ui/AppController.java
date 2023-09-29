@@ -89,6 +89,7 @@ public class AppController {
       String search = searchField.getText();
       if (search.isEmpty()) {
         fillCookbook(cookbook.getRecipes());
+        feedbackLabel.setText("");
       }
       else {
         Collection<Recipe> searched = cookbook.filterRecipies(recipe -> recipe.getName().toLowerCase().contains(search.toLowerCase()));
@@ -97,8 +98,8 @@ public class AppController {
         }
         else {
           fillCookbook(searched);
+          feedbackLabel.setText("");
         }
       }
     }
-
 }
