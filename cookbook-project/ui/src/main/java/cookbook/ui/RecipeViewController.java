@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 public class RecipeViewController {
   
   private Recipe recipe;
-  
   @FXML
   private Label recipeName;
   @FXML
