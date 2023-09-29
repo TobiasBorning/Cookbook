@@ -1,6 +1,7 @@
 package cookbook.ui;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +11,12 @@ import java.util.Map.Entry;
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
 import cookbook.json.CookbookHandler;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 //import javafx.scene.control.Button;
@@ -21,10 +27,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 
 
 
 public class AppController {
+
+  private Stage stage;
+  private Scene scene;
+  private Parent root;
+
 
   private Cookbook cookbook = new Cookbook();
 
@@ -40,20 +52,20 @@ public class AppController {
   private ChoiceBox filterOrigin;
   @FXML
   private Button applyFilterButton;
+  @FXML
+  private Button allRecipesButton;
   
   public void initialize() {
-
     CookbookHandler ch = new CookbookHandler();
     try {
       cookbook = ch.readFromFile("../cookbook.json");
     } catch (FileNotFoundException e) { 
       feedbackLabel.setText("File not found");
     }
-    
     recipeList.setMinHeight(cookbook.getRecipes().size()*130);
     fillCookbook(cookbook.getRecipes());
+    System.err.println(this.scene);
 
-    
   }
 
   private void fillCookbook(Collection<Recipe> cookbooklist) {
@@ -114,8 +126,8 @@ public class AppController {
     }
   }
 
-
   private void fillFilterDropdown() {
+
     //create empty set to add origins to
     Set<String> origins = new HashSet<>();
     //get recipes
@@ -152,5 +164,17 @@ public class AppController {
     }
     filterOrigin.setValue(filterValue);
   }
+
+  public void switchToViewRecipe(ActionEvent event) throws IOException {
+
+    
+    Parent root = FXMLLoader.load(getClass().getResource("RecipeView.fxml"));
+    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  
 
 }
