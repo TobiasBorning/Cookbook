@@ -17,7 +17,9 @@ public class CookbookApp extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("CookbookApp.fxml"));
         Parent parent = fxmlLoader.load();
-        stage.setScene(new Scene(parent));
+        Scene primaryStage = new Scene(parent);
+        primaryStage.getProperties().put("Main", "1");
+        stage.setScene(primaryStage);
         stage.show();
     }
     
