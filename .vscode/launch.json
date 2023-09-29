@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CookbookHandler",
+            "request": "launch",
+            "mainClass": "core/cookbook.json.CookbookHandler",
+            "projectName": "core"
+        },
+        {
+            "type": "java",
+            "name": "Cookbook",
+            "request": "launch",
+            "mainClass": "core/cookbook.core.Cookbook",
+            "projectName": "core"
+        },
+        {
+            "type": "java",
             "name": "Cookbook",
             "request": "launch",
             "mainClass": "core/cookbook.core.Cookbook",
