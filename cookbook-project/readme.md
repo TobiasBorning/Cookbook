@@ -14,7 +14,7 @@ In addition to this, users will be able to add and remove recipes from the cookb
 
 ## _User story_
 
-A student is finishing up her day at school, and is ready to go home. She is very tired, and can't be bothered to think of what to make for dinner. She opens the cookbook app, and scrolls until she finds something she likes. She decides to go for Spaghetti carbonara. She stops by the grocery store on her way home from school, and buys the ingredients she needs. Finally, she prepares dinner following the instructions that belongs to the recipe.
+A student is finishing up her day at school, and is ready to go home. She is very tired, and can't be bothered to think of what to make for dinner. She opens the cookbook app, and scrolls until she finds something she likes. She decides to go for Spaghetti carbonara. She stops by the grocery store on her way home from  school, and buys the ingredients she needs. Finally, she prepares dinner following the instructions that belongs to the recipe.
 
 
 ## _How to run the app_
