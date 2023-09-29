@@ -1,0 +1,13 @@
+apiVersion: 1.0.0
+metadata:
+  name: gr2322-cookbook-project-IT1901
+projects:
+  - name: Cookbook-Project
+    source:
+      location: https://gitlab.stud.idi.ntnu.no/it1901/groups-2023/gr2322/gr2322
+      type: git
+    commands:
+      - name: Build Project
+        actions:
+          - checkout: /cookbook-project/
+          - run: mvn clean install
