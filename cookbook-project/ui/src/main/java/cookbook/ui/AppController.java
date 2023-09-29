@@ -37,7 +37,7 @@ public class AppController {
   private Scene scene;
   private Parent root;
 
-
+  private Recipe sendRecipe;
   private Cookbook cookbook = new Cookbook();
 
   @FXML
@@ -55,6 +55,8 @@ public class AppController {
   @FXML
   private Button allRecipesButton;
   
+
+
   public void initialize() {
     CookbookHandler ch = new CookbookHandler();
     try {
@@ -100,15 +102,13 @@ public class AppController {
       buttonView.onActionProperty().set(e -> {
         //viewRecipe(recipe);
         try {
+          sendRecipe = recipe;
           switchToViewRecipe(e);
         }
         catch (IOException ex) {
           System.err.println(ex);
         }
-        
       });
-      
-      
       
       pane.getChildren().addAll(recipeName, buttonView, buttonRemove);
       recipeList.getChildren().add(pane);
@@ -118,31 +118,7 @@ public class AppController {
     fillFilterDropdown();
   }
 
-  public void kodesomkanbrukes() {
-    Recipe recipe  = new Recipe();
-
-    Pane pane = new Pane();
-          pane.setMinWidth(330);
-          pane.setMaxWidth(330);
-          pane.setMinHeight(70);
-          pane.setStyle("-fx-padding: 10 10 10 10;");
-
-      //overskrift med navn på recipe
-      Label recipeName = new Label(recipe.getName());
-        Font font = Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 16);
-        recipeName.setFont(font);
-        recipeName.setLayoutX(10);
-
-      //legger til liste med ingredienser
-      Label ingredients = new Label("");
-        ingredients.setLayoutX(10);
-        for(Entry<String,Double> ingredient : recipe.getIngredients().entrySet()) {
-          String text = ingredients.getText();
-          ingredients.setText(text + "\n" + ingredient.getKey().toString() + ":  " + ingredient.getValue());
-        }
-        ingredients.setText(ingredients.getText() + "\n");
-      
-  }
+  
 
   public void search() {
     String search = searchField.getText();
@@ -202,11 +178,15 @@ public class AppController {
   }
 
   public void switchToViewRecipe(ActionEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("RecipeView.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("RecipeView.fxml"));
+    Parent root = loader.load();
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
     stage.show();
+    RecipeViewController viewController = loader.getController();
+    viewController.loadRecipe(sendRecipe);
+    
   }
   public void removeRecipe() {
     System.out.println("Recipe removed");
