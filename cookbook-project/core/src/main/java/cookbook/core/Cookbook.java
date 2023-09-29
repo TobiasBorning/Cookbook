@@ -10,7 +10,7 @@ import cookbook.json.CookbookHandler;
 
 public class Cookbook {
 
-  private Collection<Recipe> recipes = new ArrayList<>();
+  Collection<Recipe> recipes = new ArrayList<>();
 
 
   //adding and removing recipies
@@ -31,6 +31,23 @@ public class Cookbook {
       throw new IllegalArgumentException("Recipe already in cook book");
     }
     recipes.add(recipe);
+  }
+
+  /**
+   * Adds recipes to Cookbook.
+   *
+   * @param recipes Collection of recipes
+   *     
+   * @throws IllegalArgumentException if recipes is empty
+	 */
+  public void addRecipes(Collection<Recipe> recipes) {
+    if (recipes.isEmpty()) {
+      throw new IllegalArgumentException("Invalid recipe");
+    }
+    else {
+      this.recipes = recipes;
+    }
+    
   }
 
   /**
@@ -93,7 +110,7 @@ public class Cookbook {
     tacoRecipe.addIngredient("tacoShell", 2.0);
     tacoRecipe.addIngredient("groundBeef", 150.0);
     tacoRecipe.addIngredient("lettuce", 50.0);
-    tacoRecipe.addIngredient("tomatoes", 50.0);
+    tacoRecipe.addIngredient("tomatoes", 55.0);
     tacoRecipe.addIngredient("salsa", 30.0);
 
     // Adding pasta carbonara ingredients
