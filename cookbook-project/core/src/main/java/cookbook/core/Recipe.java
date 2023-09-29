@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Recipe {
     
-    public String name;
+    String name;
     Map<String, Double> ingredients = new HashMap<>();
     String originCountry;
     String description;
