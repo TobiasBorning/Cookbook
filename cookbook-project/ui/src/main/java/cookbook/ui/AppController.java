@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.List;
-import java.util.Map.Entry;
+// import java.util.List;
+// import java.util.Map.Entry;
 
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
@@ -35,7 +35,6 @@ public class AppController {
 
   private Stage stage;
   private Scene scene;
-  private Parent root;
 
   private Recipe sendRecipe;
   private Cookbook cookbook = new Cookbook();
@@ -49,7 +48,7 @@ public class AppController {
   @FXML
   private Label feedbackLabel;
   @FXML
-  private ChoiceBox filterOrigin;
+  private ChoiceBox<String> filterOrigin;
   @FXML
   private Button applyFilterButton;
   @FXML
@@ -61,7 +60,7 @@ public class AppController {
     // read cookbook from file
     CookbookHandler ch = new CookbookHandler();
     try {
-      cookbook = ch.readFromFile("../cookbook.json");
+      cookbook = ch.readFromFile("../persistence/cookbook.json");
     } catch (FileNotFoundException e) { 
       feedbackLabel.setText("File not found");
     }
