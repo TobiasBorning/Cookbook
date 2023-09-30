@@ -92,7 +92,7 @@ public class AppController {
       buttonRemove.setLayoutX(pane.getMinWidth() - buttonRemove.getMinWidth()); // Adjust the x-coordinate as needed
       buttonRemove.setLayoutY(10); // Adjust the y-coordinate as needed
       buttonRemove.onActionProperty().set(e -> {
-        removeRecipe();
+        removeRecipe(recipe);
       });
       
       // Add view button
@@ -188,7 +188,15 @@ public class AppController {
     viewController.loadRecipe(sendRecipe);
     
   }
-  public void removeRecipe() {
-    System.out.println("Recipe removed");
+  public void removeRecipe(Recipe recipe) {
+    CookbookHandler ch = new CookbookHandler();
+    cookbook.removeRecipe(recipe);
+    try {
+      ch.writeToFile(cookbook, "../cookbook.json");
+      feedbackLabel.setText("Removed recipe");
+    } catch (FileNotFoundException e) {
+      feedbackLabel.setText("File not found");
+    }
+    fillCookbook(cookbook.getRecipes());
   }
 }
