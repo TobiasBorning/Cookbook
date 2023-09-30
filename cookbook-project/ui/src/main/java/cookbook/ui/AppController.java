@@ -58,16 +58,17 @@ public class AppController {
 
 
   public void initialize() {
+    // read cookbook from file
     CookbookHandler ch = new CookbookHandler();
     try {
       cookbook = ch.readFromFile("../cookbook.json");
     } catch (FileNotFoundException e) { 
       feedbackLabel.setText("File not found");
     }
+    // set Vbox height to fit all recipes
     recipeList.setMinHeight(cookbook.getRecipes().size()*130);
+    // fill cookbook with all recipes
     fillCookbook(cookbook.getRecipes());
-    System.err.println(this.scene);
-
   }
 
   private void fillCookbook(Collection<Recipe> cookbooklist) {
@@ -92,7 +93,7 @@ public class AppController {
       buttonRemove.setLayoutX(pane.getMinWidth() - buttonRemove.getMinWidth()); // Adjust the x-coordinate as needed
       buttonRemove.setLayoutY(10); // Adjust the y-coordinate as needed
       buttonRemove.onActionProperty().set(e -> {
-        removeRecipe();
+        removeRecipe(recipe);
       });
       
       // Add view button
@@ -118,20 +119,23 @@ public class AppController {
     fillFilterDropdown();
   }
 
-  
-
   public void search() {
+    // get search string
     String search = searchField.getText();
     if (search.isEmpty()) {
+      // if search is empty, fill cookbook with all recipes
       fillCookbook(cookbook.getRecipes());
       feedbackLabel.setText("");
     }
     else {
+      // if search is not empty, fill cookbook with matching recipes
       Collection<Recipe> searched = cookbook.filterRecipies(recipe -> recipe.getName().toLowerCase().contains(search.toLowerCase()));
       if (searched.isEmpty()) {
+        // if no recipes match search, give feedback
         feedbackLabel.setText("No recipes matching search");
       }
       else {
+        // if recipes match search, make feedback empty and fill cookbook
         fillCookbook(searched);
         feedbackLabel.setText("");
       }
@@ -178,17 +182,33 @@ public class AppController {
   }
 
   public void switchToViewRecipe(ActionEvent event) throws IOException {
+    // load recipeview
     FXMLLoader loader = new FXMLLoader(getClass().getResource("RecipeView.fxml"));
     Parent root = loader.load();
+    // update scene
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
     stage.show();
+    // send recipe to RecipeViewController
     RecipeViewController viewController = loader.getController();
     viewController.loadRecipe(sendRecipe);
     
   }
-  public void removeRecipe() {
-    System.out.println("Recipe removed");
+  // remove recipe from cookbook
+  public void removeRecipe(Recipe recipe) {
+    // initialize new cookbookhandler
+    CookbookHandler ch = new CookbookHandler();
+    // remove recipe from cookbook class
+    cookbook.removeRecipe(recipe);
+    // remove recipe from the cookbook.json file
+    try {
+      ch.writeToFile(cookbook, "../cookbook.json");
+      feedbackLabel.setText("Removed recipe");
+    } catch (FileNotFoundException e) {
+      feedbackLabel.setText("File not found");
+    }
+    // update the cookbook view
+    fillCookbook(cookbook.getRecipes());
   }
 }
