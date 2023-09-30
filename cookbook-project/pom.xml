@@ -68,6 +68,7 @@
 
     <modules>
         <module>core</module>
+        <module>persistence</module>
         <module>ui</module>
     </modules>
     

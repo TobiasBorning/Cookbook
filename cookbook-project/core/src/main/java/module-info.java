@@ -1,7 +1,6 @@
 module core {
-    requires com.google.gson;
-    exports cookbook.core;
-    exports cookbook.json;
+    exports cookbook.core to persistence, ui;
 
     opens cookbook.core to com.google.gson;
 }
+ 
