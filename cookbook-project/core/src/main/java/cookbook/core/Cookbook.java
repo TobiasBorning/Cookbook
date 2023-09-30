@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class Cookbook {
 
-  public Collection<Recipe> recipes = new ArrayList<>();
+  private Collection<Recipe> recipes = new ArrayList<>();
 
   //adding and removing recipies
 

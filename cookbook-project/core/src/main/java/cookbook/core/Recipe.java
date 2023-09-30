@@ -5,10 +5,10 @@ import java.util.Map;
 
 public class Recipe {
     
-    public String name;
-    public Map<String, Double> ingredients = new HashMap<>();
-    public String originCountry;
-    public String description;
+    private String name;
+    private Map<String, Double> ingredients = new HashMap<>();
+    private String originCountry;
+    private String description;
 
     /**
      * Constructor for creating a Recipe object with name and ingredients.

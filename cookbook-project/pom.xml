@@ -68,8 +68,8 @@
 
     <modules>
         <module>core</module>
-        <module>ui</module>
         <module>persistence</module>
+        <module>ui</module>
     </modules>
     
 </project>
