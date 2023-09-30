@@ -1,6 +1,7 @@
 package cookbook.ui;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +11,12 @@ import java.util.Map.Entry;
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
 import cookbook.json.CookbookHandler;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 //import javafx.scene.control.Button;
@@ -21,11 +27,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 
 
 
 public class AppController {
 
+  private Stage stage;
+  private Scene scene;
+  private Parent root;
+
+  private Recipe sendRecipe;
   private Cookbook cookbook = new Cookbook();
 
   @FXML
@@ -40,20 +52,22 @@ public class AppController {
   private ChoiceBox filterOrigin;
   @FXML
   private Button applyFilterButton;
+  @FXML
+  private Button allRecipesButton;
   
-  public void initialize() {
 
+
+  public void initialize() {
     CookbookHandler ch = new CookbookHandler();
     try {
       cookbook = ch.readFromFile("../cookbook.json");
     } catch (FileNotFoundException e) { 
       feedbackLabel.setText("File not found");
     }
-    
     recipeList.setMinHeight(cookbook.getRecipes().size()*130);
     fillCookbook(cookbook.getRecipes());
+    System.err.println(this.scene);
 
-    
   }
 
   private void fillCookbook(Collection<Recipe> cookbooklist) {
@@ -87,10 +101,14 @@ public class AppController {
       buttonView.setLayoutY(10); // Adjust the y-coordinate as needed
       buttonView.onActionProperty().set(e -> {
         //viewRecipe(recipe);
-        System.out.println("View recipe");
+        try {
+          sendRecipe = recipe;
+          switchToViewRecipe(e);
+        }
+        catch (IOException ex) {
+          System.err.println(ex);
+        }
       });
-      
-      
       
       pane.getChildren().addAll(recipeName, buttonView, buttonRemove);
       recipeList.getChildren().add(pane);
@@ -100,31 +118,7 @@ public class AppController {
     fillFilterDropdown();
   }
 
-  public void kodesomkanbrukes() {
-    Recipe recipe  = new Recipe();
-
-    Pane pane = new Pane();
-          pane.setMinWidth(330);
-          pane.setMaxWidth(330);
-          pane.setMinHeight(70);
-          pane.setStyle("-fx-padding: 10 10 10 10;");
-
-      //overskrift med navn på recipe
-      Label recipeName = new Label(recipe.getName());
-        Font font = Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 16);
-        recipeName.setFont(font);
-        recipeName.setLayoutX(10);
-
-      //legger til liste med ingredienser
-      Label ingredients = new Label("");
-        ingredients.setLayoutX(10);
-        for(Entry<String,Double> ingredient : recipe.getIngredients().entrySet()) {
-          String text = ingredients.getText();
-          ingredients.setText(text + "\n" + ingredient.getKey().toString() + ":  " + ingredient.getValue());
-        }
-        ingredients.setText(ingredients.getText() + "\n");
-      
-  }
+  
 
   public void search() {
     String search = searchField.getText();
@@ -144,8 +138,8 @@ public class AppController {
     }
   }
 
-
   private void fillFilterDropdown() {
+
     //create empty set to add origins to
     Set<String> origins = new HashSet<>();
     //get recipes
@@ -183,11 +177,18 @@ public class AppController {
     filterOrigin.setValue(filterValue);
   }
 
+  public void switchToViewRecipe(ActionEvent event) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("RecipeView.fxml"));
+    Parent root = loader.load();
+    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+    RecipeViewController viewController = loader.getController();
+    viewController.loadRecipe(sendRecipe);
+    
+  }
   public void removeRecipe() {
     System.out.println("Recipe removed");
   }
 }
-
-
-
-
