@@ -36,7 +36,7 @@
             <TextField fx:id="searchField" layoutX="9.0" layoutY="40.0" prefHeight="26.0" prefWidth="125.0" />
             <Button fx:id="searchButton" layoutX="130.0" layoutY="40.0" mnemonicParsing="false" onAction="#search" text="Search" />
             <ChoiceBox id="filter" fx:id="filterOrigin" layoutX="9.0" layoutY="84.0" prefHeight="26.0" prefWidth="126.0" />
-            <Button layoutX="15.0" layoutY="130.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="158.0" text="Add new recipe" />
+            <Button fx:id="addRecipeButton" layoutX="15.0" layoutY="130.0" mnemonicParsing="false" onAction="#switchToAddRecipe" prefHeight="26.0" prefWidth="158.0" text="Add new recipe" />
             <Button fx:id="removeRecipeButton" layoutX="17.0" layoutY="178.0" mnemonicParsing="false" onAction="#switchToViewRecipe" prefHeight="26.0" prefWidth="155.0" text="Remove recipe" />
             <Label fx:id="feedbackLabel" layoutX="18.0" layoutY="318.0" prefHeight="17.0" prefWidth="155.0" />
             <Button fx:id="applyFilterButton" layoutX="130.0" layoutY="84.0" mnemonicParsing="false" onAction="#filterByOrigin" prefHeight="26.0" prefWidth="55.0" text="Filter" />

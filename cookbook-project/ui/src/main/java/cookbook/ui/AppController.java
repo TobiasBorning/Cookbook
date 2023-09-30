@@ -180,6 +180,20 @@ public class AppController {
     filterOrigin.setValue(filterValue);
   }
 
+  //Switches from main scene to AddRecipe scene
+  public void switchToAddRecipe(ActionEvent event) throws IOException {
+    // load AddRecipe
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("AddRecipe.fxml"));
+    Parent root = loader.load();
+    // update scene
+    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+  }
+
+
+  //Switches from main scene to ViewRecipe scene
   public void switchToViewRecipe(ActionEvent event) throws IOException {
     // load recipeview
     FXMLLoader loader = new FXMLLoader(getClass().getResource("RecipeView.fxml"));
@@ -192,8 +206,10 @@ public class AppController {
     // send recipe to RecipeViewController
     RecipeViewController viewController = loader.getController();
     viewController.loadRecipe(sendRecipe);
-    
   }
+
+  
+
   // remove recipe from cookbook
   public void removeRecipe(Recipe recipe) {
     // initialize new cookbookhandler
