@@ -57,6 +57,8 @@ public class AppController {
 
 
   public void initialize() {
+    System.out.println("Initialize!");
+
     // read cookbook from file
     CookbookHandler ch = new CookbookHandler();
     try {

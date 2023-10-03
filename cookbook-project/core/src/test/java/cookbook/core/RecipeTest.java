@@ -25,15 +25,15 @@ public class RecipeTest {
 
     @Test
     public void testSetIngredients() {
-        Map<String, Double> ingredients = new HashMap<>();
-        ingredients.put("spaghetti", 200.0);
-        ingredients.put("egg", 2.0);
+        Map<String, String> ingredients = new HashMap<>();
+        ingredients.put("spaghetti", "200.0");
+        ingredients.put("egg", "2.0");
         recipe.setIngredients(ingredients);
 
-        Map<String, Double> recipeIngredients = recipe.getIngredients();
+        Map<String, String> recipeIngredients = recipe.getIngredients();
         assertEquals(2, recipeIngredients.size());
-        assertEquals(200.0, recipeIngredients.get("spaghetti"), 0.001);
-        assertEquals(2.0, recipeIngredients.get("egg"), 0.001);
+        assertEquals("200.0", recipeIngredients.get("spaghetti".toString()), "0.001");
+        assertEquals("2.0", recipeIngredients.get("egg").toString(), "0.001");
     }
 
     @Test
@@ -50,10 +50,10 @@ public class RecipeTest {
 
     @Test
     public void testAddAndRemoveIngredient() {
-        recipe.addIngredient("spaghetti", 200.0);
-        recipe.addIngredient("egg", 2.0);
+        recipe.addIngredient("spaghetti", "200.0");
+        recipe.addIngredient("egg", "2.0");
         
-        Map<String, Double> recipeIngredients = recipe.getIngredients();
+        Map<String, String> recipeIngredients = recipe.getIngredients();
         assertEquals(2, recipeIngredients.size());
         
         recipe.removeIngredient("spaghetti");
@@ -63,9 +63,9 @@ public class RecipeTest {
 
     @Test
     public void testAddDuplicateIngredient() {
-        recipe.addIngredient("spaghetti", 200.0);
+        recipe.addIngredient("spaghetti", "200.0");
         assertThrows(IllegalArgumentException.class, () -> {
-            recipe.addIngredient("spaghetti", 150.0); // This should throw an exception
+            recipe.addIngredient("spaghetti", "150.0"); // This should throw an exception
         });
         
     }
