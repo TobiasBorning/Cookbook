@@ -24,7 +24,7 @@
    <children>
       <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
          <content>
-            <VBox id="yeet" fx:id="recipeList" prefHeight="200.0" prefWidth="409.0" />
+            <VBox id="recipeList" fx:id="recipeList" prefHeight="200.0" prefWidth="409.0" />
          </content></ScrollPane>
       <Label alignment="CENTER" prefHeight="55.0" prefWidth="425.0" style="-fx-background-color: BF90D9;" text="COOKBOOK">
          <font>
@@ -33,13 +33,13 @@
       </Label>
       <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <TextField fx:id="searchField" layoutX="9.0" layoutY="40.0" prefHeight="26.0" prefWidth="125.0" />
-            <Button fx:id="searchButton" layoutX="130.0" layoutY="40.0" mnemonicParsing="false" onAction="#search" text="Search" />
-            <ChoiceBox id="filter" fx:id="filterOrigin" layoutX="9.0" layoutY="84.0" prefHeight="26.0" prefWidth="126.0" />
-            <Button fx:id="addRecipeButton" layoutX="15.0" layoutY="130.0" mnemonicParsing="false" onAction="#switchToAddRecipe" prefHeight="26.0" prefWidth="158.0" text="Add new recipe" />
-            <Button fx:id="removeRecipeButton" layoutX="17.0" layoutY="178.0" mnemonicParsing="false" onAction="#switchToViewRecipe" prefHeight="26.0" prefWidth="155.0" text="Remove recipe" />
+            <TextField id="searchField" fx:id="searchField" layoutX="9.0" layoutY="40.0" prefHeight="26.0" prefWidth="125.0" />
+            <Button id="searchButton" fx:id="searchButton" layoutX="130.0" layoutY="40.0" mnemonicParsing="false" onAction="#search" text="Search" />
+            <ChoiceBox id="filterOrigin" fx:id="filterOrigin" layoutX="9.0" layoutY="84.0" prefHeight="26.0" prefWidth="126.0" />
+            <Button id="addRecipeButton" fx:id="addRecipeButton" layoutX="15.0" layoutY="130.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="158.0" text="Add new recipe" />
+            <Button id="removeRecipeButton" fx:id="removeRecipeButton" layoutX="17.0" layoutY="178.0" mnemonicParsing="false" onAction="#switchToViewRecipe" prefHeight="26.0" prefWidth="155.0" text="Remove recipe" />
             <Label fx:id="feedbackLabel" layoutX="18.0" layoutY="318.0" prefHeight="17.0" prefWidth="155.0" />
-            <Button fx:id="applyFilterButton" layoutX="130.0" layoutY="84.0" mnemonicParsing="false" onAction="#filterByOrigin" prefHeight="26.0" prefWidth="55.0" text="Filter" />
+            <Button id="filterByOrigin" fx:id="applyFilterButton" layoutX="130.0" layoutY="84.0" mnemonicParsing="false" onAction="#filterByOrigin" prefHeight="26.0" prefWidth="55.0" text="Filter" />
          </children>
       </Pane>
    </children>

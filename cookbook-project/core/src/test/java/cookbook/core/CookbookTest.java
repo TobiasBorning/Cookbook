@@ -19,7 +19,7 @@ public class CookbookTest {
   @Test
   public void testAddRecipe(){
     Recipe recipe = new Recipe("Test recipe"); //creates recipe
-    cookbook.addRecipe(recipe); //add recipe på tookbook
+    cookbook.addRecipe(recipe); //add recipe på cookbook
     assertTrue(cookbook.getRecipes().contains(recipe)); //asserts that the cookbook contains the recipe
     assertThrows(IllegalArgumentException.class, () -> cookbook.addRecipe(null)); //tests adding null
     assertThrows(IllegalArgumentException.class, () -> cookbook.addRecipe(recipe)); //test adding already existing recipe

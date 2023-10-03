@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -55,4 +56,29 @@ public class CookbookAppTest extends ApplicationTest {
             clickOn(LabeledMatchers.hasText(label));
         }
     }
+
+    //legger basert på individuell øving
+    //trengs kanskje ikke
+
+    private String getSearchString() {
+        TextField search = (TextField) root.lookup("#searchField");
+        return search.getText();
+    }
+
+    // private boolean searchPressed() {
+
+    // }
+
+    // forsøk på tester:
+
+    @ParameterizedTest
+    @MethodSource
+    public void testSearch(String searchFieldText) {
+        //hvis søket er tomt - sjekk at viewet ikke endrer seg
+        //dersom det er står noe, og det samsvarer, sjekk at det kommer i view
+        //dersom ingen matcher - sjekk at alle blir og du får beskjed om feil
+        
+    }
+
+    
 }
