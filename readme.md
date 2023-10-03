@@ -1,5 +1,8 @@
 # __Cookbook__
 
+### _[Open in eclipse che](https://che.stud.ntnu.no/#https:/gitlab.stud.idi.ntnu.no/it1901/groups-2023/gr2322/gr2322)_
+
+---
 ## _Group 2322, IT1901_
 ---
 This is group 22's IT1901 project. We have made a cookbook app that helps people store and organize their recipes. More info about the cookbook project [here](/cookbook-project/readme.md). The project is built using maven 3.9.4 and Java 17.0.8
