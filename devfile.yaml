@@ -37,3 +37,9 @@ commands:
       component: cookbook-project
       commandLine: cd cookbook-project
       label: change directory
+  - name: init
+    exec:
+      command: |
+        cd cookbook-project/
+        mvn clean install
+        cd ui/
