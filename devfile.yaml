@@ -32,14 +32,11 @@ components:
           protocol: http
           targetPort: 5500
 commands:
-  - id: changedir
-    exec:
-      component: cookbook-project
-      commandLine: cd cookbook-project
-      label: change directory
   - name: init
-    exec:
-      command: |
-        cd cookbook-project/
-        mvn clean install
-        cd ui/
+    actions:
+      - name: run-init-command
+        command: /bin/bash
+        args:
+          - cd cookbook-project/
+          - mvn clean install
+          - cd ui/
