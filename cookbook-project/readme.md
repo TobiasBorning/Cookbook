@@ -33,10 +33,15 @@ A student is finishing up her day at school, and is ready to go home. She is ver
 % mvn javafx:run
 ```
 
-## _Project structure_
+## _Project Arcitecture_
 ---
-The the project has two modules; core and ui. The core module contains the business logic and the ui module contains the user interface. The ui module handles the user interface and interaction. The project is built using maven.
-Diagram of the project structure [here](/ProjectStructure.jpeg).
+The the project buildt using maven. It has three modules; core ui and persistence, each responsible for different parts of the application.  
+The _core module_ contains classes responsible for the internal representation of the cookbook.  
+The _ui module_ contains classes responsible for the user interface.  
+The _persistence module_ is responsible for reading and writing the cookbook to a json file.
+You can read more about the different modules below.
+
+Diagram of the project structure [here](../assets/ProjectStructure.jpeg).
 
 ## _Modules_
 ---
@@ -45,3 +50,6 @@ Read about the __core__ module [here](/cookbook-project/core/readme.md)
 
 ### ___ui___
 Read about the __ui__ module [here](/cookbook-project/ui/readme.md)
+
+### ___persistence___
+Read about the __persistence__ module [here](/cookbook-project/persistence/readme.md)
