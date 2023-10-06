@@ -26,5 +26,6 @@
       </ScrollPane>
       <Button fx:id="addIngredientButton" layoutX="113.0" layoutY="363.0" mnemonicParsing="false" onAction="#addIngredient" text="Add ingredient" />
       <TextField fx:id="origin" layoutX="367.0" layoutY="117.0" promptText="Origin" />
+      <Button fx:id="back" layoutX="14.0" layoutY="19.0" mnemonicParsing="false" onAction="#switchToMainScene" text="Back" />
    </children>
 </Pane>

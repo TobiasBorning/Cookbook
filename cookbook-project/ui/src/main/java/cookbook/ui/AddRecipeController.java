@@ -24,6 +24,7 @@ public class AddRecipeController {
 
   private Cookbook cookbook = new Cookbook();
   private Recipe recipe = new Recipe();
+  private AppController ac;
 
   @FXML
   private VBox ingredientsContainer;
@@ -74,6 +75,7 @@ public class AddRecipeController {
   */
   
   public void addToCookbook(ActionEvent e) throws IOException{
+
     
     Map<String, String> ingredients = new HashMap<>();
 
@@ -122,13 +124,9 @@ public class AddRecipeController {
     this.recipe = new Recipe(recipeNameString, ingredients, inputOrigin, descriptionString);
     addRecipe(recipe);
 
-    System.out.println(ingredients); //husk å fjerne denne
     //Switch to main scene
-    Parent root = FXMLLoader.load(getClass().getResource("CookbookApp.fxml"));
-    Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    switchToMainScene(e);
+
   }
 
   // add recipe to cookbook
@@ -149,4 +147,12 @@ public class AddRecipeController {
     } catch (FileNotFoundException e) {
     }
   }  
+
+  public void switchToMainScene(ActionEvent e) throws IOException{
+    Parent root = FXMLLoader.load(getClass().getResource("CookbookApp.fxml"));
+    Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+  }
 }

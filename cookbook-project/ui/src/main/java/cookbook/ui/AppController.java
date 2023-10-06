@@ -221,11 +221,17 @@ public class AppController {
     // remove recipe from the cookbook.json file
     try {
       ch.writeToFile(cookbook, "../cookbook.json");
-      feedbackLabel.setText("Removed recipe");
+      setFeedbackLabel("Removed recipe");
     } catch (FileNotFoundException e) {
-      feedbackLabel.setText("File not found");
+      setFeedbackLabel("File not found");
     }
     // update the cookbook view
     fillCookbook(cookbook.getRecipes());
   }
+
+  public void setFeedbackLabel(String feedback){
+    feedbackLabel.setText(feedback);
+  }
 }
+
+
