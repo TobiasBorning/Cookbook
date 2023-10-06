@@ -25,12 +25,12 @@ public class CookbookHandlerTest {
         cookbookHandler = new CookbookHandler();
         cookbook = new Cookbook();
         pizzaRecipe = new Recipe("Pizza");
-        pizzaRecipe.addIngredient("cheese", 200.0);
-        pizzaRecipe.addIngredient("pizzaDough", 300.0);
-        pizzaRecipe.addIngredient("tomatoSauce", 150.0);
-        pizzaRecipe.addIngredient("pepperoni", 100.0);
-        pizzaRecipe.addIngredient("mushrooms", 50.0);
-        pizzaRecipe.addIngredient("onions", 30.0);
+        pizzaRecipe.addIngredient("cheese", "200.0");
+        pizzaRecipe.addIngredient("pizzaDough", "300.0");
+        pizzaRecipe.addIngredient("tomatoSauce", "150.0");
+        pizzaRecipe.addIngredient("pepperoni", "100.0");
+        pizzaRecipe.addIngredient("mushrooms", "50.0");
+        pizzaRecipe.addIngredient("onions", "30.0");
         cookbook.addRecipe(pizzaRecipe); 
         path = "test.json";     
     }

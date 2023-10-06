@@ -6,7 +6,7 @@ import java.util.Map;
 public class Recipe {
     
     private String name;
-    private Map<String, Double> ingredients = new HashMap<>();
+    private Map<String, String> ingredients = new HashMap<>();
     private String originCountry;
     private String description;
 
@@ -16,9 +16,20 @@ public class Recipe {
      * @param name        The name of the Recipe.
      * @param ingredients The ingredients and their amounts as a map.
      */
-    public Recipe(String name, Map<String, Double> ingredients) {
+    public Recipe(String name, Map<String, String> ingredients) {
         this.name = name;
         this.ingredients = ingredients;
+    }
+    public Recipe(String name, Map<String, String> ingredients, String originCountry, String description){
+        this.name = name;
+        this.ingredients = ingredients;
+        this.originCountry = originCountry;
+        this.description = description;
+    }
+    public Recipe(String name, Map<String, String> ingredients, String originCountry){
+        this.name = name;
+        this.ingredients = ingredients;
+        this.originCountry = originCountry;
     }
 
     /**
@@ -51,7 +62,7 @@ public class Recipe {
      *
      * @param ingredients The ingredients and their amounts as a map.
      */
-    public void setIngredients(Map<String, Double> ingredients) {
+    public void setIngredients(Map<String, String> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -87,7 +98,7 @@ public class Recipe {
      *
      * @return A copy of the ingredients map.
      */
-    public Map<String, Double> getIngredients() {
+    public Map<String, String> getIngredients() {
         return ingredients;
     }
 
@@ -116,7 +127,7 @@ public class Recipe {
      * @param amount     The amount of the ingredient.
      * @throws IllegalArgumentException If the ingredient is already in the map.
      */
-    public void addIngredient(String ingredient, Double amount) {
+    public void addIngredient(String ingredient, String amount) {
         if (ingredients.keySet().contains(ingredient)) {
             throw new IllegalArgumentException("Ingredient already in map");
         }

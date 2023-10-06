@@ -28,7 +28,7 @@ public class RecipeViewController {
     recipeName.setText(recipe.getName());
     description.setText(recipe.getDescription());
     //legger til liste med ingredienser
-    for(Entry<String,Double> ingredient : recipe.getIngredients().entrySet()) {
+    for(Entry<String,String> ingredient : recipe.getIngredients().entrySet()) {
       String text = ingredients.getText();
       ingredients.setText(text + "\n" + ingredient.getKey().toString() + ":  " + ingredient.getValue());
     }

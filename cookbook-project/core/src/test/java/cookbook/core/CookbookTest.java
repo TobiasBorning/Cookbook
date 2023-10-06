@@ -38,15 +38,15 @@ public class CookbookTest {
     @Test
     public void testFilterRecipes() {
         Recipe testRecipe1 = new Recipe("testRecipe1");
-        testRecipe1.addIngredient("ingredient1", 200.0);
+        testRecipe1.addIngredient("ingredient1", "200.0");
         cookbook.addRecipe(testRecipe1);
         
         Recipe testRecipe2 = new Recipe("testRecipe2");
-        testRecipe2.addIngredient("ingredient1", 100.0);
+        testRecipe2.addIngredient("ingredient1", "100.0");
         cookbook.addRecipe(testRecipe2);
         
         Recipe testRecipe3 = new Recipe("testRecipe3");
-        testRecipe3.addIngredient("ingredient2", 150.0);
+        testRecipe3.addIngredient("ingredient2", "150.0");
         cookbook.addRecipe(testRecipe3);
         
         Predicate<Recipe> ingredientFilter = r -> r.getIngredients().containsKey("ingredient1");
