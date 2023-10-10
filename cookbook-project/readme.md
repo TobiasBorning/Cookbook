@@ -35,13 +35,14 @@ A student is finishing up her day at school, and is ready to go home. She is ver
 
 ## _Project Arcitecture_
 ---
-The the project buildt using maven. It has three modules; core ui and persistence, each responsible for different parts of the application.  
+The the project buildt using maven.  
+It has three modules; _core_, _ui_ and _persistence_, each responsible for different parts of the application.  
 The _core module_ contains classes responsible for the internal representation of the cookbook.  
 The _ui module_ contains classes responsible for the user interface.  
-The _persistence module_ is responsible for reading and writing the cookbook to a json file.
+The _persistence module_ is responsible for reading and writing the cookbook to a json file.  
 You can read more about the different modules below.
 
-Diagram of the project structure [here](../assets/ProjectStructure.jpeg).
+PlantUML diagram of the project structure [here](../assets/diagram.puml)
 
 ## _Modules_
 ---
