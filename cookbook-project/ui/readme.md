@@ -7,6 +7,7 @@ Inside the [_resources_](/cookbook-project/ui/src/main/resources/) folder, you w
 The ui module requires access to the core and persistence module in order to function properly.
 
 
-Tests for the classes in UI is located inside the [test](/cookbook-project/ui/src/test/) folder.
+Tests for the classes in UI:  
+[CookbookAppTest](/gr2322/cookbook-project/ui/src/test/java/cookbook/ui/CookbookAppTest.java)
 
 This module has its own pom.xml file, which is responsible for building the module with its respected dependencies and plugins, such as JaCoCo, Checkstyle and Spotbugs.

@@ -75,11 +75,11 @@ Bert wants to impress his husband Ernie. Ernie is a fan of the italian cuisine. 
 
 In this release, our team has prioritized focusing on productive work habits, achieving a significantly enhanced workflow by utilizing issues for the release. We've done so by making a milestone for each release. For the milestone we have created issues which show up as 'open', 'in progress' or 'closed' on the issue board, showcasing the tasks in progress and those that have been concluded. Each issue is assigned to its respective milestone and user story if relevant. The issues har also labeled appropriately, ensuring developers are aware of the development stage to which the issues pertain. Adopting this approach affords us several advantages. Primarily, it facilitates the allocation of developers to diverse areas of the development, enabling each member in the group to work on different type of tasks. Secondly, it provides a clear visual representation of the remaining work for each project component, potentially leading to more effective delegation within the team.
 
-_Brancing on issue:_  
+**_Brancing on issue:_**  
 Moreover, each issue possesses an associated branch where we have implemented changes pertinent to that specific issue, ensuring structured and transparent traceability of modifications back to their respective tasks. Each branch is is named in following template for issue x - (user story y):  
 x-(us-y-)short description. This provides a clear and logical system, whereby any adjustments or enhancements can be easily attributed and traced to their originating issues, enhancing both accountability and clarity in our developmental workflow. This also makes merging the different branches into the master branch easier, as we can easily see which branches are ready to be merged.
 
-_Commit messages:_  
+**_Commit messages:_**  
 In programming and software development, it is essential to maintain a clear and concise log of changes, or 'commits,' in the source code. This practice allows developers to track and understand the history and development of a project. A good 'commit' message should provide clear, concise, and useful notes about what, why, and how changes have been made. We have used the following template for commit messages:
 
 [ID] description of task done
@@ -90,8 +90,8 @@ Closes #issue
 
 Co-authored by: co-author
 
-_Merging branches to master:_  
+**_Merging branches to master:_**  
 We have also ensured that every merge request is reviewed by a secondary part. This layer of oversight ensures the master branch maintains its integrity and safeguarding against potential errors.
 
-_Pair programming:_  
+**_Pair programming:_**  
 In this release, we have been pair programming. We've found that by working closely together, we have not only enhanced our collective knowledge and skills, but also gained good insight into every part of the applications functionality.
