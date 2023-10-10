@@ -11,10 +11,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class RecipeViewController {
   
+  @FXML
   private Recipe recipe;
   @FXML
   private Label recipeName;
@@ -22,12 +24,20 @@ public class RecipeViewController {
   private Label description;
   @FXML
   private Label ingredients;
+  @FXML
+  private Label origin;
 
   public void loadRecipe(Recipe recipe) {
     this.recipe = recipe;
+
+    origin.setFont(new Font("Arial", 16));
+    description.setFont(new Font("Arial", 14));
+    ingredients.setFont(new Font("Arial", 14));
+
     recipeName.setText(recipe.getName());
     description.setWrapText(true);
     description.setText(recipe.getDescription());
+    origin.setText(recipe.getOriginCountry());
     //legger til liste med ingredienser
     for(Entry<String,String> ingredient : recipe.getIngredients().entrySet()) {
       String text = ingredients.getText();
