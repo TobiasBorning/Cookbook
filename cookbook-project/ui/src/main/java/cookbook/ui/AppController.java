@@ -54,8 +54,6 @@ public class AppController {
   private Button allRecipesButton;
 
   public void initialize() {
-    System.out.println("Initialize!");
-
     // read cookbook from file
     CookbookHandler ch = new CookbookHandler();
     try {

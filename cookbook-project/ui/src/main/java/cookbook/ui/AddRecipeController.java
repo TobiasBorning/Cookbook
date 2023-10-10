@@ -72,15 +72,12 @@ public class AddRecipeController {
     
     if (!recipeName.getText().equals(null)) {
       recipeNameString = recipeName.getText();
-      System.out.println(recipeNameString);
     }
     if (!recipeDescription.getText().equals(null)) {
       descriptionString = recipeDescription.getText();
-      System.out.println(descriptionString);
     }
     if (!origin.getText().equals(null)) {
       inputOrigin = origin.getText();
-      System.out.println(inputOrigin);
     }
     
     for (Node node : ingredientsContainer.getChildren()) {
