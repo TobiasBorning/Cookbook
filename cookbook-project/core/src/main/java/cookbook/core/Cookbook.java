@@ -11,7 +11,7 @@ public class Cookbook {
 
   //adding and removing recipies
 
-/**
+  /**
    * Adds recipe to Cookbook.
    *
    * @param recipe is added to the Collection of recipes
@@ -24,7 +24,7 @@ public class Cookbook {
       throw new IllegalArgumentException("Invalid recipe");
     }
     if (recipes.contains(recipe)){
-      throw new IllegalArgumentException("Recipe already in cook book");
+      throw new IllegalArgumentException("Recipe already in cookbook");
     }
     recipes.add(recipe);
   }
@@ -55,12 +55,13 @@ public class Cookbook {
 	 */
   public void removeRecipe(Recipe recipe) {
     if (!recipes.contains(recipe)) {
-      throw new IllegalArgumentException("Recipe not in cookbook");
+      throw new IllegalArgumentException("Recipe not in cookbook.");
     }
     recipes.remove(recipe);
   }
 
-  //filter function
+//filter function
+
 /**
    * Filters the wanted recipes.
    *
@@ -70,6 +71,7 @@ public class Cookbook {
   public Collection<Recipe> filterRecipies(Predicate<Recipe> pred) {
     return recipes.stream().filter(pred).collect(Collectors.toList());
   }
+  
 /**
    * Retrieves certain recipes
    *
