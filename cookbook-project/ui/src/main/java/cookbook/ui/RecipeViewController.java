@@ -39,16 +39,16 @@ public class RecipeViewController {
     description.setText(recipe.getDescription());
     origin.setText(recipe.getOriginCountry());
     //legger til liste med ingredienser
-    for(Entry<String,String> ingredient : recipe.getIngredients().entrySet()) {
+    for (Entry<String, String> ingredient : recipe.getIngredients().entrySet()) {
       String text = ingredients.getText();
       ingredients.setText(text + "\n" + ingredient.getKey().toString() + ":  " + ingredient.getValue());
     }
     ingredients.setText(ingredients.getText() + "\n");
   }
 
-  public void switchToMainScene(ActionEvent event) throws IOException {
+  public void switchToMainScene(final ActionEvent event) throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("CookbookApp.fxml"));
-    Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     Scene scene = new Scene(root);
     stage.setScene(scene);
     stage.show();

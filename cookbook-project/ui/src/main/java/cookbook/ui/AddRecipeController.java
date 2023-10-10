@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
 import cookbook.json.CookbookHandler;
@@ -32,15 +31,14 @@ public class AddRecipeController {
   @FXML
   private TextField recipeName;
 
-  @FXML 
+  @FXML
   private TextArea recipeDescription;
 
-  @FXML 
+  @FXML
   private TextField origin;
 
-  public void addIngredient(ActionEvent e) {
+  public void addIngredient(final ActionEvent e) {
 
-    System.out.println("hei");
     Pane pane = new Pane();
         pane.setMinWidth(330);
         pane.setMaxWidth(400);
@@ -63,56 +61,42 @@ public class AddRecipeController {
     ingredientsContainer.getChildren().add(pane);
   }
 
-  //Switches from AddRecipe scene to main scene
-  /* 
-  public void switchToMainScene(ActionEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("CookbookApp.fxml"));
-    Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
-  }
-  */
-  
-  public void addToCookbook(ActionEvent e) throws IOException{
+  public void addToCookbook(final ActionEvent e) throws IOException {
 
-    
     Map<String, String> ingredients = new HashMap<>();
-
-    String recipeNameString = null; 
+    String recipeNameString = null;
     String descriptionString = null;
-    TextField ingredientName = null; 
+    TextField ingredientName = null;
     TextField amount = null;
     String inputOrigin = null;
     
-    if (!recipeName.getText().equals(null)){
+    if (!recipeName.getText().equals(null)) {
       recipeNameString = recipeName.getText();
       System.out.println(recipeNameString);
     }
-    if (!recipeDescription.getText().equals(null)){
+    if (!recipeDescription.getText().equals(null)) {
       descriptionString = recipeDescription.getText();
       System.out.println(descriptionString);
     }
-    if (!origin.getText().equals(null)){
+    if (!origin.getText().equals(null)) {
       inputOrigin = origin.getText();
       System.out.println(inputOrigin);
     }
     
-    
-    for (Node node : ingredientsContainer.getChildren()){
-      if (node instanceof Pane){
+    for (Node node : ingredientsContainer.getChildren()) {
+      if (node instanceof Pane) {
         Pane pane = (Pane) node;
 
-        for (Node childNode : pane.getChildren()){
-          if (childNode instanceof TextField){
+        for (Node childNode : pane.getChildren()) {
+          if (childNode instanceof TextField) {
             TextField textField = (TextField) childNode;
-            if (textField.getPromptText().equals("ingredientname")){
+            if (textField.getPromptText().equals("ingredientname")) {
               ingredientName = textField;
             }
-            else if (textField.getPromptText().equals("amount")){
+            else if (textField.getPromptText().equals("amount")) {
               amount = textField;
             }
-            if (ingredientName != null && amount != null){
+            if (ingredientName != null && amount != null) {
               String ingredientNameString = ingredientName.getText();
               String amountString = amount.getText();
               ingredients.put(ingredientNameString, amountString);
@@ -124,7 +108,7 @@ public class AddRecipeController {
     this.recipe = new Recipe(recipeNameString, ingredients, inputOrigin, descriptionString);
     addRecipe(recipe);
 
-    //Switch to main scene
+    //Calls on method that switches to min scene
     switchToMainScene(e);
 
   }
@@ -136,19 +120,20 @@ public class AddRecipeController {
 
     try {
       cookbook = ch.readFromFile("../persistence/cookbook.json");
-    } catch (FileNotFoundException e) { 
+    } catch (FileNotFoundException e) {
     }
-    // remove recipe from cookbook class
+    // adds recipe to cookbook class
     cookbook.addRecipe(recipe);
-    // remove recipe from the cookbook.json file
-    
+
+    // adds recipe to the cookbook.json file
     try {
       ch.writeToFile(cookbook, "../persistence/cookbook.json");
     } catch (FileNotFoundException e) {
     }
-  }  
+  }
 
-  public void switchToMainScene(ActionEvent e) throws IOException{
+  //Switches from AddRecipe scene to main scene
+  public void switchToMainScene(ActionEvent e) throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("CookbookApp.fxml"));
     Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
     Scene scene = new Scene(root);
