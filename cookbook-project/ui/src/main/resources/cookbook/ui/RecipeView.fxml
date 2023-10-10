@@ -12,24 +12,27 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <Label fx:id="ingredients" alignment="TOP_LEFT" layoutX="28.0" layoutY="155.0" prefHeight="231.0" prefWidth="238.0" />
+      <Label fx:id="ingredients" alignment="TOP_LEFT" layoutX="344.0" layoutY="95.0" prefHeight="231.0" prefWidth="238.0" />
       <Button fx:id="allRecipesButton" layoutX="426.0" layoutY="345.0" mnemonicParsing="false" onAction="#switchToMainScene" prefHeight="35.0" prefWidth="156.0" text="Back to all recipes" />
-      <Label fx:id="description" alignment="TOP_LEFT" layoutX="301.0" layoutY="118.0" prefHeight="210.0" prefWidth="277.0" />
-      <Label fx:id="ingredientsSubTitle" layoutX="28.0" layoutY="132.0" prefHeight="17.0" prefWidth="133.0" text="Ingredients">
+      <Label fx:id="description" alignment="TOP_LEFT" layoutX="28.0" layoutY="130.0" prefHeight="210.0" prefWidth="277.0" />
+      <Label fx:id="ingredientsSubTitle" layoutX="344.0" layoutY="72.0" prefHeight="17.0" prefWidth="133.0" text="Ingredients">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="descriptionSubTitle" layoutX="383.0" layoutY="95.0" text="Description">
+      <Label fx:id="descriptionSubTitle" layoutX="28.0" layoutY="107.0" text="Description">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="originSubTitle" layoutX="20.0" layoutY="72.0" prefHeight="23.0" prefWidth="55.0" text="Origin:">
+      <Label fx:id="originSubTitle" layoutX="28.0" layoutY="72.0" prefHeight="23.0" prefWidth="55.0" text="Origin:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="origin" layoutX="83.0" layoutY="75.0" prefHeight="17.0" prefWidth="86.0" />
+      <Label fx:id="origin" layoutX="83.0" layoutY="72.0" prefHeight="17.0" prefWidth="86.0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
    </children>
 </Pane>
