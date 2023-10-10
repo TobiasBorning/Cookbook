@@ -11,11 +11,25 @@ In addition to this, users will be able to add and remove recipes from the cookb
 
 ![Bildebeskrivelse](/assets/IllustrationOfApp.jpeg)
 
+## _User stories_
 
-## _User story_
+**User story 1**
 
-A student is finishing up her day at school, and is ready to go home. She is very tired, and can't be bothered to think of what to make for dinner. She opens the cookbook app, and scrolls until she finds something she likes. She decides to go for Spaghetti carbonara. She stops by the grocery store on her way home from  school, and buys the ingredients she needs. Finally, she prepares dinner following the instructions that belongs to the recipe.
+***Scrolling and description***
 
+A student is finishing up her day at school, and is ready to go home. She is very tired, and can't be bothered to think of what to make for dinner. She opens the cookbook app, and scrolls until she finds something she likes. She decides to go for Spaghetti carbonara. She stops by the grocery store on her way home from school, and buys the ingredients she needs. Finally, she prepares dinner following the instructions that belongs to the recipe.
+
+**User story 2**
+
+***Add new recipe and remove***
+
+Frank is a professional chef and owns his own restaurant. He wants to implement a new recipe from the cookbook to his menu. He tries out the recipe tikka masala, but has a better recipe himself. Therefore he wants to remove the old tikka masala recipe and replace it with a new and improved recipe. 
+
+**User story 3**
+
+**S*øking and filtrering***
+
+Bert wants to impress his husband Ernie. Ernie is a fan of the italian cuisine. He filters the recipes in the cookbook app to view only italian recipes. He decides to make a pizza diavola. For dessert he wants to make a chocolate cake. He uses the search function to find the recipe.  
 
 ## _How to run the app_
 ---
@@ -42,7 +56,8 @@ The _ui module_ contains classes responsible for the user interface.
 The _persistence module_ is responsible for reading and writing the cookbook to a json file.  
 You can read more about the different modules below.
 
-PlantUML diagram of the project structure [here](../assets/diagram.puml)
+PlantUML diagram of the project structure [here](../assets/diagram.puml)  
+
 
 ## _Modules_
 ---
