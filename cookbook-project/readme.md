@@ -95,3 +95,7 @@ We have also ensured that every merge request is reviewed by a secondary part. T
 
 **_Pair programming:_**  
 In this release, we have been pair programming. We've found that by working closely together, we have not only enhanced our collective knowledge and skills, but also gained good insight into every part of the applications functionality.
+
+
+## Code quality
+We have installed the SpotBugs and Checkstyle plugins to help us notice inconsistensies in our code. We have also written JavaDoc comments for methods in the core module. We have created test for all the modules. We have also used the Jacoco plugin to check the test coverage of our code. We also try to write comments in our code to make it easier to understand.
