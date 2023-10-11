@@ -16,6 +16,8 @@ import javafx.scene.control.ScrollPane; //newly added
 import javafx.stage.Stage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,20 +61,30 @@ public class CookbookAppTest extends ApplicationTest {
         System.out.println(getCookbookSize());
         System.out.println(getRecipeNames());
     }
+    
+    @Test
+    public void testRemove(){
+        clickOn("#removeTaco");
+    }
 
     @Test
     public void testSearch(){
         searchRecipeFXRobot("Pasta Carbonara");
+        assertTrue(containsRecipe("Pasta Carbonara"));
         assertEquals(1, getCookbookSize());
         //assertEquals(List.of("Pasta Carbonara"), getRecipeNames());
-
-        searchRecipeFXRobot("unavaliable");
-        assertEquals(0, getCookbookSize());
-        //assertEquals(List.of(), getRecipeNames());
+        clearSearchInput();
 
         searchRecipeFXRobot("");
-        assertEquals(13, getCookbookSize());
+        assertEquals(15, getCookbookSize());
+
+        searchRecipeFXRobot("unavaliable");
+        assertFalse(containsRecipe("unavaliable"));
+        assertEquals(15, getCookbookSize());
+        //assertEquals(List.of(), getRecipeNames());
     }
+
+    
 
     private int getCookbookSize() {
         VBox list = (VBox) root.lookup("#recipeList");
@@ -99,81 +111,29 @@ public class CookbookAppTest extends ApplicationTest {
     }
 
 
+    // private String enterLabel = """
+    //     E
+    //     n
+    //     t
+    //     e
+    //     r
+    //     """.stripTrailing();
 
-
-
-
-
-
-
-
-
-    // public Parent getRootNode() {
-    //     return root;
-    // }
-
-    private String enterLabel = """
-        E
-        n
-        t
-        e
-        r
-        """.stripTrailing();
-
-    private void click(String... labels) {
-        for (var label : labels) {
-            clickOn(LabeledMatchers.hasText(label));
-        }
-    }
-
-    // private static Stream<String> searchTexts(){
-    //     return Stream.of(
-    //         "pasta",
-    //         "unavaliable", 
-    //         ""
-    //     );
-    // }
-
-    // private void clickButton(String id){
-    //     Node button = lookup(id).query();
-    //     clickOn(null, null, null);
-    //     if (button instanceof Button){
-    //         FxRobot fxRobot = new FxRobot();
-    //         fxRobot.clickOn(button, MouseButton.PRIMARY);
-    //     } else{
-    //         throw new IllegalArgumentException("Button not found");
+    // private void click(String... labels) {
+    //     for (var label : labels) {
+    //         clickOn(LabeledMatchers.hasText(label));
     //     }
     // }
 
-    //legger basert på individuell øving
 
     private String getSearchString() {
-        TextField search = (TextField) root.lookup("#searchField");
-        return search.getText();
+        TextField searchField = (TextField) root.lookup("#searchField");
+        return searchField.getText();
     }
 
-    // forsøk på tester:
-
-    // @ParameterizedTest
-    // @MethodSource("searchTexts")
-    // public void testSearch(String searchFieldText) {
-    //     Scene scene = getScene();
-    //     ScrollPane scrollPane = (ScrollPane) scene.lookup("recipeList");
-    //     int initialScrollPaneSize = ((VBox)scrollPane.getContent()).getChildren().size(); 
-        
-    //     if search field is empty, check that the scrollpane recipeList does not change contents
-    //     if something is written, all matching recipes search is displayed in scrollpane
-    //     if no matches, scrollpane does not change
-        
-    // }
-
-    
-    public void testSearching(){
-        Scene testScene = new Scene(new Group());
-        VBox vBox = (VBox)testScene.lookup("recipeList");
-
-        searchRecipeFXRobot("pasta"); //må bytte til VBOX
-        assertEquals(1, (vBox.getChildren().size()));
+    private void clearSearchInput(){
+        TextField searchField = (TextField) root.lookup("#searchField");
+        searchField.clear();
     }
 
     private void searchRecipeFXRobot(String name){

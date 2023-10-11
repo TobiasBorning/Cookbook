@@ -85,7 +85,7 @@ public class AppController {
       //overskrift med navn på recipe
       Label recipeName = new Label(recipe.getName());
       //satt label CSS id for testing
-      recipeName.setId(recipe.getName() + "recipe");
+      recipeName.setId(recipe.getName() + "Recipe"); //ex: #TacoRecipe
         Font font = Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 16);
         recipeName.setFont(font);
         recipeName.setLayoutX(10);
@@ -94,7 +94,7 @@ public class AppController {
       // Add remove button
       Button buttonRemove = new Button("Remove");
       //satt button CSS id for testing
-      recipeName.setId("remove"+recipe.getName());
+      recipeName.setId("remove"+recipe.getName()); //ex: #removeTaco
         buttonRemove.setLayoutX(pane.getMinWidth() - buttonRemove.getMinWidth()); // Adjust the x-coordinate as needed
         buttonRemove.setLayoutY(10); // Adjust the y-coordinate as needed
         buttonRemove.onActionProperty().set(e -> {
@@ -104,7 +104,7 @@ public class AppController {
       // Add view button
       Button buttonView = new Button("View");
       //satt button CSS id for testing
-      recipeName.setId("add"+recipe.getName());
+      recipeName.setId("view"+recipe.getName()); //ex: #viewTaco
       
       buttonView.setLayoutX(pane.getMinWidth() - buttonView.getMinWidth() - buttonRemove.getMinWidth() - 50); // Adjust the x-coordinate as needed
       buttonView.setLayoutY(10); // Adjust the y-coordinate as needed
@@ -227,7 +227,7 @@ public class AppController {
     cookbook.removeRecipe(recipe);
     // remove recipe from the cookbook.json file
     try {
-      ch.writeToFile(cookbook, "../cookbook.json");
+      ch.writeToFile(cookbook, "../persistence/cookbook.json");
       setFeedbackLabel("Removed recipe");
     } catch (FileNotFoundException e) {
       setFeedbackLabel("File not found");
