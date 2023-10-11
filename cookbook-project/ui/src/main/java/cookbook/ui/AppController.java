@@ -105,7 +105,7 @@ public class AppController {
       // Add remove button
       Button buttonRemove = new Button("Remove");
       //satt button CSS id for testing
-      recipeName.setId("remove"+recipe.getName()); //ex: #removeTaco
+      buttonRemove.setId("remove"+recipe.getName()); //ex: #removeTaco
         buttonRemove.setLayoutX(pane.getMinWidth() - buttonRemove.getMinWidth()); // Adjust the x-coordinate as needed
         buttonRemove.setLayoutY(10); // Adjust the y-coordinate as needed
         buttonRemove.onActionProperty().set(e -> {
@@ -115,7 +115,7 @@ public class AppController {
       // Add view button
       Button buttonView = new Button("View");
       //satt button CSS id for testing
-      recipeName.setId("view"+recipe.getName()); //ex: #viewTaco
+      buttonView.setId("view"+recipe.getName()); //ex: #viewTaco
       
       buttonView.setLayoutX(pane.getMinWidth() - buttonView.getMinWidth() - buttonRemove.getMinWidth() - 50); // Adjust the x-coordinate as needed
       buttonView.setLayoutY(10); // Adjust the y-coordinate as needed

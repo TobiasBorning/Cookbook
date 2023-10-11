@@ -62,17 +62,14 @@ public class CookbookAppTest extends ApplicationTest {
         System.out.println(getRecipeNames());
     }
     
-    @Test
-    public void testRemove(){
-        clickOn("#removeTaco");
-    }
+    
 
     @Test
     public void testSearch(){
         searchRecipeFXRobot("Pasta Carbonara");
         assertTrue(containsRecipe("Pasta Carbonara"));
         assertEquals(1, getCookbookSize());
-        //assertEquals(List.of("Pasta Carbonara"), getRecipeNames());
+        assertEquals(List.of("Pasta Carbonara"), getRecipeNames());
         clearSearchInput();
 
         searchRecipeFXRobot("");
@@ -84,8 +81,13 @@ public class CookbookAppTest extends ApplicationTest {
         //assertEquals(List.of(), getRecipeNames());
     }
 
-    
+    @Test
+    public void testRemove(){
+        clickOn("#removeTaco");
+        assertEquals(14, getCookbookSize());
+        assertFalse(containsRecipe("Taco"));
 
+    }
     private int getCookbookSize() {
         VBox list = (VBox) root.lookup("#recipeList");
         return list.getChildren().size();
@@ -101,6 +103,7 @@ public class CookbookAppTest extends ApplicationTest {
                     Label label = (Label) child;
                     utlist.add(label.getText());
                 }
+                System.out.println(child.getId());
             }
         }
         return utlist;
@@ -109,21 +112,6 @@ public class CookbookAppTest extends ApplicationTest {
     private boolean containsRecipe(String recipe) {
         return getRecipeNames().stream().map(s -> s.toLowerCase()).toList().contains(recipe.toLowerCase());
     }
-
-
-    // private String enterLabel = """
-    //     E
-    //     n
-    //     t
-    //     e
-    //     r
-    //     """.stripTrailing();
-
-    // private void click(String... labels) {
-    //     for (var label : labels) {
-    //         clickOn(LabeledMatchers.hasText(label));
-    //     }
-    // }
 
 
     private String getSearchString() {
