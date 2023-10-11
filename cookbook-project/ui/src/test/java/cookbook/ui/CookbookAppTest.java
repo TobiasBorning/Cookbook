@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.ScrollPane; //newly added
 import javafx.stage.Stage;
@@ -17,10 +18,12 @@ import javafx.stage.Stage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -41,17 +44,69 @@ public class CookbookAppTest extends ApplicationTest {
     private Scene scene;
 
 
-    @Override
+    
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("CookbookApp.fxml"));
-        final Parent parent = fxmlLoader.load(); //endrer fra root til final Parent parent
+        this.root = fxmlLoader.load(); //endrer fra root til final Parent parent
         controller = fxmlLoader.getController();
-        stage.setScene(new Scene(parent)); // bytter ut root med parent
+        stage.setScene(new Scene(root)); // bytter ut root med parent
         stage.show();
-        //System.out.println("Startet test");
-        VBox search = (VBox) root.lookup("#recipeList");
-        //System.out.println(search.getChildren().size());
     }
+
+
+    @Test
+    public void test() {
+        System.out.println(getCookbookSize());
+        System.out.println(getRecipeNames());
+    }
+
+    @Test
+    public void testSearch(){
+        searchRecipeFXRobot("Pasta Carbonara");
+        assertEquals(1, getCookbookSize());
+        //assertEquals(List.of("Pasta Carbonara"), getRecipeNames());
+
+        searchRecipeFXRobot("unavaliable");
+        assertEquals(0, getCookbookSize());
+        //assertEquals(List.of(), getRecipeNames());
+
+        searchRecipeFXRobot("");
+        assertEquals(13, getCookbookSize());
+    }
+
+    private int getCookbookSize() {
+        VBox list = (VBox) root.lookup("#recipeList");
+        return list.getChildren().size();
+    }
+
+    private List<String> getRecipeNames() {
+        List<String> utlist = new ArrayList<>();
+        VBox list = (VBox) root.lookup("#recipeList");
+        for (Node node : list.getChildren()) {
+            Pane pane = (Pane) node;
+            for (Node child : pane.getChildren()) {
+                if (child instanceof Label) {
+                    Label label = (Label) child;
+                    utlist.add(label.getText());
+                }
+            }
+        }
+        return utlist;
+    }
+
+    private boolean containsRecipe(String recipe) {
+        return getRecipeNames().stream().map(s -> s.toLowerCase()).toList().contains(recipe.toLowerCase());
+    }
+
+
+
+
+
+
+
+
+
+
 
     // public Parent getRootNode() {
     //     return root;
@@ -112,7 +167,7 @@ public class CookbookAppTest extends ApplicationTest {
         
     // }
 
-    @Test
+    
     public void testSearching(){
         Scene testScene = new Scene(new Group());
         VBox vBox = (VBox)testScene.lookup("recipeList");
