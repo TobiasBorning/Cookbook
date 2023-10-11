@@ -72,6 +72,17 @@ public class AppController {
     fillCookbook(cookbook.getRecipes());
   }
 
+  public void fillDefaultCookbook() {
+    Cookbook cookbook = new Cookbook();
+    CookbookHandler ch = new CookbookHandler();
+    try {
+      cookbook = ch.readFromFile("../persistence/default-cookbook.json");
+    } catch (FileNotFoundException e) { 
+      feedbackLabel.setText("File not found");
+    }
+    fillCookbook(cookbook.getRecipes());
+  }
+
   private void fillCookbook(Collection<Recipe> cookbooklist) {
     recipeList.getChildren().clear();
     for(Recipe recipe : cookbooklist) {
