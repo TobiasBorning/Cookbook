@@ -22,7 +22,7 @@ public class CookbookApp extends Application {
         stage.setScene(primaryStage);
         stage.show();
     }
-    
+
     public static void main(String[] args) {
         launch();
     }

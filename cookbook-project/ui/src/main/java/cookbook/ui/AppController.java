@@ -35,7 +35,6 @@ public class AppController {
 
   private Stage stage;
   private Scene scene;
-
   private Recipe sendRecipe;
   private Cookbook cookbook = new Cookbook();
 
@@ -53,28 +52,24 @@ public class AppController {
   private Button applyFilterButton;
   @FXML
   private Button allRecipesButton;
-  
-
 
   public void initialize() {
-    System.out.println("Initialize!");
-
     // read cookbook from file
     CookbookHandler ch = new CookbookHandler();
     try {
       cookbook = ch.readFromFile("../persistence/cookbook.json");
-    } catch (FileNotFoundException e) { 
+    } catch (FileNotFoundException e) {
       feedbackLabel.setText("File not found");
     }
     // set Vbox height to fit all recipes
-    recipeList.setMinHeight(cookbook.getRecipes().size()*130);
+    recipeList.setMinHeight(cookbook.getRecipes().size() * 130);
     // fill cookbook with all recipes
     fillCookbook(cookbook.getRecipes());
   }
 
   private void fillCookbook(Collection<Recipe> cookbooklist) {
     recipeList.getChildren().clear();
-    for(Recipe recipe : cookbooklist) {
+    for (Recipe recipe : cookbooklist) {
       //lager pane til å vise oppskrift
       Pane pane = new Pane();
           pane.setMinWidth(330);
@@ -96,7 +91,7 @@ public class AppController {
       buttonRemove.onActionProperty().set(e -> {
         removeRecipe(recipe);
       });
-      
+    
       // Add view button
       Button buttonView = new Button("View");
       buttonView.setLayoutX(pane.getMinWidth() - buttonView.getMinWidth() - buttonRemove.getMinWidth() - 50); // Adjust the x-coordinate as needed
@@ -111,7 +106,7 @@ public class AppController {
           System.err.println(ex);
         }
       });
-      
+    
       pane.getChildren().addAll(recipeName, buttonView, buttonRemove);
       recipeList.getChildren().add(pane);
     }
@@ -127,15 +122,13 @@ public class AppController {
       // if search is empty, fill cookbook with all recipes
       fillCookbook(cookbook.getRecipes());
       feedbackLabel.setText("");
-    }
-    else {
+    } else {
       // if search is not empty, fill cookbook with matching recipes
       Collection<Recipe> searched = cookbook.filterRecipies(recipe -> recipe.getName().toLowerCase().contains(search.toLowerCase()));
       if (searched.isEmpty()) {
         // if no recipes match search, give feedback
         feedbackLabel.setText("No recipes matching search");
-      }
-      else {
+      } else {
         // if recipes match search, make feedback empty and fill cookbook
         fillCookbook(searched);
         feedbackLabel.setText("");
@@ -170,12 +163,12 @@ public class AppController {
 
   public void filterByOrigin() {
     //get value from dropdown
-    String filterValue = (String)filterOrigin.getValue();
+    String filterValue = (String) filterOrigin.getValue();
+
     //fill cookbook with filtered recipes
     if (filterValue.equals("All origins")) {
       fillCookbook(cookbook.getRecipes());
-    }
-    else{
+    } else {
       Collection<Recipe> searched = cookbook.filterRecipies(recipe -> recipe.getOriginCountry().equals(filterValue));
       fillCookbook(searched);
     }
@@ -183,12 +176,12 @@ public class AppController {
   }
 
   //Switches from main scene to AddRecipe scene
-  public void switchToAddRecipe(ActionEvent event) throws IOException {
+  public void switchToAddRecipe(final ActionEvent event) throws IOException {
     // load AddRecipe
     FXMLLoader loader = new FXMLLoader(getClass().getResource("AddRecipe.fxml"));
     Parent root = loader.load();
     // update scene
-    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
     stage.show();
@@ -208,9 +201,7 @@ public class AppController {
     // send recipe to RecipeViewController
     RecipeViewController viewController = loader.getController();
     viewController.loadRecipe(sendRecipe);
-  }
-
-  
+  }  
 
   // remove recipe from cookbook
   public void removeRecipe(Recipe recipe) {
@@ -229,7 +220,7 @@ public class AppController {
     fillCookbook(cookbook.getRecipes());
   }
 
-  public void setFeedbackLabel(String feedback){
+  public void setFeedbackLabel(String feedback) {
     feedbackLabel.setText(feedback);
   }
 }
