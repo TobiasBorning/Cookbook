@@ -241,6 +241,10 @@ public class AppController {
   public void setFeedbackLabel(String feedback) {
     feedbackLabel.setText(feedback);
   }
+
+  public int getCookbookSize() {
+    return cookbook.getRecipes().size();
+  }
 }
 
 

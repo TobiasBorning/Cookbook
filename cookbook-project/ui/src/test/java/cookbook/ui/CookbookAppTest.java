@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -44,6 +45,7 @@ public class CookbookAppTest extends ApplicationTest {
     private AppController controller;
     private Parent root;
     private Scene scene;
+    private int loadedCookbookSize = 0;
 
     // @Before
     // public void setUp(){
@@ -54,88 +56,106 @@ public class CookbookAppTest extends ApplicationTest {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("CookbookApp.fxml"));
         this.root = fxmlLoader.load(); //endrer fra root til final Parent parent
         controller = fxmlLoader.getController();
-        controller.fillDefaultCookbook();
         this.scene = new Scene(root);
         stage.setScene(this.scene); // bytter ut root med parent
         stage.show();
     }
 
-    @Test
-    public void test() {
-        //controller.fillDefaultCookbook();
-        System.out.println(getCookbookSize());
-        System.out.println(getRecipeNames());
-    }
-    
-    
+    @BeforeEach
+    public void setLoadedCookbookSize() {
+        if (this.loadedCookbookSize == 0) {
+            this.loadedCookbookSize = controller.getCookbookSize();
+        }
+    }    
 
     @Test
     public void testSearch(){
         // controller.fillDefaultCookbook();
-        searchRecipeFXRobot("Pasta Carbonara");
+        searchRecipe("Pasta Carbonara");
         assertTrue(containsRecipe("Pasta Carbonara"));
         assertEquals(1, getCookbookSize());
         assertEquals(List.of("Pasta Carbonara"), getRecipeNames());
-        clearSearchInput();
+    
+        searchRecipe("");
+        sleep(1000);
+        assertEquals(loadedCookbookSize, getCookbookSize());
 
-        searchRecipeFXRobot("");
-        assertEquals(15, getCookbookSize());
-
-        searchRecipeFXRobot("unavaliable");
+        searchRecipe("unavaliable");
         assertFalse(containsRecipe("unavaliable"));
-        assertEquals(15, getCookbookSize());
+        assertEquals(loadedCookbookSize, getCookbookSize());
         //assertEquals(List.of(), getRecipeNames());
     }
 
     @Test
     public void testViewClick() {
+        //make sure pizza is viewable
+        searchRecipe("Pizza");
+        //click on view button
         clickOn("#viewPizza");
-        sleep(1000);
+
+        //check that the view pane is loaded
         Node viewNode = lookup("#recipeViewPane").query();
         assertTrue(viewNode.getId().equals("recipeViewPane"));
+
+        //check that title is correct
+        Label title = lookup("#recipeName").query();
+        assertEquals("Pizza", title.getText());
+
+        //navigate back to all recipes
         clickOn("#allRecipesButton"); 
     }
 
     @Test
-    public void addRecipeTest() {
+    public void addAndRemoveRecipeTest() {
+        // navigate to add recipe scene
         clickOn("#addRecipeButton");
         sleep(1000);
+
+        //Check that the add recipe pane is loaded
         Node addNode = lookup("#addRecipePane").query();
         assertTrue(addNode.getId().equals("addRecipePane"));
-        // TextField addRecipeName = lookup("#addRecipeName").query();
-        // TextField addRecipeOrigin = lookup("#addRecipeOrigin").query();
-        // TextField addRecipeDescription = lookup("#addRecipeDescription").query();
-        // TextField ingredientName;
-        // TextField ingredientAmount;
+
+        //Add water recipe
         clickOn("#addRecipeName").write("Water");
+        //add ingredient 1
         clickOn("#addIngredientButton");
-        sleep(1000);
         clickOn("#ingredientName1").write("water");
-        sleep(1000);
         clickOn("#ingredientAmount1").write("1l");
-        sleep(1000);
+        // add description and origin
+        clickOn("#addRecipeDescription").write("Water is good ad super healty");
+        clickOn("#addRecipeOrigin").write("Norway");
+        //add ingredient 2
+        clickOn("#addIngredientButton");
+        clickOn("#ingredientName2").write("salt");
+        clickOn("#ingredientAmount2").write("10g");
+        // add recipe to cookbook
+        clickOn("#addRecipeButton");
+        
+        //Check that the recipe is added
+        viewAllRecipes();
         assertTrue(containsRecipe("Water"));
-    }
 
-    //@Test
-    public void testRemove(){
-        System.out.println("Før: " + getCookbookSize());
+        //Remove the recipe, needs search to view the button without scrolling
+        searchRecipe("Water");
         clickOn("#removeWater");
-        sleep(1000);
-        System.out.println("etter: " + getCookbookSize());
-        assertEquals(14, getCookbookSize());
+
+        //Check that the recipe is removed
+        viewAllRecipes();
+        assertEquals(loadedCookbookSize, getCookbookSize());
         assertFalse(containsRecipe("Water"));
-        //controller.fillDefaultCookbook();
+        
     }
 
+    // returns items viewable in the VBox
     private int getCookbookSize() {
-        VBox list = (VBox) root.lookup("#recipeList");
+        VBox list = (VBox) lookup("#recipeList").query();
         return list.getChildren().size();
     }
 
+    // returns a list of the names of the recipes viewable in the VBox
     private List<String> getRecipeNames() {
         List<String> utlist = new ArrayList<>();
-        VBox list = (VBox) root.lookup("#recipeList");
+        VBox list = (VBox) lookup("#recipeList").query();
         for (Node node : list.getChildren()) {
             Pane pane = (Pane) node;
             for (Node child : pane.getChildren()) {
@@ -143,35 +163,27 @@ public class CookbookAppTest extends ApplicationTest {
                     Label label = (Label) child;
                     utlist.add(label.getText());
                 }
-                //System.out.println(child.getId());
             }
         }
         return utlist;
     }
 
+    // returns true if the recipe is viewable in the VBox
     private boolean containsRecipe(String recipe) {
-        return getRecipeNames().stream().map(s -> s.toLowerCase()).toList().contains(recipe.toLowerCase());
+        return getRecipeNames().contains(recipe);
     }
 
-
-    private String getSearchString() {
-        TextField searchField = (TextField) root.lookup("#searchField");
-        return searchField.getText();
-    }
-
-    private void clearSearchInput(){
-        TextField searchField = (TextField) root.lookup("#searchField");
-        searchField.clear();
-    }
-
-    private void searchRecipeFXRobot(String name){
+    // searches for the recipe with the given name
+    private void searchRecipe(String name){
+        TextField tf = lookup("#searchField").query();
+        tf.clear();
         clickOn("#searchField").write(name);
         clickOn("#searchButton");
     }
-
-    private void removeRecipeFXRobot(){
-        //hvordan nå removeknappen på en spesifikk oppskrift?
+    
+    // views all recipes in the VBox
+    private void viewAllRecipes() {
+        searchRecipe("");
     }
-//scrollpane har children, kan feks streame for å sjekke om det matcher search
 
 }
