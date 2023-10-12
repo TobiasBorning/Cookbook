@@ -57,7 +57,9 @@ public class CookbookHandler {
         throw new FileNotFoundException("File not found");
     }
   }
-    
+
+  /*  Used only to generate the cookbook.json file with many recipes
+
   public static void makeRecipes() {
 
     Cookbook cookbook = new Cookbook();
@@ -212,5 +214,6 @@ public class CookbookHandler {
   public static void main(String[] args) {
     makeRecipes();
   }
+  */
      
 }
