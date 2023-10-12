@@ -55,7 +55,8 @@ public class CookbookAppTest extends ApplicationTest {
         this.root = fxmlLoader.load(); //endrer fra root til final Parent parent
         controller = fxmlLoader.getController();
         controller.fillDefaultCookbook();
-        stage.setScene(new Scene(root)); // bytter ut root med parent
+        this.scene = new Scene(root);
+        stage.setScene(this.scene); // bytter ut root med parent
         stage.show();
     }
 
@@ -86,24 +87,46 @@ public class CookbookAppTest extends ApplicationTest {
         //assertEquals(List.of(), getRecipeNames());
     }
 
-    // @Test
-    // public void testViewClick(FxRobot robot) {
-    //     robot.clickOn("#viewPizza");
-    //     sleep(1000);
-    //     Parent viewRoot = robot.lookup("#recipeViewRoot").query();
-    //     assertEquals("#recipeViewRoot", viewRoot.getId());
-    // }
+    @Test
+    public void testViewClick() {
+        clickOn("#viewPizza");
+        sleep(1000);
+        Node viewNode = lookup("#recipeViewPane").query();
+        assertTrue(viewNode.getId().equals("recipeViewPane"));
+        clickOn("#allRecipesButton"); 
+    }
 
-    // @Test
-    // public void testRemove(){
-    //     System.out.println("Før: " + getCookbookSize());
-    //     clickOn("#removePizza");
-    //     sleep(1000);
-    //     System.out.println("etter: " + getCookbookSize());
-    //     assertEquals(14, getCookbookSize());
-    //     assertFalse(containsRecipe("Pizza"));
-    //     //controller.fillDefaultCookbook();
-    // }
+    //@Test
+    public void testRemove(){
+        System.out.println("Før: " + getCookbookSize());
+        clickOn("#removePizza");
+        sleep(1000);
+        System.out.println("etter: " + getCookbookSize());
+        assertEquals(14, getCookbookSize());
+        assertFalse(containsRecipe("Pizza"));
+        //controller.fillDefaultCookbook();
+    }
+
+    @Test
+    public void addRecipeTest() {
+        clickOn("#addRecipeButton");
+        sleep(1000);
+        Node addNode = lookup("#addRecipePane").query();
+        assertTrue(addNode.getId().equals("addRecipePane"));
+        // TextField addRecipeName = lookup("#addRecipeName").query();
+        // TextField addRecipeOrigin = lookup("#addRecipeOrigin").query();
+        // TextField addRecipeDescription = lookup("#addRecipeDescription").query();
+        // TextField ingredientName;
+        // TextField ingredientAmount;
+        clickOn("#addRecipeName").write("Pasta Carbonara");
+        clickOn("#addIngredientButton");
+        sleep(1000);
+        clickOn("#ingredientName1").write("cheese");
+        sleep(1000);
+        clickOn("#ingredientAmount1").write("300g");
+        sleep(1000);
+        
+    }
 
     private int getCookbookSize() {
         VBox list = (VBox) root.lookup("#recipeList");

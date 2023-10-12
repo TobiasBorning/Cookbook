@@ -9,23 +9,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cookbook.ui.AddRecipeController">
+<Pane id="addRecipePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cookbook.ui.AddRecipeController">
    <children>
       <Label fx:id="title" layoutX="232.0" layoutY="31.0" text="Add Recipe">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <TextField fx:id="recipeName" layoutX="367.0" layoutY="82.0" promptText="Recipe name" />
-      <TextArea fx:id="recipeDescription" layoutX="347.0" layoutY="159.0" prefHeight="181.0" prefWidth="200.0" promptText="Description" />
+      <TextField id="addRecipeName" fx:id="recipeName" layoutX="367.0" layoutY="82.0" promptText="Recipe name" />
+      <TextArea id="addRecipeDescription" fx:id="recipeDescription" layoutX="347.0" layoutY="159.0" prefHeight="181.0" prefWidth="200.0" promptText="Description" />
       <Button fx:id="addButton" layoutX="380.0" layoutY="352.0" mnemonicParsing="false" onAction="#addToCookbook" prefHeight="34.0" prefWidth="135.0" text="Add to cookbook" />
       <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="41.0" layoutY="76.0" prefHeight="287.0" prefWidth="269.0">
          <content>
-            <VBox fx:id="ingredientsContainer" prefHeight="287.0" prefWidth="267.0" />
+            <VBox id="ingredientVbox" fx:id="ingredientsContainer" prefHeight="287.0" prefWidth="267.0" />
          </content>
       </ScrollPane>
-      <Button fx:id="addIngredientButton" layoutX="113.0" layoutY="363.0" mnemonicParsing="false" onAction="#addIngredient" text="Add ingredient" />
-      <TextField fx:id="origin" layoutX="367.0" layoutY="117.0" promptText="Origin" />
-      <Button fx:id="back" layoutX="14.0" layoutY="19.0" mnemonicParsing="false" onAction="#switchToMainScene" text="Back" />
+      <Button id="addIngredientButton" fx:id="addIngredientButton" layoutX="113.0" layoutY="363.0" mnemonicParsing="false" onAction="#addIngredient" text="Add ingredient" />
+      <TextField id="addRecipeOrigin" fx:id="origin" layoutX="367.0" layoutY="117.0" promptText="Origin" />
+      <Button id="backFromAddRecipeButton" fx:id="back" layoutX="14.0" layoutY="19.0" mnemonicParsing="false" onAction="#switchToMainScene" text="Back" />
    </children>
 </Pane>
