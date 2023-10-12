@@ -1,18 +1,15 @@
 package cookbook.ui;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
+
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.ScrollPane; //newly added
 import javafx.stage.Stage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,20 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.testfx.framework.junit5.ApplicationTest;
-import org.testfx.matcher.control.LabeledMatchers;
-import org.testfx.api.FxRobot; //newly added
-
-import cookbook.ui.AppController;
 
 /**
  * TestFX App test
@@ -46,11 +33,6 @@ public class CookbookAppTest extends ApplicationTest {
     private Parent root;
     private Scene scene;
     private int loadedCookbookSize = 0;
-
-    // @Before
-    // public void setUp(){
-    //     controller.fillDefaultCookbook();
-    // }
     
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("CookbookApp.fxml"));
@@ -83,26 +65,47 @@ public class CookbookAppTest extends ApplicationTest {
         searchRecipe("unavaliable");
         assertFalse(containsRecipe("unavaliable"));
         assertEquals(loadedCookbookSize, getCookbookSize());
-        //assertEquals(List.of(), getRecipeNames());
+        String feedbackLabelText = ((Labeled)lookup("#feedbackLabel").query()).getText();
+        assertEquals("No recipes matching search", feedbackLabelText);
     }
 
     @Test
     public void testViewClick() {
-        //make sure pizza is viewable
-        searchRecipe("Pizza");
+        //make sure nachos is viewable
+        searchRecipe("nachos");
         //click on view button
-        clickOn("#viewPizza");
+        clickOn("#viewnachos");
 
         //check that the view pane is loaded
         Node viewNode = lookup("#recipeViewPane").query();
         assertTrue(viewNode.getId().equals("recipeViewPane"));
 
+        String originString = ((Labeled)lookup("#origin").query()).getText();
+        String descriptionString = ((Labeled)lookup("#description").query()).getText();
+        String ingredientsString = ((Labeled)lookup("#ingredients").query()).getText();
+        assertEquals("mexico", originString);
+        assertEquals("yummy", descriptionString);
+        assertEquals('\n'+"ost:  100g"+'\n'+"chips:  192"+'\n', ingredientsString);
+        
+
         //check that title is correct
         Label title = lookup("#recipeName").query();
-        assertEquals("Pizza", title.getText());
+        assertEquals("nachos", title.getText());
 
         //navigate back to all recipes
-        clickOn("#allRecipesButton"); 
+        clickOn("#allRecipesButton");
+        lookup("#cookbookAppPane");
+        assertFalse(lookup("#cookbookAppPane")==null);
+    }
+
+    @Test
+    public void filterOriginTest(){
+        clickOn("#filter");
+        sleep(500);
+        clickOn("America");
+        clickOn("#filterByOrigin");
+        assertEquals(2, getCookbookSize());
+        assertEquals(List.of("Veggie Wrap", "Oatmeal"), getRecipeNames());
     }
 
     @Test
@@ -138,6 +141,8 @@ public class CookbookAppTest extends ApplicationTest {
         //Remove the recipe, needs search to view the button without scrolling
         searchRecipe("Water");
         clickOn("#removeWater");
+        String feedbackLabelText = ((Labeled)lookup("#feedbackLabel").query()).getText();
+        assertEquals("Removed recipe", feedbackLabelText);
 
         //Check that the recipe is removed
         viewAllRecipes();
