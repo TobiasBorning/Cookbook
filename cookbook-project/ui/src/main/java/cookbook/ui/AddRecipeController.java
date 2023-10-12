@@ -37,21 +37,29 @@ public class AddRecipeController {
   @FXML
   private TextField origin;
 
+  private int ingredientCount = 0;
+
   public void addIngredient(final ActionEvent e) {
+    //Tracks which textfields should be targeted.
+    ingredientCount++;
 
     Pane pane = new Pane();
-        pane.setMinWidth(330);
-        pane.setMaxWidth(400);
-        pane.setMinHeight(40);
-        pane.setStyle("-fx-padding: 10 10 10 10; -fx-border-width: 0px 0px 3px 0px; -fx-border-color: #000000;");
+    pane.setMinWidth(330);
+    pane.setMaxWidth(400);
+    pane.setMinHeight(40);
+    pane.setStyle("-fx-padding: 10 10 10 10; -fx-border-width: 0px 0px 3px 0px; -fx-border-color: #000000;");
 
     TextField amount = new TextField();
+    amount.setId("ingredientAmount" + ingredientCount);
+    System.out.println(amount.getId());
     amount.setPromptText("amount");
     amount.setMaxWidth(100);
     amount.setLayoutX(130); // Adjust the x-coordinate as needed
     amount.setLayoutY(10); // Adjust the y-coordinate as needed
 
     TextField ingredientName = new TextField();
+    ingredientName.setId("ingredientName" +  ingredientCount);
+    System.out.println(ingredientName.getId());
     ingredientName.setPromptText("ingredientname");
     ingredientName.setMaxWidth(100);
     ingredientName.setLayoutX(10); // Adjust the x-coordinate as needed
