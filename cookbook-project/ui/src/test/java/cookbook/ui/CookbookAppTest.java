@@ -96,17 +96,6 @@ public class CookbookAppTest extends ApplicationTest {
         clickOn("#allRecipesButton"); 
     }
 
-    //@Test
-    public void testRemove(){
-        System.out.println("Før: " + getCookbookSize());
-        clickOn("#removePizza");
-        sleep(1000);
-        System.out.println("etter: " + getCookbookSize());
-        assertEquals(14, getCookbookSize());
-        assertFalse(containsRecipe("Pizza"));
-        //controller.fillDefaultCookbook();
-    }
-
     @Test
     public void addRecipeTest() {
         clickOn("#addRecipeButton");
@@ -118,14 +107,25 @@ public class CookbookAppTest extends ApplicationTest {
         // TextField addRecipeDescription = lookup("#addRecipeDescription").query();
         // TextField ingredientName;
         // TextField ingredientAmount;
-        clickOn("#addRecipeName").write("Pasta Carbonara");
+        clickOn("#addRecipeName").write("Water");
         clickOn("#addIngredientButton");
         sleep(1000);
-        clickOn("#ingredientName1").write("cheese");
+        clickOn("#ingredientName1").write("water");
         sleep(1000);
-        clickOn("#ingredientAmount1").write("300g");
+        clickOn("#ingredientAmount1").write("1l");
         sleep(1000);
-        
+        assertTrue(containsRecipe("Water"));
+    }
+
+    //@Test
+    public void testRemove(){
+        System.out.println("Før: " + getCookbookSize());
+        clickOn("#removeWater");
+        sleep(1000);
+        System.out.println("etter: " + getCookbookSize());
+        assertEquals(14, getCookbookSize());
+        assertFalse(containsRecipe("Water"));
+        //controller.fillDefaultCookbook();
     }
 
     private int getCookbookSize() {
