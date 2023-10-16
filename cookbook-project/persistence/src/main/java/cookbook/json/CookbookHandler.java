@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
 
@@ -21,7 +23,7 @@ public class CookbookHandler {
   */
   public void writeToFile(Cookbook cookbook, String path) throws FileNotFoundException {
     // making gson object
-    Gson gson = new Gson();
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
     // converting 
     String json = gson.toJson(cookbook);
     String filePath = path;
