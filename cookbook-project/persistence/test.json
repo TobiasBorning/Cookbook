@@ -1,1 +1,15 @@
-{"recipes":[{"name":"Pizza","ingredients":{"pizzaDough":"300.0","mushrooms":"50.0","onions":"30.0","tomatoSauce":"150.0","pepperoni":"100.0","cheese":"200.0"}}]}
+{
+  "recipes": [
+    {
+      "name": "Pizza",
+      "ingredients": {
+        "pizzaDough": "300.0",
+        "mushrooms": "50.0",
+        "onions": "30.0",
+        "tomatoSauce": "150.0",
+        "pepperoni": "100.0",
+        "cheese": "200.0"
+      }
+    }
+  ]
+}
