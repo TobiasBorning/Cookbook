@@ -125,6 +125,7 @@
         <module>core</module>
         <module>persistence</module>
         <module>ui</module>
+        <module>springboot</module>
     </modules>
     
 </project>
