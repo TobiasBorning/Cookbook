@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import cookbook.core.Cookbook;
+import cookbook.core.Recipe;
 
 
 
@@ -47,4 +48,28 @@ public class CookbookService {
         writeCookbook(cookbook);
     }
 
+    public void addRecipe(String recipeJson, Cookbook cookbook) {
+        Recipe recipe = gson.fromJson(recipeJson, Recipe.class);
+        cookbook.addRecipe(recipe);
+        updateCookbook(cookbook);
+    }
+
+    public Recipe getRecipe(String name, Cookbook cookbook) {
+        for (Recipe recipe : cookbook.getRecipes()) {
+            if (recipe.getName().contains(name)) {
+                return recipe;
+            }
+        }
+        return null;
+    }
+
+    public void deleteRecipe(String recipeName, Cookbook cookbook) {
+        System.out.println("Running deleteRecipe in CookbookService");
+        for (Recipe recipe : cookbook.getRecipes()) {
+            if (recipe.getName().equals(recipeName)) {
+                cookbook.removeRecipe(recipe);
+            }
+        }
+        updateCookbook(cookbook);
+    }
 }

@@ -14,18 +14,6 @@
       "description": "Add the beef to a large skillet over medium-high heat. Break the meat apart with a wooden spoon. Add the chili powder, cumin, salt, oregano, garlic powder, and pepper to the meat. Stir well. Cook until the meat is cooked through, about 6-8 minutes, stirring occasionally.\nReduce the heat to medium. Add the tomato sauce and water. Stir to combine. Cook, stirring occasionally, for 7-8 minutes, until some of the liquid evaporates but the meat mixture is still a little saucy. Remove from the heat.\nWarm the taco shells according to their package directions.\nFill the taco shells with 2 heaping tablespoons of taco meat. Top with desired taco toppings: shredded cheese, shredded lettuce, chopped tomatoes, diced red onion, taco sauce, sour cream, guacamole, etc."
     },
     {
-      "name": "Pizza",
-      "ingredients": {
-        "pizzaDough": "300.0",
-        "mushrooms": "50.0",
-        "onions": "30.0",
-        "tomatoSauce": "150.0",
-        "pepperoni": "100.0",
-        "cheese": "200.0"
-      },
-      "originCountry": "Italy"
-    },
-    {
       "name": "Pasta Carbonara",
       "ingredients": {
         "parmesanCheese": "30.0",
@@ -34,18 +22,6 @@
         "egg": "2.0",
         "heavyCream": "150.0",
         "cheese": "50.0"
-      },
-      "originCountry": "Italy"
-    },
-    {
-      "name": "Spaghetti Bolognese",
-      "ingredients": {
-        "garlic": "10.0",
-        "spaghetti": "200.0",
-        "onions": "30.0",
-        "tomatoSauce": "150.0",
-        "oregano": "5.0",
-        "groundBeef": "250.0"
       },
       "originCountry": "Italy"
     },
@@ -137,14 +113,6 @@
       "originCountry": "America"
     },
     {
-      "name": "tapas",
-      "ingredients": {
-        "ost": "100 g"
-      },
-      "originCountry": "spania",
-      "description": "mmm nam tapas digg"
-    },
-    {
       "name": "nachos",
       "ingredients": {
         "ost": "100g",
@@ -152,6 +120,16 @@
       },
       "originCountry": "mexico",
       "description": "yummy"
+    },
+    {
+      "name": "Pancakes",
+      "ingredients": {
+        "egg": "2",
+        "flour": "1 cup",
+        "milk": "1 cup"
+      },
+      "originCountry": "Norway",
+      "description": "Mix ingredients. Cook on griddle."
     }
   ]
 }

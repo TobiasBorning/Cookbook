@@ -3,8 +3,10 @@ package cookbook.springboot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,14 +39,21 @@ public class CookbookController {
         cookbookService.updateCookbook(updatedCookbook);
     }
 
-    @GetMapping("cookbook/recipe/{name}")
-    public Recipe getRecipe(@PathVariable String name) {
-        for (Recipe recipe : cookbookService.readCookbook().getRecipes()) {
-            if (recipe.getName().equals(name)) {
-                return recipe;
-            }
-        }
-        return null;
+    @GetMapping("/cookbook/recipe/{name}")
+    public Recipe getRecipe(@PathVariable("name") String name) {
+        return cookbookService.getRecipe(name, cookbookService.readCookbook());
+    }
+
+    @PostMapping("/cookbook")
+    public ResponseEntity<String> addRecipe(@RequestBody String recipeJson) {
+        cookbookService.addRecipe(recipeJson, cookbookService.readCookbook());
+        return new ResponseEntity<String>(recipeJson, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/cookbook/recipe/{name}")
+    public void deleteRecipe(@PathVariable("name") String name) {
+        System.out.println("Running delteRecipe in CookbookController");
+        cookbookService.deleteRecipe(name, cookbookService.readCookbook());
     }
 
 }

@@ -3,7 +3,7 @@ module springboot {
     requires core;
     requires persistence;
     
-    
+    requires java.net.http;
     requires spring.web;
     requires spring.beans;
     requires spring.boot;
