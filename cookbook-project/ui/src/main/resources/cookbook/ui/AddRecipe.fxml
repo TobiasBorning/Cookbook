@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane id="addRecipePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cookbook.ui.AddRecipeController">
+<Pane id="addRecipePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cookbook.ui.AddRecipeController">
    <children>
       <Label fx:id="title" layoutX="232.0" layoutY="31.0" text="Add Recipe">
          <font>
@@ -17,7 +17,7 @@
          </font>
       </Label>
       <TextField id="addRecipeName" fx:id="recipeName" layoutX="367.0" layoutY="82.0" promptText="Recipe name" />
-      <TextArea id="addRecipeDescription" fx:id="recipeDescription" layoutX="347.0" layoutY="159.0" prefHeight="181.0" prefWidth="200.0" promptText="Description" />
+      <TextArea id="addRecipeDescription" fx:id="recipeDescription" layoutX="347.0" layoutY="183.0" prefHeight="157.0" prefWidth="200.0" promptText="Description" />
       <Button id="addRecipeButton" fx:id="addRecipeButton" layoutX="380.0" layoutY="352.0" mnemonicParsing="false" onAction="#addToCookbook" prefHeight="34.0" prefWidth="135.0" text="Add to cookbook" />
       <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="41.0" layoutY="76.0" prefHeight="287.0" prefWidth="269.0">
          <content>
@@ -27,5 +27,6 @@
       <Button id="addIngredientButton" fx:id="addIngredientButton" layoutX="113.0" layoutY="363.0" mnemonicParsing="false" onAction="#addIngredient" text="Add ingredient" />
       <TextField id="addRecipeOrigin" fx:id="origin" layoutX="367.0" layoutY="117.0" promptText="Origin" />
       <Button id="backFromAddRecipeButton" fx:id="back" layoutX="14.0" layoutY="19.0" mnemonicParsing="false" onAction="#switchToMainScene" text="Back" />
+      <TextField fx:id="type" layoutX="367.0" layoutY="149.0" prefHeight="26.0" prefWidth="159.0" promptText="Type" />
    </children>
 </Pane>

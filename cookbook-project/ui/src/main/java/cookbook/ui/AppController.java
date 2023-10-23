@@ -53,7 +53,7 @@ public class AppController {
   @FXML
   private Button allRecipesButton;
   @FXML
-  private ChoiceBox<String> filterType;
+  private ChoiceBox<String> typeFilter;
   @FXML
   private Button applyTypeFilterButton;
 
@@ -208,28 +208,33 @@ public class AppController {
 
     //Add no filter option
     types.add("All types");
-    types.add("Breakfast");
-    types.add("Lunch");
-    types.add("Dinner");
-    types.add("Dessert");
 
+    //Add all types from the recipes in cookbook
+    for (Recipe recipe : recipes) {
+      types.add(recipe.getType());
+    }
+    //Add types to the dropdown menu, if not duplicate
+    for (String type : types) {
+      if (!typeFilter.getItems().contains(type) && type != null) {
+        typeFilter.getItems().add(type);
+      }
+    }
     //Set default value of dropdown
-    filterType.setValue("All types");
-
+    typeFilter.setValue("All types");
   }
 
   public void filterByType() {
     //get value from dropdown
-    String filterValue = (String) filterType.getValue();
+    String filterValue = (String) typeFilter.getValue();
 
     //fill cookbook with filtered recipes
     if (filterValue.equals("All types")) {
       fillCookbook(cookbook.getRecipes());
     } else {
-      Collection<Recipe> searched = cookbook.filterRecipies(recipe -> recipe.getType().equals(filterValue));
+      Collection<Recipe> searched =cookbook.filterRecipies(recipe -> recipe.getType().equals(filterValue));
       fillCookbook(searched);
     }
-    filterType.setValue(filterValue);
+    typeFilter.setValue(filterValue);
   }
 
   //Switches from main scene to AddRecipe scene

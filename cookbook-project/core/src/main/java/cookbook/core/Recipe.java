@@ -13,7 +13,7 @@ public class Recipe {
     private String originCountry;
     private String description;
     private final Collection<String> types = new ArrayList<>(Arrays.asList("Breakfast", "Lunch", "Dinner", "Dessert"));
-    private String type;
+    private String type = "Unknown";
 
     // Different constructors for creating a Recipe object
     /**
@@ -30,8 +30,10 @@ public class Recipe {
         this.name = name;
         this.ingredients = ingredients;
         this.originCountry = originCountry;
-        setType(type);
         this.description = description;
+        if (types.contains(type)){
+            this.type = type;
+        }
     }
      /**
      * Constructor for creating a Recipe object with name, ingredients, origincountry and description
@@ -138,15 +140,26 @@ public class Recipe {
         this.originCountry = originCountry;
     }
 
+     /*
+     * Set the type of the Recipe.
+     *
+     * @param type The new origin country for the Recipe.
+     */
+
     public void setType(String type){
         if (types.contains(type)){
             this.type = type;
         }
         else{
-            throw new IllegalArgumentException("Type is not valid");
+            this.type = "Unknown";
         }
     }
-
+    
+    /**
+     * Get the type of the Recipe.
+     *
+     * @return The type of the Recipe.
+     */
     public String getType(){
         return type;
     }

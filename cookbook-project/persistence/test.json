@@ -9,7 +9,14 @@
         "tomatoSauce": "150.0",
         "pepperoni": "100.0",
         "cheese": "200.0"
-      }
+      },
+      "types": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Dessert"
+      ],
+      "type": "Unknown"
     }
   ]
 }

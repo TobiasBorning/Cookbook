@@ -37,6 +37,9 @@ public class AddRecipeController {
   @FXML
   private TextField origin;
 
+  @FXML 
+  private TextField type;
+
   private int ingredientCount = 0;
 
   public void addIngredient(final ActionEvent e) {
@@ -77,6 +80,7 @@ public class AddRecipeController {
     TextField ingredientName = null;
     TextField amount = null;
     String inputOrigin = null;
+    String inputType = "Uknown";
     
     if (!recipeName.getText().equals(null)) {
       recipeNameString = recipeName.getText();
@@ -87,7 +91,18 @@ public class AddRecipeController {
     if (!origin.getText().equals(null)) {
       inputOrigin = origin.getText();
     }
+    if (!type.getText().equals(null)) {
+      recipe.setType(type.getText());
+      inputType = recipe.getType();
+    }
     
+    /* 
+    if (type.getText().equals("Dinner") || type.getText().equals("Breakfast") || type.getText().equals("Lunch") 
+      || type.getText().equals("Dessert") || type.getText().equals("Unknown")){
+      inputType = type.getText();
+    }
+    */
+
     for (Node node : ingredientsContainer.getChildren()) {
       if (node instanceof Pane) {
         Pane pane = (Pane) node;
@@ -110,7 +125,7 @@ public class AddRecipeController {
         }
       }
     }
-    this.recipe = new Recipe(recipeNameString, ingredients, inputOrigin, descriptionString);
+    this.recipe = new Recipe(recipeNameString, ingredients, inputOrigin, inputType, descriptionString);
     addRecipe(recipe);
 
     //Calls on method that switches to min scene
