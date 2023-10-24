@@ -360,64 +360,6 @@
         "Dessert"
       ],
       "type": "Dinner"
-    },
-    {
-      "name": "sad",
-      "ingredients": {
-        "ddd": "ssd"
-      },
-      "originCountry": "sdfs",
-      "description": "dd",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Unknown"
-    },
-    {
-      "name": "asd",
-      "ingredients": {
-        "sdffs": "mjhgjgh"
-      },
-      "originCountry": "asd",
-      "description": "ssd",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Dinner"
-    },
-    {
-      "name": "nachos",
-      "ingredients": {
-        "ost": "100g",
-        "chips": "192"
-      },
-      "originCountry": "mexico",
-      "description": "yummy",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Unknown"
     }
   ]
 }

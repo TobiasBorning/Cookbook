@@ -8,6 +8,10 @@ import java.util.Set;
 // import java.util.List;
 // import java.util.Map.Entry;
 
+import cookbook.accessdata.CookbookAccess;
+import cookbook.accessdata.LocalCookbookAccess;
+import cookbook.accessdata.RemoteCookbookAccess;
+
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
 import cookbook.json.CookbookHandler;
@@ -37,6 +41,9 @@ public class AppController {
   private Scene scene;
   private Recipe sendRecipe;
   private Cookbook cookbook = new Cookbook();
+  private CookbookAccess cookbookAccess;
+  private boolean remote = true;
+
 
   @FXML
   private VBox recipeList;
@@ -59,16 +66,18 @@ public class AppController {
 
   public void initialize() {
     // read cookbook from file
-    CookbookHandler ch = new CookbookHandler();
-    try {
-      cookbook = ch.readFromFile("../persistence/cookbook.json");
-    } catch (FileNotFoundException e) {
-      feedbackLabel.setText("File not found");
+
+    if (remote) {
+      cookbookAccess = new RemoteCookbookAccess();
+    } else {
+      cookbookAccess = new LocalCookbookAccess();
     }
+
+    cookbook = cookbookAccess.fetchCookbook();
     // set Vbox height to fit all recipes
     recipeList.setMinHeight(cookbook.getRecipes().size() * 130);
     // fill cookbook with all recipes
-    fillCookbook(cookbook.getRecipes());
+    fillCookbook(cookbook);
   }
 
   //TODO: Bruker vi egt. denne?
@@ -80,11 +89,12 @@ public class AppController {
     } catch (FileNotFoundException e) { 
       feedbackLabel.setText("File not found");
     }
-    fillCookbook(cookbook.getRecipes());
+    fillCookbook(cookbook);
   }
 
-  private void fillCookbook(Collection<Recipe> cookbooklist) {
+  private void fillCookbook(Cookbook cookbook) {
     recipeList.getChildren().clear();
+    Collection<Recipe> cookbooklist = cookbook.getRecipes();
     for (Recipe recipe : cookbooklist) {
       //lager pane til å vise oppskrift
       Pane pane = new Pane();
@@ -145,12 +155,12 @@ public class AppController {
     String search = searchField.getText();
     if (search.isEmpty()) {
       // if search is empty, fill cookbook with all recipes
-      fillCookbook(cookbook.getRecipes());
+      fillCookbook(cookbook);
       feedbackLabel.setText("");
     } else {
       // if search is not empty, fill cookbook with matching recipes
-      Collection<Recipe> searched = cookbook.filterRecipies(recipe -> recipe.getName().toLowerCase().contains(search.toLowerCase()));
-      if (searched.isEmpty()) {
+      Cookbook searched = cookbookAccess.searchRecipe(search);
+      if (searched.getRecipes().isEmpty()) {
         // if no recipes match search, give feedback
         feedbackLabel.setText("No recipes matching search");
       } else {
@@ -192,10 +202,9 @@ public class AppController {
 
     //fill cookbook with filtered recipes
     if (filterValue.equals("All origins")) {
-      fillCookbook(cookbook.getRecipes());
+      fillCookbook(cookbook);
     } else {
-      Collection<Recipe> searched = cookbook.filterRecipies(recipe -> recipe.getOriginCountry().equals(filterValue));
-      fillCookbook(searched);
+      fillCookbook(cookbookAccess.filterByOrigin(filterValue));
     }
     filterOrigin.setValue(filterValue);
   }
@@ -230,10 +239,9 @@ public class AppController {
 
     //fill cookbook with filtered recipes
     if (filterValue.equals("All types")) {
-      fillCookbook(cookbook.getRecipes());
+      fillCookbook(cookbook);
     } else {
-      Collection<Recipe> searched =cookbook.filterRecipies(recipe -> recipe.getType().equals(filterValue));
-      fillCookbook(searched);
+      fillCookbook(cookbookAccess.filterByType(filterValue));
     }
     typeFilter.setValue(filterValue);
   }
@@ -268,19 +276,8 @@ public class AppController {
 
   // remove recipe from cookbook
   public void removeRecipe(Recipe recipe) {
-    // initialize new cookbookhandler
-    CookbookHandler ch = new CookbookHandler();
-    // remove recipe from cookbook class
-    cookbook.removeRecipe(recipe);
-    // remove recipe from the cookbook.json file
-    try {
-      ch.writeToFile(cookbook, "../persistence/cookbook.json");
-      setFeedbackLabel("Removed recipe");
-    } catch (FileNotFoundException e) {
-      setFeedbackLabel("File not found");
-    }
-    // update the cookbook view
-    fillCookbook(cookbook.getRecipes());
+    cookbookAccess.removeRecipe(recipe.getName());
+    fillCookbook(cookbookAccess.fetchCookbook());
   }
 
   public void setFeedbackLabel(String feedback) {
@@ -291,5 +288,3 @@ public class AppController {
     return cookbook.getRecipes().size();
   }
 }
-
-

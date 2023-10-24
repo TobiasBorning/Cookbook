@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cookbook.core.Cookbook;
-import cookbook.core.Recipe;
 
 @RestController
 @RequestMapping("/api")
