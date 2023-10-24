@@ -52,6 +52,10 @@ public class AppController {
   private Button applyFilterButton;
   @FXML
   private Button allRecipesButton;
+  @FXML
+  private ChoiceBox<String> typeFilter;
+  @FXML
+  private Button applyTypeFilterButton;
 
   public void initialize() {
     // read cookbook from file
@@ -131,6 +135,8 @@ public class AppController {
 
     //Fill filter dropdown menu with origins from cookbook
     fillFilterDropdown();
+    //Fill filter dropdown menu with types from cookbook
+    fillTypeFilterDropdown();
   }
 
   public void search() {
@@ -191,6 +197,44 @@ public class AppController {
       fillCookbook(searched);
     }
     filterOrigin.setValue(filterValue);
+  }
+
+  private void fillTypeFilterDropdown() {
+
+    //create empty set to add types to
+    Set<String> types = new HashSet<>();
+    //get recipes
+    Collection<Recipe> recipes = cookbook.getRecipes();
+
+    //Add no filter option
+    types.add("All types");
+
+    //Add all types from the recipes in cookbook
+    for (Recipe recipe : recipes) {
+      types.add(recipe.getType());
+    }
+    //Add types to the dropdown menu, if not duplicate
+    for (String type : types) {
+      if (!typeFilter.getItems().contains(type) && type != null) {
+        typeFilter.getItems().add(type);
+      }
+    }
+    //Set default value of dropdown
+    typeFilter.setValue("All types");
+  }
+
+  public void filterByType() {
+    //get value from dropdown
+    String filterValue = (String) typeFilter.getValue();
+
+    //fill cookbook with filtered recipes
+    if (filterValue.equals("All types")) {
+      fillCookbook(cookbook.getRecipes());
+    } else {
+      Collection<Recipe> searched =cookbook.filterRecipies(recipe -> recipe.getType().equals(filterValue));
+      fillCookbook(searched);
+    }
+    typeFilter.setValue(filterValue);
   }
 
   //Switches from main scene to AddRecipe scene

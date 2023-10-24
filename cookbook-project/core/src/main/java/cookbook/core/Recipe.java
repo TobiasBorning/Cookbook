@@ -2,9 +2,11 @@
 
     import java.util.HashMap;
     import java.util.Map;
+    import java.util.ArrayList;
+    import java.util.Arrays;
+    import java.util.Collection;
 
-    public class Recipe {
-
+public class Recipe {
     private String name;
     private Map<String, String> ingredients = new HashMap<>();
     private String originCountry;
@@ -13,6 +15,8 @@
     private boolean isVegan = false;
     private boolean isGlutenFree = false;
     private boolean isLactoseFree = false;
+    private final Collection<String> types = new ArrayList<>(Arrays.asList("Breakfast", "Lunch", "Dinner", "Dessert"));
+    private String type = "Unknown";
 
     
     // Different constructors for creating a Recipe object
@@ -50,6 +54,11 @@
     }
 
         /**
+        if (types.contains(type)){
+            this.type = type;
+        }
+    }
+     /**
      * Constructor for creating a Recipe object with name, ingredients, origincountry and description
      *
      * @param name The name of the Recipe
@@ -152,6 +161,30 @@
      */
     public void setOriginCountry(String originCountry) {
         this.originCountry = originCountry;
+    }
+
+     /*
+     * Set the type of the Recipe.
+     *
+     * @param type The new origin country for the Recipe.
+     */
+
+    public void setType(String type){
+        if (types.contains(type)){
+            this.type = type;
+        }
+        else{
+            this.type = "Unknown";
+        }
+    }
+    
+    /**
+     * Get the type of the Recipe.
+     *
+     * @return The type of the Recipe.
+     */
+    public String getType(){
+        return type;
     }
 
     /**
