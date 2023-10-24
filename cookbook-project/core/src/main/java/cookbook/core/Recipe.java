@@ -1,20 +1,24 @@
-package cookbook.core;
+    package cookbook.core;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+    import java.util.HashMap;
+    import java.util.Map;
+    import java.util.ArrayList;
+    import java.util.Arrays;
+    import java.util.Collection;
 
 public class Recipe {
-    
     private String name;
     private Map<String, String> ingredients = new HashMap<>();
     private String originCountry;
     private String description;
+    private boolean favorite = false;
+    private boolean isVegan = false;
+    private boolean isGlutenFree = false;
+    private boolean isLactoseFree = false;
     private final Collection<String> types = new ArrayList<>(Arrays.asList("Breakfast", "Lunch", "Dinner", "Dessert"));
     private String type = "Unknown";
 
+    
     // Different constructors for creating a Recipe object
     /**
      * Constructor for creating a Recipe object with name and ingredients
@@ -26,15 +30,43 @@ public class Recipe {
         this.name = name;
         this.ingredients = ingredients;
     }
+    /**
+    * Constructor for creating a Recipe object with name, ingredients, origincountry and description
+    *
+    * @param name The name of the Recipe
+    * @param ingredients The ingredients and their amounts as a map.
+    * @param originCountry This indicates the country from which the ingredient originates.
+    * @param type The type of the recipe.
+    * @param description The cooking-methode, how to make the recipe. 
+    * @param favorite The recipe is a favorite or not.
+    * @param isVegan The recipe is vegan or not.
+    * @param isGlutenFree The recipe is glutenfree or not.
+    * @param isLactoseFree The recipe is lactosefree or not.
+    */ 
+    public Recipe(String name, Map<String, String> ingredients, String originCountry,
+                  String type, String description, boolean favorite, boolean isVegan,
+                  boolean isGlutenFree, boolean isLactoseFree){
+
+        this.name = name;
+        this.ingredients = ingredients;
+        this.originCountry = originCountry;
+        this.description = description;
+        this.favorite = favorite;
+        this.isVegan = isVegan;
+        this.isGlutenFree = isGlutenFree;
+        this.isLactoseFree = isLactoseFree;
+        setType(type);
+    }
+
+    //TODO add javadoc
     public Recipe(String name, Map<String, String> ingredients, String originCountry, String type, String description){
         this.name = name;
         this.ingredients = ingredients;
         this.originCountry = originCountry;
         this.description = description;
-        if (types.contains(type)){
-            this.type = type;
-        }
+        setType(type);
     }
+
      /**
      * Constructor for creating a Recipe object with name, ingredients, origincountry and description
      *
@@ -49,7 +81,7 @@ public class Recipe {
         this.originCountry = originCountry;
         this.description = description;
     }
-     /**
+        /**
      * Constructor for creating a Recipe object with name, ingredients and originCountry.
      *
      * @param name The name of the Recipe.
@@ -61,7 +93,7 @@ public class Recipe {
         this.ingredients = ingredients;
         this.originCountry = originCountry;
     }
-    
+
     /**
      * Constructor for creating a Recipe object with name only.
      *
@@ -199,5 +231,31 @@ public class Recipe {
         }
         ingredients.remove(ingredient);
         System.out.println(ingredients + ": " + ingredients.size());
+    }
+
+    // TODO add javadoc
+    public boolean isFavorite() {
+        return favorite;
+    }
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+    public boolean isVegan() {
+        return isVegan;
+    }
+    public void setVegan(boolean isVegan) {
+        this.isVegan = isVegan;
+    }
+    public boolean isGlutenFree() {
+        return isGlutenFree;
+    }
+    public void setGlutenFree(boolean isGlutenFree) {
+        this.isGlutenFree = isGlutenFree;
+    }
+    public boolean isLactoseFree() {
+        return isLactoseFree;
+    }
+    public void setLactoseFree(boolean isLactoseFree) {
+        this.isLactoseFree = isLactoseFree;
     }
 }
