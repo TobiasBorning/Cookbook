@@ -54,13 +54,59 @@ public class CookbookService {
         updateCookbook(cookbook);
     }
 
-    public Recipe getRecipe(String name, Cookbook cookbook) {
+    public Cookbook getRecipe(String name, Cookbook cookbook) {
+        Cookbook tmpCookbook = new Cookbook();
         for (Recipe recipe : cookbook.getRecipes()) {
-            if (recipe.getName().contains(name)) {
-                return recipe;
+            if (recipe.getName().toLowerCase().contains(name.toLowerCase())) {
+                tmpCookbook.addRecipe(recipe);
             }
         }
-        return null;
+        return tmpCookbook;
+    }
+
+    public Cookbook filterByOrigin(String origin, Cookbook cookbook) {
+        Cookbook tmpCookbook = new Cookbook();
+        for (Recipe recipe : cookbook.getRecipes()) {
+            if (recipe.getOriginCountry().equals(origin)) {
+                tmpCookbook.addRecipe(recipe);
+            }
+        }
+        return tmpCookbook;
+    }
+
+    public Cookbook filterByType(String type, Cookbook cookbook) {
+        Cookbook tmpCookbook = new Cookbook();
+        for (Recipe recipe : cookbook.getRecipes()) {
+            if (recipe.getType().toLowerCase().equals(type.toLowerCase())) {
+                tmpCookbook.addRecipe(recipe);
+            }
+        }
+        return tmpCookbook;
+    }
+
+    public Cookbook filterByFavorite(Cookbook cookbook) {
+        Cookbook tmpCookbook = new Cookbook();
+        for (Recipe recipe : cookbook.getRecipes()) {
+            if (recipe.isFavorite()) {
+                tmpCookbook.addRecipe(recipe);
+            }
+        }
+        return tmpCookbook;
+    }
+
+    public Cookbook filterByPreferences(String vlg, Cookbook cookbook) { //GLV = Gluten, Lactose, Vegan
+        Cookbook tmpCookbook = new Cookbook();
+        
+        boolean gluten = vlg.charAt(2) == 'T';
+        boolean lactose = vlg.charAt(1) == 'T';
+        boolean vegan = vlg.charAt(0) == 'T';
+
+        for (Recipe recipe : cookbook.getRecipes()) {
+            if (!((!recipe.isGlutenFree() && gluten) || (!recipe.isLactoseFree() && lactose) || (!recipe.isVegan() && vegan))) {
+                tmpCookbook.addRecipe(recipe);
+            }
+        }
+        return tmpCookbook;
     }
 
     public void deleteRecipe(String recipeName, Cookbook cookbook) {
@@ -72,4 +118,5 @@ public class CookbookService {
         }
         updateCookbook(cookbook);
     }
+
 }

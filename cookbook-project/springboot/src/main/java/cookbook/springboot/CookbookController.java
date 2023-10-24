@@ -39,9 +39,29 @@ public class CookbookController {
         cookbookService.updateCookbook(updatedCookbook);
     }
 
-    @GetMapping("/cookbook/recipe/{name}")
-    public Recipe getRecipe(@PathVariable("name") String name) {
+    @GetMapping("/cookbook/search/{name}") //mk endret til search
+    public Cookbook searchRecipes(@PathVariable("name") String name) {
         return cookbookService.getRecipe(name, cookbookService.readCookbook());
+    }
+
+    @GetMapping("/cookbook/origin/{origin}")
+    public Cookbook filterByOrigin(@PathVariable("origin") String origin) {
+        return cookbookService.filterByOrigin(origin, cookbookService.readCookbook());
+    }
+
+    @GetMapping("/cookbook/type/{type}")
+    public Cookbook filterByType(@PathVariable("type") String type) {
+        return cookbookService.filterByType(type, cookbookService.readCookbook());
+    }
+
+    @GetMapping("/cookbook/favorites")
+    public Cookbook filterByFavorite() {
+        return cookbookService.filterByFavorite(cookbookService.readCookbook());
+    }
+
+    @GetMapping("/cookbook/preferences/{vgl}")
+    public Cookbook filterByPreferences(@PathVariable("vgl") String vgl) {
+        return cookbookService.filterByPreferences(vgl,cookbookService.readCookbook());
     }
 
     @PostMapping("/cookbook")
@@ -55,5 +75,4 @@ public class CookbookController {
         System.out.println("Running delteRecipe in CookbookController");
         cookbookService.deleteRecipe(name, cookbookService.readCookbook());
     }
-
 }

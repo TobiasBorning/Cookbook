@@ -71,6 +71,7 @@ public class AppController {
     fillCookbook(cookbook.getRecipes());
   }
 
+  //TODO: Bruker vi egt. denne?
   public void fillDefaultCookbook() {
     Cookbook cookbook = new Cookbook();
     CookbookHandler ch = new CookbookHandler();
