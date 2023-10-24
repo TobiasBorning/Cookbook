@@ -9,7 +9,11 @@
         "tomatoSauce": "150.0",
         "pepperoni": "100.0",
         "cheese": "200.0"
-      }
+      },
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false
     }
   ]
 }

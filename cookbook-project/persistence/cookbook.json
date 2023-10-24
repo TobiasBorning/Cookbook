@@ -11,7 +11,11 @@
         "cheese": "100.0"
       },
       "originCountry": "Mexico",
-      "description": "Add the beef to a large skillet over medium-high heat. Break the meat apart with a wooden spoon. Add the chili powder, cumin, salt, oregano, garlic powder, and pepper to the meat. Stir well. Cook until the meat is cooked through, about 6-8 minutes, stirring occasionally.\nReduce the heat to medium. Add the tomato sauce and water. Stir to combine. Cook, stirring occasionally, for 7-8 minutes, until some of the liquid evaporates but the meat mixture is still a little saucy. Remove from the heat.\nWarm the taco shells according to their package directions.\nFill the taco shells with 2 heaping tablespoons of taco meat. Top with desired taco toppings: shredded cheese, shredded lettuce, chopped tomatoes, diced red onion, taco sauce, sour cream, guacamole, etc."
+      "description": "Add the beef to a large skillet over medium-high heat. Break the meat apart with a wooden spoon. Add the chili powder, cumin, salt, oregano, garlic powder, and pepper to the meat. Stir well. Cook until the meat is cooked through, about 6-8 minutes, stirring occasionally.\nReduce the heat to medium. Add the tomato sauce and water. Stir to combine. Cook, stirring occasionally, for 7-8 minutes, until some of the liquid evaporates but the meat mixture is still a little saucy. Remove from the heat.\nWarm the taco shells according to their package directions.\nFill the taco shells with 2 heaping tablespoons of taco meat. Top with desired taco toppings: shredded cheese, shredded lettuce, chopped tomatoes, diced red onion, taco sauce, sour cream, guacamole, etc.",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false
     },
     {
       "name": "Pizza",
@@ -23,7 +27,11 @@
         "pepperoni": "100.0",
         "cheese": "200.0"
       },
-      "originCountry": "Italy"
+      "originCountry": "Italy",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false
     },
     {
       "name": "Pasta Carbonara",
@@ -35,7 +43,11 @@
         "heavyCream": "150.0",
         "cheese": "50.0"
       },
-      "originCountry": "Italy"
+      "originCountry": "Italy",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false
     },
     {
       "name": "Spaghetti Bolognese",
@@ -47,7 +59,11 @@
         "oregano": "5.0",
         "groundBeef": "250.0"
       },
-      "originCountry": "Italy"
+      "originCountry": "Italy",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false
     },
     {
       "name": "Caesar Salad",
@@ -58,7 +74,11 @@
         "chickenBreast": "200.0",
         "croutons": "50.0"
       },
-      "originCountry": "Italy"
+      "originCountry": "Italy",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false
     },
     {
       "name": "Vegetable Curry",
@@ -70,7 +90,11 @@
         "rice": "200.0",
         "coconutMilk": "200.0"
       },
-      "originCountry": "India"
+      "originCountry": "India",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false
     },
     {
       "name": "Mushroom Risotto",
@@ -81,7 +105,11 @@
         "arborioRice": "200.02",
         "vegetableBroth": "250.0"
       },
-      "originCountry": "Italy"
+      "originCountry": "Italy",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false
     },
     {
       "name": "Spinach and Feta Stuffed Chicken",
@@ -92,7 +120,11 @@
         "fetaCheese": "50.0",
         "chickenBreast": "300.0"
       },
-      "originCountry": "Greece"
+      "originCountry": "Greece",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false
     },
     {
       "name": "Baked Salmon",
@@ -102,7 +134,11 @@
         "oliveOil": "20.0",
         "dill": "5.0"
       },
-      "originCountry": "Norway"
+      "originCountry": "Norway",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false
     },
     {
       "name": "Veggie Wrap",
@@ -113,7 +149,11 @@
         "tortilla": "1.0",
         "lettuce": "20.0"
       },
-      "originCountry": "America"
+      "originCountry": "America",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false
     },
     {
       "name": "Fruit Salad",
@@ -123,7 +163,11 @@
         "strawberries": "100.0",
         "grapes": "50.0"
       },
-      "originCountry": "Brazil"
+      "originCountry": "Brazil",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false
     },
     {
       "name": "Oatmeal",
@@ -134,7 +178,11 @@
         "milk": "200.0",
         "rolledOats": "100.0"
       },
-      "originCountry": "America"
+      "originCountry": "America",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false
     },
     {
       "name": "tapas",
@@ -142,7 +190,11 @@
         "ost": "100 g"
       },
       "originCountry": "spania",
-      "description": "mmm nam tapas digg"
+      "description": "mmm nam tapas digg",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false
     },
     {
       "name": "nachos",
@@ -151,7 +203,11 @@
         "chips": "192"
       },
       "originCountry": "mexico",
-      "description": "yummy"
+      "description": "yummy",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false
     }
   ]
 }
