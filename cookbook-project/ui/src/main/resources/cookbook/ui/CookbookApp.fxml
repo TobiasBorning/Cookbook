@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane id="cookbookAppPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cookbook.ui.AppController">
+<GridPane id="cookbookAppPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cookbook.ui.AppController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="426.8460388183594" minWidth="10.0" prefWidth="411.9300231933594" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.20220947265625" minWidth="10.0" prefWidth="188.56997680664062" />
@@ -36,11 +37,12 @@
             <TextField fx:id="searchField" layoutX="9.0" layoutY="40.0" prefHeight="26.0" prefWidth="125.0" />
             <Button fx:id="searchButton" layoutX="130.0" layoutY="40.0" mnemonicParsing="false" onAction="#search" text="Search" />
             <ChoiceBox id="filter" fx:id="filterOrigin" layoutX="9.0" layoutY="88.0" prefHeight="26.0" prefWidth="126.0" />
-            <Button fx:id="addRecipeButton" layoutX="8.0" layoutY="182.0" mnemonicParsing="false" onAction="#switchToAddRecipe" prefHeight="26.0" prefWidth="177.0" text="Add new recipe" />
+            <Button fx:id="addRecipeButton" layoutX="8.0" layoutY="174.0" mnemonicParsing="false" onAction="#switchToAddRecipe" prefHeight="26.0" prefWidth="176.0" text="Add new recipe" />
             <Label id="feedbackLabel" fx:id="feedbackLabel" layoutX="18.0" layoutY="318.0" prefHeight="17.0" prefWidth="155.0" />
             <Button id="filterByOrigin" fx:id="applyFilterButton" layoutX="130.0" layoutY="88.0" mnemonicParsing="false" onAction="#filterByOrigin" prefHeight="26.0" prefWidth="55.0" text="Filter" />
             <ChoiceBox id="typeFilter" fx:id="typeFilter" layoutX="9.0" layoutY="134.0" prefHeight="26.0" prefWidth="126.0" />
             <Button id="filterByType" fx:id="applyTypeFilterButton" layoutX="130.0" layoutY="134.0" mnemonicParsing="false" onAction="#filterByType" prefWidth="55.0" text="Filter" />
+            <CheckBox fx:id="favoritesCheckBox" layoutX="8.0" layoutY="212.0" mnemonicParsing="false" onAction="#viewFavorites" prefHeight="26.0" prefWidth="175.0" text="View favorites" />
          </children>
       </Pane>
    </children>
