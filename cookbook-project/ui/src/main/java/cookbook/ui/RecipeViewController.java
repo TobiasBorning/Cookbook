@@ -26,17 +26,21 @@ public class RecipeViewController {
   private Label ingredients;
   @FXML
   private Label origin;
+  @FXML
+  private Label type;
 
   public void loadRecipe(Recipe recipe) {
     this.recipe = recipe;
 
     origin.setFont(new Font("Arial", 16));
     description.setFont(new Font("Arial", 14));
+    type.setFont(new Font("Arial",14));
     ingredients.setFont(new Font("Arial", 14));
 
     recipeName.setText(recipe.getName());
     description.setWrapText(true);
     description.setText(recipe.getDescription());
+    type.setText(recipe.getType());
     origin.setText(recipe.getOriginCountry());
     //legger til liste med ingredienser
     for (Entry<String, String> ingredient : recipe.getIngredients().entrySet()) {

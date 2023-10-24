@@ -1,5 +1,8 @@
 package cookbook.core;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +12,8 @@ public class Recipe {
     private Map<String, String> ingredients = new HashMap<>();
     private String originCountry;
     private String description;
+    private final Collection<String> types = new ArrayList<>(Arrays.asList("Breakfast", "Lunch", "Dinner", "Dessert"));
+    private String type = "Unknown";
 
     // Different constructors for creating a Recipe object
     /**
@@ -20,6 +25,15 @@ public class Recipe {
     public Recipe(String name, Map<String, String> ingredients) {
         this.name = name;
         this.ingredients = ingredients;
+    }
+    public Recipe(String name, Map<String, String> ingredients, String originCountry, String type, String description){
+        this.name = name;
+        this.ingredients = ingredients;
+        this.originCountry = originCountry;
+        this.description = description;
+        if (types.contains(type)){
+            this.type = type;
+        }
     }
      /**
      * Constructor for creating a Recipe object with name, ingredients, origincountry and description
@@ -124,6 +138,30 @@ public class Recipe {
      */
     public void setOriginCountry(String originCountry) {
         this.originCountry = originCountry;
+    }
+
+     /*
+     * Set the type of the Recipe.
+     *
+     * @param type The new origin country for the Recipe.
+     */
+
+    public void setType(String type){
+        if (types.contains(type)){
+            this.type = type;
+        }
+        else{
+            this.type = "Unknown";
+        }
+    }
+    
+    /**
+     * Get the type of the Recipe.
+     *
+     * @return The type of the Recipe.
+     */
+    public String getType(){
+        return type;
     }
 
     /**

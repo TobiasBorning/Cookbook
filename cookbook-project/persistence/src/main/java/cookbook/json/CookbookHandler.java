@@ -61,7 +61,6 @@ public class CookbookHandler {
   }
 
   /*  Used only to generate the cookbook.json file with many recipes
-
   public static void makeRecipes() {
 
     Cookbook cookbook = new Cookbook();
@@ -69,6 +68,7 @@ public class CookbookHandler {
       
     Recipe pizzaRecipe = new Recipe("Pizza");
     pizzaRecipe.setOriginCountry("Italy");
+    pizzaRecipe.setType("Dinner");
     pizzaRecipe.addIngredient("cheese", "200.0");
     pizzaRecipe.addIngredient("pizzaDough", "300.0");
     pizzaRecipe.addIngredient("tomatoSauce", "150.0");
@@ -79,6 +79,7 @@ public class CookbookHandler {
 
     Recipe tacoRecipe = new Recipe("Taco");
     tacoRecipe.setOriginCountry("Mexico");
+    tacoRecipe.setType("Dinner");
     tacoRecipe.addIngredient("cheese", "100.0");
     tacoRecipe.addIngredient("tacoShell", "2.0");
     tacoRecipe.addIngredient("groundBeef", "150.0");
@@ -89,6 +90,7 @@ public class CookbookHandler {
   
     Recipe pastaCarbonaraRecipe = new Recipe("Pasta Carbonara");
     pastaCarbonaraRecipe.setOriginCountry("Italy");
+    pastaCarbonaraRecipe.setType("Dinner");
     pastaCarbonaraRecipe.addIngredient("cheese", "50.0");
     pastaCarbonaraRecipe.addIngredient("spaghetti", "215.0");
     pastaCarbonaraRecipe.addIngredient("egg", "2.0");
@@ -99,6 +101,7 @@ public class CookbookHandler {
   
     Recipe recipe1 = new Recipe("Spaghetti Bolognese");
     recipe1.setOriginCountry("Italy");
+    recipe1.setType("Dinner");
     recipe1.addIngredient("spaghetti", "200.0");
     recipe1.addIngredient("groundBeef", "250.0");
     recipe1.addIngredient("onions", "30.0");
@@ -109,6 +112,7 @@ public class CookbookHandler {
   
     Recipe recipe2 = new Recipe("Chicken Stir-Fry");
     recipe2.setOriginCountry("China");
+    recipe2.setType("Dinner");
     recipe2.addIngredient("chickenBreast", "300.0");
     recipe2.addIngredient("bellPeppers", "100.0");
     recipe2.addIngredient("broccoli", "150.0");
@@ -119,6 +123,7 @@ public class CookbookHandler {
   
     Recipe recipe3 = new Recipe("Caesar Salad");
     recipe3.setOriginCountry("Italy");
+    recipe3.setType("Dinner");
     recipe3.addIngredient("lettuce", "100.0");
     recipe3.addIngredient("chickenBreast", "200.0");
     recipe3.addIngredient("croutons", "50.0");
@@ -128,6 +133,7 @@ public class CookbookHandler {
   
     Recipe recipe4 = new Recipe("Vegetable Curry");
     recipe4.setOriginCountry("India");
+    recipe4.setType("Dinner");
     recipe4.addIngredient("potatoes", "200.0");
     recipe4.addIngredient("carrots", "150.0");
     recipe4.addIngredient("peas", "50.0");
@@ -138,6 +144,7 @@ public class CookbookHandler {
   
     Recipe recipe5 = new Recipe("Mushroom Risotto");
     recipe5.setOriginCountry("Italy");
+    recipe5.setType("Dinner");
     recipe5.addIngredient("arborioRice", "200.02");
     recipe5.addIngredient("mushrooms", "150.0");
     recipe5.addIngredient("onions", "30.0");
@@ -147,6 +154,7 @@ public class CookbookHandler {
   
     Recipe recipe6 = new Recipe("Spinach and Feta Stuffed Chicken");
     recipe6.setOriginCountry("Greece");
+    recipe6.setType("Dinner");
     recipe6.addIngredient("chickenBreast", "300.0");
     recipe6.addIngredient("spinach", "100.0");
     recipe6.addIngredient("fetaCheese", "50.0");
@@ -156,6 +164,7 @@ public class CookbookHandler {
   
     Recipe recipe7 = new Recipe("Baked Salmon");
     recipe7.setOriginCountry("Norway");
+    recipe7.setType("Dinner");
     recipe7.addIngredient("salmonFilet", "200.0");
     recipe7.addIngredient("lemon", "30.0");
     recipe7.addIngredient("dill", "5.0");
@@ -164,6 +173,7 @@ public class CookbookHandler {
   
     Recipe recipe8 = new Recipe("Veggie Wrap");
     recipe8.setOriginCountry("America");
+    recipe8.setType("Dinner");
     recipe8.addIngredient("tortilla", "1.0");
     recipe8.addIngredient("hummus", "50.0");
     recipe8.addIngredient("cucumber", "30.0");
@@ -173,6 +183,7 @@ public class CookbookHandler {
   
     Recipe recipe9 = new Recipe("Fruit Salad");
     recipe9.setOriginCountry("Brazil");
+    recipe9.setType("Dessert");
     recipe9.addIngredient("strawberries", "100.0");
     recipe9.addIngredient("kiwi", "50.0");
     recipe9.addIngredient("grapes", "50.0");
@@ -181,6 +192,7 @@ public class CookbookHandler {
   
     Recipe recipe10 = new Recipe("Oatmeal");
     recipe10.setOriginCountry("America");
+    recipe10.setType("Breakfast");
     recipe10.addIngredient("rolledOats", "100.0");
     recipe10.addIngredient("milk", "200.0");
     recipe10.addIngredient("honey", "20.0");
