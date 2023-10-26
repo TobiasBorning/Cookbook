@@ -17,7 +17,11 @@ public class RemoteCookbookAccess implements CookbookAccess {
     
     private Gson gson = new Gson();
     private URI uri;
-    
+
+    /**
+     * Connects to the springboot-server. 
+     * Updates the uri field to http://localhost:8080/api
+     */
     private void connect() {
         try {
             this.uri = new URI("http://localhost:8080/api/");
@@ -26,7 +30,11 @@ public class RemoteCookbookAccess implements CookbookAccess {
             this.uri = null;
         }
     }
-
+    /**
+     * Fetches the entire cookbook.
+     * 
+     * @return the cookbook, or null if the file is not found.
+     */
     @Override
     public Cookbook fetchCookbook() {
         connect();
@@ -47,11 +55,19 @@ public class RemoteCookbookAccess implements CookbookAccess {
         }
     }
 
+    /**
+     * Searches for recipes by name.
+     * 
+     * @param recipeName the name or part of the name to search for.
+     * @return a cookbook containing the matching recipes.
+     */
     @Override
     public Cookbook searchRecipe(String recipeName) {
         connect();
+        String encodedName;
+        encodedName = recipeName.replace(" ", "%20");
         try {
-            HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/search/"+recipeName))
+            HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/search/"+encodedName))
                 .header("Accept", "application/json")
                 .GET()
                 .build();
@@ -67,6 +83,12 @@ public class RemoteCookbookAccess implements CookbookAccess {
         }
     }
 
+    /**
+     * Filters recipes by their origin country.
+     * 
+     * @param origin the country of origin to filter by.
+     * @return a cookbook containing the matching recipes.
+     */
     @Override
     public Cookbook filterByOrigin(String origin) {
         connect();
@@ -87,6 +109,12 @@ public class RemoteCookbookAccess implements CookbookAccess {
         }
     }
 
+    /**
+     * Filters recipes by their type.
+     * 
+     * @param type the type to filter by.
+     * @return a cookbook containing the matching recipes.
+     */
     @Override
     public Cookbook filterByType(String type) {
         connect();
@@ -107,6 +135,11 @@ public class RemoteCookbookAccess implements CookbookAccess {
         }
     }
 
+    /**
+     * Filters recipes that are marked as favorite.
+     * 
+     * @return a cookbook containing the favorite recipes.
+     */
     @Override
     public Cookbook filterByFavorite() {
         connect();
@@ -127,6 +160,12 @@ public class RemoteCookbookAccess implements CookbookAccess {
         }
     }
 
+    /**
+     * Filters recipes based on user preferences.
+     * 
+     * @param vlg a string representing user preferences.
+     * @return a cookbook containing the matching recipes.
+     */
     @Override
     public Cookbook filterByPreferences(String vlg) {
         connect();
@@ -147,24 +186,29 @@ public class RemoteCookbookAccess implements CookbookAccess {
         }
     }
 
+    /**
+     * Updates a recipe in the cookbook.
+     * 
+     * @param recipe the recipe to add.
+     */
     @Override
     public void updateRecipe(Recipe recipe) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateRecipe'");
     }
 
+    /**
+     * Removes a recipe from the cookbook.
+     * 
+     * @param recipeName the name of the recipe to remove.
+     */
     @Override
-    public void removeRecipe(String recipeName) {
+    public boolean removeRecipe(String recipeName) {
         try {
             String encodedName;
-            try {
-              encodedName = URLEncoder.encode(recipeName, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-              encodedName = recipeName;
-              e.printStackTrace();
-            }
+            encodedName = recipeName.replace(" ", "%20");
       
-            System.out.println(recipeName);
+            System.out.println(encodedName);
             HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/recipe/" + encodedName))
               .header("Accept", "application/json")
               .header("Content-Type", "application/json")
@@ -174,12 +218,25 @@ public class RemoteCookbookAccess implements CookbookAccess {
             HttpResponse<String> response = HttpClient.newBuilder()
                 .build()
                 .send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println("Removed recipe" + response.body());
+
+            if (response.statusCode() == 200) {
+                System.out.println("Removed recipe");
+                return true;
+            } else {
+                System.out.println("Error removing recipe");
+                return false;
+            }
         } catch (Exception e) {
             System.out.println("Error sending request");
+            return false;
         }
     }
 
+    /**
+     * Adds a recipe to the cookbook.
+     * 
+     * @param recipe the recipe to add.
+     */
     @Override
     public void addRecipe(Recipe recipe) {
         try {

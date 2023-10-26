@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import cookbook.accessdata.CookbookAccess;
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
 import cookbook.json.CookbookHandler;
@@ -23,7 +25,7 @@ public class AddRecipeController {
 
   private Cookbook cookbook = new Cookbook();
   private Recipe recipe = new Recipe();
-  private AppController ac;
+  private CookbookAccess cookbookAccess;
 
   @FXML
   private VBox ingredientsContainer;
@@ -135,21 +137,8 @@ public class AddRecipeController {
 
   // add recipe to cookbook
   public void addRecipe(Recipe recipe) {
-    // initialize new cookbookhandler
-    CookbookHandler ch = new CookbookHandler();
-
-    try {
-      cookbook = ch.readFromFile("../persistence/cookbook.json");
-    } catch (FileNotFoundException e) {
-    }
-    // adds recipe to cookbook class
-    cookbook.addRecipe(recipe);
-
-    // adds recipe to the cookbook.json file
-    try {
-      ch.writeToFile(cookbook, "../persistence/cookbook.json");
-    } catch (FileNotFoundException e) {
-    }
+    // use cookbookAccess to add recipe to cookbook
+    cookbookAccess.addRecipe(recipe);
   }
 
   //Switches from AddRecipe scene to main scene
@@ -159,5 +148,9 @@ public class AddRecipeController {
     Scene scene = new Scene(root);
     stage.setScene(scene);
     stage.show();
+  }
+
+  public void setCookbookAccess(CookbookAccess cookbookAccess) {
+    this.cookbookAccess = cookbookAccess;
   }
 }

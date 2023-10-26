@@ -49,30 +49,6 @@
       "type": "Dinner"
     },
     {
-      "name": "Pasta Carbonara",
-      "ingredients": {
-        "parmesanCheese": "30.0",
-        "bacon": "100.0",
-        "spaghetti": "215.0",
-        "egg": "2.0",
-        "heavyCream": "150.0",
-        "cheese": "50.0"
-      },
-      "originCountry": "Italy",
-      "description": "Cook spaghetti until al dente. In a separate pan, cook bacon until crisp, then stir in garlic briefly. Beat eggs, parmesan, and heavy cream together, then combine with the hot, drained pasta, cooking slightly to create a creamy sauce. Add bacon, season, and serve with additional cheese.",
-      "favorite": true,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Dinner"
-    },
-    {
       "name": "Spaghetti Bolognese",
       "ingredients": {
         "garlic": "10.0",
@@ -323,13 +299,12 @@
       "type": "Dinner"
     },
     {
-      "name": "fiskeboller",
+      "name": "Karri kylling",
       "ingredients": {
-        "": "",
-        "fiskeboller": "30 stk"
+        "Kylling": "400 g"
       },
-      "originCountry": "Norge",
-      "description": "digg med fisk",
+      "originCountry": "India",
+      "description": "digg",
       "favorite": false,
       "isVegan": false,
       "isGlutenFree": false,
@@ -343,12 +318,16 @@
       "type": "Dinner"
     },
     {
-      "name": "Karri kylling",
+      "name": "Pasta Carbonara",
       "ingredients": {
-        "Kylling": "400 g"
+        "parmesanCheese": "30.0",
+        "bacon": "100.0",
+        "spaghetti": "215.0",
+        "egg": "2.0",
+        "heavyCream": "150.0",
+        "cheese": "50.0"
       },
-      "originCountry": "",
-      "description": "digg",
+      "originCountry": "Italy",
       "favorite": false,
       "isVegan": false,
       "isGlutenFree": false,
@@ -360,6 +339,26 @@
         "Dessert"
       ],
       "type": "Dinner"
+    },
+    {
+      "name": "nachos",
+      "ingredients": {
+        "ost": "100g",
+        "chips": "192"
+      },
+      "originCountry": "mexico",
+      "description": "yummy",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false,
+      "types": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Dessert"
+      ],
+      "type": "Unknown"
     }
   ]
 }

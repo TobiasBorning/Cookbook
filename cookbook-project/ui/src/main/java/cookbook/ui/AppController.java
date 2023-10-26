@@ -42,7 +42,7 @@ public class AppController {
   private Recipe sendRecipe;
   private Cookbook cookbook = new Cookbook();
   private CookbookAccess cookbookAccess;
-  private boolean remote = true;
+  private boolean remote = false;
 
 
   @FXML
@@ -160,7 +160,7 @@ public class AppController {
     } else {
       // if search is not empty, fill cookbook with matching recipes
       Cookbook searched = cookbookAccess.searchRecipe(search);
-      if (searched.getRecipes().isEmpty()) {
+      if (searched == null || searched.getRecipes().isEmpty()) {
         // if no recipes match search, give feedback
         feedbackLabel.setText("No recipes matching search");
       } else {
@@ -187,8 +187,8 @@ public class AppController {
     }
     //Add origins to the dropdown menu, if not duplicate
     for (String origin : origins) {
-      if (!filterOrigin.getItems().contains(origin)) {
-        filterOrigin.getItems().add(origin);
+      if (!filterOrigin.getItems().contains(origin) && origin != null) {
+          filterOrigin.getItems().add(origin);
       }
     }
     //Set default value of dropdown
@@ -255,6 +255,9 @@ public class AppController {
     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
+    // send the cookbookAccess to AddRecipeController
+    AddRecipeController addRecipeController = loader.getController();
+    addRecipeController.setCookbookAccess(this.cookbookAccess);
     stage.show();
   }
 
@@ -276,8 +279,14 @@ public class AppController {
 
   // remove recipe from cookbook
   public void removeRecipe(Recipe recipe) {
-    cookbookAccess.removeRecipe(recipe.getName());
-    fillCookbook(cookbookAccess.fetchCookbook());
+    if (cookbookAccess.removeRecipe(recipe.getName())) {
+      fillCookbook(cookbookAccess.fetchCookbook());
+      feedbackLabel.setText("Removed recipe");
+    }
+    else {
+      feedbackLabel.setText("Could not remove recipe");
+    }
+    
   }
 
   public void setFeedbackLabel(String feedback) {
@@ -287,4 +296,10 @@ public class AppController {
   public int getCookbookSize() {
     return cookbook.getRecipes().size();
   }
+
+    
+  public CookbookAccess getCookbookAccess() {
+    return cookbookAccess;
+  }
+
 }

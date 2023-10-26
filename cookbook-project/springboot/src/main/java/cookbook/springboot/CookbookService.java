@@ -14,19 +14,29 @@ import cookbook.core.Recipe;
 
 
 
+/**
+ * Service class responsible for managing cookbook operations.
+ */
 @Service
 public class CookbookService {
 
     private Gson gson;
     private static final String COOKBOOK_PATH = "../persistence/remote-cookbook.json";
 
-    
+    /**
+     * Constructs a new CookbookService.
+     */
     public CookbookService() {
         System.out.println("CookbookService constructor");
         this.gson = new GsonBuilder().setPrettyPrinting().create();
         readCookbook();
     }
 
+    /**
+     * Reads the cookbook from the file.
+     * 
+     * @return the cookbook.
+     */
     public Cookbook readCookbook() {
         try (FileReader reader = new FileReader(COOKBOOK_PATH)){
             return gson.fromJson(reader, Cookbook.class);
@@ -35,6 +45,11 @@ public class CookbookService {
         }
     }
 
+    /**
+     * Writes the cookbook to the file.
+     * 
+     * @param cookbook the cookbook to write.
+     */
     public void writeCookbook(Cookbook cookbook) {
         try (FileWriter writer = new FileWriter(COOKBOOK_PATH)){
             gson.toJson(cookbook, writer);
@@ -43,17 +58,35 @@ public class CookbookService {
         }
     }
 
+    /**
+     * Updates the cookbook and writes it to the file.
+     * 
+     * @param cookbook the updated cookbook.
+     */
     public void updateCookbook(Cookbook cookbook) {
         //can add validation here
         writeCookbook(cookbook);
     }
 
+    /**
+     * Adds a recipe to the cookbook.
+     * 
+     * @param recipeJson the JSON representation of the recipe.
+     * @param cookbook the cookbook to add the recipe to.
+     */
     public void addRecipe(String recipeJson, Cookbook cookbook) {
         Recipe recipe = gson.fromJson(recipeJson, Recipe.class);
         cookbook.addRecipe(recipe);
         updateCookbook(cookbook);
     }
 
+    /**
+     * Retrieves recipes by name.
+     * 
+     * @param name the name or part of the name to search for.
+     * @param cookbook the cookbook to search in.
+     * @return a cookbook containing the matching recipes.
+     */
     public Cookbook getRecipe(String name, Cookbook cookbook) {
         Cookbook tmpCookbook = new Cookbook();
         for (Recipe recipe : cookbook.getRecipes()) {
@@ -64,6 +97,13 @@ public class CookbookService {
         return tmpCookbook;
     }
 
+    /**
+     * Filters recipes by their origin country.
+     * 
+     * @param origin the country of origin to filter by.
+     * @param cookbook the cookbook to filter.
+     * @return a cookbook containing the matching recipes.
+     */
     public Cookbook filterByOrigin(String origin, Cookbook cookbook) {
         Cookbook tmpCookbook = new Cookbook();
         for (Recipe recipe : cookbook.getRecipes()) {
@@ -74,6 +114,13 @@ public class CookbookService {
         return tmpCookbook;
     }
 
+    /**
+     * Filters recipes by their type.
+     * 
+     * @param type the type to filter by.
+     * @param cookbook the cookbook to filter.
+     * @return a cookbook containing the matching recipes.
+     */
     public Cookbook filterByType(String type, Cookbook cookbook) {
         Cookbook tmpCookbook = new Cookbook();
         for (Recipe recipe : cookbook.getRecipes()) {
@@ -84,6 +131,12 @@ public class CookbookService {
         return tmpCookbook;
     }
 
+    /**
+     * Filters recipes that are marked as favorite.
+     * 
+     * @param cookbook the cookbook to filter.
+     * @return a cookbook containing the favorite recipes.
+     */
     public Cookbook filterByFavorite(Cookbook cookbook) {
         Cookbook tmpCookbook = new Cookbook();
         for (Recipe recipe : cookbook.getRecipes()) {
@@ -94,7 +147,14 @@ public class CookbookService {
         return tmpCookbook;
     }
 
-    public Cookbook filterByPreferences(String vlg, Cookbook cookbook) { //GLV = Gluten, Lactose, Vegan
+    /**
+     * Filters recipes based on user preferences.
+     * 
+     * @param vlg a string representing user preferences.
+     * @param cookbook the cookbook to filter.
+     * @return a cookbook containing the matching recipes.
+     */
+    public Cookbook filterByPreferences(String vlg, Cookbook cookbook) {
         Cookbook tmpCookbook = new Cookbook();
         
         boolean gluten = vlg.charAt(2) == 'T';
@@ -109,11 +169,18 @@ public class CookbookService {
         return tmpCookbook;
     }
 
+    /**
+     * Removes a recipe from the cookbook.
+     * 
+     * @param recipeName the name of the recipe to remove.
+     * @param cookbook the cookbook to remove the recipe from.
+     */
     public void deleteRecipe(String recipeName, Cookbook cookbook) {
         System.out.println("Running deleteRecipe in CookbookService");
         for (Recipe recipe : cookbook.getRecipes()) {
             if (recipe.getName().equals(recipeName)) {
                 cookbook.removeRecipe(recipe);
+                break;
             }
         }
         updateCookbook(cookbook);
