@@ -51,7 +51,8 @@ public class RemoteCookbookAccess implements CookbookAccess {
             System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
             return ut;
         } catch (Exception e) {
-            return null;
+            System.out.println(e.getMessage());
+            return new Cookbook(); //returns empty cookbook in case of error
         }
     }
 
@@ -79,7 +80,8 @@ public class RemoteCookbookAccess implements CookbookAccess {
             System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
             return ut;
         } catch (Exception e) {
-            return null;
+            System.out.println(e.getMessage());
+            return new Cookbook(); //returns empty cookbook in case of error
         }
     }
 
@@ -105,7 +107,8 @@ public class RemoteCookbookAccess implements CookbookAccess {
             System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
             return ut;
         } catch (Exception e) {
-            return null;
+            System.out.println(e.getMessage());
+            return new Cookbook(); //returns empty cookbook in case of error
         }
     }
 
@@ -131,7 +134,8 @@ public class RemoteCookbookAccess implements CookbookAccess {
             System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
             return ut;
         } catch (Exception e) {
-            return null;
+            System.out.println(e.getMessage());
+            return new Cookbook(); //returns empty cookbook in case of error
         }
     }
 
@@ -156,7 +160,8 @@ public class RemoteCookbookAccess implements CookbookAccess {
             System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
             return ut;
         } catch (Exception e) {
-            return null;
+            System.out.println(e.getMessage());
+            return new Cookbook(); //returns empty cookbook in case of error
         }
     }
 
@@ -182,7 +187,8 @@ public class RemoteCookbookAccess implements CookbookAccess {
             System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
             return ut;
         } catch (Exception e) {
-            return null;
+            System.out.println(e.getMessage());
+            return new Cookbook(); //returns empty cookbook in case of error
         }
     }
 
@@ -249,8 +255,12 @@ public class RemoteCookbookAccess implements CookbookAccess {
             HttpResponse<String> response = HttpClient.newBuilder()
                 .build()
                 .send(request, HttpResponse.BodyHandlers.ofString());
-      
-            System.out.println("Added recipe" + response.body());
+            
+            if (response.statusCode() == 200) {
+                System.out.println("Added recipe");
+            } else {
+                System.out.println("Error adding recipe");
+            }
         } catch (Exception e) {
             System.out.println("Error sending request");
         }

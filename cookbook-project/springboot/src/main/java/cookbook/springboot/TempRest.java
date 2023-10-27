@@ -12,7 +12,9 @@ import com.google.gson.Gson;
 
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
-
+/**
+ * Temporary class for understanding the REST API.
+ */
 public class TempRest {
   public static void main(String[] args) {
     Recipe recipe = new Recipe();

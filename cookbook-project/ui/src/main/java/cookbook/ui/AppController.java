@@ -2,6 +2,8 @@ package cookbook.ui;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -42,7 +44,7 @@ public class AppController {
   private Recipe sendRecipe;
   private Cookbook cookbook = new Cookbook();
   private CookbookAccess cookbookAccess;
-  private boolean remote = false;
+  private boolean remote;
 
 
   @FXML
@@ -65,13 +67,9 @@ public class AppController {
   private Button applyTypeFilterButton;
 
   public void initialize() {
-    // read cookbook from file
-
-    if (remote) {
-      cookbookAccess = new RemoteCookbookAccess();
-    } else {
-      cookbookAccess = new LocalCookbookAccess();
-    }
+    
+    // set remote or local cookbook access depending on connection, override = true always connects to local
+    setAccessType(true);
 
     cookbook = cookbookAccess.fetchCookbook();
     // set Vbox height to fit all recipes
@@ -297,9 +295,39 @@ public class AppController {
     return cookbook.getRecipes().size();
   }
 
-    
   public CookbookAccess getCookbookAccess() {
     return cookbookAccess;
   }
 
+  public void setAccessType(boolean override) { // override = True always choose local cookbook.
+    this.remote = false;
+    try {
+      URL url = new URL("http://localhost:8080/api/cookbook");
+      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+      
+      // Set request method, e.g., GET, POST, etc.
+      connection.setRequestMethod("GET");
+
+      // Connect to the URL
+      connection.connect();
+
+      // Check the response code
+      int responseCode = connection.getResponseCode();
+      if (responseCode == HttpURLConnection.HTTP_OK) {
+          this.remote = true;
+      }
+      // Disconnect after checking
+      connection.disconnect();
+    } catch (IOException exception) {
+      System.out.println("Error occured fetching cookbook");
+    }
+
+    if (remote && !override) {
+      cookbookAccess = new RemoteCookbookAccess();
+      System.out.println("Successfully fetched cookbook, using remote access");
+    } else {
+      cookbookAccess = new LocalCookbookAccess();
+      System.out.println("Using local access");
+    }
+  }
 }

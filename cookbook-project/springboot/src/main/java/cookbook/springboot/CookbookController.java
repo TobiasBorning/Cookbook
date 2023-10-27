@@ -51,8 +51,9 @@ public class CookbookController {
      * @param updatedCookbook the updated cookbook data.
      */
     @PutMapping("/cookbook")
-    public void updateCookbook(@RequestBody Cookbook updatedCookbook) {
+    public ResponseEntity<Void> updateCookbook(@RequestBody Cookbook updatedCookbook) {
         cookbookService.updateCookbook(updatedCookbook);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     /**
@@ -62,8 +63,8 @@ public class CookbookController {
      * @return a cookbook containing the matching recipes.
      */
     @GetMapping("/cookbook/search/{name}")
-    public Cookbook searchRecipes(@PathVariable("name") String name) {
-        return cookbookService.getRecipe(name, cookbookService.readCookbook());
+    public ResponseEntity<Cookbook> searchRecipes(@PathVariable("name") String name) {
+        return new ResponseEntity<Cookbook>(cookbookService.getRecipe(name, cookbookService.readCookbook()),HttpStatus.OK);
     }
 
     /**
@@ -73,8 +74,8 @@ public class CookbookController {
      * @return a cookbook containing the matching recipes.
      */
     @GetMapping("/cookbook/origin/{origin}")
-    public Cookbook filterByOrigin(@PathVariable("origin") String origin) {
-        return cookbookService.filterByOrigin(origin, cookbookService.readCookbook());
+    public ResponseEntity<Cookbook> filterByOrigin(@PathVariable("origin") String origin) {
+        return new ResponseEntity<Cookbook>(cookbookService.filterByOrigin(origin, cookbookService.readCookbook()),HttpStatus.OK);
     }
 
     /**
@@ -84,8 +85,8 @@ public class CookbookController {
      * @return a cookbook containing the matching recipes.
      */
     @GetMapping("/cookbook/type/{type}")
-    public Cookbook filterByType(@PathVariable("type") String type) {
-        return cookbookService.filterByType(type, cookbookService.readCookbook());
+    public ResponseEntity<Cookbook> filterByType(@PathVariable("type") String type) {
+        return new ResponseEntity<Cookbook>(cookbookService.filterByType(type, cookbookService.readCookbook()),HttpStatus.OK);
     }
 
     /**
@@ -94,8 +95,8 @@ public class CookbookController {
      * @return a cookbook containing the favorite recipes.
      */
     @GetMapping("/cookbook/favorites")
-    public Cookbook filterByFavorite() {
-        return cookbookService.filterByFavorite(cookbookService.readCookbook());
+    public ResponseEntity<Cookbook> filterByFavorite() {
+        return new ResponseEntity<Cookbook>(cookbookService.filterByFavorite(cookbookService.readCookbook()),HttpStatus.OK);
     }
 
     /**
@@ -105,8 +106,22 @@ public class CookbookController {
      * @return a cookbook containing the matching recipes.
      */
     @GetMapping("/cookbook/preferences/{vgl}")
-    public Cookbook filterByPreferences(@PathVariable("vgl") String vgl) {
-        return cookbookService.filterByPreferences(vgl,cookbookService.readCookbook());
+    public ResponseEntity<Cookbook> filterByPreferences(@PathVariable("vgl") String vgl) {
+        return new ResponseEntity<Cookbook>(cookbookService.filterByPreferences(vgl,cookbookService.readCookbook()),HttpStatus.OK);
+    }
+    /**
+     * Filters recipes based on origin, type, preferences and favorites.
+     * All have to match
+     * 
+     * @param origin
+     * @param type
+     * @param vgl
+     * @param favorites
+     * @return
+     */
+    @GetMapping("/cookbook/masterFilter/origin={origin}/type={type}/preferences={vgl}/favorite={favorites}")
+    public ResponseEntity<Cookbook> masterFilter(@PathVariable("origin") String origin, @PathVariable("type") String type, @PathVariable("vgl") String vgl, @PathVariable("favorites") String favorites) {        
+        return new ResponseEntity<Cookbook>(cookbookService.masterFilter(origin,type,vgl,favorites,cookbookService.readCookbook()),HttpStatus.OK);
     }
 
     /**
@@ -127,8 +142,9 @@ public class CookbookController {
      * @param name the name of the recipe to remove.
      */
     @DeleteMapping("/cookbook/recipe/{name}")
-    public void deleteRecipe(@PathVariable("name") String name) {
+    public ResponseEntity<Void> deleteRecipe(@PathVariable("name") String name) {
         System.out.println("Running delteRecipe in CookbookController");
         cookbookService.deleteRecipe(name, cookbookService.readCookbook());
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 }
