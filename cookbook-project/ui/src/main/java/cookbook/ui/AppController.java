@@ -283,12 +283,10 @@ public class AppController {
 
   public void viewFavorites(ActionEvent e){
     if (favoritesCheckBox.isSelected()){
-      //TODO replace with cookbookacces method
-      //Collection<Recipe> favorites = cookbook.filterRecipies(recipe -> recipe.isFavorite());
-      //fillCookbook(favorites);
+      fillCookbook(cookbookAccess.filterByFavorite());
     }
     else {
-      //fillCookbook(cookbook);
+      fillCookbook(cookbook);
     }
   }
 

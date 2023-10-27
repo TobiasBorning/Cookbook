@@ -13,7 +13,7 @@ import cookbook.json.CookbookHandler;
 public class LocalCookbookAccess implements CookbookAccess {
 
   private CookbookHandler ch = new CookbookHandler();
-  private final static String path = "../persistence/default-cookbook.json";
+  private final static String path = "../persistence/cookbook.json";
 
   /**
    * Fetches the entire cookbook.
@@ -169,4 +169,17 @@ public class LocalCookbookAccess implements CookbookAccess {
       throw new RuntimeException("File not found");
     }
   }
+
+  public void toggleFavorite(Recipe recipe) {
+    Cookbook tmpCookbook = fetchCookbook();
+    for (Recipe r : tmpCookbook.getRecipes()) {
+      if (r.getName().equals(recipe.getName())) {
+        r.setFavorite(!recipe.isFavorite());
+        saveCookbook(tmpCookbook);
+        return;
+      }
+    }
+
+  }
+
 }
