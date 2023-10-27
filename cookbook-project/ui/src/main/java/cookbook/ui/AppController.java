@@ -148,33 +148,16 @@ public class AppController {
         buttonFavorite.setStyle("-fx-background-color: yellow;");
       }
       else {
-        buttonFavorite.setStyle("-fx-background-color;");
+        buttonFavorite.setStyle("-fx-background-color; ");
       }
       buttonFavorite.setId("favorite"+recipe.getName()); //ex: #removeTaco
         buttonFavorite.setLayoutX(pane.getMinWidth() - buttonView.getMinWidth() - buttonRemove.getMinWidth() - 87.5 - buttonFavorite.getMinWidth()); // Adjust the x-coordinate as needed
         buttonFavorite.setLayoutY(10); // Adjust the y-coordinate as needed
         buttonFavorite.onActionProperty().set(e -> {
-          if (recipe.isFavorite()){
-            recipe.setFavorite(false);
-          }
-          else {
-            recipe.setFavorite(true);
-          }
-          //fillCookbook(cookbook.getRecipes());
-          CookbookHandler ch = new CookbookHandler();
-          // // remove recipe from cookbook class
-          // cookbook.removeRecipe(recipe);
-          // // remove recipe from the cookbook.json file
-          try {
-            ch.writeToFile(cookbook, "../persistence/cookbook.json");
-          } catch (FileNotFoundException f) {
-            setFeedbackLabel("File not found");
-            f.printStackTrace();
-          }
-          // update the cookbook view
-          fillCookbook(cookbook);
-          
-      });
+          cookbookAccess.toggleFavorite(recipe);
+          fillCookbook(cookbookAccess.fetchCookbook());
+          favoritesCheckBox.setSelected(false);
+        });
       pane.getChildren().addAll(recipeName, buttonView, buttonRemove, buttonFavorite);
       recipeList.getChildren().add(pane);
     }
@@ -286,7 +269,7 @@ public class AppController {
       fillCookbook(cookbookAccess.filterByFavorite());
     }
     else {
-      fillCookbook(cookbook);
+      fillCookbook(cookbookAccess.fetchCookbook());
     }
   }
 
