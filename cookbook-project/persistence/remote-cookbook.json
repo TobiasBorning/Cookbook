@@ -76,15 +76,15 @@
       "name": "Chicken Stir-Fry",
       "ingredients": {
         "bellPeppers": "100.0",
-        "ginger": "10.0",
+        "ginger": "100.0 g",
         "broccoli": "150.0",
         "soySauce": "30.0",
         "rice": "200.0",
-        "chickenBreast": "300.0"
+        "chickenBreast": "700.0"
       },
       "originCountry": "China",
       "description": "In a wok or large pan, saut?? diced chicken breast until fully cooked. Remove from pan and stir-fry bell peppers and broccoli until slightly tender. Add cooked chicken back to the pan, stir in soy sauce and ginger, and continue cooking for a few more minutes. Serve with cooked rice.",
-      "favorite": false,
+      "favorite": true,
       "isVegan": false,
       "isGlutenFree": false,
       "isLactoseFree": false,
@@ -107,6 +107,30 @@
       },
       "originCountry": "Italy",
       "description": "Grill or pan-sear chicken breasts until fully cooked and then slice them. In a large bowl, combine lettuce, croutons, and parmesan cheese. Toss with caesar dressing and top with the cooked, sliced chicken breast.",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false,
+      "types": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Dessert"
+      ],
+      "type": "Dinner"
+    },
+    {
+      "name": "Pasta Carbonara",
+      "ingredients": {
+        "parmesanCheese": "30.0",
+        "bacon": "100.0",
+        "spaghetti": "215.0",
+        "egg": "2.0",
+        "heavyCream": "150.0",
+        "cheese": "50.0"
+      },
+      "originCountry": "Italy",
+      "description": "Cook spaghetti until al dente. In a separate pan, cook bacon until crisp, then stir in garlic briefly. Beat eggs, parmesan, and heavy cream together, then combine with the hot, drained pasta, cooking slightly to create a creamy sauce. Add bacon, season, and serve with additional cheese.",
       "favorite": false,
       "isVegan": false,
       "isGlutenFree": false,
@@ -348,6 +372,26 @@
       },
       "originCountry": "mexico",
       "description": "yummy",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false,
+      "types": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Dessert"
+      ],
+      "type": "Unknown"
+    },
+    {
+      "name": "Water",
+      "ingredients": {
+        "salt": "10g",
+        "water": "1l"
+      },
+      "originCountry": "Norway",
+      "description": "Water is good ad super healty",
       "favorite": false,
       "isVegan": false,
       "isGlutenFree": false,
