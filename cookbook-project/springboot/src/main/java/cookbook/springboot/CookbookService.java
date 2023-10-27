@@ -209,4 +209,52 @@ public class CookbookService {
         }
         return tmpCookbook;
     }
+
+    /**
+     * Sets a recipe as favorite.
+     *
+     * @param recipeName the name of the recipe to set as favorite.
+     * @param cookbook the cookbook to update.
+     * @return the updated Recipe.
+     */
+    public Recipe toggleFavorite(final String recipeName, final Cookbook cookbook) {
+        Recipe tmpRecipe = null;
+        for (Recipe recipe : cookbook.getRecipes()) {
+            if (recipe.getName().equals(recipeName)) {
+                recipe.setFavorite(!recipe.isFavorite());
+                tmpRecipe = recipe;
+            }
+        }
+        updateCookbook(cookbook);
+        return tmpRecipe;
+    }
+    
+    /**
+     * Updates a recipe.
+     *
+     * @param recipeName the name of the recipe to update.
+     * @param recipeJson the updated recipe.
+     * @param cookbook the cookbook to update
+     * @return the updated Recipe.
+     */
+    public Recipe updateRecipe(final String recipeName, final String recipeJson, final Cookbook cookbook) {
+        Recipe tmpRecipe = null;
+        recipeName.replace("%20", " ");
+        for (Recipe recipe : cookbook.getRecipes()) {
+            if (recipe.getName().equals(recipeName)) {
+                System.out.println(recipeName + " = " + recipe.getName());
+                tmpRecipe = gson.fromJson(recipeJson, Recipe.class);
+                recipe.setName(tmpRecipe.getName());
+                recipe.setOriginCountry(tmpRecipe.getOriginCountry());
+                recipe.setType(tmpRecipe.getType());
+                recipe.setIngredients(tmpRecipe.getIngredients());
+                recipe.setGlutenFree(tmpRecipe.isGlutenFree());
+                recipe.setLactoseFree(tmpRecipe.isLactoseFree());
+                recipe.setVegan(tmpRecipe.isVegan());
+                recipe.setFavorite(tmpRecipe.isFavorite());
+            }
+        }
+        updateCookbook(cookbook);
+        return tmpRecipe;
+    }
 }
