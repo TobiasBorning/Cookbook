@@ -265,10 +265,4 @@ public class RemoteCookbookAccess implements CookbookAccess {
             System.out.println("Error sending request");
         }
     }
-    @Override
-    public void toggleFavorite(Recipe recipe) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setFavorite'");
-    }
-
 }

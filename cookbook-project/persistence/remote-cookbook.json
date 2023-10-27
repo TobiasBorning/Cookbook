@@ -359,6 +359,25 @@
         "Dessert"
       ],
       "type": "Unknown"
+    },
+    {
+      "name": "Water",
+      "ingredients": {
+        "water": "1dl"
+      },
+      "originCountry": "Norwat",
+      "description": "YUMMY",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false,
+      "types": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Dessert"
+      ],
+      "type": "Breakfast"
     }
   ]
 }
