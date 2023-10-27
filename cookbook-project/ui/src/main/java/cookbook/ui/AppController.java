@@ -24,6 +24,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 //import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -65,6 +66,8 @@ public class AppController {
   private ChoiceBox<String> typeFilter;
   @FXML
   private Button applyTypeFilterButton;
+  @FXML
+  private CheckBox favoritesCheckBox;
 
   public void initialize() {
     
@@ -107,6 +110,7 @@ public class AppController {
       recipeName.setId(recipe.getName() + "Recipe"); //ex: #TacoRecipe
         Font font = Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 16);
         recipeName.setFont(font);
+        recipeName.setMaxWidth(200);
         recipeName.setLayoutX(10);
         recipeName.setLayoutY(10);
 
@@ -137,8 +141,41 @@ public class AppController {
           System.err.println(ex);
         }
       });
-    
-      pane.getChildren().addAll(recipeName, buttonView, buttonRemove);
+
+      //Add favorite button
+      Button buttonFavorite = new Button("★");
+      if (recipe.isFavorite()){
+        buttonFavorite.setStyle("-fx-background-color: yellow;");
+      }
+      else {
+        buttonFavorite.setStyle("-fx-background-color;");
+      }
+      buttonFavorite.setId("favorite"+recipe.getName()); //ex: #removeTaco
+        buttonFavorite.setLayoutX(pane.getMinWidth() - buttonView.getMinWidth() - buttonRemove.getMinWidth() - 87.5 - buttonFavorite.getMinWidth()); // Adjust the x-coordinate as needed
+        buttonFavorite.setLayoutY(10); // Adjust the y-coordinate as needed
+        buttonFavorite.onActionProperty().set(e -> {
+          if (recipe.isFavorite()){
+            recipe.setFavorite(false);
+          }
+          else {
+            recipe.setFavorite(true);
+          }
+          //fillCookbook(cookbook.getRecipes());
+          CookbookHandler ch = new CookbookHandler();
+          // // remove recipe from cookbook class
+          // cookbook.removeRecipe(recipe);
+          // // remove recipe from the cookbook.json file
+          try {
+            ch.writeToFile(cookbook, "../persistence/cookbook.json");
+          } catch (FileNotFoundException f) {
+            setFeedbackLabel("File not found");
+            f.printStackTrace();
+          }
+          // update the cookbook view
+          fillCookbook(cookbook);
+          
+      });
+      pane.getChildren().addAll(recipeName, buttonView, buttonRemove, buttonFavorite);
       recipeList.getChildren().add(pane);
     }
 
@@ -243,6 +280,19 @@ public class AppController {
     }
     typeFilter.setValue(filterValue);
   }
+
+  public void viewFavorites(ActionEvent e){
+    if (favoritesCheckBox.isSelected()){
+      //TODO replace with cookbookacces method
+      //Collection<Recipe> favorites = cookbook.filterRecipies(recipe -> recipe.isFavorite());
+      //fillCookbook(favorites);
+    }
+    else {
+      //fillCookbook(cookbook);
+    }
+  }
+
+  
 
   //Switches from main scene to AddRecipe scene
   public void switchToAddRecipe(final ActionEvent event) throws IOException {
