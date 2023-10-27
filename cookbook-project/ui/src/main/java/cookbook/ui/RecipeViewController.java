@@ -15,6 +15,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class RecipeViewController {
+
+  private Stage stage;
+  private Scene scene;
   
   @FXML
   private Recipe recipe;
@@ -57,4 +60,19 @@ public class RecipeViewController {
     stage.setScene(scene);
     stage.show();
   }
+
+  public void switchToEditRecipeScene(ActionEvent event) throws IOException {
+    // load recipeview
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("EditRecipe.fxml"));
+    Parent root = loader.load();
+    // update scene
+    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+    // send recipe to RecipeViewController
+    RecipeViewController viewController = loader.getController();
+    viewController.loadRecipe(recipe);
+    System.out.println("Pressed edit recipe");
+  } 
 }

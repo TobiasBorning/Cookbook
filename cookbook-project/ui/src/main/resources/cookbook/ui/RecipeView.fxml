@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane id="recipeViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cookbook.ui.RecipeViewController">
+<Pane id="recipeViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cookbook.ui.RecipeViewController">
    <children>
       <Label id="recipeName" fx:id="recipeName" alignment="CENTER" layoutX="64.0" layoutY="24.0" prefHeight="40.0" prefWidth="473.0" text="RecipeName" textAlignment="CENTER">
          <font>
@@ -40,5 +40,6 @@
          </font>
       </Label>
       <Label id="type" fx:id="type" layoutX="216.0" layoutY="72.0" prefHeight="23.0" prefWidth="101.0" />
+      <Button id="editRecipeButton" fx:id="editRecipeButton" layoutX="255.0" layoutY="345.0" mnemonicParsing="false" onAction="#switchToEditRecipeScene" prefHeight="35.0" prefWidth="156.0" text="Edit recipe" />
    </children>
 </Pane>
