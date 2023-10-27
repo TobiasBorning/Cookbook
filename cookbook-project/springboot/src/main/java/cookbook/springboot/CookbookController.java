@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cookbook.core.Cookbook;
+import cookbook.core.Recipe;
 
 /**
  * REST Controller for managing cookbook operations.
@@ -43,17 +44,6 @@ public class CookbookController {
     public ResponseEntity<Cookbook> getCookbook() {
         Cookbook cookbook = cookbookService.readCookbook();
         return new ResponseEntity<Cookbook>(cookbook, HttpStatus.OK);
-    }
-
-    /**
-     * Updates the cookbook with the provided data.
-     * 
-     * @param updatedCookbook the updated cookbook data.
-     */
-    @PutMapping("/cookbook")
-    public ResponseEntity<Void> updateCookbook(@RequestBody Cookbook updatedCookbook) {
-        cookbookService.updateCookbook(updatedCookbook);
-        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     /**
@@ -146,5 +136,18 @@ public class CookbookController {
         System.out.println("Running delteRecipe in CookbookController");
         cookbookService.deleteRecipe(name, cookbookService.readCookbook());
         return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @PutMapping("/cookbook/favorite/{name}")
+    public ResponseEntity<Recipe> toggleFavorite(@PathVariable("name") String name) {
+        Recipe recipe = cookbookService.toggleFavorite(name, cookbookService.readCookbook());
+        return new ResponseEntity<Recipe>(recipe, HttpStatus.OK);
+    }
+
+
+    @PutMapping("/cookbook/recipe/{name}")
+    public ResponseEntity<Recipe> updateRecipe(@PathVariable("name") String name, @RequestBody String updatedRecipeJson) {
+        Recipe recipe = cookbookService.updateRecipe(name, updatedRecipeJson, cookbookService.readCookbook());
+        return new ResponseEntity<Recipe>(recipe, HttpStatus.OK);
     }
 }

@@ -48,7 +48,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
                 .build()
                 .send(request, HttpResponse.BodyHandlers.ofString());
             Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-            System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
+            //System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
             return ut;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -199,8 +199,28 @@ public class RemoteCookbookAccess implements CookbookAccess {
      */
     @Override
     public void updateRecipe(Recipe recipe) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateRecipe'");
+        try {
+            String encodedName;
+            encodedName = recipe.getName().replace(" ", "%20");
+            String json = gson.toJson(recipe);
+            HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/recipe/" + encodedName))
+              .header("Accept", "application/json")
+              .header("Content-Type", "application/json")
+              .PUT(HttpRequest.BodyPublishers.ofString(json))
+              .build();
+            
+            HttpResponse<String> response = HttpClient.newBuilder()
+                .build()
+                .send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                System.out.println("Updated recipe");
+            } else {
+                System.out.println("Error updating recipe");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -263,6 +283,36 @@ public class RemoteCookbookAccess implements CookbookAccess {
             }
         } catch (Exception e) {
             System.out.println("Error sending request");
+        }
+    }
+
+    /**
+     * Adds a recipe to the favorites.
+     * 
+     * @param recipe the name of the recipe to toggle
+     */
+    public void toggleFavorite(Recipe recipe) {
+        try {
+            String encodedName;
+            encodedName = recipe.getName().replace(" ", "%20");
+            String state = !recipe.isFavorite() + "";
+            HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/favorite/" + encodedName))
+              .header("Accept", "application/json")
+              .header("Content-Type", "application/json")
+              .PUT(HttpRequest.BodyPublishers.ofString(state))
+              .build();
+            
+            HttpResponse<String> response = HttpClient.newBuilder()
+                .build()
+                .send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                System.out.println(recipe.getName() + " is favorite: " + state);
+            } else {
+                System.out.println("Error updating recipe");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }
