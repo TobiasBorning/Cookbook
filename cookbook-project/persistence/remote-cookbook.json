@@ -387,11 +387,10 @@
     {
       "name": "Water",
       "ingredients": {
-        "salt": "10g",
-        "water": "1l"
+        "water": "1dl"
       },
-      "originCountry": "Norway",
-      "description": "Water is good ad super healty",
+      "originCountry": "Norwat",
+      "description": "YUMMY",
       "favorite": false,
       "isVegan": false,
       "isGlutenFree": false,
@@ -402,7 +401,7 @@
         "Dinner",
         "Dessert"
       ],
-      "type": "Unknown"
+      "type": "Breakfast"
     }
   ]
 }

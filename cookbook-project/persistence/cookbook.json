@@ -76,15 +76,15 @@
       "name": "Chicken Stir-Fry",
       "ingredients": {
         "bellPeppers": "100.0",
-        "ginger": "10.0",
+        "ginger": "100.0 g",
         "broccoli": "150.0",
         "soySauce": "30.0",
         "rice": "200.0",
-        "chickenBreast": "300.0"
+        "chickenBreast": "700.0"
       },
       "originCountry": "China",
       "description": "In a wok or large pan, saut?? diced chicken breast until fully cooked. Remove from pan and stir-fry bell peppers and broccoli until slightly tender. Add cooked chicken back to the pan, stir in soy sauce and ginger, and continue cooking for a few more minutes. Serve with cooked rice.",
-      "favorite": false,
+      "favorite": true,
       "isVegan": false,
       "isGlutenFree": false,
       "isLactoseFree": false,

@@ -71,4 +71,11 @@ public interface CookbookAccess {
      * @param recipe the recipe to add.
      */
     public void addRecipe(Recipe recipe);
+
+    /**
+     * Marks a recipe as favorite.
+     * 
+     * @param recipe the recipe to mark.
+     */
+    public void toggleFavorite(Recipe recipe);
 }
