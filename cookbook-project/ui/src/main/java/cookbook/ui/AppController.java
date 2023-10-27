@@ -2,11 +2,17 @@ package cookbook.ui;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 // import java.util.List;
 // import java.util.Map.Entry;
+
+import cookbook.accessdata.CookbookAccess;
+import cookbook.accessdata.LocalCookbookAccess;
+import cookbook.accessdata.RemoteCookbookAccess;
 
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
@@ -38,6 +44,9 @@ public class AppController {
   private Scene scene;
   private Recipe sendRecipe;
   private Cookbook cookbook = new Cookbook();
+  private CookbookAccess cookbookAccess;
+  private boolean remote;
+
 
   @FXML
   private VBox recipeList;
@@ -61,19 +70,18 @@ public class AppController {
   private CheckBox favoritesCheckBox;
 
   public void initialize() {
-    // read cookbook from file
-    CookbookHandler ch = new CookbookHandler();
-    try {
-      cookbook = ch.readFromFile("../persistence/cookbook.json");
-    } catch (FileNotFoundException e) {
-      feedbackLabel.setText("File not found");
-    }
+    
+    // set remote or local cookbook access depending on connection, override = true always connects to local
+    setAccessType(true);
+
+    cookbook = cookbookAccess.fetchCookbook();
     // set Vbox height to fit all recipes
     recipeList.setMinHeight(cookbook.getRecipes().size() * 130);
     // fill cookbook with all recipes
-    fillCookbook(cookbook.getRecipes());
+    fillCookbook(cookbook);
   }
 
+  //TODO: Bruker vi egt. denne?
   public void fillDefaultCookbook() {
     Cookbook cookbook = new Cookbook();
     CookbookHandler ch = new CookbookHandler();
@@ -82,11 +90,12 @@ public class AppController {
     } catch (FileNotFoundException e) { 
       feedbackLabel.setText("File not found");
     }
-    fillCookbook(cookbook.getRecipes());
+    fillCookbook(cookbook);
   }
 
-  private void fillCookbook(Collection<Recipe> cookbooklist) {
+  private void fillCookbook(Cookbook cookbook) {
     recipeList.getChildren().clear();
+    Collection<Recipe> cookbooklist = cookbook.getRecipes();
     for (Recipe recipe : cookbooklist) {
       //lager pane til å vise oppskrift
       Pane pane = new Pane();
@@ -163,7 +172,7 @@ public class AppController {
             f.printStackTrace();
           }
           // update the cookbook view
-          fillCookbook(cookbook.getRecipes());
+          fillCookbook(cookbook);
           
       });
       pane.getChildren().addAll(recipeName, buttonView, buttonRemove, buttonFavorite);
@@ -181,12 +190,12 @@ public class AppController {
     String search = searchField.getText();
     if (search.isEmpty()) {
       // if search is empty, fill cookbook with all recipes
-      fillCookbook(cookbook.getRecipes());
+      fillCookbook(cookbook);
       feedbackLabel.setText("");
     } else {
       // if search is not empty, fill cookbook with matching recipes
-      Collection<Recipe> searched = cookbook.filterRecipies(recipe -> recipe.getName().toLowerCase().contains(search.toLowerCase()));
-      if (searched.isEmpty()) {
+      Cookbook searched = cookbookAccess.searchRecipe(search);
+      if (searched == null || searched.getRecipes().isEmpty()) {
         // if no recipes match search, give feedback
         feedbackLabel.setText("No recipes matching search");
       } else {
@@ -213,8 +222,8 @@ public class AppController {
     }
     //Add origins to the dropdown menu, if not duplicate
     for (String origin : origins) {
-      if (!filterOrigin.getItems().contains(origin)) {
-        filterOrigin.getItems().add(origin);
+      if (!filterOrigin.getItems().contains(origin) && origin != null) {
+          filterOrigin.getItems().add(origin);
       }
     }
     //Set default value of dropdown
@@ -228,10 +237,9 @@ public class AppController {
 
     //fill cookbook with filtered recipes
     if (filterValue.equals("All origins")) {
-      fillCookbook(cookbook.getRecipes());
+      fillCookbook(cookbook);
     } else {
-      Collection<Recipe> searched = cookbook.filterRecipies(recipe -> recipe.getOriginCountry().equals(filterValue));
-      fillCookbook(searched);
+      fillCookbook(cookbookAccess.filterByOrigin(filterValue));
     }
     filterOrigin.setValue(filterValue);
   }
@@ -266,21 +274,21 @@ public class AppController {
 
     //fill cookbook with filtered recipes
     if (filterValue.equals("All types")) {
-      fillCookbook(cookbook.getRecipes());
+      fillCookbook(cookbook);
     } else {
-      Collection<Recipe> searched = cookbook.filterRecipies(recipe -> recipe.getType().equals(filterValue));
-      fillCookbook(searched);
+      fillCookbook(cookbookAccess.filterByType(filterValue));
     }
     typeFilter.setValue(filterValue);
   }
 
   public void viewFavorites(ActionEvent e){
     if (favoritesCheckBox.isSelected()){
-      Collection<Recipe> favorites = cookbook.filterRecipies(recipe -> recipe.isFavorite());
-      fillCookbook(favorites);
+      //TODO replace with cookbookacces method
+      //Collection<Recipe> favorites = cookbook.filterRecipies(recipe -> recipe.isFavorite());
+      //fillCookbook(favorites);
     }
     else {
-      fillCookbook(cookbook.getRecipes());
+      //fillCookbook(cookbook);
     }
   }
 
@@ -295,6 +303,9 @@ public class AppController {
     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
+    // send the cookbookAccess to AddRecipeController
+    AddRecipeController addRecipeController = loader.getController();
+    addRecipeController.setCookbookAccess(this.cookbookAccess);
     stage.show();
   }
 
@@ -316,19 +327,14 @@ public class AppController {
 
   // remove recipe from cookbook
   public void removeRecipe(Recipe recipe) {
-    // initialize new cookbookhandler
-    CookbookHandler ch = new CookbookHandler();
-    // remove recipe from cookbook class
-    cookbook.removeRecipe(recipe);
-    // remove recipe from the cookbook.json file
-    try {
-      ch.writeToFile(cookbook, "../persistence/cookbook.json");
-      setFeedbackLabel("Removed recipe");
-    } catch (FileNotFoundException e) {
-      setFeedbackLabel("File not found");
+    if (cookbookAccess.removeRecipe(recipe.getName())) {
+      fillCookbook(cookbookAccess.fetchCookbook());
+      feedbackLabel.setText("Removed recipe");
     }
-    // update the cookbook view
-    fillCookbook(cookbook.getRecipes());
+    else {
+      feedbackLabel.setText("Could not remove recipe");
+    }
+    
   }
 
   public void setFeedbackLabel(String feedback) {
@@ -338,6 +344,40 @@ public class AppController {
   public int getCookbookSize() {
     return cookbook.getRecipes().size();
   }
+
+  public CookbookAccess getCookbookAccess() {
+    return cookbookAccess;
+  }
+
+  public void setAccessType(boolean override) { // override = True always choose local cookbook.
+    this.remote = false;
+    try {
+      URL url = new URL("http://localhost:8080/api/cookbook");
+      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+      
+      // Set request method, e.g., GET, POST, etc.
+      connection.setRequestMethod("GET");
+
+      // Connect to the URL
+      connection.connect();
+
+      // Check the response code
+      int responseCode = connection.getResponseCode();
+      if (responseCode == HttpURLConnection.HTTP_OK) {
+          this.remote = true;
+      }
+      // Disconnect after checking
+      connection.disconnect();
+    } catch (IOException exception) {
+      System.out.println("Error occured fetching cookbook");
+    }
+
+    if (remote && !override) {
+      cookbookAccess = new RemoteCookbookAccess();
+      System.out.println("Successfully fetched cookbook, using remote access");
+    } else {
+      cookbookAccess = new LocalCookbookAccess();
+      System.out.println("Using local access");
+    }
+  }
 }
-
-

@@ -1,37 +1,74 @@
 package cookbook.accessdata;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.function.Predicate;
-
+import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
 
 public interface CookbookAccess {
 
-  public void addRecipe();
+    /**
+     * Fetches the entire cookbook.
+     * 
+     * @return the cookbook, or null if the file is not found.
+     */
+    public Cookbook fetchCookbook();
 
-  public void removeRecipe(Recipe recipe);
+    /**
+     * Searches for recipes by name.
+     * 
+     * @param recipeName the name or part of the name to search for.
+     * @return a cookbook containing the matching recipes.
+     */
+    public Cookbook searchRecipe(String recipeName);
 
-  public Collection<Recipe> filterRecipies(Predicate<Recipe> pred);
+    /**
+     * Filters recipes by their origin country.
+     * 
+     * @param origin the country of origin to filter by.
+     * @return a cookbook containing the matching recipes.
+     */
+    public Cookbook filterByOrigin(String origin);
 
-  public Collection<Recipe> getRecipes();
+    /**
+     * Filters recipes by their type.
+     * 
+     * @param type the type to filter by.
+     * @return a cookbook containing the matching recipes.
+     */
+    public Cookbook filterByType(String type);
 
-  public String getName();
+    /**
+     * Filters recipes that are marked as favorite.
+     * 
+     * @return a cookbook containing the favorite recipes.
+     */
+    public Cookbook filterByFavorite();
 
-  public String getOriginCountry();
+    /**
+     * Filters recipes based on user preferences.
+     * 
+     * @param vlg a string representing user preferences (vegan, lactose-free, gluten-free)
+     * @return a cookbook containing the matching recipes.
+     */
+    public Cookbook filterByPreferences(String vlg);
 
-  public String getDescription();
+    /**
+     * Updates a recipe in the cookbook.
+     * 
+     * @param recipe the recipe to update.
+     */
+    public void updateRecipe(Recipe recipe);
 
-  public Map<String, String> getIngredients();
+    /**
+     * Removes a recipe from the cookbook.
+     * 
+     * @param recipeName the name of the recipe to remove.
+     */
+    public boolean removeRecipe(String recipeName);
 
-  public void setName(String name);
-
-  public void setOriginCountry(String originCountry);
-
-  public void setIngredients(Map<String, String> ingredients);
-
-  public void setDescription(String description);
-
-  public void addIngredient(String ingredient, String amount);
-    
+    /**
+     * Adds a new recipe to the cookbook.
+     * 
+     * @param recipe the recipe to add.
+     */
+    public void addRecipe(Recipe recipe);
 }

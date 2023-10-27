@@ -1,89 +1,172 @@
 package cookbook.accessdata;
 
+import java.io.FileNotFoundException;
 import java.util.Collection;
-import java.util.Map;
-import java.util.function.Predicate;
 
+import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
+import cookbook.json.CookbookHandler;
 
+/**
+ * Provides local access to a cookbook stored in a JSON file.
+ */
 public class LocalCookbookAccess implements CookbookAccess {
 
+  private CookbookHandler ch = new CookbookHandler();
+  private final static String path = "../persistence/default-cookbook.json";
+
+  /**
+   * Fetches the entire cookbook.
+   * 
+   * @return the cookbook, or null if the file is not found.
+   */
   @Override
-  public void addRecipe() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'addRecipe'");
+  public Cookbook fetchCookbook() {
+    try {
+      return ch.readFromFile(path);
+    } catch (FileNotFoundException e) { 
+      return null;
+    }
   }
 
+  /**
+   * Searches for recipes by name.
+   * 
+   * @param recipeName the name or part of the name to search for.
+   * @return a cookbook containing the matching recipes.
+   */
   @Override
-  public void removeRecipe(Recipe recipe) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'removeRecipe'");
+  public Cookbook searchRecipe(String recipeName) {
+      Collection<Recipe> searched = fetchCookbook().filterRecipies(recipe -> recipe.getName().toLowerCase().contains(recipeName.toLowerCase()));
+      Cookbook tmpCookbook = new Cookbook();
+      for (Recipe recipe : searched) {
+        tmpCookbook.addRecipe(recipe);
+      }
+      return tmpCookbook;
   }
 
+  /**
+   * Filters recipes by their origin country.
+   * 
+   * @param origin the country of origin to filter by.
+   * @return a cookbook containing the matching recipes.
+   */
   @Override
-  public Collection<Recipe> filterRecipies(Predicate<Recipe> pred) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'filterRecipies'");
+  public Cookbook filterByOrigin(String origin) {
+      Collection<Recipe> searched = fetchCookbook().filterRecipies(recipe -> recipe.getOriginCountry().equals(origin));
+      Cookbook tmpCookbook = new Cookbook();
+      for (Recipe recipe : searched) {
+        tmpCookbook.addRecipe(recipe);
+      }
+      return tmpCookbook;
   }
 
+  /**
+   * Filters recipes by their type.
+   * 
+   * @param type the type to filter by.
+   * @return a cookbook containing the matching recipes.
+   */
   @Override
-  public Collection<Recipe> getRecipes() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getRecipes'");
+  public Cookbook filterByType(String type) {
+    Collection<Recipe> searched = fetchCookbook().filterRecipies(recipe -> recipe.getType().equals(type));
+      Cookbook tmpCookbook = new Cookbook();
+      for (Recipe recipe : searched) {
+        tmpCookbook.addRecipe(recipe);
+      }
+      return tmpCookbook;
   }
 
+  /**
+   * Filters recipes that are marked as favorite.
+   * 
+   * @return a cookbook containing the favorite recipes.
+   */
   @Override
-  public String getName() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getName'");
+  public Cookbook filterByFavorite() {
+    Collection<Recipe> searched = fetchCookbook().filterRecipies(recipe -> recipe.isFavorite() == true);
+    Cookbook tmpCookbook = new Cookbook();
+    for (Recipe recipe : searched) {
+      tmpCookbook.addRecipe(recipe);
+    }
+    return tmpCookbook;
   }
 
+  /**
+   * Filters recipes based on user preferences.
+   * 
+   * @param vlg a string representing user preferences. (vegan, lactose-free, gluten-free)
+   * @return a cookbook containing the matching recipes.
+   */
   @Override
-  public String getOriginCountry() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getOriginCountry'");
+  public Cookbook filterByPreferences(String vlg) {
+    
+    Cookbook tmpCookbook = new Cookbook();
+        
+    boolean gluten = vlg.charAt(2) == 'T';
+    boolean lactose = vlg.charAt(1) == 'T';
+    boolean vegan = vlg.charAt(0) == 'T';
+
+    for (Recipe recipe : fetchCookbook().getRecipes()) {
+        if (!((!recipe.isGlutenFree() && gluten) || (!recipe.isLactoseFree() && lactose) || (!recipe.isVegan() && vegan))) {
+            tmpCookbook.addRecipe(recipe);
+        }
+    }
+
+    return tmpCookbook;
   }
 
+  /**
+   * Updates a recipe in the cookbook.
+   * 
+   * @param recipe the recipe to update.
+   */
   @Override
-  public String getDescription() {
+  public void updateRecipe(Recipe recipe) {
     // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getDescription'");
+    throw new UnsupportedOperationException("Unimplemented method 'updateRecipe'");
   }
 
+  /**
+   * Removes a recipe from the cookbook.
+   * 
+   * @param recipeName the name of the recipe to remove.
+   */
   @Override
-  public Map<String, String> getIngredients() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getIngredients'");
+  public boolean removeRecipe(String recipeName) {
+    Cookbook tmpCookbook = fetchCookbook();
+    for (Recipe recipe : fetchCookbook().getRecipes()) {
+      if (recipe.getName().equals(recipeName)) {
+        tmpCookbook.removeRecipe(recipe);
+        saveCookbook(tmpCookbook);
+        return true;
+      }
+    }
+    return false;
   }
 
+  /**
+   * Adds a new recipe to the cookbook.
+   * 
+   * @param recipe the recipe to add.
+   */
   @Override
-  public void setName(String name) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'setName'");
+  public void addRecipe(Recipe recipe) {
+    Cookbook tmpCookbook = fetchCookbook();
+    tmpCookbook.addRecipe(recipe);
+    saveCookbook(tmpCookbook);
   }
 
-  @Override
-  public void setOriginCountry(String originCountry) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'setOriginCountry'");
+  /**
+   * Saves the cookbook to the file.
+   * 
+   * @param cookbook the cookbook to save.
+   */
+  private void saveCookbook(Cookbook cookbook) {
+    try {
+      ch.writeToFile(cookbook, path);
+    } catch (FileNotFoundException e) {
+      throw new RuntimeException("File not found");
+    }
   }
-
-  @Override
-  public void setIngredients(Map<String, String> ingredients) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'setIngredients'");
-  }
-
-  @Override
-  public void setDescription(String description) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'setDescription'");
-  }
-
-  @Override
-  public void addIngredient(String ingredient, String amount) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'addIngredient'");
-  }
-  
 }

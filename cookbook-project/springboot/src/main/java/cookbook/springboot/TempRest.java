@@ -12,7 +12,9 @@ import com.google.gson.Gson;
 
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
-
+/**
+ * Temporary class for understanding the REST API.
+ */
 public class TempRest {
   public static void main(String[] args) {
     Recipe recipe = new Recipe();
@@ -97,13 +99,13 @@ public class TempRest {
         .header("Content-Type", "application/json")
         .POST(BodyPublishers.ofString(gson.toJson(recipe)))
         .build();
-      /* 
+      
       HttpResponse<String> response = HttpClient.newBuilder()
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
 
       System.out.println("POST body" + response.body());
-      */
+      
     } catch (Exception e) {
       System.out.println("Error sending request");
     }

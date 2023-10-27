@@ -1,91 +1,269 @@
 package cookbook.accessdata;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.function.Predicate;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpRequest.BodyPublishers;
 
+import com.google.gson.Gson;
+
+import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
 
 public class RemoteCookbookAccess implements CookbookAccess {
-    public RemoteCookbookAccess() {
-        
+    
+    private Gson gson = new Gson();
+    private URI uri;
+
+    /**
+     * Connects to the springboot-server. 
+     * Updates the uri field to http://localhost:8080/api
+     */
+    private void connect() {
+        try {
+            this.uri = new URI("http://localhost:8080/api/");
+        } catch (Exception e) {
+            System.out.println("URI not found");
+            this.uri = null;
+        }
+    }
+    /**
+     * Fetches the entire cookbook.
+     * 
+     * @return the cookbook, or null if the file is not found.
+     */
+    @Override
+    public Cookbook fetchCookbook() {
+        connect();
+        try {
+            HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook"))
+                .header("Accept", "application/json")
+                .GET()
+                .build();
+            
+            HttpResponse<String> response = HttpClient.newBuilder()
+                .build()
+                .send(request, HttpResponse.BodyHandlers.ofString());
+            Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
+            System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
+            return ut;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new Cookbook(); //returns empty cookbook in case of error
+        }
     }
 
+    /**
+     * Searches for recipes by name.
+     * 
+     * @param recipeName the name or part of the name to search for.
+     * @return a cookbook containing the matching recipes.
+     */
     @Override
-    public void addRecipe() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addRecipe'");
+    public Cookbook searchRecipe(String recipeName) {
+        connect();
+        String encodedName;
+        encodedName = recipeName.replace(" ", "%20");
+        try {
+            HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/search/"+encodedName))
+                .header("Accept", "application/json")
+                .GET()
+                .build();
+            
+            HttpResponse<String> response = HttpClient.newBuilder()
+                .build()
+                .send(request, HttpResponse.BodyHandlers.ofString());
+            Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
+            System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
+            return ut;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new Cookbook(); //returns empty cookbook in case of error
+        }
     }
 
+    /**
+     * Filters recipes by their origin country.
+     * 
+     * @param origin the country of origin to filter by.
+     * @return a cookbook containing the matching recipes.
+     */
     @Override
-    public void removeRecipe(Recipe recipe) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeRecipe'");
+    public Cookbook filterByOrigin(String origin) {
+        connect();
+        try {
+            HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/origin/"+origin))
+                .header("Accept", "application/json")
+                .GET()
+                .build();
+            
+            HttpResponse<String> response = HttpClient.newBuilder()
+                .build()
+                .send(request, HttpResponse.BodyHandlers.ofString());
+            Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
+            System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
+            return ut;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new Cookbook(); //returns empty cookbook in case of error
+        }
     }
 
+    /**
+     * Filters recipes by their type.
+     * 
+     * @param type the type to filter by.
+     * @return a cookbook containing the matching recipes.
+     */
     @Override
-    public Collection<Recipe> filterRecipies(Predicate<Recipe> pred) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'filterRecipies'");
+    public Cookbook filterByType(String type) {
+        connect();
+        try {
+            HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/type/"+type))
+                .header("Accept", "application/json")
+                .GET()
+                .build();
+            
+            HttpResponse<String> response = HttpClient.newBuilder()
+                .build()
+                .send(request, HttpResponse.BodyHandlers.ofString());
+            Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
+            System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
+            return ut;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new Cookbook(); //returns empty cookbook in case of error
+        }
     }
 
+    /**
+     * Filters recipes that are marked as favorite.
+     * 
+     * @return a cookbook containing the favorite recipes.
+     */
     @Override
-    public Collection<Recipe> getRecipes() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRecipes'");
+    public Cookbook filterByFavorite() {
+        connect();
+        try {
+            HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/favorites"))
+                .header("Accept", "application/json")
+                .GET()
+                .build();
+            
+            HttpResponse<String> response = HttpClient.newBuilder()
+                .build()
+                .send(request, HttpResponse.BodyHandlers.ofString());
+            Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
+            System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
+            return ut;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new Cookbook(); //returns empty cookbook in case of error
+        }
     }
 
+    /**
+     * Filters recipes based on user preferences.
+     * 
+     * @param vlg a string representing user preferences.
+     * @return a cookbook containing the matching recipes.
+     */
     @Override
-    public String getName() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getName'");
+    public Cookbook filterByPreferences(String vlg) {
+        connect();
+        try {
+            HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/preferences/"+vlg))
+                .header("Accept", "application/json")
+                .GET()
+                .build();
+            
+            HttpResponse<String> response = HttpClient.newBuilder()
+                .build()
+                .send(request, HttpResponse.BodyHandlers.ofString());
+            Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
+            System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
+            return ut;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new Cookbook(); //returns empty cookbook in case of error
+        }
     }
 
+    /**
+     * Updates a recipe in the cookbook.
+     * 
+     * @param recipe the recipe to add.
+     */
     @Override
-    public String getOriginCountry() {
+    public void updateRecipe(Recipe recipe) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOriginCountry'");
+        throw new UnsupportedOperationException("Unimplemented method 'updateRecipe'");
     }
 
+    /**
+     * Removes a recipe from the cookbook.
+     * 
+     * @param recipeName the name of the recipe to remove.
+     */
     @Override
-    public String getDescription() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDescription'");
+    public boolean removeRecipe(String recipeName) {
+        try {
+            String encodedName;
+            encodedName = recipeName.replace(" ", "%20");
+      
+            System.out.println(encodedName);
+            HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/recipe/" + encodedName))
+              .header("Accept", "application/json")
+              .header("Content-Type", "application/json")
+              .DELETE()
+              .build();
+            
+            HttpResponse<String> response = HttpClient.newBuilder()
+                .build()
+                .send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                System.out.println("Removed recipe");
+                return true;
+            } else {
+                System.out.println("Error removing recipe");
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Error sending request");
+            return false;
+        }
     }
 
+    /**
+     * Adds a recipe to the cookbook.
+     * 
+     * @param recipe the recipe to add.
+     */
     @Override
-    public Map<String, String> getIngredients() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getIngredients'");
+    public void addRecipe(Recipe recipe) {
+        try {
+            HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook"))
+              .header("Accept", "application/json")
+              .header("Content-Type", "application/json")
+              .POST(BodyPublishers.ofString(gson.toJson(recipe)))
+              .build();
+            
+            HttpResponse<String> response = HttpClient.newBuilder()
+                .build()
+                .send(request, HttpResponse.BodyHandlers.ofString());
+            
+            if (response.statusCode() == 200) {
+                System.out.println("Added recipe");
+            } else {
+                System.out.println("Error adding recipe");
+            }
+        } catch (Exception e) {
+            System.out.println("Error sending request");
+        }
     }
 
-    @Override
-    public void setName(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setName'");
-    }
-
-    @Override
-    public void setOriginCountry(String originCountry) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setOriginCountry'");
-    }
-
-    @Override
-    public void setIngredients(Map<String, String> ingredients) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setIngredients'");
-    }
-
-    @Override
-    public void setDescription(String description) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setDescription'");
-    }
-
-    @Override
-    public void addIngredient(String ingredient, String amount) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addIngredient'");
-    }
 }
