@@ -93,10 +93,10 @@ public class CookbookService {
         for (Recipe recipe : cookbook.getRecipes()) {
             if (recipe.getName().equals(recipeName)) {
                 cookbook.removeRecipe(recipe);
+                updateCookbook(cookbook);
                 return new ResponseEntity<Void>(HttpStatus.OK);
             }
         }
-        updateCookbook(cookbook);
         return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
     }
 
