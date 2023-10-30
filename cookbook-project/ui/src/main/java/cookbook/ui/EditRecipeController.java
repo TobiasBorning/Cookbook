@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -24,8 +25,9 @@ import javafx.stage.Stage;
 public class EditRecipeController {
     private Stage stage;
     private Scene scene;
-    private Cookbook cookbook = new Cookbook();
-    private Recipe recipe = new Recipe();
+    //private Cookbook cookbook = new Cookbook();
+    private Recipe oldRecipe = new Recipe();
+    private Recipe newRecipe = new Recipe();
     private CookbookAccess cookbookAccess;
 
     @FXML
@@ -43,9 +45,35 @@ public class EditRecipeController {
     @FXML 
     private TextField type;
 
+    @FXML
+    private Button back;
+
+    @FXML
+    private Button addIngredientButton;
+
+    @FXML
+    private Button saveChangesButton;
+
     private int ingredientCount = 0;
 
-    public void addIngredient(final ActionEvent e) {
+
+    //TODO: Initialize the recipe object with the recipe that was clicked on.
+    public void loadRecipe(Recipe recipe){
+        this.oldRecipe = recipe;
+        recipeName.setText(recipe.getName());
+        recipeDescription.setText(recipe.getDescription());
+        origin.setText(recipe.getOriginCountry());
+        type.setText(recipe.getType());
+        for (Map.Entry<String, String> ingredient : recipe.getIngredients().entrySet()) {
+            addIngredient();
+            TextField ingredientName = (TextField) ingredientsContainer.lookup("#ingredientName" + ingredientCount);
+            TextField amount = (TextField) ingredientsContainer.lookup("#ingredientAmount" + ingredientCount);
+            ingredientName.setText(ingredient.getKey());
+            amount.setText(ingredient.getValue());
+        }
+    }
+    
+    public void addIngredient() {
         //Tracks which textfields should be targeted.
         ingredientCount++;
 
@@ -75,15 +103,17 @@ public class EditRecipeController {
         ingredientsContainer.getChildren().add(pane);
     }
 
-    public void addToCookbook(final ActionEvent e) throws IOException {
+    public void saveChanges(ActionEvent e) throws IOException {
 
         Map<String, String> ingredients = new HashMap<>();
         String recipeNameString = null;
         String descriptionString = null;
+        String inputOrigin = null;
+        String inputType = null;
+
         TextField ingredientName = null;
         TextField amount = null;
-        String inputOrigin = null;
-        String inputType = "Uknown";
+        
         
         if (!recipeName.getText().equals(null)) {
         recipeNameString = recipeName.getText();
@@ -95,16 +125,10 @@ public class EditRecipeController {
         inputOrigin = origin.getText();
         }
         if (!type.getText().equals(null)) {
-        recipe.setType(type.getText());
-        inputType = recipe.getType();
+        newRecipe.setType(type.getText());
+        inputType = newRecipe.getType();
         }
         
-        /* 
-        if (type.getText().equals("Dinner") || type.getText().equals("Breakfast") || type.getText().equals("Lunch") 
-        || type.getText().equals("Dessert") || type.getText().equals("Unknown")){
-        inputType = type.getText();
-        }
-        */
 
         for (Node node : ingredientsContainer.getChildren()) {
         if (node instanceof Pane) {
@@ -128,10 +152,13 @@ public class EditRecipeController {
             }
         }
         }
-        this.recipe = new Recipe(recipeNameString, ingredients, inputOrigin, inputType, descriptionString);
-        addRecipe(recipe);
 
-        //Calls on method that switches to min scene
+        cookbookAccess.updateRecipe(oldRecipe);
+        // this.newRecipe = new Recipe(recipeNameString, ingredients, inputOrigin, inputType, descriptionString);
+        // cookbookAccess.removeRecipe(oldRecipe.getName());
+        // addRecipe(newRecipe);
+
+        //Calls on method that switches to main scene
         switchToMainScene(e);
 
     }
@@ -166,6 +193,6 @@ public class EditRecipeController {
         stage.show();
         // send recipe to RecipeViewController
         RecipeViewController viewController = loader.getController();
-        viewController.loadRecipe(recipe);
+        viewController.loadRecipe(newRecipe);
       }  
 }

@@ -62,6 +62,7 @@ public class RecipeViewController {
   }
 
   public void switchToEditRecipeScene(ActionEvent event) throws IOException {
+    System.out.println("Pressed edit recipe");
     // load recipeview
     FXMLLoader loader = new FXMLLoader(getClass().getResource("EditRecipe.fxml"));
     Parent root = loader.load();
@@ -71,8 +72,8 @@ public class RecipeViewController {
     stage.setScene(scene);
     stage.show();
     // send recipe to RecipeViewController
-    RecipeViewController viewController = loader.getController();
-    viewController.loadRecipe(recipe);
+    EditRecipeController editController = loader.getController();
+    editController.loadRecipe(recipe);
     System.out.println("Pressed edit recipe");
   } 
 }

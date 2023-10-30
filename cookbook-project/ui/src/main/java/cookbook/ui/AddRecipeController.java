@@ -82,7 +82,7 @@ public class AddRecipeController {
     TextField ingredientName = null;
     TextField amount = null;
     String inputOrigin = null;
-    String inputType = "Uknown";
+    String inputType = "Unknown";
     
     if (!recipeName.getText().equals(null)) {
       recipeNameString = recipeName.getText();
