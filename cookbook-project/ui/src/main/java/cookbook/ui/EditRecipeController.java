@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cookbook.accessdata.CookbookAccess;
+import cookbook.accessdata.RemoteCookbookAccess;
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
 import cookbook.json.CookbookHandler;
@@ -16,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -28,13 +30,10 @@ public class EditRecipeController {
     //private Cookbook cookbook = new Cookbook();
     private Recipe oldRecipe = new Recipe();
     private Recipe newRecipe = new Recipe();
-    private CookbookAccess cookbookAccess;
+    private CookbookAccess cookbookAccess = new RemoteCookbookAccess();
 
     @FXML
     private VBox ingredientsContainer;
-
-    @FXML
-    private TextField recipeName;
 
     @FXML
     private TextArea recipeDescription;
@@ -54,16 +53,22 @@ public class EditRecipeController {
     @FXML
     private Button saveChangesButton;
 
+    @FXML 
+    private Label title;
+
     private int ingredientCount = 0;
 
 
     //TODO: Initialize the recipe object with the recipe that was clicked on.
     public void loadRecipe(Recipe recipe){
         this.oldRecipe = recipe;
-        recipeName.setText(recipe.getName());
+        this.newRecipe.setName(oldRecipe.getName());
+        // System.out.println("Recipe name: " + recipe.getName());
         recipeDescription.setText(recipe.getDescription());
         origin.setText(recipe.getOriginCountry());
         type.setText(recipe.getType());
+        title.setText("Edit " + recipe.getName());
+        newRecipe.setFavorite(oldRecipe.isFavorite());
         for (Map.Entry<String, String> ingredient : recipe.getIngredients().entrySet()) {
             addIngredient();
             TextField ingredientName = (TextField) ingredientsContainer.lookup("#ingredientName" + ingredientCount);
@@ -105,68 +110,52 @@ public class EditRecipeController {
 
     public void saveChanges(ActionEvent e) throws IOException {
 
-        Map<String, String> ingredients = new HashMap<>();
-        String recipeNameString = null;
-        String descriptionString = null;
-        String inputOrigin = null;
-        String inputType = null;
-
-        TextField ingredientName = null;
-        TextField amount = null;
-        
-        
-        if (!recipeName.getText().equals(null)) {
-        recipeNameString = recipeName.getText();
-        }
-        if (!recipeDescription.getText().equals(null)) {
-        descriptionString = recipeDescription.getText();
-        }
-        if (!origin.getText().equals(null)) {
-        inputOrigin = origin.getText();
-        }
-        if (!type.getText().equals(null)) {
-        newRecipe.setType(type.getText());
-        inputType = newRecipe.getType();
-        }
-        
-
-        for (Node node : ingredientsContainer.getChildren()) {
-        if (node instanceof Pane) {
-            Pane pane = (Pane) node;
-
-            for (Node childNode : pane.getChildren()) {
-            if (childNode instanceof TextField) {
-                TextField textField = (TextField) childNode;
-                if (textField.getPromptText().equals("ingredientname")) {
-                ingredientName = textField;
-                }
-                else if (textField.getPromptText().equals("amount")) {
-                amount = textField;
-                }
-                if (ingredientName != null && amount != null) {
-                String ingredientNameString = ingredientName.getText();
-                String amountString = amount.getText();
-                ingredients.put(ingredientNameString, amountString);
-                }
-            }
-            }
-        }
-        }
-
-        cookbookAccess.updateRecipe(oldRecipe);
-        // this.newRecipe = new Recipe(recipeNameString, ingredients, inputOrigin, inputType, descriptionString);
-        // cookbookAccess.removeRecipe(oldRecipe.getName());
-        // addRecipe(newRecipe);
-
-        //Calls on method that switches to main scene
-        switchToMainScene(e);
-
+    Map<String, String> ingredients = new HashMap<>();
+    String descriptionString = null;
+    TextField ingredientName = null;
+    TextField amount = null;
+    String inputOrigin = null;
+    String inputType = "Unknown";
+    
+    if (!recipeDescription.getText().equals(null)) {
+      descriptionString = recipeDescription.getText();
+    }
+    if (!origin.getText().equals(null)) {
+      inputOrigin = origin.getText();
+    }
+    if (!type.getText().equals(null)) {
+      newRecipe.setType(type.getText());
+      inputType = newRecipe.getType();
     }
 
-    // add recipe to cookbook
-    public void addRecipe(Recipe recipe) {
-        // use cookbookAccess to add recipe to cookbook
-        cookbookAccess.addRecipe(recipe);
+    for (Node node : ingredientsContainer.getChildren()) {
+      if (node instanceof Pane) {
+        Pane pane = (Pane) node;
+
+        for (Node childNode : pane.getChildren()) {
+          if (childNode instanceof TextField) {
+            TextField textField = (TextField) childNode;
+            if (textField.getPromptText().equals("ingredientname")) {
+              ingredientName = textField;
+            }
+            else if (textField.getPromptText().equals("amount")) {
+              amount = textField;
+            }
+            if (ingredientName != null && amount != null) {
+              String ingredientNameString = ingredientName.getText();
+              String amountString = amount.getText();
+              ingredients.put(ingredientNameString, amountString);
+            }
+          }
+        }
+      }
+    }
+    //må endre i konstruktøren senere !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! fjerne false verdiene 
+    this.newRecipe = new Recipe(oldRecipe.getName(), ingredients, inputOrigin, inputType, descriptionString, newRecipe.isFavorite(), false, false, false);
+    cookbookAccess.updateRecipe(newRecipe);
+
+    //Calls on method that switches to main scene
+    switchToMainScene(e);
     }
 
     //Switches from AddRecipe scene to main scene
