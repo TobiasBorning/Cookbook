@@ -1,6 +1,7 @@
 package cookbook.springboot;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,7 +22,7 @@ import cookbook.core.Recipe;
 @RestController
 @RequestMapping("/api")
 public class CookbookController {
-   
+
     private CookbookService cookbookService;
 
     /**
@@ -33,6 +34,17 @@ public class CookbookController {
     public CookbookController(CookbookService service) {
         System.out.println("CookbookController constructor");
         this.cookbookService = service;
+    }
+
+    /**
+     * Creates a new, empty cookbook.
+     * 
+     * @return ResponseEntity containing status code.
+     */
+    @PostMapping("/cookbook/new")
+    public ResponseEntity<Void> newCookbook() {
+        cookbookService.updateCookbook(new Cookbook());
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     /**
@@ -134,8 +146,7 @@ public class CookbookController {
     @DeleteMapping("/cookbook/recipe/{name}")
     public ResponseEntity<Void> deleteRecipe(@PathVariable("name") String name) {
         System.out.println("Running delteRecipe in CookbookController");
-        cookbookService.deleteRecipe(name, cookbookService.readCookbook());
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return cookbookService.deleteRecipe(name, cookbookService.readCookbook());
     }
 
     @PutMapping("/cookbook/favorite/{name}")
