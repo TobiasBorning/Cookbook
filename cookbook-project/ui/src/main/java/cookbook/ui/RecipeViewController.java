@@ -3,6 +3,7 @@ package cookbook.ui;
 import java.io.IOException;
 import java.util.Map.Entry;
 
+import cookbook.accessdata.CookbookAccess;
 import cookbook.core.Recipe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +16,11 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class RecipeViewController {
-  
+
+  private Stage stage;
+  private Scene scene;
+  private CookbookAccess cookbookAccess;
+
   @FXML
   private Recipe recipe;
   @FXML
@@ -56,5 +61,29 @@ public class RecipeViewController {
     Scene scene = new Scene(root);
     stage.setScene(scene);
     stage.show();
+  }
+
+  public void switchToEditRecipeScene(ActionEvent event) throws IOException {
+    System.out.println("Pressed edit recipe");
+    // load recipeview
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("EditRecipe.fxml"));
+    Parent root = loader.load();
+    // update scene
+    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+    // send recipe to RecipeViewController
+    EditRecipeController editController = loader.getController();
+    editController.loadRecipe(recipe);
+    System.out.println("Send" + cookbookAccess + "to edit recipe controller");
+    editController.setCookbookAccess(cookbookAccess);
+    // get main scene controller to set cookbook access type
+    
+    System.out.println("Pressed edit recipe");
+  } 
+
+  public void setCookbookAccess(CookbookAccess cookbookAccess) {
+    this.cookbookAccess = cookbookAccess;
   }
 }

@@ -199,10 +199,12 @@ public class RemoteCookbookAccess implements CookbookAccess {
      */
     @Override
     public void updateRecipe(Recipe recipe) {
+        connect();
         try {
             String encodedName;
             encodedName = recipe.getName().replace(" ", "%20");
             String json = gson.toJson(recipe);
+            System.out.println("Recipe:" + json);
             HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/recipe/" + encodedName))
               .header("Accept", "application/json")
               .header("Content-Type", "application/json")
@@ -230,6 +232,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
      */
     @Override
     public boolean removeRecipe(String recipeName) {
+        connect();
         try {
             String encodedName;
             encodedName = recipeName.replace(" ", "%20");
@@ -265,6 +268,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
      */
     @Override
     public void addRecipe(Recipe recipe) {
+        connect();
         try {
             HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook"))
               .header("Accept", "application/json")
@@ -292,6 +296,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
      * @param recipe the name of the recipe to toggle
      */
     public void toggleFavorite(Recipe recipe) {
+        connect();
         try {
             String encodedName;
             encodedName = recipe.getName().replace(" ", "%20");

@@ -303,6 +303,8 @@ public class AppController {
     stage.show();
     // send recipe to RecipeViewController
     RecipeViewController viewController = loader.getController();
+    System.out.println("Set recipe view controller cookbook access to " + cookbookAccess);
+    viewController.setCookbookAccess(cookbookAccess);
     viewController.loadRecipe(sendRecipe);
   }  
 

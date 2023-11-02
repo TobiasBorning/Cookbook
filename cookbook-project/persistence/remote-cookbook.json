@@ -3,7 +3,7 @@
     {
       "name": "Taco",
       "ingredients": {
-        "tomatoes": "55.0",
+        "tomatoes": "50.0",
         "groundBeef": "150.0",
         "lettuce": "50.0",
         "tacoShell": "2.0",
@@ -31,12 +31,14 @@
         "mushrooms": "50.0",
         "onions": "30.0",
         "tomatoSauce": "150.0",
+        "ruccula": "100.0",
         "pepperoni": "100.0",
+        "aioli": "50.0",
         "cheese": "200.0"
       },
       "originCountry": "Italy",
       "description": "Spread pizza dough onto a pan, applying a generous layer of tomato sauce. Sprinkle cheese uniformly and add toppings such as pepperoni, mushrooms, and onions. Bake until the crust turns golden and the cheese bubbles. Allow to cool slightly, slice, and serve.",
-      "favorite": false,
+      "favorite": true,
       "isVegan": false,
       "isGlutenFree": false,
       "isLactoseFree": false,
@@ -76,7 +78,7 @@
       "name": "Chicken Stir-Fry",
       "ingredients": {
         "bellPeppers": "100.0",
-        "ginger": "100.0 g",
+        "ginger": "75.0 g",
         "broccoli": "150.0",
         "soySauce": "30.0",
         "rice": "200.0",
@@ -84,7 +86,7 @@
       },
       "originCountry": "China",
       "description": "In a wok or large pan, saut?? diced chicken breast until fully cooked. Remove from pan and stir-fry bell peppers and broccoli until slightly tender. Add cooked chicken back to the pan, stir in soy sauce and ginger, and continue cooking for a few more minutes. Serve with cooked rice.",
-      "favorite": true,
+      "favorite": false,
       "isVegan": false,
       "isGlutenFree": false,
       "isLactoseFree": false,
@@ -100,14 +102,14 @@
       "name": "Caesar Salad",
       "ingredients": {
         "parmesanCheese": "30.0",
-        "caesarDressing": "40.0",
+        "caesarDressing": "50.0",
         "lettuce": "100.0",
         "chickenBreast": "200.0",
         "croutons": "50.0"
       },
       "originCountry": "Italy",
       "description": "Grill or pan-sear chicken breasts until fully cooked and then slice them. In a large bowl, combine lettuce, croutons, and parmesan cheese. Toss with caesar dressing and top with the cooked, sliced chicken breast.",
-      "favorite": false,
+      "favorite": true,
       "isVegan": false,
       "isGlutenFree": false,
       "isLactoseFree": false,
@@ -308,7 +310,7 @@
       "ingredients": {
         "spaghetti": "10"
       },
-      "originCountry": "Italia",
+      "originCountry": "Italy",
       "description": "Yummt",
       "favorite": false,
       "isVegan": false,
@@ -383,25 +385,6 @@
         "Dessert"
       ],
       "type": "Unknown"
-    },
-    {
-      "name": "Water",
-      "ingredients": {
-        "water": "1dl"
-      },
-      "originCountry": "Norwat",
-      "description": "YUMMY",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Breakfast"
     }
   ]
 }
