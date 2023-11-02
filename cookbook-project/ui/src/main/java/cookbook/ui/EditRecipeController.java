@@ -30,7 +30,7 @@ public class EditRecipeController {
     //private Cookbook cookbook = new Cookbook();
     private Recipe oldRecipe = new Recipe();
     private Recipe newRecipe = new Recipe();
-    private CookbookAccess cookbookAccess = new RemoteCookbookAccess();
+    private CookbookAccess cookbookAccess;
 
     @FXML
     private VBox ingredientsContainer;
@@ -110,52 +110,52 @@ public class EditRecipeController {
 
     public void saveChanges(ActionEvent e) throws IOException {
 
-    Map<String, String> ingredients = new HashMap<>();
-    String descriptionString = null;
-    TextField ingredientName = null;
-    TextField amount = null;
-    String inputOrigin = null;
-    String inputType = "Unknown";
-    
-    if (!recipeDescription.getText().equals(null)) {
-      descriptionString = recipeDescription.getText();
-    }
-    if (!origin.getText().equals(null)) {
-      inputOrigin = origin.getText();
-    }
-    if (!type.getText().equals(null)) {
-      newRecipe.setType(type.getText());
-      inputType = newRecipe.getType();
-    }
+      Map<String, String> ingredients = new HashMap<>();
+      String descriptionString = null;
+      TextField ingredientName = null;
+      TextField amount = null;
+      String inputOrigin = null;
+      String inputType = "Unknown";
+      
+      if (!recipeDescription.getText().equals(null)) {
+        descriptionString = recipeDescription.getText();
+      }
+      if (!origin.getText().equals(null)) {
+        inputOrigin = origin.getText();
+      }
+      if (!type.getText().equals(null)) {
+        newRecipe.setType(type.getText());
+        inputType = newRecipe.getType();
+      }
 
-    for (Node node : ingredientsContainer.getChildren()) {
-      if (node instanceof Pane) {
-        Pane pane = (Pane) node;
+      for (Node node : ingredientsContainer.getChildren()) {
+        if (node instanceof Pane) {
+          Pane pane = (Pane) node;
 
-        for (Node childNode : pane.getChildren()) {
-          if (childNode instanceof TextField) {
-            TextField textField = (TextField) childNode;
-            if (textField.getPromptText().equals("ingredientname")) {
-              ingredientName = textField;
-            }
-            else if (textField.getPromptText().equals("amount")) {
-              amount = textField;
-            }
-            if (ingredientName != null && amount != null) {
-              String ingredientNameString = ingredientName.getText();
-              String amountString = amount.getText();
-              ingredients.put(ingredientNameString, amountString);
+          for (Node childNode : pane.getChildren()) {
+            if (childNode instanceof TextField) {
+              TextField textField = (TextField) childNode;
+              if (textField.getPromptText().equals("ingredientname")) {
+                ingredientName = textField;
+              }
+              else if (textField.getPromptText().equals("amount")) {
+                amount = textField;
+              }
+              if (ingredientName != null && amount != null) {
+                String ingredientNameString = ingredientName.getText();
+                String amountString = amount.getText();
+                ingredients.put(ingredientNameString, amountString);
+              }
             }
           }
         }
       }
-    }
-    //må endre i konstruktøren senere !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! fjerne false verdiene 
-    this.newRecipe = new Recipe(oldRecipe.getName(), ingredients, inputOrigin, inputType, descriptionString, newRecipe.isFavorite(), false, false, false);
-    cookbookAccess.updateRecipe(newRecipe);
-
-    //Calls on method that switches to main scene
-    switchToMainScene(e);
+      //må endre i konstruktøren senere !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! fjerne false verdiene 
+      this.newRecipe = new Recipe(oldRecipe.getName(), ingredients, inputOrigin, inputType, descriptionString, newRecipe.isFavorite(), false, false, false);
+      cookbookAccess.updateRecipe(newRecipe);
+      System.out.println(cookbookAccess instanceof RemoteCookbookAccess);
+      //Calls on method that switches to main scene
+      switchToMainScene(e);
     }
 
     //Switches from AddRecipe scene to main scene
@@ -168,6 +168,7 @@ public class EditRecipeController {
     }
 
     public void setCookbookAccess(CookbookAccess cookbookAccess) {
+        System.out.println("Set cookbook access in edit recipe controller");
         this.cookbookAccess = cookbookAccess;
     }
 
@@ -182,6 +183,6 @@ public class EditRecipeController {
         stage.show();
         // send recipe to RecipeViewController
         RecipeViewController viewController = loader.getController();
-        viewController.loadRecipe(newRecipe);
+        viewController.loadRecipe(oldRecipe);
       }  
 }

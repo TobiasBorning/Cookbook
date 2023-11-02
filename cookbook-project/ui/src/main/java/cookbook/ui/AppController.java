@@ -72,7 +72,7 @@ public class AppController {
   public void initialize() {
     
     // set remote or local cookbook access depending on connection, override = true always connects to local
-    setAccessType(false);
+    setAccessType(true);
 
     cookbook = cookbookAccess.fetchCookbook();
     // set Vbox height to fit all recipes
@@ -303,6 +303,8 @@ public class AppController {
     stage.show();
     // send recipe to RecipeViewController
     RecipeViewController viewController = loader.getController();
+    System.out.println("Set recipe view controller cookbook access to " + cookbookAccess);
+    viewController.setCookbookAccess(cookbookAccess);
     viewController.loadRecipe(sendRecipe);
   }  
 
