@@ -184,5 +184,7 @@ public class EditRecipeController {
         // send recipe to RecipeViewController
         RecipeViewController viewController = loader.getController();
         viewController.loadRecipe(oldRecipe);
+        System.out.println("Send" + cookbookAccess + "to view recipe controller");
+        viewController.setCookbookAccess(cookbookAccess);
       }  
 }
