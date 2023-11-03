@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -29,18 +30,22 @@ public class AddRecipeController {
 
   @FXML
   private VBox ingredientsContainer;
-
   @FXML
   private TextField recipeName;
-
   @FXML
   private TextArea recipeDescription;
-
   @FXML
   private TextField origin;
-
   @FXML 
   private TextField type;
+  @FXML
+  private CheckBox veganCheckBox;
+  @FXML
+  private CheckBox lactosefreeCheckBox;
+  @FXML
+  private CheckBox glutenFreeCheckBox;
+  
+  
 
   private int ingredientCount = 0;
 
@@ -83,6 +88,10 @@ public class AddRecipeController {
     TextField amount = null;
     String inputOrigin = null;
     String inputType = "Unknown";
+    Boolean isFavorite = false;
+    Boolean isVegetarian = false;
+    Boolean isLactoseFree = false;
+    Boolean isGlutenFree = false;
     
     if (!recipeName.getText().equals(null)) {
       recipeNameString = recipeName.getText();
@@ -97,13 +106,15 @@ public class AddRecipeController {
       recipe.setType(type.getText());
       inputType = recipe.getType();
     }
-    
-    /* 
-    if (type.getText().equals("Dinner") || type.getText().equals("Breakfast") || type.getText().equals("Lunch") 
-      || type.getText().equals("Dessert") || type.getText().equals("Unknown")){
-      inputType = type.getText();
+    if (veganCheckBox.isSelected()){
+      isVegetarian = true;
     }
-    */
+    if (lactosefreeCheckBox.isSelected()){
+      isLactoseFree = true;
+    }
+    if (glutenFreeCheckBox.isSelected()){
+      isGlutenFree = true; 
+    }
 
     for (Node node : ingredientsContainer.getChildren()) {
       if (node instanceof Pane) {
@@ -127,12 +138,11 @@ public class AddRecipeController {
         }
       }
     }
-    this.recipe = new Recipe(recipeNameString, ingredients, inputOrigin, inputType, descriptionString);
+    this.recipe = new Recipe(recipeNameString, ingredients, inputOrigin, inputType, descriptionString, isFavorite, isVegetarian, isGlutenFree, isLactoseFree);
     addRecipe(recipe);
 
     //Calls on method that switches to min scene
     switchToMainScene(e);
-
   }
 
   // add recipe to cookbook

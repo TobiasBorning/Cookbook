@@ -173,6 +173,9 @@ public class RemoteCookbookAccess implements CookbookAccess {
      */
     @Override
     public Cookbook filterByPreferences(String vlg) {
+        // String TTT if user is vegetarian, lactose intolerant and gluten intolerant
+        // String TTF if the user is vegetarian and lactose intolerant but not gluten intolerant
+        // ... and so on
         connect();
         try {
             HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/preferences/"+vlg))
