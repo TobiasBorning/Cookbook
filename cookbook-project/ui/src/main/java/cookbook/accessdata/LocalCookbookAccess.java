@@ -123,8 +123,20 @@ public class LocalCookbookAccess implements CookbookAccess {
    */
   @Override
   public void updateRecipe(Recipe recipe) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'updateRecipe'");
+    System.out.println("Updating recipe local cookbook access");
+    Cookbook tmpCookbook = fetchCookbook();
+    tmpCookbook.getRecipes().stream().filter(r -> r.getName().equals(recipe.getName())).forEach(r -> {
+      System.out.println(r.getName());
+      r.setIngredients(recipe.getIngredients());
+      r.setDescription(recipe.getDescription());
+      r.setOriginCountry(recipe.getOriginCountry());
+      r.setType(recipe.getType());
+      r.setVegan(recipe.isVegan());
+      r.setLactoseFree(recipe.isLactoseFree());
+      r.setGlutenFree(recipe.isGlutenFree());
+      r.setFavorite(recipe.isFavorite());
+    });
+    saveCookbook(tmpCookbook);
   }
 
   /**
