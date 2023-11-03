@@ -42,7 +42,11 @@
             <Button id="filterByOrigin" fx:id="applyFilterButton" layoutX="130.0" layoutY="88.0" mnemonicParsing="false" onAction="#filterByOrigin" prefHeight="26.0" prefWidth="55.0" text="Filter" />
             <ChoiceBox id="typeFilter" fx:id="typeFilter" layoutX="9.0" layoutY="134.0" prefHeight="26.0" prefWidth="126.0" />
             <Button id="filterByType" fx:id="applyTypeFilterButton" layoutX="130.0" layoutY="134.0" mnemonicParsing="false" onAction="#filterByType" prefWidth="55.0" text="Filter" />
-            <CheckBox fx:id="favoritesCheckBox" layoutX="8.0" layoutY="212.0" mnemonicParsing="false" onAction="#viewFavorites" prefHeight="26.0" prefWidth="175.0" text="View favorites" />
+            <CheckBox id="favoritesCheckBox" fx:id="favoritesCheckBox" layoutX="8.0" layoutY="212.0" mnemonicParsing="false" onAction="#viewFavorites" prefHeight="26.0" prefWidth="175.0" text="View favorites" />
+            <CheckBox id="veganCheckBox" fx:id="veganCheckBox" layoutX="8.0" layoutY="277.0" mnemonicParsing="false" onAction="#viewPreferences" text="Vegan" />
+            <CheckBox id="lactosefreeCheckBox" fx:id="lactosefreeCheckBox" layoutX="8.0" layoutY="299.0" mnemonicParsing="false" onAction="#viewPreferences" text="Lactose free" />
+            <CheckBox id="glutenFreeCheckBox" fx:id="glutenFreeCheckBox" layoutX="8.0" layoutY="321.0" mnemonicParsing="false" onAction="#viewPreferences" text="Gluten free" />
+            <Label layoutX="9.0" layoutY="256.0" text="Filter by preferences:" />
          </children>
       </Pane>
    </children>
