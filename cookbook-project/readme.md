@@ -54,8 +54,9 @@ Read about the __persistence__ module [here](/cookbook-project/persistence/readm
 Read about the __springboot__ module [here](/cookbook-project/springboot/readme.md)
 
 
-## _User stories_
 
+## _User stories_
+---
 **User story 1**
 
 ***Scrolling and description***
