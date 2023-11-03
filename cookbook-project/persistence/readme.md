@@ -7,6 +7,6 @@ The peristence module requires access to the core module in order to function pr
 The CookbookHandler class uses the Gson library to read and write to the json file. Gson is a Java library that can be used to convert Java Objects into their JSON representation. It can also be used to convert a JSON string to an equivalent Java object. Gson converts the Cookbook and Recipe objects to a fitting JSON format. This library makes it possible to read and write to the json file without having to manually parse the json file. Therefore we only have one class(CookbookHandler) doing all the serialization and deserialization of the cookbook.
 
 Tests for the classes in UI:
-[CookbookHandlerTest](/gr2322/cookbook-project/persistence/src/test/java/cookbook/json/CookbookHandlerTest.java)
+* [CookbookHandlerTest](/gr2322/cookbook-project/persistence/src/test/java/cookbook/json/CookbookHandlerTest.java) - Tests the CookbookHandler class. 
 
 This module has its own pom.xml file, which is responsible for building the module with its respected dependencies and plugins, such as JaCoCo, Checkstyle, Spotbugs and Gson.

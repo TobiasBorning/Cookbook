@@ -50,6 +50,9 @@ Read about the __ui__ module [here](/cookbook-project/ui/readme.md)
 ### ___persistence___
 Read about the __persistence__ module [here](/cookbook-project/persistence/readme.md)
 
+### ___springboot___
+Read about the __springboot__ module [here](/cookbook-project/springboot/readme.md)
+
 
 ## _User stories_
 

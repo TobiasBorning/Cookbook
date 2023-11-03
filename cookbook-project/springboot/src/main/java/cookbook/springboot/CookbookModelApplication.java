@@ -3,6 +3,10 @@ package cookbook.springboot;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
+/**
+ * Main class for the cookbook application.
+ */
 @SpringBootApplication
 public class CookbookModelApplication {
     
