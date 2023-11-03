@@ -36,7 +36,7 @@
       },
       "originCountry": "Italy",
       "description": "Spread pizza dough onto a pan, applying a generous layer of tomato sauce. Sprinkle cheese uniformly and add toppings such as pepperoni, mushrooms, and onions. Bake until the crust turns golden and the cheese bubbles. Allow to cool slightly, slice, and serve.",
-      "favorite": false,
+      "favorite": true,
       "isVegan": false,
       "isGlutenFree": false,
       "isLactoseFree": false,
@@ -55,7 +55,7 @@
         "spaghetti": "200.0",
         "onions": "30.0",
         "tomatoSauce": "150.0",
-        "oregano": "5.0",
+        "oregano": "59.0 g",
         "groundBeef": "250.0"
       },
       "originCountry": "Italy",
@@ -86,7 +86,7 @@
       "description": "In a wok or large pan, saut?? diced chicken breast until fully cooked. Remove from pan and stir-fry bell peppers and broccoli until slightly tender. Add cooked chicken back to the pan, stir in soy sauce and ginger, and continue cooking for a few more minutes. Serve with cooked rice.",
       "favorite": true,
       "isVegan": false,
-      "isGlutenFree": false,
+      "isGlutenFree": true,
       "isLactoseFree": false,
       "types": [
         "Breakfast",
@@ -157,7 +157,7 @@
       "description": "Saut?? chopped potatoes, carrots, and peas in a large pan. Once slightly tender, add curry paste and continue saut??ing for a few minutes. Add coconut milk and simmer until vegetables are cooked through. Serve with cooked rice.",
       "favorite": false,
       "isVegan": false,
-      "isGlutenFree": false,
+      "isGlutenFree": true,
       "isLactoseFree": false,
       "types": [
         "Breakfast",
@@ -403,6 +403,26 @@
         "Dessert"
       ],
       "type": "Unknown"
+    },
+    {
+      "name": "Tomatsuppe",
+      "ingredients": {
+        "Macaroni": "4 dl ",
+        "Tomatos": "1 kg"
+      },
+      "originCountry": "Norway",
+      "description": "With eggs and macaroni",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": true,
+      "isLactoseFree": false,
+      "types": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Dessert"
+      ],
+      "type": "Dinner"
     }
   ]
 }

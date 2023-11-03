@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
@@ -16,8 +17,8 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <TextField id="addRecipeName" fx:id="recipeName" layoutX="367.0" layoutY="82.0" promptText="Recipe name" />
-      <TextArea id="addRecipeDescription" fx:id="recipeDescription" layoutX="347.0" layoutY="183.0" prefHeight="157.0" prefWidth="200.0" promptText="Description" />
+      <TextField id="addRecipeName" fx:id="recipeName" layoutX="414.0" layoutY="52.0" promptText="Recipe name" />
+      <TextArea id="addRecipeDescription" fx:id="recipeDescription" layoutX="348.0" layoutY="229.0" prefHeight="120.0" prefWidth="200.0" promptText="Description" />
       <Button id="addRecipeButton" fx:id="addRecipeButton" layoutX="380.0" layoutY="352.0" mnemonicParsing="false" onAction="#addToCookbook" prefHeight="34.0" prefWidth="135.0" text="Add to cookbook" />
       <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="41.0" layoutY="76.0" prefHeight="287.0" prefWidth="269.0">
          <content>
@@ -25,8 +26,11 @@
          </content>
       </ScrollPane>
       <Button id="addIngredientButton" fx:id="addIngredientButton" layoutX="113.0" layoutY="363.0" mnemonicParsing="false" onAction="#addIngredient" text="Add ingredient" />
-      <TextField id="addRecipeOrigin" fx:id="origin" layoutX="367.0" layoutY="117.0" promptText="Origin" />
+      <TextField id="addRecipeOrigin" fx:id="origin" layoutX="414.0" layoutY="85.0" promptText="Origin" />
       <Button id="backFromAddRecipeButton" fx:id="back" layoutX="14.0" layoutY="19.0" mnemonicParsing="false" onAction="#switchToMainScene" text="Back" />
-      <TextField fx:id="type" layoutX="367.0" layoutY="149.0" prefHeight="26.0" prefWidth="159.0" promptText="Type" />
+      <TextField fx:id="type" layoutX="414.0" layoutY="119.0" prefHeight="26.0" prefWidth="159.0" promptText="Type" />
+      <CheckBox id="lactosefreeCheckBox" fx:id="lactosefreeCheckBox" layoutX="413.0" layoutY="182.0" mnemonicParsing="false" text="Gluten free" />
+      <CheckBox id="glutenFreeCheckBox" fx:id="glutenFreeCheckBox" layoutX="413.0" layoutY="207.0" mnemonicParsing="false" text="Lactose free" />
+      <CheckBox id="veganCheckBox" fx:id="veganCheckBox" layoutX="414.0" layoutY="155.0" mnemonicParsing="false" text="Vegan" />
    </children>
 </Pane>

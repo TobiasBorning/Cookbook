@@ -68,6 +68,12 @@ public class AppController {
   private Button applyTypeFilterButton;
   @FXML
   private CheckBox favoritesCheckBox;
+  @FXML
+  private CheckBox veganCheckBox;
+  @FXML
+  private CheckBox lactosefreeCheckBox;
+  @FXML
+  private CheckBox glutenFreeCheckBox;
 
   public void initialize() {
     
@@ -190,7 +196,6 @@ public class AppController {
   }
 
   private void fillFilterDropdown() {
-
     //create empty set to add origins to
     Set<String> origins = new HashSet<>();
     //get recipes
@@ -215,6 +220,10 @@ public class AppController {
   }
 
   public void filterByOrigin() {
+    favoritesCheckBox.setSelected(false);
+    veganCheckBox.setSelected(false);
+    glutenFreeCheckBox.setSelected(false);
+    lactosefreeCheckBox.setSelected(false);
     //get value from dropdown
     String filterValue = (String) filterOrigin.getValue();
 
@@ -228,7 +237,6 @@ public class AppController {
   }
 
   private void fillTypeFilterDropdown() {
-
     //create empty set to add types to
     Set<String> types = new HashSet<>();
     //get recipes
@@ -252,6 +260,10 @@ public class AppController {
   }
 
   public void filterByType() {
+    favoritesCheckBox.setSelected(false);
+    veganCheckBox.setSelected(false);
+    glutenFreeCheckBox.setSelected(false);
+    lactosefreeCheckBox.setSelected(false);
     //get value from dropdown
     String filterValue = (String) typeFilter.getValue();
 
@@ -263,8 +275,10 @@ public class AppController {
     }
     typeFilter.setValue(filterValue);
   }
-
   public void viewFavorites(ActionEvent e){
+    veganCheckBox.setSelected(false);
+    glutenFreeCheckBox.setSelected(false);
+    lactosefreeCheckBox.setSelected(false);
     if (favoritesCheckBox.isSelected()){
       fillCookbook(cookbookAccess.filterByFavorite());
     }
@@ -272,6 +286,26 @@ public class AppController {
       fillCookbook(cookbookAccess.fetchCookbook());
     }
   }
+
+  public void viewPreferences(ActionEvent e){
+    favoritesCheckBox.setSelected(false);
+    String vlg = "FFF";
+    if (veganCheckBox.isSelected()){
+      vlg = "T" + vlg.substring(1);
+    }
+    if (lactosefreeCheckBox.isSelected()){
+      vlg = vlg.substring(0,1) + "T" + vlg.substring(2);
+    }
+    if (glutenFreeCheckBox.isSelected()){
+      vlg = vlg.substring(0,2) + "T";
+    }
+    if (vlg == "FFF"){
+      fillCookbook(cookbookAccess.fetchCookbook());
+    }
+    System.out.println(vlg);
+    fillCookbook(cookbookAccess.filterByPreferences(vlg));
+  }
+  
 
   
 
@@ -317,7 +351,6 @@ public class AppController {
     else {
       feedbackLabel.setText("Could not remove recipe");
     }
-    
   }
 
   public void setFeedbackLabel(String feedback) {
@@ -362,5 +395,10 @@ public class AppController {
       cookbookAccess = new LocalCookbookAccess();
       System.out.println("Using local access");
     }
+  }
+  private void resetPreferences(){
+    veganCheckBox.setSelected(false);
+    glutenFreeCheckBox.setSelected(false);
+    lactosefreeCheckBox.setSelected(false);
   }
 }

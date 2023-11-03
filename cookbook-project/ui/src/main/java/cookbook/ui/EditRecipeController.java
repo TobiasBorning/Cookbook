@@ -17,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -56,6 +57,15 @@ public class EditRecipeController {
     @FXML 
     private Label title;
 
+    @FXML
+    private CheckBox veganCheckBox;
+
+    @FXML
+    private CheckBox lactosefreeCheckBox;
+
+    @FXML
+    private CheckBox glutenFreeCheckBox;
+
     private int ingredientCount = 0;
 
 
@@ -69,6 +79,9 @@ public class EditRecipeController {
         type.setText(recipe.getType());
         title.setText("Edit " + recipe.getName());
         newRecipe.setFavorite(oldRecipe.isFavorite());
+        veganCheckBox.setSelected(oldRecipe.isVegan());
+        lactosefreeCheckBox.setSelected(oldRecipe.isLactoseFree());
+        glutenFreeCheckBox.setSelected(oldRecipe.isGlutenFree());
         for (Map.Entry<String, String> ingredient : recipe.getIngredients().entrySet()) {
             addIngredient();
             TextField ingredientName = (TextField) ingredientsContainer.lookup("#ingredientName" + ingredientCount);
@@ -116,6 +129,9 @@ public class EditRecipeController {
       TextField amount = null;
       String inputOrigin = null;
       String inputType = "Unknown";
+      Boolean isVegan = newRecipe.isVegan();
+      Boolean isLactoseFree = newRecipe.isLactoseFree();
+      Boolean isGlutenFree = newRecipe.isGlutenFree();
       
       if (!recipeDescription.getText().equals(null)) {
         descriptionString = recipeDescription.getText();
@@ -126,6 +142,15 @@ public class EditRecipeController {
       if (!type.getText().equals(null)) {
         newRecipe.setType(type.getText());
         inputType = newRecipe.getType();
+      }
+      if (veganCheckBox.isSelected()){
+        isVegan = true;
+      }
+      if (lactosefreeCheckBox.isSelected()){
+        isLactoseFree = true;
+      }
+      if (glutenFreeCheckBox.isSelected()){
+        isGlutenFree = true; 
       }
 
       for (Node node : ingredientsContainer.getChildren()) {
@@ -151,7 +176,7 @@ public class EditRecipeController {
         }
       }
       //må endre i konstruktøren senere !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! fjerne false verdiene 
-      this.newRecipe = new Recipe(oldRecipe.getName(), ingredients, inputOrigin, inputType, descriptionString, newRecipe.isFavorite(), false, false, false);
+      this.newRecipe = new Recipe(oldRecipe.getName(), ingredients, inputOrigin, inputType, descriptionString, newRecipe.isFavorite(), isVegan, isGlutenFree, isLactoseFree);
       cookbookAccess.updateRecipe(newRecipe);
       System.out.println(cookbookAccess instanceof RemoteCookbookAccess);
       //Calls on method that switches to main scene

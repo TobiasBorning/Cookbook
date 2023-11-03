@@ -33,6 +33,12 @@ public class RecipeViewController {
   private Label origin;
   @FXML
   private Label type;
+  @FXML
+  private Label vegan;
+  @FXML
+  private Label lactosefree;
+  @FXML
+  private Label glutenfree;
 
   public void loadRecipe(Recipe recipe) {
     this.recipe = recipe;
@@ -47,6 +53,21 @@ public class RecipeViewController {
     description.setText(recipe.getDescription());
     type.setText(recipe.getType());
     origin.setText(recipe.getOriginCountry());
+    if (recipe.isVegan())
+      vegan.setText("Yes");
+    else if (!recipe.isVegan())
+      vegan.setText("No");{
+    }
+    if (recipe.isLactoseFree())
+      lactosefree.setText("Yes");
+    else if (!recipe.isLactoseFree())
+      lactosefree.setText("No");{
+    }
+    if (recipe.isGlutenFree())
+      glutenfree.setText("Yes");
+    else if (!recipe.isGlutenFree())
+      glutenfree.setText("No");{
+    }
     //legger til liste med ingredienser
     for (Entry<String, String> ingredient : recipe.getIngredients().entrySet()) {
       String text = ingredients.getText();
