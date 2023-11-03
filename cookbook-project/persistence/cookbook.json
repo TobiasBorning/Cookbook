@@ -181,7 +181,7 @@
       "favorite": false,
       "isVegan": true,
       "isGlutenFree": false,
-      "isLactoseFree": true,
+      "isLactoseFree": false,
       "types": [
         "Breakfast",
         "Lunch",

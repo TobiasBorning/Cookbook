@@ -221,9 +221,7 @@ public class AppController {
 
   public void filterByOrigin() {
     favoritesCheckBox.setSelected(false);
-    veganCheckBox.setSelected(false);
-    glutenFreeCheckBox.setSelected(false);
-    lactosefreeCheckBox.setSelected(false);
+    resetPreferences();
     //get value from dropdown
     String filterValue = (String) filterOrigin.getValue();
 
@@ -260,9 +258,7 @@ public class AppController {
   }
 
   public void filterByType() {
-    favoritesCheckBox.setSelected(false);
-    veganCheckBox.setSelected(false);
-    glutenFreeCheckBox.setSelected(false);
+    resetPreferences();
     lactosefreeCheckBox.setSelected(false);
     //get value from dropdown
     String filterValue = (String) typeFilter.getValue();
@@ -276,9 +272,7 @@ public class AppController {
     typeFilter.setValue(filterValue);
   }
   public void viewFavorites(ActionEvent e){
-    veganCheckBox.setSelected(false);
-    glutenFreeCheckBox.setSelected(false);
-    lactosefreeCheckBox.setSelected(false);
+    resetPreferences();
     if (favoritesCheckBox.isSelected()){
       fillCookbook(cookbookAccess.filterByFavorite());
     }
@@ -302,7 +296,6 @@ public class AppController {
     if (vlg == "FFF"){
       fillCookbook(cookbookAccess.fetchCookbook());
     }
-    System.out.println(vlg);
     fillCookbook(cookbookAccess.filterByPreferences(vlg));
   }
   
