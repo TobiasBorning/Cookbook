@@ -5,7 +5,7 @@
       "ingredients": {
         "tomatoes": "50.0",
         "groundBeef": "150.0",
-        "lettuce": "50.0",
+        "lettuce": "60.0",
         "tacoShell": "2.0",
         "salsa": "30.0",
         "cheese": "100.0"
@@ -13,7 +13,7 @@
       "originCountry": "Mexico",
       "description": "Begin by browning the beef, adding a blend of cumin, chili powder, garlic powder, oregano, and salt. Once browned, stir in tomato sauce, simmering until the mixture thickens slightly. Warm taco shells, fill with the savory meat, and top with cheese, lettuce, tomatoes, salsa, or your preferred toppings.",
       "favorite": true,
-      "isVegan": false,
+      "isVegan": true,
       "isGlutenFree": false,
       "isLactoseFree": false,
       "types": [
@@ -22,7 +22,7 @@
         "Dinner",
         "Dessert"
       ],
-      "type": "Dinner"
+      "type": "Breakfast"
     },
     {
       "name": "Pizza",

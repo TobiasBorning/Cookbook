@@ -229,6 +229,7 @@ public class CookbookService {
                 recipe.setIngredients(tmpRecipe.getIngredients());
                 recipe.setGlutenFree(tmpRecipe.isGlutenFree());
                 recipe.setLactoseFree(tmpRecipe.isLactoseFree());
+                System.out.println("Vegan:" + tmpRecipe.isVegan());
                 recipe.setVegan(tmpRecipe.isVegan());
                 recipe.setFavorite(tmpRecipe.isFavorite());
             }
