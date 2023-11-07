@@ -1,12 +1,11 @@
 package cookbook.ui;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import cookbook.accessdata.CookbookAccess;
 import cookbook.accessdata.RemoteCookbookAccess;
 import cookbook.core.Recipe;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,10 +21,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Controller class for editing recipes.
+ * This class provides the user interface logic to update existing recipes with new information.
+ */
 public class EditRecipeController {
+
   private Stage stage;
   private Scene scene;
-  //private Cookbook cookbook = new Cookbook();
   private Recipe oldRecipe = new Recipe();
   private Recipe newRecipe = new Recipe();
   private CookbookAccess cookbookAccess;
@@ -65,59 +68,80 @@ public class EditRecipeController {
 
   private int ingredientCount = 0;
 
-
-  //TODO: Initialize the recipe object with the recipe that was clicked on.
-  public void loadRecipe(Recipe recipe){
-      this.oldRecipe = recipe;
-      this.newRecipe.setName(oldRecipe.getName());
-      // System.out.println("Recipe name: " + recipe.getName());
-      recipeDescription.setText(recipe.getDescription());
-      origin.setText(recipe.getOriginCountry());
-      type.setText(recipe.getType());
-      title.setText("Edit " + recipe.getName());
-      newRecipe.setFavorite(oldRecipe.isFavorite());
-      veganCheckBox.setSelected(oldRecipe.isVegan());
-      lactosefreeCheckBox.setSelected(oldRecipe.isLactoseFree());
-      glutenFreeCheckBox.setSelected(oldRecipe.isGlutenFree());
-      for (Map.Entry<String, String> ingredient : recipe.getIngredients().entrySet()) {
-          addIngredient();
-          TextField ingredientName = (TextField) ingredientsContainer.lookup("#ingredientName" + ingredientCount);
-          TextField amount = (TextField) ingredientsContainer.lookup("#ingredientAmount" + ingredientCount);
-          ingredientName.setText(ingredient.getKey());
-          amount.setText(ingredient.getValue());
-      }
+  /**
+   * Loads a recipe into the editor.
+   * Initializes the UI with the values from the given recipe, allowing them to be
+   * edited. This prepares all the input fields with the recipe's current details.
+   *
+   * @param recipe The recipe to load for modification 
+   *
+   */
+  public void loadRecipe(Recipe recipe) {
+    this.oldRecipe = recipe;
+    this.newRecipe.setName(oldRecipe.getName());
+    recipeDescription.setText(recipe.getDescription());
+    origin.setText(recipe.getOriginCountry());
+    type.setText(recipe.getType());
+    title.setText("Edit " + recipe.getName());
+    newRecipe.setFavorite(oldRecipe.isFavorite());
+    veganCheckBox.setSelected(oldRecipe.isVegan());
+    lactosefreeCheckBox.setSelected(oldRecipe.isLactoseFree());
+    glutenFreeCheckBox.setSelected(oldRecipe.isGlutenFree());
+    
+    for (Map.Entry<String, String> ingredient : recipe.getIngredients()
+        .entrySet()) {
+      addIngredient();
+      TextField ingredientName = (TextField) 
+          ingredientsContainer.lookup("#ingredientName" + ingredientCount);
+      TextField amount = (TextField) ingredientsContainer
+          .lookup("#ingredientAmount" + ingredientCount);
+      ingredientName.setText(ingredient.getKey());
+      amount.setText(ingredient.getValue());
+    }
   }
-  
+
+  /**
+   * Adds a new ingredient input field to the editor.
+   * This method dynamically creates a new set of text 
+   * fields for inputting an ingredient's name and amount.
+   */
   public void addIngredient() {
-      //Tracks which textfields should be targeted.
-      ingredientCount++;
+    //Tracks which textfields should be targeted.
+    ingredientCount++;
 
-      Pane pane = new Pane();
-      pane.setMinWidth(330);
-      pane.setMaxWidth(400);
-      pane.setMinHeight(40);
-      pane.setStyle("-fx-padding: 10 10 10 10; -fx-border-width: 0px 0px 3px 0px; -fx-border-color: #000000;");
+    Pane pane = new Pane();
+    pane.setMinWidth(330);
+    pane.setMaxWidth(400);
+    pane.setMinHeight(40);
+    pane.setStyle("-fx-padding: 10 10 10 10; -fx-border-width: "  
+        + "0px 0px 3px 0px; -fx-border-color: #000000;");
 
-      TextField amount = new TextField();
-      amount.setId("ingredientAmount" + ingredientCount);
-      System.out.println(amount.getId());
-      amount.setPromptText("amount");
-      amount.setMaxWidth(100);
-      amount.setLayoutX(130); // Adjust the x-coordinate as needed
-      amount.setLayoutY(10); // Adjust the y-coordinate as needed
+    TextField amount = new TextField();
+    amount.setId("ingredientAmount" + ingredientCount);
+    amount.setPromptText("amount");
+    amount.setMaxWidth(100);
+    amount.setLayoutX(130); // Adjust the x-coordinate as needed
+    amount.setLayoutY(10); // Adjust the y-coordinate as needed
 
-      TextField ingredientName = new TextField();
-      ingredientName.setId("ingredientName" +  ingredientCount);
-      System.out.println(ingredientName.getId());
-      ingredientName.setPromptText("ingredientname");
-      ingredientName.setMaxWidth(100);
-      ingredientName.setLayoutX(10); // Adjust the x-coordinate as needed
-      ingredientName.setLayoutY(10); // Adjust the y-coordinate as needed
+    TextField ingredientName = new TextField();
+    ingredientName.setId("ingredientName" +  ingredientCount);
+    ingredientName.setPromptText("ingredientname");
+    ingredientName.setMaxWidth(100);
+    ingredientName.setLayoutX(10); // Adjust the x-coordinate as needed
+    ingredientName.setLayoutY(10); // Adjust the y-coordinate as needed
 
-      pane.getChildren().addAll(ingredientName, amount);
-      ingredientsContainer.getChildren().add(pane);
+    pane.getChildren().addAll(ingredientName, amount);
+    ingredientsContainer.getChildren().add(pane);
   }
 
+  /**
+   * Saves the changes made to the recipe.
+   * This method constructs a new recipe instance 
+   * from the edited values and updates the recipe in the cookbook access.
+   *
+   * @param e The event that triggered the save action.
+   * @throws IOException If an I/O error occurs during saving or scene switching.
+   */
   public void saveChanges(ActionEvent e) throws IOException {
 
     Map<String, String> ingredients = new HashMap<>();
@@ -139,14 +163,14 @@ public class EditRecipeController {
     if (type.getText() != null) {
       newRecipe.setType(type.getText());
       inputType = newRecipe.getType();
-    }
-    if (veganCheckBox.isSelected()){
+    } 
+    if (veganCheckBox.isSelected()) { 
       isVegan = true;
-    }
-    if (lactosefreeCheckBox.isSelected()){
-      isLactoseFree = true;
-    }
-    if (glutenFreeCheckBox.isSelected()){
+    } 
+    if (lactosefreeCheckBox.isSelected()) { 
+      isLactoseFree = true; 
+    } 
+    if (glutenFreeCheckBox.isSelected()) { 
       isGlutenFree = true; 
     }
 
@@ -159,8 +183,7 @@ public class EditRecipeController {
             TextField textField = (TextField) childNode;
             if (textField.getPromptText().equals("ingredientname")) {
               ingredientName = textField;
-            }
-            else if (textField.getPromptText().equals("amount")) {
+            } else if (textField.getPromptText().equals("amount")) {
               amount = textField;
             }
             if (ingredientName != null && amount != null) {
@@ -172,41 +195,59 @@ public class EditRecipeController {
         }
       }
     }
-    //må endre i konstruktøren senere !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! fjerne false verdiene 
-    this.newRecipe = new Recipe(oldRecipe.getName(), ingredients, inputOrigin, inputType, descriptionString, newRecipe.isFavorite(), isVegan, isGlutenFree, isLactoseFree);
+    this.newRecipe = new Recipe(oldRecipe.getName(), ingredients, inputOrigin, inputType, 
+        descriptionString, newRecipe.isFavorite(), isVegan, isGlutenFree, isLactoseFree);
     cookbookAccess.updateRecipe(newRecipe);
     System.out.println(cookbookAccess instanceof RemoteCookbookAccess);
-    //Calls on method that switches to main scene
     switchToMainScene(e);
   }
 
-  //Switches from AddRecipe scene to main scene
+  /**
+   * Switches from the EditRecipe scene to the main scene.
+   * This method handles the transition back to the 
+   * main cookbook view after editing is completed or cancelled.
+   *
+   * @param e The event that triggered the switch action.
+   * @throws IOException If an I/O error occurs during the scene switching.
+   */
   public void switchToMainScene(ActionEvent e) throws IOException {
-      Parent root = FXMLLoader.load(getClass().getResource("CookbookApp.fxml"));
-      Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-      Scene scene = new Scene(root);
-      stage.setScene(scene);
-      stage.show();
+    Parent root = FXMLLoader.load(getClass().getResource("CookbookApp.fxml"));
+    Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
   }
 
+  /**
+   * Sets the access point for cookbook data.
+   * This method allows for the dependency injection 
+   * of a cookbook access object to interact with the cookbook data.
+   *
+   * @param cookbookAccess The cookbook access object to be used for data retrieval and storage.
+   */
   public void setCookbookAccess(CookbookAccess cookbookAccess) {
-      System.out.println("Set cookbook access in edit recipe controller");
-      this.cookbookAccess = cookbookAccess;
+    this.cookbookAccess = cookbookAccess;
   }
 
+  /**
+   * Switches the view to display a single recipe.
+   * This method is responsible for changing the UI scene to a detailed view of a single recipe.
+   *
+   * @param event The event that triggered the switch to the view recipe scene.
+   * @throws IOException If an I/O error occurs during the scene switching.
+   */
   public void switchToViewRecipe(ActionEvent event) throws IOException {
-      // load recipeview
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("RecipeView.fxml"));
-      Parent root = loader.load();
-      // update scene
-      stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-      scene = new Scene(root);
-      stage.setScene(scene);
-      stage.show();
-      // send recipe to RecipeViewController
-      RecipeViewController viewController = loader.getController();
-      viewController.loadRecipe(oldRecipe);
-      System.out.println("Send" + cookbookAccess + "to view recipe controller");
-      viewController.setCookbookAccess(cookbookAccess);
-    }  
+    // load recipeview
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("RecipeView.fxml")); 
+    Parent root = loader.load(); 
+    // update scene
+    stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); 
+    scene = new Scene(root); 
+    stage.setScene(scene); 
+    stage.show(); 
+    // send recipe to RecipeViewController
+    RecipeViewController viewController = loader.getController(); 
+    viewController.loadRecipe(oldRecipe);
+    viewController.setCookbookAccess(cookbookAccess);
+  }  
 }

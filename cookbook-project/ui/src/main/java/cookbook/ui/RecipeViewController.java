@@ -1,8 +1,6 @@
 package cookbook.ui;
 
 import java.io.IOException;
-import java.util.Map.Entry;
-
 import cookbook.accessdata.CookbookAccess;
 import cookbook.core.Recipe;
 import javafx.event.ActionEvent;
@@ -14,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import java.util.Map.Entry;
 
 public class RecipeViewController {
 
@@ -53,20 +52,20 @@ public class RecipeViewController {
     description.setText(recipe.getDescription());
     type.setText(recipe.getType());
     origin.setText(recipe.getOriginCountry());
-    if (recipe.isVegan())
+    if (recipe.isVegan()) {
       vegan.setText("Yes");
-    else if (!recipe.isVegan())
-      vegan.setText("No");{
+    } else if (!recipe.isVegan()) {
+      vegan.setText("No");
     }
-    if (recipe.isLactoseFree())
+    if (recipe.isLactoseFree()) {
       lactosefree.setText("Yes");
-    else if (!recipe.isLactoseFree())
-      lactosefree.setText("No");{
+    } else if (!recipe.isLactoseFree()){
+      lactosefree.setText("No");
     }
-    if (recipe.isGlutenFree())
+    if (recipe.isGlutenFree()) {
       glutenfree.setText("Yes");
-    else if (!recipe.isGlutenFree())
-      glutenfree.setText("No");{
+    } else if (!recipe.isGlutenFree()) {
+      glutenfree.setText("No");
     }
     //legger til liste med ingredienser
     for (Entry<String, String> ingredient : recipe.getIngredients().entrySet()) {
@@ -107,4 +106,5 @@ public class RecipeViewController {
   public void setCookbookAccess(CookbookAccess cookbookAccess) {
     this.cookbookAccess = cookbookAccess;
   }
+
 }
