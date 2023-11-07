@@ -1,122 +1,58 @@
 package cookbook.core;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Recipe class for creating a recipe object.
  */
 public class Recipe {
+
   private String name;
   private Map<String, String> ingredients = new HashMap<>();
   private String originCountry;
   private String description;
+
+  // Default value for the following variables is false
   private boolean favorite = false;
   private boolean isVegan = false;
   private boolean isGlutenFree = false;
   private boolean isLactoseFree = false;
-  private final Collection<String> types = new ArrayList<>(Arrays.asList("Breakfast", "Lunch", "Dinner", "Dessert"));
+
+  private final Collection<String> types = new ArrayList<>(
+      Arrays.asList("Breakfast", "Lunch", "Dinner", "Dessert"));
   private String type = "Unknown";
 
-    
-    // Different constructors for creating a Recipe object
-    /**
-     * Constructor for creating a Recipe object with name and ingredients
-     *
-     * @param name        The name of the Recipe.
-     * @param ingredients The ingredients and their amounts as a map.
-     */
-    // public Recipe(String name, Map<String, String> ingredients) {
-    //     this.name = name;
-    //     this.ingredients = ingredients;
-    // }
-    /**
-    * Constructor for creating a Recipe object with name, ingredients, origincountry and description
-    *
-    * @param name The name of the Recipe
-    * @param ingredients The ingredients and their amounts as a map.
-    * @param originCountry This indicates the country from which the ingredient originates.
-    * @param type The type of the recipe.
-    * @param description The cooking-methode, how to make the recipe. 
-    * @param favorite The recipe is a favorite or not.
-    * @param isVegan The recipe is vegan or not.
-    * @param isGlutenFree The recipe is glutenfree or not.
-    * @param isLactoseFree The recipe is lactosefree or not.
-    */ 
-    public Recipe(String name, Map<String, String> ingredients, String originCountry,
-                  String type, String description, boolean favorite, boolean isVegan,
-                  boolean isGlutenFree, boolean isLactoseFree){
-
-        this.name = name;
-        this.ingredients = ingredients;
-        this.originCountry = originCountry;
-        this.description = description;
-        this.favorite = favorite;
-        this.isVegan = isVegan;
-        this.isGlutenFree = isGlutenFree;
-        this.isLactoseFree = isLactoseFree;
-        setType(type);
-    }
-    /** 
-
-  //TODO add javadoc
-  public Recipe(String name, Map<String, String> ingredients, String originCountry, String type, String description) {
+  /**
+   * Constructor for creating a Recipe object with name, ingredients, origincountry and description.
+   *
+   * @param name The name of the Recipe
+   * @param ingredients The ingredients and their amounts as a map.
+   * @param originCountry This indicates the country from which the ingredient originates.
+   * @param type The type of the recipe.
+   * @param description The cooking-methode, how to make the recipe. 
+   * @param favorite The recipe is a favorite or not.
+   * @param isVegan The recipe is vegan or not.
+   * @param isGlutenFree The recipe is glutenfree or not.
+   * @param isLactoseFree The recipe is lactosefree or not.
+   * 
+   */ 
+  public Recipe(String name, Map<String, String> ingredients, String originCountry,
+                String type, String description, boolean favorite, boolean isVegan,
+                boolean isGlutenFree, boolean isLactoseFree) {
     this.name = name;
     this.ingredients = ingredients;
     this.originCountry = originCountry;
     this.description = description;
+    this.favorite = favorite;
+    this.isVegan = isVegan;
+    this.isGlutenFree = isGlutenFree;
+    this.isLactoseFree = isLactoseFree;
     setType(type);
   }
-
-     /**
-     * Constructor for creating a Recipe object with name, ingredients, origincountry and description
-     *
-     * @param name The name of the Recipe
-     * @param ingredients The ingredients and their amounts as a map.
-     * @param originCountry This indicates the country from which the ingredient originates.
-     * @param description The cooking-methode, how to make the recipe. 
-     
-    public Recipe(String name, Map<String, String> ingredients, String originCountry, String description){
-        this.name = name;
-        this.ingredients = ingredients;
-        this.originCountry = originCountry;
-        this.description = description;
-    }
-        /**
-     * Constructor for creating a Recipe object with name, ingredients and originCountry.
-     *
-     * @param name The name of the Recipe.
-     * @param ingredients The ingredients and their amounts as a map.
-     * @param originCountry This indicates the country from which the ingredient originates.
-     
-    public Recipe(String name, Map<String, String> ingredients, String originCountry){
-        this.name = name;
-        this.ingredients = ingredients;
-        this.originCountry = originCountry;
-    }
-    */
-
-    /** 
-     * Constructor for creating a Recipe object with name, ingredients and type.
-     *
-     * @param name The name of the Recipe.
-     * @param ingredients The ingredients and their amounts as a map.
-     * @param type The type of the recipe.
-     */
-
-    
-    /**
-     * Constructor for creating a Recipe object with name only.
-     *
-     * @param name The name of the Recipe.
-     
-    public Recipe(String name) {
-        this.name = name;
-    }
-*/
 
   /**
    * Empty constructor for creating a Recipe object.
@@ -192,11 +128,10 @@ public class Recipe {
     *
     * @param type The new origin country for the Recipe.
     */
-  public void setType(String type){
-    if (types.contains(type)){
+  public void setType(String type) {
+    if (types.contains(type)) {
       this.type = type;
-    }
-    else{
+    } else {
       this.type = "Unknown";
     }
   }
@@ -206,7 +141,7 @@ public class Recipe {
    *
    * @return The type of the Recipe.
    */
-  public String getType(){
+  public String getType() {
     return type;
   }
 
@@ -255,6 +190,7 @@ public class Recipe {
   public void setFavorite(boolean favorite) {
     this.favorite = favorite;
   }
+
   public boolean isVegan() {
     return isVegan;
   }
