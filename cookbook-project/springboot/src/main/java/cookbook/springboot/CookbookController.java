@@ -162,27 +162,5 @@ public class CookbookController {
     Recipe recipe = cookbookService.updateRecipe(name, updatedRecipeJson, 
         cookbookService.readCookbook());
     return new ResponseEntity<Recipe>(recipe, HttpStatus.OK);
-  }
-
-  //TODO decide if we want to implement the master filter or not
-  /**
-   * Filters recipes based on origin, type, preferences and favorites.
-   * All have to match
-   * 
-   * @param origin
-   * @param type
-   * @param vgl
-   * @param favorites
-   * @return
-   */
-  /* 
-  @GetMapping("/cookbook/masterFilter/origin={origin}/type={type}/preferences={vgl}
-      /favorite={favorites}")
-  public ResponseEntity<Cookbook> masterFilter(@PathVariable("origin") 
-      String origin, @PathVariable("type") String type, @PathVariable("vgl") String vgl, 
-      @PathVariable("favorites") String favorites) {        
-      return new ResponseEntity<Cookbook>(cookbookService
-          .masterFilter(origin,type,vgl,favorites,cookbookService.readCookbook()),HttpStatus.OK);
-  }
-  */    
+  }   
 }

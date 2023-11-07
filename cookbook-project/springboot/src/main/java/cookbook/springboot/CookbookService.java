@@ -235,27 +235,5 @@ public class CookbookService {
     return tmpRecipe;
   }
 
-  /**
-   * Filters recipes based on user preferences.
-   *
-   * @param origin the country of origin to filter by.
-   * @param type the type to filter by.
-   * @param vlg a string representing user preferences.
-   * @param favorites whether to filter by favorite recipes.
-   * @param cookbook the cookbook to filter.
-   * @return a cookbook containing the matching recipes.
-   */
-  /* 
-  public Cookbook masterFilter(final String origin, final String type, final String vlg, 
-      final String favorites, final Cookbook cookbook) {
-    Cookbook tmpCookbook = new Cookbook();
-    tmpCookbook = filterByOrigin(origin, cookbook);
-    tmpCookbook = filterByType(type, tmpCookbook);
-    tmpCookbook = filterByPreferences(vlg, tmpCookbook);
-    if (favorites.equals("T")) {
-      tmpCookbook = filterByFavorite(tmpCookbook);
-    }
-    return tmpCookbook;
-  }
-  */
+  
 }

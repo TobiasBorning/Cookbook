@@ -523,6 +523,26 @@
         "Dessert"
       ],
       "type": "Unknown"
+    },
+    {
+      "name": "Water",
+      "ingredients": {
+        "salt": "10g",
+        "water": "1l"
+      },
+      "originCountry": "Norway",
+      "description": "Water is good ad super healty",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false,
+      "types": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Dessert"
+      ],
+      "type": "Unknown"
     }
   ]
 }
