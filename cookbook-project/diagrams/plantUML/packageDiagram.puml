@@ -1,0 +1,57 @@
+@startuml packageDiagram
+
+component core{
+    folder cookbook.core
+}
+
+component persistence{
+    folder cookbook.json
+}
+
+cookbook.json ..> GSON
+
+component GSON{
+}
+
+component ui{
+    folder cookbook.accessdata
+    folder cookbook.ui
+}
+
+component javafx {
+	component fxml {
+	}
+}
+
+ui ..> javafx
+ui ..> fxml
+cookbook.ui ..> cookbook.accessdata
+
+component "springboot" as springboot  {
+    folder cookbook.springboot
+}
+
+component "Spring Boot" as springboot.dependency{
+}
+
+
+
+cookbook.accessdata ..> cookbook.json
+cookbook.accessdata ..> cookbook.core
+cookbook.accessdata ..> cookbook.springboot
+cookbook.springboot ..> cookbook.core
+cookbook.springboot ..> cookbook.json
+
+springboot.dependency ..> springboot
+
+
+skinparam folder{
+    BackgroundColor Yellow
+}
+
+skinparam component{
+    BackgroundColor Pink
+}
+
+
+@enduml
