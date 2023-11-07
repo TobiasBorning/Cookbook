@@ -119,7 +119,6 @@ public class AddRecipeController {
     for (Node node : ingredientsContainer.getChildren()) {
       if (node instanceof Pane) {
         Pane pane = (Pane) node;
-
         for (Node childNode : pane.getChildren()) {
           if (childNode instanceof TextField) {
             TextField textField = (TextField) childNode;
@@ -138,6 +137,7 @@ public class AddRecipeController {
         }
       }
     }
+    
     this.recipe = new Recipe(recipeNameString, ingredients, inputOrigin, inputType, descriptionString, isFavorite, isVegetarian, isGlutenFree, isLactoseFree);
     addRecipe(recipe);
 
