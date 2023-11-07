@@ -215,10 +215,10 @@ public class CookbookService {
   public Recipe updateRecipe(final String recipeName, 
       final String recipeJson, final Cookbook cookbook) {
     Recipe tmpRecipe = null;
-    recipeName.replace("%20", " ");
+    String recipeNameFormated = recipeName.replace("%20", " ");
     for (Recipe recipe : cookbook.getRecipes()) {
-      if (recipe.getName().equals(recipeName)) {
-        System.out.println(recipeName + " = " + recipe.getName());
+      if (recipe.getName().equals(recipeNameFormated)) {
+        System.out.println(recipeNameFormated + " = " + recipe.getName());
         tmpRecipe = gson.fromJson(recipeJson, Recipe.class);
         recipe.setName(tmpRecipe.getName());
         recipe.setOriginCountry(tmpRecipe.getOriginCountry());

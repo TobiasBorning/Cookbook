@@ -8,4 +8,8 @@
     <Match>
         <Bug pattern="EI_EXPOSE_REP2" />
     </Match>
+    <Match>
+        <!-- To use FileReader and FileWriter  -->
+        <Bug pattern="DM_DEFAULT_ENCODING" />
+    </Match>
 </FindBugsFilter>

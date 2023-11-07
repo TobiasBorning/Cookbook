@@ -25,7 +25,6 @@ import javafx.stage.Stage;
  */
 public class AddRecipeController {
 
-  private Cookbook cookbook = new Cookbook();
   private Recipe recipe = new Recipe();
   private CookbookAccess cookbookAccess;
 

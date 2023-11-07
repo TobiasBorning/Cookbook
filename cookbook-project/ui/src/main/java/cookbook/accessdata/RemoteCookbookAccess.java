@@ -3,6 +3,8 @@ package cookbook.accessdata;
 import com.google.gson.Gson;
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
+
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -51,7 +53,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
       //System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
       return ut;
-    } catch (Exception e) {
+    } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
       return new Cookbook(); //returns empty cookbook in case of error
     }
@@ -79,7 +81,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
       System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
       return ut;
-    } catch (Exception e) {
+    } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
       return new Cookbook(); //returns empty cookbook in case of error
     }
@@ -106,7 +108,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
       System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
       return ut;
-    } catch (Exception e) {
+    } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
       return new Cookbook(); //returns empty cookbook in case of error
     }
@@ -133,7 +135,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
       System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
       return ut;
-    } catch (Exception e) {
+    } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
       return new Cookbook(); //returns empty cookbook in case of error
     }
@@ -159,7 +161,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
       System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
       return ut;
-    } catch (Exception e) {
+    } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
       return new Cookbook(); //returns empty cookbook in case of error
     }
@@ -189,7 +191,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
       System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
       return ut;
-    } catch (Exception e) {
+    } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
       return new Cookbook(); //returns empty cookbook in case of error
     }
@@ -223,7 +225,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
       } else {
         System.out.println("Error updating recipe");
       }
-    } catch (Exception e) {
+    } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
     }
   }
@@ -258,7 +260,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
         System.out.println("Error removing recipe");
         return false;
       }
-    } catch (Exception e) {
+    } catch (InterruptedException | IOException e) {
       System.out.println("Error sending request");
       return false;
     }
@@ -288,7 +290,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
       } else {
         System.out.println("Error adding recipe");
       }
-    } catch (Exception e) {
+    } catch (InterruptedException | IOException e) {
       System.out.println("Error sending request");
     }
   }
@@ -319,7 +321,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
       } else {
         System.out.println("Error updating recipe");
       }
-    } catch (Exception e) {
+    } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
     }
   }

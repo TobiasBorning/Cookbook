@@ -130,13 +130,13 @@ public class EditRecipeController {
     Boolean isLactoseFree = newRecipe.isLactoseFree();
     Boolean isGlutenFree = newRecipe.isGlutenFree();
     
-    if (!recipeDescription.getText().equals(null)) {
+    if (recipeDescription.getText() != null) {
       descriptionString = recipeDescription.getText();
     }
-    if (!origin.getText().equals(null)) {
+    if (origin.getText() != null) {
       inputOrigin = origin.getText();
     }
-    if (!type.getText().equals(null)) {
+    if (type.getText() != null) {
       newRecipe.setType(type.getText());
       inputType = newRecipe.getType();
     }

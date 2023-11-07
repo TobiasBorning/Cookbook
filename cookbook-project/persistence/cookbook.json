@@ -37,7 +37,7 @@
       "originCountry": "Italy",
       "description": "Spread pizza dough onto a pan, applying a generous layer of tomato sauce. Sprinkle cheese uniformly and add toppings such as pepperoni, mushrooms, and onions. Bake until the crust turns golden and the cheese bubbles. Allow to cool slightly, slice, and serve.",
       "favorite": true,
-      "isVegan": false,
+      "isVegan": true,
       "isGlutenFree": false,
       "isLactoseFree": false,
       "types": [
