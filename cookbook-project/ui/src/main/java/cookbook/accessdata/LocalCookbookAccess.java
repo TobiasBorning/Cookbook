@@ -12,11 +12,11 @@ import java.util.Collection;
 public class LocalCookbookAccess implements CookbookAccess {
 
   private CookbookHandler ch = new CookbookHandler();
-  private final static String path = "../persistence/cookbook.json";
+  private final String path = "../persistence/cookbook.json";
 
   /**
    * Fetches the entire cookbook.
-   * 
+   *
    * @return the cookbook, or null if the file is not found.
    */
   @Override
@@ -30,14 +30,16 @@ public class LocalCookbookAccess implements CookbookAccess {
 
   /**
    * Searches for recipes by name.
-   * 
+   *
    * @param recipeName the name or part of the name to search for.
+   *
    * @return a cookbook containing the matching recipes.
    */
   @Override
   public Cookbook searchRecipe(String recipeName) {
     Collection<Recipe> searched = fetchCookbook()
-        .filterRecipies(recipe -> recipe.getName().toLowerCase().contains(recipeName.toLowerCase()));
+        .filterRecipies(recipe -> recipe.getName()
+        .toLowerCase().contains(recipeName.toLowerCase()));
     Cookbook tmpCookbook = new Cookbook();
     for (Recipe recipe : searched) {
       tmpCookbook.addRecipe(recipe);
@@ -47,8 +49,9 @@ public class LocalCookbookAccess implements CookbookAccess {
 
   /**
    * Filters recipes by their origin country.
-   * 
+   *
    * @param origin the country of origin to filter by.
+   *
    * @return a cookbook containing the matching recipes.
    */
   @Override
@@ -64,8 +67,8 @@ public class LocalCookbookAccess implements CookbookAccess {
 
   /**
    * Filters recipes by their type.
-   * 
-   * @param type the type to filter by.
+   *
+   * @param type the type to filter by
    * @return a cookbook containing the matching recipes.
    */
   @Override
@@ -81,7 +84,7 @@ public class LocalCookbookAccess implements CookbookAccess {
 
   /**
    * Filters recipes that are marked as favorite.
-   * 
+   *
    * @return a cookbook containing the favorite recipes.
    */
   @Override
@@ -97,8 +100,9 @@ public class LocalCookbookAccess implements CookbookAccess {
 
   /**
    * Filters recipes based on user preferences.
-   * 
-   * @param vlg a string representing user preferences. (vegan, lactose-free, gluten-free)
+   * vlg: (vegan, lactose-free, gluten-free)
+   *
+   * @param vlg a string representing user preferences. 
    * @return a cookbook containing the matching recipes.
    */
   @Override
@@ -119,7 +123,7 @@ public class LocalCookbookAccess implements CookbookAccess {
 
   /**
    * Updates a recipe in the cookbook.
-   * 
+   *
    * @param recipe the recipe to update.
    */
   @Override
@@ -143,7 +147,7 @@ public class LocalCookbookAccess implements CookbookAccess {
 
   /**
    * Removes a recipe from the cookbook.
-   * 
+   *
    * @param recipeName the name of the recipe to remove.
    */
   @Override
@@ -161,7 +165,7 @@ public class LocalCookbookAccess implements CookbookAccess {
 
   /**
    * Adds a new recipe to the cookbook.
-   * 
+   *
    * @param recipe the recipe to add.
    */
   @Override
@@ -173,7 +177,7 @@ public class LocalCookbookAccess implements CookbookAccess {
 
   /**
    * Saves the cookbook to the file.
-   * 
+   *
    * @param cookbook the cookbook to save.
    */
   private void saveCookbook(Cookbook cookbook) {
@@ -186,7 +190,7 @@ public class LocalCookbookAccess implements CookbookAccess {
 
   /**
    * Toggles the favorite status of a recipe.
-   * 
+   *
    * @param recipe the recipe to toggle.
    */
   public void toggleFavorite(Recipe recipe) {
