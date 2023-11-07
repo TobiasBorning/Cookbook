@@ -26,10 +26,10 @@ public class Recipe {
      * @param name        The name of the Recipe.
      * @param ingredients The ingredients and their amounts as a map.
      */
-    public Recipe(String name, Map<String, String> ingredients) {
-        this.name = name;
-        this.ingredients = ingredients;
-    }
+    // public Recipe(String name, Map<String, String> ingredients) {
+    //     this.name = name;
+    //     this.ingredients = ingredients;
+    // }
     /**
     * Constructor for creating a Recipe object with name, ingredients, origincountry and description
     *
@@ -57,6 +57,7 @@ public class Recipe {
         this.isLactoseFree = isLactoseFree;
         setType(type);
     }
+    /** 
 
     //TODO add javadoc
     public Recipe(String name, Map<String, String> ingredients, String originCountry, String type, String description){
@@ -74,7 +75,7 @@ public class Recipe {
      * @param ingredients The ingredients and their amounts as a map.
      * @param originCountry This indicates the country from which the ingredient originates.
      * @param description The cooking-methode, how to make the recipe. 
-     */
+     
     public Recipe(String name, Map<String, String> ingredients, String originCountry, String description){
         this.name = name;
         this.ingredients = ingredients;
@@ -87,21 +88,32 @@ public class Recipe {
      * @param name The name of the Recipe.
      * @param ingredients The ingredients and their amounts as a map.
      * @param originCountry This indicates the country from which the ingredient originates.
-     */
+     
     public Recipe(String name, Map<String, String> ingredients, String originCountry){
         this.name = name;
         this.ingredients = ingredients;
         this.originCountry = originCountry;
     }
+    */
 
+    /** 
+     * Constructor for creating a Recipe object with name, ingredients and type.
+     *
+     * @param name The name of the Recipe.
+     * @param ingredients The ingredients and their amounts as a map.
+     * @param type The type of the recipe.
+     */
+
+    
     /**
      * Constructor for creating a Recipe object with name only.
      *
      * @param name The name of the Recipe.
-     */
+     
     public Recipe(String name) {
         this.name = name;
     }
+*/
 
     /**
      * Empty constructor for creating a Recipe object.
