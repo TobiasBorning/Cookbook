@@ -57,6 +57,7 @@ public class Cookbook {
     }
     recipes.remove(recipe);
   }
+  
   /**
    * Filters the wanted recipes.
    *
@@ -64,8 +65,6 @@ public class Cookbook {
    *             can filter on origin countries of different dishes, or on certain grocery items
    * @return a Collection of Recipe objects
    */
-
-
   public Collection<Recipe> filterRecipies(Predicate<Recipe> pred) {
     return recipes.stream().filter(pred).collect(Collectors.toList());
   }

@@ -179,38 +179,77 @@ public class Recipe {
       throw new IllegalArgumentException("Ingredient not in map");
     }
     ingredients.remove(ingredient);
-    System.out.println(ingredients + ": " + ingredients.size());
   }
 
-  // TODO add javadoc
+  /**
+   * Checks if the current recipe is marked as a favorite.
+   *
+   * @return true if the recipe is a favorite, false otherwise.
+   */
   public boolean isFavorite() {
     return favorite;
   }
 
+  /**
+   * Sets the recipe's favorite status.
+   *
+   * @param favorite the new favorite status to set; true if the recipe should be marked 
+   *      as a favorite, false otherwise.
+   */
   public void setFavorite(boolean favorite) {
     this.favorite = favorite;
   }
 
+  /**
+   * Checks if the recipe is vegan.
+   *
+   * @return true if the recipe is vegan, false otherwise.
+   */
   public boolean isVegan() {
     return isVegan;
   }
 
+  /**
+   * Sets the vegan status of the recipe.
+   *
+   * @param isVegan the vegan status to set.
+   */
   public void setVegan(boolean isVegan) {
     this.isVegan = isVegan;
   }
 
+  /**
+   * Checks if the recipe is gluten-free.
+   *
+   * @return true if the recipe is gluten-free, false otherwise.
+   */
   public boolean isGlutenFree() {
     return isGlutenFree;
   }
 
+  /**
+   * Sets the gluten-free status of the recipe.
+   *
+   * @param isGlutenFree the gluten-free status to set.
+   */
   public void setGlutenFree(boolean isGlutenFree) {
     this.isGlutenFree = isGlutenFree;
   }
 
+  /**
+   * Checks if the recipe is lactose-free.
+   *
+   * @return true if the recipe is lactose-free, false otherwise.
+   */
   public boolean isLactoseFree() {
     return isLactoseFree;
   }
 
+  /**
+   * Sets the lactose-free status of the recipe.
+   *
+   * @param isLactoseFree the lactose-free status to set
+   */
   public void setLactoseFree(boolean isLactoseFree) {
     this.isLactoseFree = isLactoseFree;
   }
