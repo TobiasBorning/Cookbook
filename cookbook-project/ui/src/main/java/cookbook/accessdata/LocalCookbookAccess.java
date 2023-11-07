@@ -37,12 +37,12 @@ public class LocalCookbookAccess implements CookbookAccess {
    */
   @Override
   public Cookbook searchRecipe(String recipeName) {
-      Collection<Recipe> searched = fetchCookbook().filterRecipies(recipe -> recipe.getName().toLowerCase().contains(recipeName.toLowerCase()));
-      Cookbook tmpCookbook = new Cookbook();
-      for (Recipe recipe : searched) {
-        tmpCookbook.addRecipe(recipe);
-      }
-      return tmpCookbook;
+    Collection<Recipe> searched = fetchCookbook().filterRecipies(recipe -> recipe.getName().toLowerCase().contains(recipeName.toLowerCase()));
+    Cookbook tmpCookbook = new Cookbook();
+    for (Recipe recipe : searched) {
+      tmpCookbook.addRecipe(recipe);
+    }
+    return tmpCookbook;
   }
 
   /**
@@ -53,12 +53,12 @@ public class LocalCookbookAccess implements CookbookAccess {
    */
   @Override
   public Cookbook filterByOrigin(String origin) {
-      Collection<Recipe> searched = fetchCookbook().filterRecipies(recipe -> recipe.getOriginCountry().equals(origin));
-      Cookbook tmpCookbook = new Cookbook();
-      for (Recipe recipe : searched) {
-        tmpCookbook.addRecipe(recipe);
-      }
-      return tmpCookbook;
+    Collection<Recipe> searched = fetchCookbook().filterRecipies(recipe -> recipe.getOriginCountry().equals(origin));
+    Cookbook tmpCookbook = new Cookbook();
+    for (Recipe recipe : searched) {
+      tmpCookbook.addRecipe(recipe);
+    }
+    return tmpCookbook;
   }
 
   /**
@@ -70,11 +70,11 @@ public class LocalCookbookAccess implements CookbookAccess {
   @Override
   public Cookbook filterByType(String type) {
     Collection<Recipe> searched = fetchCookbook().filterRecipies(recipe -> recipe.getType().equals(type));
-      Cookbook tmpCookbook = new Cookbook();
-      for (Recipe recipe : searched) {
-        tmpCookbook.addRecipe(recipe);
-      }
-      return tmpCookbook;
+    Cookbook tmpCookbook = new Cookbook();
+    for (Recipe recipe : searched) {
+      tmpCookbook.addRecipe(recipe);
+    }
+    return tmpCookbook;
   }
 
   /**
@@ -100,19 +100,16 @@ public class LocalCookbookAccess implements CookbookAccess {
    */
   @Override
   public Cookbook filterByPreferences(String vlg) {
-    
     Cookbook tmpCookbook = new Cookbook();
-        
     boolean gluten = vlg.charAt(2) == 'T';
     boolean lactose = vlg.charAt(1) == 'T';
     boolean vegan = vlg.charAt(0) == 'T';
 
     for (Recipe recipe : fetchCookbook().getRecipes()) {
-        if (!((!recipe.isGlutenFree() && gluten) || (!recipe.isLactoseFree() && lactose) || (!recipe.isVegan() && vegan))) {
-            tmpCookbook.addRecipe(recipe);
-        }
+      if (!((!recipe.isGlutenFree() && gluten) || (!recipe.isLactoseFree() && lactose) || (!recipe.isVegan() && vegan))) {
+        tmpCookbook.addRecipe(recipe);
+      }
     }
-
     return tmpCookbook;
   }
 
@@ -182,6 +179,11 @@ public class LocalCookbookAccess implements CookbookAccess {
     }
   }
 
+  /**
+   * Toggles the favorite status of a recipe.
+   * 
+   * @param recipe the recipe to toggle.
+   */
   public void toggleFavorite(Recipe recipe) {
     Cookbook tmpCookbook = fetchCookbook();
     for (Recipe r : tmpCookbook.getRecipes()) {
@@ -191,7 +193,5 @@ public class LocalCookbookAccess implements CookbookAccess {
         return;
       }
     }
-
   }
-
 }

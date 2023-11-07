@@ -1,22 +1,25 @@
-    package cookbook.core;
+package cookbook.core;
 
-    import java.util.HashMap;
-    import java.util.Map;
-    import java.util.ArrayList;
-    import java.util.Arrays;
-    import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
+/**
+ * Recipe class for creating a recipe object.
+ */
 public class Recipe {
-    private String name;
-    private Map<String, String> ingredients = new HashMap<>();
-    private String originCountry;
-    private String description;
-    private boolean favorite = false;
-    private boolean isVegan = false;
-    private boolean isGlutenFree = false;
-    private boolean isLactoseFree = false;
-    private final Collection<String> types = new ArrayList<>(Arrays.asList("Breakfast", "Lunch", "Dinner", "Dessert"));
-    private String type = "Unknown";
+  private String name;
+  private Map<String, String> ingredients = new HashMap<>();
+  private String originCountry;
+  private String description;
+  private boolean favorite = false;
+  private boolean isVegan = false;
+  private boolean isGlutenFree = false;
+  private boolean isLactoseFree = false;
+  private final Collection<String> types = new ArrayList<>(Arrays.asList("Breakfast", "Lunch", "Dinner", "Dessert"));
+  private String type = "Unknown";
 
     
     // Different constructors for creating a Recipe object
@@ -59,14 +62,14 @@ public class Recipe {
     }
     /** 
 
-    //TODO add javadoc
-    public Recipe(String name, Map<String, String> ingredients, String originCountry, String type, String description){
-        this.name = name;
-        this.ingredients = ingredients;
-        this.originCountry = originCountry;
-        this.description = description;
-        setType(type);
-    }
+  //TODO add javadoc
+  public Recipe(String name, Map<String, String> ingredients, String originCountry, String type, String description) {
+    this.name = name;
+    this.ingredients = ingredients;
+    this.originCountry = originCountry;
+    this.description = description;
+    setType(type);
+  }
 
      /**
      * Constructor for creating a Recipe object with name, ingredients, origincountry and description
@@ -115,159 +118,164 @@ public class Recipe {
     }
 */
 
-    /**
-     * Empty constructor for creating a Recipe object.
-     */
-    public Recipe() {
-    }
+  /**
+   * Empty constructor for creating a Recipe object.
+   */
+  public Recipe() {
+  }
 
-    /**
-     * Set the name of the Recipe.
-     *
-     * @param name The new name for the Recipe.
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+  /**
+   * Set the name of the Recipe.
+   *
+   * @param name The new name for the Recipe.
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    /**
-     * Set the ingredients of the Recipe.
-     *
-     * @param ingredients The ingredients and their amounts as a map.
-     */
-    public void setIngredients(Map<String, String> ingredients) {
-        this.ingredients = ingredients;
-    }
+  /**
+   * Set the ingredients of the Recipe.
+   *
+   * @param ingredients The ingredients and their amounts as a map.
+   */
+  public void setIngredients(Map<String, String> ingredients) {
+    this.ingredients = ingredients;
+  }
 
-    /**
-     * Get the origin country of the Recipe.
-     *
-     * @return The origin country of the Recipe.
-     */
-    public String getOriginCountry() {
-        return originCountry;
-    }
+  /**
+   * Get the origin country of the Recipe.
+   *
+   * @return The origin country of the Recipe.
+   */
+  public String getOriginCountry() {
+    return originCountry;
+  }
 
-    /**
-     * Get the description of the Recipe.
-     *
-     * @return The description of the Recipe.
-     */
-    public String getDescription() {
-        return description;
-    }
+  /**
+   * Get the description of the Recipe.
+   *
+   * @return The description of the Recipe.
+   */
+  public String getDescription() {
+    return description;
+  }
 
-    /**
-     * Get the name of the Recipe.
-     *
-     * @return The name of the Recipe.
-     */
-    public String getName() {
-        return this.name;
-    }
+  /**
+   * Get the name of the Recipe.
+   *
+   * @return The name of the Recipe.
+   */
+  public String getName() {
+    return this.name;
+  }
 
-    /**
-     * Get a copy of the ingredients and their amounts as a map.
-     *
-     * @return A copy of the ingredients map.
-     */
-    public Map<String, String> getIngredients() {
-        return ingredients;
-    }
+  /**
+   * Get a copy of the ingredients and their amounts as a map.
+   *
+   * @return A copy of the ingredients map.
+   */
+  public Map<String, String> getIngredients() {
+    return ingredients;
+  }
 
-    /**
-     * Set the origin country of the Recipe.
-     *
-     * @param originCountry The new origin country for the Recipe.
-     */
-    public void setOriginCountry(String originCountry) {
-        this.originCountry = originCountry;
-    }
+  /**
+   * Set the origin country of the Recipe.
+   *
+   * @param originCountry The new origin country for the Recipe.
+   */
+  public void setOriginCountry(String originCountry) {
+    this.originCountry = originCountry;
+  }
 
-     /*
-     * Set the type of the Recipe.
-     *
-     * @param type The new origin country for the Recipe.
-     */
+  /**
+    * Set the type of the Recipe.
+    *
+    * @param type The new origin country for the Recipe.
+    */
+  public void setType(String type){
+    if (types.contains(type)){
+      this.type = type;
+    }
+    else{
+      this.type = "Unknown";
+    }
+  }
+  
+  /**
+   * Get the type of the Recipe.
+   *
+   * @return The type of the Recipe.
+   */
+  public String getType(){
+    return type;
+  }
 
-    public void setType(String type){
-        if (types.contains(type)){
-            this.type = type;
-        }
-        else{
-            this.type = "Unknown";
-        }
-    }
-    
-    /**
-     * Get the type of the Recipe.
-     *
-     * @return The type of the Recipe.
-     */
-    public String getType(){
-        return type;
-    }
+  /**
+   * Set the description of the Recipe.
+   *
+   * @param description The new description for the Recipe.
+   */
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    /**
-     * Set the description of the Recipe.
-     *
-     * @param description The new description for the Recipe.
-     */
-    public void setDescription(String description) {
-        this.description = description;
+  /**
+   * Add an ingredient to the Recipe.
+   *
+   * @param ingredient The name of the ingredient.
+   * @param amount     The amount of the ingredient.
+   * @throws IllegalArgumentException If the ingredient is already in the map.
+   */
+  public void addIngredient(String ingredient, String amount) {
+    if (ingredients.keySet().contains(ingredient)) {
+      throw new IllegalArgumentException("Ingredient already in map");
     }
+    ingredients.put(ingredient, amount);
+  }
 
-    /**
-     * Add an ingredient to the Recipe.
-     *
-     * @param ingredient The name of the ingredient.
-     * @param amount     The amount of the ingredient.
-     * @throws IllegalArgumentException If the ingredient is already in the map.
-     */
-    public void addIngredient(String ingredient, String amount) {
-        if (ingredients.keySet().contains(ingredient)) {
-            throw new IllegalArgumentException("Ingredient already in map");
-        }
-        ingredients.put(ingredient, amount);
+  /**
+   * Remove an ingredient from the Recipe.
+   *
+   * @param ingredient The name of the ingredient to remove.
+   * @throws IllegalArgumentException If the ingredient is not in the map.
+   */
+  public void removeIngredient(String ingredient) {
+    if (!ingredients.keySet().contains(ingredient)) {
+      throw new IllegalArgumentException("Ingredient not in map");
     }
+    ingredients.remove(ingredient);
+    System.out.println(ingredients + ": " + ingredients.size());
+  }
 
-    /**
-     * Remove an ingredient from the Recipe.
-     *
-     * @param ingredient The name of the ingredient to remove.
-     * @throws IllegalArgumentException If the ingredient is not in the map.
-     */
-    public void removeIngredient(String ingredient) {
-        if (!ingredients.keySet().contains(ingredient)) {
-            throw new IllegalArgumentException("Ingredient not in map");
-        }
-        ingredients.remove(ingredient);
-        System.out.println(ingredients + ": " + ingredients.size());
-    }
+  // TODO add javadoc
+  public boolean isFavorite() {
+    return favorite;
+  }
 
-    // TODO add javadoc
-    public boolean isFavorite() {
-        return favorite;
-    }
-    public void setFavorite(boolean favorite) {
-        this.favorite = favorite;
-    }
-    public boolean isVegan() {
-        return isVegan;
-    }
-    public void setVegan(boolean isVegan) {
-        this.isVegan = isVegan;
-    }
-    public boolean isGlutenFree() {
-        return isGlutenFree;
-    }
-    public void setGlutenFree(boolean isGlutenFree) {
-        this.isGlutenFree = isGlutenFree;
-    }
-    public boolean isLactoseFree() {
-        return isLactoseFree;
-    }
-    public void setLactoseFree(boolean isLactoseFree) {
-        this.isLactoseFree = isLactoseFree;
-    }
+  public void setFavorite(boolean favorite) {
+    this.favorite = favorite;
+  }
+  public boolean isVegan() {
+    return isVegan;
+  }
+
+  public void setVegan(boolean isVegan) {
+    this.isVegan = isVegan;
+  }
+
+  public boolean isGlutenFree() {
+    return isGlutenFree;
+  }
+
+  public void setGlutenFree(boolean isGlutenFree) {
+    this.isGlutenFree = isGlutenFree;
+  }
+
+  public boolean isLactoseFree() {
+    return isLactoseFree;
+  }
+
+  public void setLactoseFree(boolean isLactoseFree) {
+    this.isLactoseFree = isLactoseFree;
+  }
 }

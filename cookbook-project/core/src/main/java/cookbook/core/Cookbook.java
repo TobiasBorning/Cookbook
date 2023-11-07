@@ -42,8 +42,7 @@ public class Cookbook {
     }
     else {
       this.recipes = recipes;
-    }
-    
+    } 
   }
 
   /**
@@ -68,9 +67,9 @@ public class Cookbook {
    * @param pred is a predicate to filter out given recipes, 
    *      Can filter on origin countries of different dishes, or on certain grocery items
 	 */
-  public Collection<Recipe> filterRecipies(Predicate<Recipe> pred) {
-    return recipes.stream().filter(pred).collect(Collectors.toList());
-  }
+public Collection<Recipe> filterRecipies(Predicate<Recipe> pred) {
+  return recipes.stream().filter(pred).collect(Collectors.toList());
+}
   
 /**
    * Retrieves certain recipes
@@ -80,5 +79,4 @@ public class Cookbook {
   public Collection<Recipe> getRecipes() {
     return new ArrayList<>(recipes);
   }
-
 }
