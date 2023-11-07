@@ -61,19 +61,22 @@ public class CookbookModelApplicationTest {
     public void setup() throws Exception {
         gson = new Gson();
         //Create taco recipe
-        recipe1 = new Recipe("Taco");
+        recipe1 = new Recipe();
+        recipe1.setName("Taco");
         recipe1.setFavorite(true);
         recipe1.setGlutenFree(true);
         recipe1.setType("Dinner");
         recipe1.setOriginCountry("Mexico");
         //create pizza recipe
-        recipe2 = new Recipe("Pizza");
+        recipe2 = new Recipe();
+        recipe2.setName("Pizza");
         recipe2.setFavorite(false);
         recipe2.setGlutenFree(false);
         recipe2.setType("Breakfast");
         recipe2.setOriginCountry("Italy");
         //create pasta recipe for deletion
-        recipe3 = new Recipe("Pasta");
+        recipe3 = new Recipe();
+        recipe3.setName("Pasta");
         //add all recipes to cookbook in mock api
         setupDefaultCookbook();
     }
