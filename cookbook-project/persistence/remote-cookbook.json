@@ -110,7 +110,7 @@
       "originCountry": "Italy",
       "description": "Grill or pan-sear chicken breasts until fully cooked and then slice them. In a large bowl, combine lettuce, croutons, and parmesan cheese. Toss with caesar dressing and top with the cooked, sliced chicken breast.",
       "favorite": true,
-      "isVegan": false,
+      "isVegan": true,
       "isGlutenFree": false,
       "isLactoseFree": false,
       "types": [
@@ -225,7 +225,7 @@
       },
       "originCountry": "Norway",
       "description": "Preheat the oven to 375??F (190??C). Place the salmon filet on a baking sheet and drizzle with olive oil and freshly squeezed lemon juice, then sprinkle with dill. Bake until the salmon is cooked through and flakes easily with a fork.",
-      "favorite": false,
+      "favorite": true,
       "isVegan": false,
       "isGlutenFree": true,
       "isLactoseFree": true,
