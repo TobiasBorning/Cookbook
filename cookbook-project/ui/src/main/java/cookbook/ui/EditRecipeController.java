@@ -1,15 +1,12 @@
 package cookbook.ui;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import cookbook.accessdata.CookbookAccess;
 import cookbook.accessdata.RemoteCookbookAccess;
-import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
-import cookbook.json.CookbookHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,190 +23,190 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class EditRecipeController {
-    private Stage stage;
-    private Scene scene;
-    //private Cookbook cookbook = new Cookbook();
-    private Recipe oldRecipe = new Recipe();
-    private Recipe newRecipe = new Recipe();
-    private CookbookAccess cookbookAccess;
+  private Stage stage;
+  private Scene scene;
+  //private Cookbook cookbook = new Cookbook();
+  private Recipe oldRecipe = new Recipe();
+  private Recipe newRecipe = new Recipe();
+  private CookbookAccess cookbookAccess;
 
-    @FXML
-    private VBox ingredientsContainer;
+  @FXML
+  private VBox ingredientsContainer;
 
-    @FXML
-    private TextArea recipeDescription;
+  @FXML
+  private TextArea recipeDescription;
 
-    @FXML
-    private TextField origin;
+  @FXML
+  private TextField origin;
 
-    @FXML 
-    private TextField type;
+  @FXML 
+  private TextField type;
 
-    @FXML
-    private Button back;
+  @FXML
+  private Button back;
 
-    @FXML
-    private Button addIngredientButton;
+  @FXML
+  private Button addIngredientButton;
 
-    @FXML
-    private Button saveChangesButton;
+  @FXML
+  private Button saveChangesButton;
 
-    @FXML 
-    private Label title;
+  @FXML 
+  private Label title;
 
-    @FXML
-    private CheckBox veganCheckBox;
+  @FXML
+  private CheckBox veganCheckBox;
 
-    @FXML
-    private CheckBox lactosefreeCheckBox;
+  @FXML
+  private CheckBox lactosefreeCheckBox;
 
-    @FXML
-    private CheckBox glutenFreeCheckBox;
+  @FXML
+  private CheckBox glutenFreeCheckBox;
 
-    private int ingredientCount = 0;
+  private int ingredientCount = 0;
 
 
-    //TODO: Initialize the recipe object with the recipe that was clicked on.
-    public void loadRecipe(Recipe recipe){
-        this.oldRecipe = recipe;
-        this.newRecipe.setName(oldRecipe.getName());
-        // System.out.println("Recipe name: " + recipe.getName());
-        recipeDescription.setText(recipe.getDescription());
-        origin.setText(recipe.getOriginCountry());
-        type.setText(recipe.getType());
-        title.setText("Edit " + recipe.getName());
-        newRecipe.setFavorite(oldRecipe.isFavorite());
-        veganCheckBox.setSelected(oldRecipe.isVegan());
-        lactosefreeCheckBox.setSelected(oldRecipe.isLactoseFree());
-        glutenFreeCheckBox.setSelected(oldRecipe.isGlutenFree());
-        for (Map.Entry<String, String> ingredient : recipe.getIngredients().entrySet()) {
-            addIngredient();
-            TextField ingredientName = (TextField) ingredientsContainer.lookup("#ingredientName" + ingredientCount);
-            TextField amount = (TextField) ingredientsContainer.lookup("#ingredientAmount" + ingredientCount);
-            ingredientName.setText(ingredient.getKey());
-            amount.setText(ingredient.getValue());
-        }
-    }
+  //TODO: Initialize the recipe object with the recipe that was clicked on.
+  public void loadRecipe(Recipe recipe){
+      this.oldRecipe = recipe;
+      this.newRecipe.setName(oldRecipe.getName());
+      // System.out.println("Recipe name: " + recipe.getName());
+      recipeDescription.setText(recipe.getDescription());
+      origin.setText(recipe.getOriginCountry());
+      type.setText(recipe.getType());
+      title.setText("Edit " + recipe.getName());
+      newRecipe.setFavorite(oldRecipe.isFavorite());
+      veganCheckBox.setSelected(oldRecipe.isVegan());
+      lactosefreeCheckBox.setSelected(oldRecipe.isLactoseFree());
+      glutenFreeCheckBox.setSelected(oldRecipe.isGlutenFree());
+      for (Map.Entry<String, String> ingredient : recipe.getIngredients().entrySet()) {
+          addIngredient();
+          TextField ingredientName = (TextField) ingredientsContainer.lookup("#ingredientName" + ingredientCount);
+          TextField amount = (TextField) ingredientsContainer.lookup("#ingredientAmount" + ingredientCount);
+          ingredientName.setText(ingredient.getKey());
+          amount.setText(ingredient.getValue());
+      }
+  }
+  
+  public void addIngredient() {
+      //Tracks which textfields should be targeted.
+      ingredientCount++;
+
+      Pane pane = new Pane();
+      pane.setMinWidth(330);
+      pane.setMaxWidth(400);
+      pane.setMinHeight(40);
+      pane.setStyle("-fx-padding: 10 10 10 10; -fx-border-width: 0px 0px 3px 0px; -fx-border-color: #000000;");
+
+      TextField amount = new TextField();
+      amount.setId("ingredientAmount" + ingredientCount);
+      System.out.println(amount.getId());
+      amount.setPromptText("amount");
+      amount.setMaxWidth(100);
+      amount.setLayoutX(130); // Adjust the x-coordinate as needed
+      amount.setLayoutY(10); // Adjust the y-coordinate as needed
+
+      TextField ingredientName = new TextField();
+      ingredientName.setId("ingredientName" +  ingredientCount);
+      System.out.println(ingredientName.getId());
+      ingredientName.setPromptText("ingredientname");
+      ingredientName.setMaxWidth(100);
+      ingredientName.setLayoutX(10); // Adjust the x-coordinate as needed
+      ingredientName.setLayoutY(10); // Adjust the y-coordinate as needed
+
+      pane.getChildren().addAll(ingredientName, amount);
+      ingredientsContainer.getChildren().add(pane);
+  }
+
+  public void saveChanges(ActionEvent e) throws IOException {
+
+    Map<String, String> ingredients = new HashMap<>();
+    String descriptionString = null;
+    TextField ingredientName = null;
+    TextField amount = null;
+    String inputOrigin = null;
+    String inputType = "Unknown";
+    Boolean isVegan = newRecipe.isVegan();
+    Boolean isLactoseFree = newRecipe.isLactoseFree();
+    Boolean isGlutenFree = newRecipe.isGlutenFree();
     
-    public void addIngredient() {
-        //Tracks which textfields should be targeted.
-        ingredientCount++;
-
-        Pane pane = new Pane();
-        pane.setMinWidth(330);
-        pane.setMaxWidth(400);
-        pane.setMinHeight(40);
-        pane.setStyle("-fx-padding: 10 10 10 10; -fx-border-width: 0px 0px 3px 0px; -fx-border-color: #000000;");
-
-        TextField amount = new TextField();
-        amount.setId("ingredientAmount" + ingredientCount);
-        System.out.println(amount.getId());
-        amount.setPromptText("amount");
-        amount.setMaxWidth(100);
-        amount.setLayoutX(130); // Adjust the x-coordinate as needed
-        amount.setLayoutY(10); // Adjust the y-coordinate as needed
-
-        TextField ingredientName = new TextField();
-        ingredientName.setId("ingredientName" +  ingredientCount);
-        System.out.println(ingredientName.getId());
-        ingredientName.setPromptText("ingredientname");
-        ingredientName.setMaxWidth(100);
-        ingredientName.setLayoutX(10); // Adjust the x-coordinate as needed
-        ingredientName.setLayoutY(10); // Adjust the y-coordinate as needed
-
-        pane.getChildren().addAll(ingredientName, amount);
-        ingredientsContainer.getChildren().add(pane);
+    if (!recipeDescription.getText().equals(null)) {
+      descriptionString = recipeDescription.getText();
+    }
+    if (!origin.getText().equals(null)) {
+      inputOrigin = origin.getText();
+    }
+    if (!type.getText().equals(null)) {
+      newRecipe.setType(type.getText());
+      inputType = newRecipe.getType();
+    }
+    if (veganCheckBox.isSelected()){
+      isVegan = true;
+    }
+    if (lactosefreeCheckBox.isSelected()){
+      isLactoseFree = true;
+    }
+    if (glutenFreeCheckBox.isSelected()){
+      isGlutenFree = true; 
     }
 
-    public void saveChanges(ActionEvent e) throws IOException {
+    for (Node node : ingredientsContainer.getChildren()) {
+      if (node instanceof Pane) {
+        Pane pane = (Pane) node;
 
-      Map<String, String> ingredients = new HashMap<>();
-      String descriptionString = null;
-      TextField ingredientName = null;
-      TextField amount = null;
-      String inputOrigin = null;
-      String inputType = "Unknown";
-      Boolean isVegan = newRecipe.isVegan();
-      Boolean isLactoseFree = newRecipe.isLactoseFree();
-      Boolean isGlutenFree = newRecipe.isGlutenFree();
-      
-      if (!recipeDescription.getText().equals(null)) {
-        descriptionString = recipeDescription.getText();
-      }
-      if (!origin.getText().equals(null)) {
-        inputOrigin = origin.getText();
-      }
-      if (!type.getText().equals(null)) {
-        newRecipe.setType(type.getText());
-        inputType = newRecipe.getType();
-      }
-      if (veganCheckBox.isSelected()){
-        isVegan = true;
-      }
-      if (lactosefreeCheckBox.isSelected()){
-        isLactoseFree = true;
-      }
-      if (glutenFreeCheckBox.isSelected()){
-        isGlutenFree = true; 
-      }
-
-      for (Node node : ingredientsContainer.getChildren()) {
-        if (node instanceof Pane) {
-          Pane pane = (Pane) node;
-
-          for (Node childNode : pane.getChildren()) {
-            if (childNode instanceof TextField) {
-              TextField textField = (TextField) childNode;
-              if (textField.getPromptText().equals("ingredientname")) {
-                ingredientName = textField;
-              }
-              else if (textField.getPromptText().equals("amount")) {
-                amount = textField;
-              }
-              if (ingredientName != null && amount != null) {
-                String ingredientNameString = ingredientName.getText();
-                String amountString = amount.getText();
-                ingredients.put(ingredientNameString, amountString);
-              }
+        for (Node childNode : pane.getChildren()) {
+          if (childNode instanceof TextField) {
+            TextField textField = (TextField) childNode;
+            if (textField.getPromptText().equals("ingredientname")) {
+              ingredientName = textField;
+            }
+            else if (textField.getPromptText().equals("amount")) {
+              amount = textField;
+            }
+            if (ingredientName != null && amount != null) {
+              String ingredientNameString = ingredientName.getText();
+              String amountString = amount.getText();
+              ingredients.put(ingredientNameString, amountString);
             }
           }
         }
       }
-      //må endre i konstruktøren senere !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! fjerne false verdiene 
-      this.newRecipe = new Recipe(oldRecipe.getName(), ingredients, inputOrigin, inputType, descriptionString, newRecipe.isFavorite(), isVegan, isGlutenFree, isLactoseFree);
-      cookbookAccess.updateRecipe(newRecipe);
-      System.out.println(cookbookAccess instanceof RemoteCookbookAccess);
-      //Calls on method that switches to main scene
-      switchToMainScene(e);
     }
+    //må endre i konstruktøren senere !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! fjerne false verdiene 
+    this.newRecipe = new Recipe(oldRecipe.getName(), ingredients, inputOrigin, inputType, descriptionString, newRecipe.isFavorite(), isVegan, isGlutenFree, isLactoseFree);
+    cookbookAccess.updateRecipe(newRecipe);
+    System.out.println(cookbookAccess instanceof RemoteCookbookAccess);
+    //Calls on method that switches to main scene
+    switchToMainScene(e);
+  }
 
-    //Switches from AddRecipe scene to main scene
-    public void switchToMainScene(ActionEvent e) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("CookbookApp.fxml"));
-        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+  //Switches from AddRecipe scene to main scene
+  public void switchToMainScene(ActionEvent e) throws IOException {
+      Parent root = FXMLLoader.load(getClass().getResource("CookbookApp.fxml"));
+      Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+      Scene scene = new Scene(root);
+      stage.setScene(scene);
+      stage.show();
+  }
 
-    public void setCookbookAccess(CookbookAccess cookbookAccess) {
-        System.out.println("Set cookbook access in edit recipe controller");
-        this.cookbookAccess = cookbookAccess;
-    }
+  public void setCookbookAccess(CookbookAccess cookbookAccess) {
+      System.out.println("Set cookbook access in edit recipe controller");
+      this.cookbookAccess = cookbookAccess;
+  }
 
-    public void switchToViewRecipe(ActionEvent event) throws IOException {
-        // load recipeview
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("RecipeView.fxml"));
-        Parent root = loader.load();
-        // update scene
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        // send recipe to RecipeViewController
-        RecipeViewController viewController = loader.getController();
-        viewController.loadRecipe(oldRecipe);
-        System.out.println("Send" + cookbookAccess + "to view recipe controller");
-        viewController.setCookbookAccess(cookbookAccess);
-      }  
+  public void switchToViewRecipe(ActionEvent event) throws IOException {
+      // load recipeview
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("RecipeView.fxml"));
+      Parent root = loader.load();
+      // update scene
+      stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+      scene = new Scene(root);
+      stage.setScene(scene);
+      stage.show();
+      // send recipe to RecipeViewController
+      RecipeViewController viewController = loader.getController();
+      viewController.loadRecipe(oldRecipe);
+      System.out.println("Send" + cookbookAccess + "to view recipe controller");
+      viewController.setCookbookAccess(cookbookAccess);
+    }  
 }

@@ -105,29 +105,29 @@ public class AppController {
     for (Recipe recipe : cookbooklist) {
       //lager pane til å vise oppskrift
       Pane pane = new Pane();
-          pane.setMinWidth(330);
-          pane.setMaxWidth(400);
-          pane.setMinHeight(70);
-          pane.setStyle("-fx-padding: 10 10 10 10; -fx-border-width: 0px 0px 3px 0px; -fx-border-color: #000000;");
+      pane.setMinWidth(330);
+      pane.setMaxWidth(400);
+      pane.setMinHeight(70);
+      pane.setStyle("-fx-padding: 10 10 10 10; -fx-border-width: 0px 0px 3px 0px; -fx-border-color: #000000;");
 
       //overskrift med navn på recipe
       Label recipeName = new Label(recipe.getName());
       //satt label CSS id for testing
       recipeName.setId(recipe.getName() + "Recipe"); //ex: #TacoRecipe
-        Font font = Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 16);
-        recipeName.setFont(font);
-        recipeName.setMaxWidth(200);
-        recipeName.setLayoutX(10);
-        recipeName.setLayoutY(10);
+      Font font = Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 16);
+      recipeName.setFont(font);
+      recipeName.setMaxWidth(200);
+      recipeName.setLayoutX(10);
+      recipeName.setLayoutY(10);
 
       // Add remove button
       Button buttonRemove = new Button("Remove");
       //satt button CSS id for testing
       buttonRemove.setId("remove"+recipe.getName()); //ex: #removeTaco
-        buttonRemove.setLayoutX(pane.getMinWidth() - buttonRemove.getMinWidth()); // Adjust the x-coordinate as needed
-        buttonRemove.setLayoutY(10); // Adjust the y-coordinate as needed
-        buttonRemove.onActionProperty().set(e -> {
-        removeRecipe(recipe);
+      buttonRemove.setLayoutX(pane.getMinWidth() - buttonRemove.getMinWidth()); // Adjust the x-coordinate as needed
+      buttonRemove.setLayoutY(10); // Adjust the y-coordinate as needed
+      buttonRemove.onActionProperty().set(e -> {
+      removeRecipe(recipe);
       });
     
       // Add view button
@@ -138,14 +138,14 @@ public class AppController {
       buttonView.setLayoutX(pane.getMinWidth() - buttonView.getMinWidth() - buttonRemove.getMinWidth() - 50); // Adjust the x-coordinate as needed
       buttonView.setLayoutY(10); // Adjust the y-coordinate as needed
       buttonView.onActionProperty().set(e -> {
-        //viewRecipe(recipe);
-        try {
-          sendRecipe = recipe;
-          switchToViewRecipe(e);
-        }
-        catch (IOException ex) {
-          System.err.println(ex);
-        }
+      //viewRecipe(recipe);
+      try {
+        sendRecipe = recipe;
+        switchToViewRecipe(e);
+      }
+      catch (IOException ex) {
+        System.err.println(ex);
+      }
       });
 
       //Add favorite button
@@ -157,13 +157,13 @@ public class AppController {
         buttonFavorite.setStyle("-fx-background-color; ");
       }
       buttonFavorite.setId("favorite"+recipe.getName()); //ex: #removeTaco
-        buttonFavorite.setLayoutX(pane.getMinWidth() - buttonView.getMinWidth() - buttonRemove.getMinWidth() - 87.5 - buttonFavorite.getMinWidth()); // Adjust the x-coordinate as needed
-        buttonFavorite.setLayoutY(10); // Adjust the y-coordinate as needed
-        buttonFavorite.onActionProperty().set(e -> {
-          cookbookAccess.toggleFavorite(recipe);
-          fillCookbook(cookbookAccess.fetchCookbook());
-          favoritesCheckBox.setSelected(false);
-        });
+      buttonFavorite.setLayoutX(pane.getMinWidth() - buttonView.getMinWidth() - buttonRemove.getMinWidth() - 87.5 - buttonFavorite.getMinWidth()); // Adjust the x-coordinate as needed
+      buttonFavorite.setLayoutY(10); // Adjust the y-coordinate as needed
+      buttonFavorite.onActionProperty().set(e -> {
+        cookbookAccess.toggleFavorite(recipe);
+        fillCookbook(cookbookAccess.fetchCookbook());
+        favoritesCheckBox.setSelected(false);
+      });
       pane.getChildren().addAll(recipeName, buttonView, buttonRemove, buttonFavorite);
       recipeList.getChildren().add(pane);
     }
@@ -377,18 +377,21 @@ public class AppController {
       }
       // Disconnect after checking
       connection.disconnect();
-    } catch (IOException exception) {
+    } 
+    catch (IOException exception) {
       System.out.println("Error occured fetching cookbook");
     }
 
     if (remote && !override) {
       cookbookAccess = new RemoteCookbookAccess();
       System.out.println("Successfully fetched cookbook, using remote access");
-    } else {
+    } 
+    else {
       cookbookAccess = new LocalCookbookAccess();
       System.out.println("Using local access");
     }
   }
+  
   private void resetPreferences(){
     veganCheckBox.setSelected(false);
     glutenFreeCheckBox.setSelected(false);
