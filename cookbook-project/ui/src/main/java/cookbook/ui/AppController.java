@@ -179,7 +179,7 @@ public class AppController {
     String search = searchField.getText();
     if (search.isEmpty()) {
       // if search is empty, fill cookbook with all recipes
-      fillCookbook(cookbook);
+      fillCookbook(cookbookAccess.fetchCookbook());
       feedbackLabel.setText("");
     } else {
       // if search is not empty, fill cookbook with matching recipes
