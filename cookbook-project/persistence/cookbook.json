@@ -6,14 +6,14 @@
         "tomatoes": "55.0",
         "groundBeef": "150.0",
         "lettuce": "50.0",
-        "tacoShell": "2.0",
+        "tacoShell": "20.0",
         "salsa": "30.0",
         "cheese": "100.0"
       },
       "originCountry": "Mexico",
       "description": "Begin by browning the beef, adding a blend of cumin, chili powder, garlic powder, oregano, and salt. Once browned, stir in tomato sauce, simmering until the mixture thickens slightly. Warm taco shells, fill with the savory meat, and top with cheese, lettuce, tomatoes, salsa, or your preferred toppings.",
       "favorite": false,
-      "isVegan": false,
+      "isVegan": true,
       "isGlutenFree": false,
       "isLactoseFree": false,
       "types": [
@@ -37,7 +37,7 @@
       "originCountry": "Italy",
       "description": "Spread pizza dough onto a pan, applying a generous layer of tomato sauce. Sprinkle cheese uniformly and add toppings such as pepperoni, mushrooms, and onions. Bake until the crust turns golden and the cheese bubbles. Allow to cool slightly, slice, and serve.",
       "favorite": true,
-      "isVegan": false,
+      "isVegan": true,
       "isGlutenFree": false,
       "isLactoseFree": false,
       "types": [
@@ -423,6 +423,126 @@
         "Dessert"
       ],
       "type": "Dinner"
+    },
+    {
+      "name": "Water",
+      "ingredients": {
+        "salt": "10g",
+        "water": "1l"
+      },
+      "originCountry": "Norway",
+      "description": "Water is good ad super healty",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false,
+      "types": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Dessert"
+      ],
+      "type": "Unknown"
+    },
+    {
+      "name": "Water",
+      "ingredients": {
+        "salt": "10g",
+        "water": "1l"
+      },
+      "originCountry": "Norway",
+      "description": "Water is good ad super healty",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false,
+      "types": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Dessert"
+      ],
+      "type": "Unknown"
+    },
+    {
+      "name": "Water",
+      "ingredients": {
+        "salt": "10g",
+        "water": "1l"
+      },
+      "originCountry": "Norway",
+      "description": "Water is good ad super healty",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false,
+      "types": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Dessert"
+      ],
+      "type": "Unknown"
+    },
+    {
+      "name": "Water",
+      "ingredients": {
+        "salt": "10g",
+        "water": "1l"
+      },
+      "originCountry": "Norway",
+      "description": "Water is good ad super healty",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false,
+      "types": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Dessert"
+      ],
+      "type": "Unknown"
+    },
+    {
+      "name": "Water",
+      "ingredients": {
+        "salt": "10g",
+        "water": "1l"
+      },
+      "originCountry": "Norway",
+      "description": "Water is good ad super healty",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false,
+      "types": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Dessert"
+      ],
+      "type": "Unknown"
+    },
+    {
+      "name": "Water",
+      "ingredients": {
+        "salt": "10g",
+        "water": "1l"
+      },
+      "originCountry": "Norway",
+      "description": "Water is good ad super healty",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false,
+      "types": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Dessert"
+      ],
+      "type": "Unknown"
     }
   ]
 }

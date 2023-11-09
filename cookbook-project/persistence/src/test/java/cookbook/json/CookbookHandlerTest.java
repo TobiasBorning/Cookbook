@@ -25,7 +25,8 @@ public class CookbookHandlerTest {
   public void setUp() {
     cookbookHandler = new CookbookHandler();
     cookbook = new Cookbook();
-    pizzaRecipe = new Recipe("Pizza");
+    pizzaRecipe = new Recipe();
+    pizzaRecipe.setName("Pizza");
     pizzaRecipe.addIngredient("cheese", "200.0");
     pizzaRecipe.addIngredient("pizzaDough", "300.0");
     pizzaRecipe.addIngredient("tomatoSauce", "150.0");

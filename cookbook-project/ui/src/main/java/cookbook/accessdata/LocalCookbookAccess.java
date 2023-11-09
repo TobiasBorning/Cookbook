@@ -1,11 +1,10 @@
 package cookbook.accessdata;
 
-import java.io.FileNotFoundException;
-import java.util.Collection;
-
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
 import cookbook.json.CookbookHandler;
+import java.io.FileNotFoundException;
+import java.util.Collection;
 
 /**
  * Provides local access to a cookbook stored in a JSON file.
@@ -17,7 +16,7 @@ public class LocalCookbookAccess implements CookbookAccess {
 
   /**
    * Fetches the entire cookbook.
-   * 
+   *
    * @return the cookbook, or null if the file is not found.
    */
   @Override
@@ -31,60 +30,67 @@ public class LocalCookbookAccess implements CookbookAccess {
 
   /**
    * Searches for recipes by name.
-   * 
+   *
    * @param recipeName the name or part of the name to search for.
+   *
    * @return a cookbook containing the matching recipes.
    */
   @Override
   public Cookbook searchRecipe(String recipeName) {
-      Collection<Recipe> searched = fetchCookbook().filterRecipies(recipe -> recipe.getName().toLowerCase().contains(recipeName.toLowerCase()));
-      Cookbook tmpCookbook = new Cookbook();
-      for (Recipe recipe : searched) {
-        tmpCookbook.addRecipe(recipe);
-      }
-      return tmpCookbook;
+    Collection<Recipe> searched = fetchCookbook()
+        .filterRecipies(recipe -> recipe.getName()
+        .toLowerCase().contains(recipeName.toLowerCase()));
+    Cookbook tmpCookbook = new Cookbook();
+    for (Recipe recipe : searched) {
+      tmpCookbook.addRecipe(recipe);
+    }
+    return tmpCookbook;
   }
 
   /**
    * Filters recipes by their origin country.
-   * 
+   *
    * @param origin the country of origin to filter by.
+   *
    * @return a cookbook containing the matching recipes.
    */
   @Override
   public Cookbook filterByOrigin(String origin) {
-      Collection<Recipe> searched = fetchCookbook().filterRecipies(recipe -> recipe.getOriginCountry().equals(origin));
-      Cookbook tmpCookbook = new Cookbook();
-      for (Recipe recipe : searched) {
-        tmpCookbook.addRecipe(recipe);
-      }
-      return tmpCookbook;
+    Collection<Recipe> searched = fetchCookbook()
+        .filterRecipies(recipe -> recipe.getOriginCountry().equals(origin));
+    Cookbook tmpCookbook = new Cookbook();
+    for (Recipe recipe : searched) {
+      tmpCookbook.addRecipe(recipe);
+    }
+    return tmpCookbook;
   }
 
   /**
    * Filters recipes by their type.
-   * 
-   * @param type the type to filter by.
+   *
+   * @param type the type to filter by
    * @return a cookbook containing the matching recipes.
    */
   @Override
   public Cookbook filterByType(String type) {
-    Collection<Recipe> searched = fetchCookbook().filterRecipies(recipe -> recipe.getType().equals(type));
-      Cookbook tmpCookbook = new Cookbook();
-      for (Recipe recipe : searched) {
-        tmpCookbook.addRecipe(recipe);
-      }
-      return tmpCookbook;
+    Collection<Recipe> searched = fetchCookbook()
+        .filterRecipies(recipe -> recipe.getType().equals(type));
+    Cookbook tmpCookbook = new Cookbook();
+    for (Recipe recipe : searched) {
+      tmpCookbook.addRecipe(recipe);
+    }
+    return tmpCookbook;
   }
 
   /**
    * Filters recipes that are marked as favorite.
-   * 
+   *
    * @return a cookbook containing the favorite recipes.
    */
   @Override
   public Cookbook filterByFavorite() {
-    Collection<Recipe> searched = fetchCookbook().filterRecipies(recipe -> recipe.isFavorite() == true);
+    Collection<Recipe> searched = fetchCookbook()
+        .filterRecipies(recipe -> recipe.isFavorite() == true);
     Cookbook tmpCookbook = new Cookbook();
     for (Recipe recipe : searched) {
       tmpCookbook.addRecipe(recipe);
@@ -94,54 +100,54 @@ public class LocalCookbookAccess implements CookbookAccess {
 
   /**
    * Filters recipes based on user preferences.
-   * 
-   * @param vlg a string representing user preferences. (vegan, lactose-free, gluten-free)
+   * vlg: (vegan, lactose-free, gluten-free)
+   *
+   * @param vlg a string representing user preferences. 
    * @return a cookbook containing the matching recipes.
    */
   @Override
   public Cookbook filterByPreferences(String vlg) {
-    
     Cookbook tmpCookbook = new Cookbook();
-        
     boolean gluten = vlg.charAt(2) == 'T';
     boolean lactose = vlg.charAt(1) == 'T';
     boolean vegan = vlg.charAt(0) == 'T';
 
     for (Recipe recipe : fetchCookbook().getRecipes()) {
-        if (!((!recipe.isGlutenFree() && gluten) || (!recipe.isLactoseFree() && lactose) || (!recipe.isVegan() && vegan))) {
-            tmpCookbook.addRecipe(recipe);
-        }
+      if (!((!recipe.isGlutenFree() && gluten) || (!recipe.isLactoseFree() && lactose)
+          || (!recipe.isVegan() && vegan))) {
+        tmpCookbook.addRecipe(recipe);
+      }
     }
-
     return tmpCookbook;
   }
 
   /**
    * Updates a recipe in the cookbook.
-   * 
+   *
    * @param recipe the recipe to update.
    */
   @Override
   public void updateRecipe(Recipe recipe) {
     System.out.println("Updating recipe local cookbook access");
     Cookbook tmpCookbook = fetchCookbook();
-    tmpCookbook.getRecipes().stream().filter(r -> r.getName().equals(recipe.getName())).forEach(r -> {
-      System.out.println(r.getName());
-      r.setIngredients(recipe.getIngredients());
-      r.setDescription(recipe.getDescription());
-      r.setOriginCountry(recipe.getOriginCountry());
-      r.setType(recipe.getType());
-      r.setVegan(recipe.isVegan());
-      r.setLactoseFree(recipe.isLactoseFree());
-      r.setGlutenFree(recipe.isGlutenFree());
-      r.setFavorite(recipe.isFavorite());
-    });
+    tmpCookbook.getRecipes().stream().filter(r -> r.getName()
+        .equals(recipe.getName())).forEach(r -> {
+          System.out.println(r.getName());
+          r.setIngredients(recipe.getIngredients());
+          r.setDescription(recipe.getDescription());
+          r.setOriginCountry(recipe.getOriginCountry());
+          r.setType(recipe.getType());
+          r.setVegan(recipe.isVegan());
+          r.setLactoseFree(recipe.isLactoseFree());
+          r.setGlutenFree(recipe.isGlutenFree());
+          r.setFavorite(recipe.isFavorite());
+        });
     saveCookbook(tmpCookbook);
   }
 
   /**
    * Removes a recipe from the cookbook.
-   * 
+   *
    * @param recipeName the name of the recipe to remove.
    */
   @Override
@@ -159,7 +165,7 @@ public class LocalCookbookAccess implements CookbookAccess {
 
   /**
    * Adds a new recipe to the cookbook.
-   * 
+   *
    * @param recipe the recipe to add.
    */
   @Override
@@ -171,7 +177,7 @@ public class LocalCookbookAccess implements CookbookAccess {
 
   /**
    * Saves the cookbook to the file.
-   * 
+   *
    * @param cookbook the cookbook to save.
    */
   private void saveCookbook(Cookbook cookbook) {
@@ -182,6 +188,11 @@ public class LocalCookbookAccess implements CookbookAccess {
     }
   }
 
+  /**
+   * Toggles the favorite status of a recipe.
+   *
+   * @param recipe the recipe to toggle.
+   */
   public void toggleFavorite(Recipe recipe) {
     Cookbook tmpCookbook = fetchCookbook();
     for (Recipe r : tmpCookbook.getRecipes()) {
@@ -191,7 +202,5 @@ public class LocalCookbookAccess implements CookbookAccess {
         return;
       }
     }
-
   }
-
 }
