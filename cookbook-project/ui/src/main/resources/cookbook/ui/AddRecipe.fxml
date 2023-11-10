@@ -10,27 +10,27 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane id="addRecipePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cookbook.ui.AddRecipeController">
+<Pane id="addRecipePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cookbook.ui.AddRecipeController">
    <children>
-      <Label fx:id="title" layoutX="232.0" layoutY="31.0" text="Add Recipe">
+      <Label fx:id="title" layoutX="349.0" layoutY="18.0" prefHeight="34.0" prefWidth="155.0" text="Add Recipe">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <TextField id="addRecipeName" fx:id="recipeName" layoutX="414.0" layoutY="52.0" promptText="Recipe name" />
-      <TextArea id="addRecipeDescription" fx:id="recipeDescription" layoutX="348.0" layoutY="229.0" prefHeight="120.0" prefWidth="200.0" promptText="Description" />
-      <Button id="addRecipeButton" fx:id="addRecipeButton" layoutX="380.0" layoutY="352.0" mnemonicParsing="false" onAction="#addToCookbook" prefHeight="34.0" prefWidth="135.0" text="Add to cookbook" />
-      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="41.0" layoutY="76.0" prefHeight="287.0" prefWidth="269.0">
+      <TextField id="addRecipeName" fx:id="recipeName" layoutX="349.0" layoutY="57.0" promptText="Recipe name" />
+      <TextArea id="addRecipeDescription" fx:id="recipeDescription" layoutX="349.0" layoutY="236.0" prefHeight="120.0" prefWidth="200.0" promptText="Description" />
+      <Button id="addRecipeButton" fx:id="addRecipeButton" layoutX="415.0" layoutY="360.0" mnemonicParsing="false" onAction="#addToCookbook" prefHeight="29.0" prefWidth="135.0" text="Add to cookbook" />
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="41.0" layoutY="57.0" prefHeight="299.0" prefWidth="269.0">
          <content>
             <VBox id="ingredientVbox" fx:id="ingredientsContainer" prefHeight="287.0" prefWidth="267.0" />
          </content>
       </ScrollPane>
-      <Button id="addIngredientButton" fx:id="addIngredientButton" layoutX="113.0" layoutY="363.0" mnemonicParsing="false" onAction="#addIngredient" text="Add ingredient" />
-      <TextField id="addRecipeOrigin" fx:id="origin" layoutX="414.0" layoutY="85.0" promptText="Origin" />
-      <Button id="backFromAddRecipeButton" fx:id="back" layoutX="14.0" layoutY="19.0" mnemonicParsing="false" onAction="#switchToMainScene" text="Back" />
-      <TextField fx:id="type" layoutX="414.0" layoutY="119.0" prefHeight="26.0" prefWidth="159.0" promptText="Type" />
-      <CheckBox id="lactosefreeCheckBox" fx:id="lactosefreeCheckBox" layoutX="413.0" layoutY="182.0" mnemonicParsing="false" text="Gluten free" />
-      <CheckBox id="glutenFreeCheckBox" fx:id="glutenFreeCheckBox" layoutX="413.0" layoutY="207.0" mnemonicParsing="false" text="Lactose free" />
-      <CheckBox id="veganCheckBox" fx:id="veganCheckBox" layoutX="414.0" layoutY="155.0" mnemonicParsing="false" text="Vegan" />
+      <Button id="addIngredientButton" fx:id="addIngredientButton" layoutX="39.0" layoutY="361.0" mnemonicParsing="false" onAction="#addIngredient" text="Add ingredient" />
+      <TextField id="addRecipeOrigin" fx:id="origin" layoutX="349.0" layoutY="90.0" promptText="Origin" />
+      <Button id="backFromAddRecipeButton" fx:id="back" layoutX="41.0" layoutY="22.0" mnemonicParsing="false" onAction="#switchToMainScene" text="Back" />
+      <TextField fx:id="type" layoutX="349.0" layoutY="124.0" prefHeight="26.0" prefWidth="159.0" promptText="Type" />
+      <CheckBox id="lactosefreeCheckBox" fx:id="lactosefreeCheckBox" layoutX="349.0" layoutY="185.0" mnemonicParsing="false" text="Gluten free" />
+      <CheckBox id="glutenFreeCheckBox" fx:id="glutenFreeCheckBox" layoutX="349.0" layoutY="210.0" mnemonicParsing="false" text="Lactose free" />
+      <CheckBox id="veganCheckBox" fx:id="veganCheckBox" layoutX="350.0" layoutY="158.0" mnemonicParsing="false" text="Vegan" />
    </children>
 </Pane>
