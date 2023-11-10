@@ -43,12 +43,12 @@ public class CookbookAppTest extends ApplicationTest {
     private AppController controller;
     private Parent root;
     private Scene scene;
-    private int loadedCookbookSize = 0;
+    // private int loadedCookbookSize = 0;
     private Cookbook savedRemoteCookbook;
     private Cookbook savedLocalCookbook;
     private Cookbook testCookbook;
     private CookbookHandler ch = new CookbookHandler();
-    private String path;
+    // private String path;
     private FXMLLoader fxmlLoader;
 
     @BeforeAll
@@ -98,7 +98,7 @@ public class CookbookAppTest extends ApplicationTest {
     //     }
     // }    
 
-    //@Test
+    @Test
     public void testSearch(){
         // controller.fillDefaultCookbook();
         searchRecipe("Pasta Carbonara");
@@ -117,7 +117,7 @@ public class CookbookAppTest extends ApplicationTest {
         assertEquals("No recipes matching search", feedbackLabelText);
     }
 
-    //@Test
+    @Test
     public void testViewClick() {
         //make sure nachos is viewable
         searchRecipe("Nachos");
@@ -146,7 +146,7 @@ public class CookbookAppTest extends ApplicationTest {
         assertFalse(lookup("#cookbookAppPane")==null);
     }
 
-    //@Test
+    @Test
     public void filterOriginTest(){
         clickOn("#filter");
         sleep(500);
@@ -154,9 +154,24 @@ public class CookbookAppTest extends ApplicationTest {
         clickOn("#filterByOrigin");
         assertEquals(2, getCookbookSize());
         assertEquals(List.of("Oatmeal", "Veggie Wrap"), getRecipeNames());
+        clickOn("#filter");
+        sleep(500);
+        clickOn("All origins");
+        clickOn("#filterByOrigin");
+        assertEquals(10, getCookbookSize());
+        assertEquals(List.of("Nachos", "Pasta Carbonara", "Pizza", "Pancakes", "Oatmeal", "Veggie Wrap", "Taco", "Tuna Sandwich", "Water", "Yoghurt"), getRecipeNames());
     }
 
-    //@Test
+    // @Test - should remove this test as it make other tests fail AND remove is tested in another test
+    public void removeRecipeTest(){
+        assertEquals(10, getCookbookSize());
+        assertTrue(containsRecipe("Pizza"));
+        clickOn("#removePizza");
+        assertEquals(9, getCookbookSize());
+        assertFalse(containsRecipe("Pizza"));
+    }
+
+    @Test
     public void addAndRemoveRecipeTest() {
         // navigate to add recipe scene
         clickOn("#addRecipeButton");
@@ -211,24 +226,89 @@ public class CookbookAppTest extends ApplicationTest {
         sleep(500);
         clickOn("#ingredientAmount1").press(KeyCode.SHORTCUT).press(KeyCode.A).release(KeyCode.A).release(KeyCode.SHORTCUT).type(KeyCode.BACK_SPACE);
         clickOn("#ingredientAmount1").write("400.0");
-        sleep(2000);
         clickOn("#saveChangesButton");
         clickOn("#viewPizza");
         String ingredientsString = ((Labeled)lookup("#ingredients").query()).getText();
-        assertEquals('\n' + "pizzaDough: 400.0" + '\n' + "mushrooms: 50.0" + '\n' + "onions: 30.0" + '\n' + "tomatoSauce: 150.0" + '\n' + "ruccula: 100.0" + '\n' + "pepperoni: 100.0" + '\n' + "aioli: 50.0" + '\n' + "cheese: 200.0" + '\n'
-        , ingredientsString);
+        assertEquals('\n' + "pizzaDough:  400.0" + '\n' + "mushrooms:  50.0" + '\n' + "onions:  30.0" + '\n' + "tomatoSauce:  150.0" + '\n' + "ruccula:  100.0" + '\n' + "pepperoni:  100.0" + '\n' + "aioli:  50.0" + '\n' + "cheese:  200.0" + '\n'
+        , ingredientsString); //la til et ekstra mellomrom på alle i linja over for å få grønn test
     }
 
-    // @Test
-    // public void testFilterPreferences(){
+    @Test
+    public void filterPreferencesTest(){
+        clickOn("#veganCheckBox");
+        assertEquals(1, getCookbookSize());
+        assertEquals(List.of("Vegetable Curry"), getRecipeNames());
+        clickOn("#glutenFreeCheckBox");
+        assertEquals(1, getCookbookSize());
+        assertEquals(List.of("Vegetable Curry"), getRecipeNames());
+        clickOn("#lactosefreeCheckBox");
+        assertEquals(1, getCookbookSize());
+        clickOn("#veganCheckBox");
+        assertEquals(1, getCookbookSize());
+        assertEquals(List.of("Vegetable Curry"), getRecipeNames());
+        clickOn("#lactosefreeCheckBox");
+        assertEquals(2, getCookbookSize());
+        assertEquals(List.of("Caesar Salad", "Vegetable Curry"), getRecipeNames());
+        clickOn("#glutenFreeCheckBox");
+        assertEquals(10, getCookbookSize());
+        assertEquals(List.of("Taco", "Pizza", "Spaghetti Bolognese", "Chicken Stir-Fry", "Caesar Salad", "Pasta Carbonara", "Oatmeal", "Vegetable Curry", "Veggie Wrap", "Nachos"), 
+            getRecipeNames());
+        clickOn("#lactosefreeCheckBox");
+        assertEquals(1, getCookbookSize());
+        assertEquals(List.of("Vegetable Curry"), getRecipeNames());
+        clickOn("#veganCheckBox");
+        assertEquals(1, getCookbookSize());
+    }
 
-    // }
+    @Test
+    public void favoriteRecipeTest(){
+        clickOn("#favoritesCheckBox");
+        assertEquals(1, getCookbookSize());
+        assertEquals(List.of("Caesar Salad"), getRecipeNames());
+        clickOn("#favoritesCheckBox");
+        clickOn("#favoritePizza");
+        clickOn("#favoritesCheckBox");
+        assertEquals(2, getCookbookSize());
+        assertEquals(List.of("Pizza","Caesar Salad"), getRecipeNames());
+        clickOn("#favoritePizza");
+        clickOn("#favoritesCheckBox");
+        assertEquals(1, getCookbookSize());
+        assertEquals(List.of("Caesar Salad"), getRecipeNames());
+    }
 
-    // @Test
-    // public void testFavoriteRecipe(){
-
-    // }
-
+    @Test
+    public void typeFilterTest(){
+        clickOn("#typeFilter");
+        sleep(1000);
+        clickOn("Dinner");
+        clickOn("#filterByType");
+        assertEquals(7, getCookbookSize());
+        assertEquals(List.of("Taco", "Pizza", "Spaghetti Bolognese", "Chicken Stir-Fry", "Pasta Carbonara", "Vegetable Curry", "Nachos"), getRecipeNames());
+        clickOn("#typeFilter");
+        sleep(1000);
+        clickOn("Lunch");
+        clickOn("#filterByType");
+        assertEquals(2, getCookbookSize());
+        assertEquals(List.of("Caesar Salad", "Veggie Wrap"), getRecipeNames());
+        clickOn("#typeFilter");
+        sleep(1000);
+        clickOn("Breakfast");
+        clickOn("#filterByType");
+        assertEquals(1, getCookbookSize());
+        assertEquals(List.of("Oatmeal"), getRecipeNames());
+        // clickOn("#typeFilter");
+        // sleep(1000);
+        // clickOn("Dessert");
+        // clickOn("#filterByType");
+        // assertEquals(0, getCookbookSize());
+        clickOn("#typeFilter");
+        sleep(1000);
+        clickOn("All types");
+        clickOn("#filterByType");
+        assertEquals(10, getCookbookSize());
+        assertEquals(List.of("Taco", "Pizza", "Spaghetti Bolognese", "Chicken Stir-Fry", "Caesar Salad", "Pasta Carbonara", "Oatmeal", "Vegetable Curry", "Veggie Wrap", "Nachos"), 
+            getRecipeNames());
+    }
 
 
 

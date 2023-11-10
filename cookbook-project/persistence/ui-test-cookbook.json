@@ -111,7 +111,7 @@
       "description": "Grill or pan-sear chicken breasts until fully cooked and then slice them. In a large bowl, combine lettuce, croutons, and parmesan cheese. Toss with caesar dressing and top with the cooked, sliced chicken breast.",
       "favorite": true,
       "isVegan": false,
-      "isGlutenFree": false,
+      "isGlutenFree": true,
       "isLactoseFree": false,
       "types": [
         "Breakfast",
@@ -119,7 +119,7 @@
         "Dinner",
         "Dessert"
       ],
-      "type": "Dinner"
+      "type": "Lunch"
     },
     {
       "name": "Pasta Carbonara",
@@ -213,7 +213,7 @@
         "Dinner",
         "Dessert"
       ],
-      "type": "Dinner"
+      "type": "Lunch"
     },
     {
       "name": "Nachos",
@@ -233,7 +233,7 @@
         "Dinner",
         "Dessert"
       ],
-      "type": "Unknown"
+      "type": "Dinner"
     }
   ]
 }
