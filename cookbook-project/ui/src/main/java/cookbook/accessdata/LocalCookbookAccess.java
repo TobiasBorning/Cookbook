@@ -12,7 +12,7 @@ import java.util.Collection;
 public class LocalCookbookAccess implements CookbookAccess {
 
   private CookbookHandler ch = new CookbookHandler();
-  private final static String path = "../persistence/cookbook.json";
+  private final String path = "../persistence/cookbook.json";
 
   /**
    * Fetches the entire cookbook.
