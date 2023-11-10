@@ -11,6 +11,8 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <skipTests>false</skipTests>
+        <!-- Skip SpotBugs when running -->
+        <skipSpotbugs>true</skipSpotbugs>
     </properties>
 
     <dependencyManagement>
@@ -90,20 +92,28 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>3.3.0</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.puppycrawl.tools</groupId>
+                            <artifactId>checkstyle</artifactId>
+                            <version>10.3.4</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <configLocation>google_checks.xml</configLocation>
+                        <outputFile>target/checkstyle-results.txt</outputFile>
+                        <encoding>UTF-8</encoding>
+                        <consoleOutput>true</consoleOutput>
+                        <failsOnError>true</failsOnError>
+                        <linkXRef>false</linkXRef>
+                    </configuration>
                     <executions>
                         <execution>
-                            <id>validate</id>
-                            <phase>package</phase>
-                            <configuration>
-                                <configLocation>config/checkstyle/checkstyle.xml</configLocation>
-                                <redirectXRefResults>true</redirectXRefResults>
-                                <outputFile>target/checkstyle-results.txt</outputFile>
-                                <excludes>**/module-info.java</excludes>
-                                <failOnViolation>false</failOnViolation>
-                            </configuration>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
+                        <id>checkstyle-check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
                         </execution>
                     </executions>
                 </plugin>             
@@ -113,6 +123,21 @@
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
                     <version>4.7.3.6</version>
+                    <configuration>
+                        <xmlOutput>false</xmlOutput>
+                        <htmlOutput>true</htmlOutput>
+                        <excludeFilterFile>config/spotbugs/exclude.xml</excludeFilterFile>
+                        <failOnError>false</failOnError> 
+                    </configuration>
+                    <executions>
+                        <execution>
+                        <id>spotbugs-check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -123,6 +148,7 @@
         <module>persistence</module>
         <module>ui</module>
         <module>springboot</module>
+        <module>integrationtest</module>
     </modules>
     
 </project>
