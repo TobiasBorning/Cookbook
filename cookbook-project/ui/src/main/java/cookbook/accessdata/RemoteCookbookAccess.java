@@ -16,7 +16,7 @@ import java.net.http.HttpResponse;
 public class RemoteCookbookAccess implements CookbookAccess {
   
   private Gson gson = new Gson();
-  private URI uri;
+  private URI uri = null;
 
   /**
    * Connects to the springboot-server. 
@@ -24,7 +24,9 @@ public class RemoteCookbookAccess implements CookbookAccess {
    */
   private void connect() {
     try {
-      this.uri = new URI("http://localhost:8080/api/");
+      if (uri == null) {
+        this.uri = new URI("http://localhost:8080/api/");
+      }
     } catch (Exception e) {
       System.out.println("URI not found");
       this.uri = null;
@@ -49,11 +51,15 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      //System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
-      return ut;
+      //System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());  breaks the test
+      if (response.statusCode() == 200) {
+        return ut;
+      } else {
+        throw new RuntimeException("Failed to fetch cookbook");
+      }
     } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
-      return new Cookbook(); //returns empty cookbook in case of error
+      throw new RuntimeException("Failed to fetch cookbook");
     }
   }
 
@@ -77,11 +83,15 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
-      return ut;
+      // System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());  Breaks tests
+      if (response.statusCode() == 200) {
+        return ut;
+      } else {
+        throw new RuntimeException("Failed to search for recipe");
+      }
     } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
-      return new Cookbook(); //returns empty cookbook in case of error
+      throw new RuntimeException("Failed to search for recipe");
     }
   }
 
@@ -104,11 +114,15 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
-      return ut;
+      // System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList()); breaks the tests
+      if (response.statusCode() == 200) {
+        return ut;
+      } else {
+        throw new RuntimeException("Failed to filter by origin");
+      }
     } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
-      return new Cookbook(); //returns empty cookbook in case of error
+      throw new RuntimeException("Failed to filter by origin");
     }
   }
 
@@ -131,11 +145,15 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
-      return ut;
+      // System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList()); breaks the test
+      if (response.statusCode() == 200) {
+        return ut;
+      } else {
+        throw new RuntimeException("Failed to filter by type");
+      }
     } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
-      return new Cookbook(); //returns empty cookbook in case of error
+      throw new RuntimeException("Failed to filter by type");
     }
   }
 
@@ -157,11 +175,15 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
-      return ut;
+      // System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList()); breaks the test
+      if (response.statusCode() == 200) {
+        return ut;
+      } else {
+        throw new RuntimeException("Failed to filter by favorite");
+      }
     } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
-      return new Cookbook(); //returns empty cookbook in case of error
+      throw new RuntimeException("Failed to filter by favorite");
     }
   }
 
@@ -187,11 +209,15 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
-      return ut;
+      // System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList()); breaks the test
+      if (response.statusCode() == 200) {
+        return ut;
+      } else {
+        throw new RuntimeException("Failed to filter by preferences");
+      }
     } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
-      return new Cookbook(); //returns empty cookbook in case of error
+      throw new RuntimeException("Failed to filter by preferences");
     }
   }
 
@@ -201,7 +227,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * @param recipe the recipe to add.
    */
   @Override
-  public void updateRecipe(Recipe recipe) {
+  public void updateRecipe(Recipe recipe) { //throws runtimeExceiption?
     connect();
     try {
       String encodedName;
@@ -221,13 +247,14 @@ public class RemoteCookbookAccess implements CookbookAccess {
       if (response.statusCode() == 200) {
         System.out.println("Updated recipe");
       } else {
-        System.out.println("Error updating recipe");
+        throw new RuntimeException("Failed to update recipe");
       }
     } catch (InterruptedException | IOException e) {
-      System.out.println(e.getMessage());
+      throw new RuntimeException("Failed to update recipe");
     }
   }
 
+  //TODO add throws RuntimeException
   /**
    * Removes a recipe from the cookbook.
    *
@@ -259,8 +286,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
         return false;
       }
     } catch (InterruptedException | IOException e) {
-      System.out.println("Error sending request");
-      return false;
+      throw new RuntimeException();
     }
   }
 
@@ -286,10 +312,10 @@ public class RemoteCookbookAccess implements CookbookAccess {
       if (response.statusCode() == 200) {
         System.out.println("Added recipe");
       } else {
-        System.out.println("Error adding recipe");
+        throw new RuntimeException("Error adding recipe");
       }
     } catch (InterruptedException | IOException e) {
-      System.out.println("Error sending request");
+      throw new RuntimeException("Error adding recipe");
     }
   }
 
@@ -317,10 +343,10 @@ public class RemoteCookbookAccess implements CookbookAccess {
       if (response.statusCode() == 200) {
         System.out.println(recipe.getName() + " is favorite: " + state);
       } else {
-        System.out.println("Error updating recipe");
+        throw new RuntimeException("Error favoriting recipe");
       }
     } catch (InterruptedException | IOException e) {
-      System.out.println(e.getMessage());
+      throw new RuntimeException("Error favoriting recipe");
     }
   }
 }
