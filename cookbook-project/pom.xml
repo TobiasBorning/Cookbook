@@ -148,6 +148,7 @@
         <module>persistence</module>
         <module>ui</module>
         <module>springboot</module>
+        <module>integrationtest</module>
     </modules>
     
 </project>
