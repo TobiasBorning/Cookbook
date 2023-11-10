@@ -159,7 +159,7 @@ public class CookbookAppTest extends ApplicationTest {
         clickOn("All origins");
         clickOn("#filterByOrigin");
         assertEquals(10, getCookbookSize());
-        assertEquals(List.of("Nachos", "Pasta Carbonara", "Pizza", "Pancakes", "Oatmeal", "Veggie Wrap", "Taco", "Tuna Sandwich", "Water", "Yoghurt"), getRecipeNames());
+        assertEquals(List.of("Taco", "Pizza", "Spaghetti Bolognese", "Chicken Stir-Fry", "Caesar Salad", "Pasta Carbonara", "Oatmeal", "Vegetable Curry", "Veggie Wrap", "Nachos"), getRecipeNames());
     }
 
     // @Test - should remove this test as it make other tests fail AND remove is tested in another test
