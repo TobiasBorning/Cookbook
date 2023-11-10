@@ -1,10 +1,12 @@
 package cookbook.ui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
@@ -21,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -32,6 +35,7 @@ import org.testfx.framework.junit5.ApplicationTest;
 import cookbook.accessdata.CookbookAccess;
 import cookbook.accessdata.RemoteCookbookAccess;
 import cookbook.core.Cookbook;
+import cookbook.core.Recipe;
 import cookbook.json.CookbookHandler;
 
 /**
@@ -97,7 +101,7 @@ public class CookbookAppTest extends ApplicationTest {
     //         this.loadedCookbookSize = controller.getCookbookSize();
     //     }
     // }    
-
+/* */
     @Test
     public void testSearch(){
         // controller.fillDefaultCookbook();
@@ -203,6 +207,7 @@ public class CookbookAppTest extends ApplicationTest {
         
         //Check that the recipe is added
         viewAllRecipes();
+        assertEquals(11, getCookbookSize());
         assertTrue(containsRecipe("Water"));
 
         //Remove the recipe, needs search to view the button without scrolling
@@ -226,11 +231,19 @@ public class CookbookAppTest extends ApplicationTest {
         sleep(500);
         clickOn("#ingredientAmount1").press(KeyCode.SHORTCUT).press(KeyCode.A).release(KeyCode.A).release(KeyCode.SHORTCUT).type(KeyCode.BACK_SPACE);
         clickOn("#ingredientAmount1").write("400.0");
+        clickOn("#veganCheckBox");
+        clickOn("#lactosefreeCheckBox");
+        clickOn("#glutenFreeCheckBox");
         clickOn("#saveChangesButton");
         clickOn("#viewPizza");
         String ingredientsString = ((Labeled)lookup("#ingredients").query()).getText();
         assertEquals('\n' + "pizzaDough:  400.0" + '\n' + "mushrooms:  50.0" + '\n' + "onions:  30.0" + '\n' + "tomatoSauce:  150.0" + '\n' + "ruccula:  100.0" + '\n' + "pepperoni:  100.0" + '\n' + "aioli:  50.0" + '\n' + "cheese:  200.0" + '\n'
         , ingredientsString); //la til et ekstra mellomrom på alle i linja over for å få grønn test
+        /* Disse vil feile per nå, siden preferences ikke lastes riktig til viewRecipe */
+        assertTrue(isPref("vegan"));
+        assertTrue(isPref("lactosefree"));
+        assertTrue(isPref("glutenfree")); 
+        /**/
     }
 
     @Test
@@ -310,6 +323,16 @@ public class CookbookAppTest extends ApplicationTest {
             getRecipeNames());
     }
 
+    @Test
+    public void setFeedbackLabelTest(){
+        Platform.runLater(() -> {
+            String testLabel = "Test label";
+            controller.setFeedbackLabel("Test label");
+            controller.setFeedbackLabel(testLabel);
+            String feedbackLabelText = ((Labeled)lookup("#feedbackLabel").query()).getText();
+            assertEquals(testLabel, feedbackLabelText);
+        });
+    }
 
 
     // returns items viewable in the VBox
@@ -340,6 +363,9 @@ public class CookbookAppTest extends ApplicationTest {
         return getRecipeNames().contains(recipe);
     }
 
+    private Boolean isPref(String preference) {
+        return ((Label)lookup("#" + preference).query()).getText().equals("Yes");
+    }
     // searches for the recipe with the given name
     private void searchRecipe(String name){
         TextField tf = lookup("#searchField").query();
