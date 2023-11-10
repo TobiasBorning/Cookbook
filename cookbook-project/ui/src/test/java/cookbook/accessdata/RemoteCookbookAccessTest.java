@@ -1,8 +1,12 @@
 package cookbook.accessdata;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
 import java.util.List;
 
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,9 +53,14 @@ public class RemoteCookbookAccessTest {
   @BeforeAll
   public void saveCookbook() throws IOException {
     savedCookbook = handler.readFromFile("../persistence/remote-cookbook.json");
-    wireMockServer = new WireMockServer(options().port(8080));
+    wireMockServer = new WireMockServer(options().port(7070));
     wireMockServer.start(); 
     WireMock.configureFor("localhost", wireMockServer.port());
+    try {
+      access.setUri(new URI("http://localhost:7070/api/"));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   

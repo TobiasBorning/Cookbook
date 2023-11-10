@@ -349,4 +349,8 @@ public class RemoteCookbookAccess implements CookbookAccess {
       throw new RuntimeException("Error favoriting recipe");
     }
   }
+
+  public void setUri(URI uri) {
+      this.uri = uri;
+  }
 }
