@@ -355,9 +355,6 @@ public class CookbookAppTest extends ApplicationTest {
         return getRecipeNames().contains(recipe);
     }
 
-    private Boolean isPref(String preference) {
-        return ((Label)lookup("#" + preference).query()).getText().equals("Yes");
-    }
     // searches for the recipe with the given name
     private void searchRecipe(String name){
         TextField tf = lookup("#searchField").query();
