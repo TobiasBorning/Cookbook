@@ -1,0 +1,15 @@
+<FindBugsFilter>
+    <Match>
+        <Bug pattern="SA_LOCAL_SELF_COMPARISON" />
+    </Match>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP" />
+    </Match>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP2" />
+    </Match>
+    <Match>
+        <!-- To use FileReader and FileWriter  -->
+        <Bug pattern="DM_DEFAULT_ENCODING" />
+    </Match>
+</FindBugsFilter>

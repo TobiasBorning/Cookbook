@@ -1,10 +1,9 @@
 package cookbook.ui;
 
-import java.io.IOException;
-import java.util.Map.Entry;
-
 import cookbook.accessdata.CookbookAccess;
 import cookbook.core.Recipe;
+import java.io.IOException;
+import java.util.Map.Entry;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +14,13 @@ import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+
+/**
+ * Controller class for the recipe view in the cookbook application.
+ * This class is responsible for displaying the details of a recipe.
+ * It also provides the functionality to navigate back to the main scene
+ * or to the edit recipe scene.
+ */
 public class RecipeViewController {
 
   private Stage stage;
@@ -40,12 +46,17 @@ public class RecipeViewController {
   @FXML
   private Label glutenfree;
 
+  /**
+   * Loads the recipe details into the view.
+   *
+   * @param recipe The recipe object containing the details to be displayed.
+   */
   public void loadRecipe(Recipe recipe) {
     this.recipe = recipe;
 
     origin.setFont(new Font("Arial", 16));
     description.setFont(new Font("Arial", 14));
-    type.setFont(new Font("Arial",14));
+    type.setFont(new Font("Arial", 14));
     ingredients.setFont(new Font("Arial", 14));
 
     recipeName.setText(recipe.getName());
@@ -53,29 +64,36 @@ public class RecipeViewController {
     description.setText(recipe.getDescription());
     type.setText(recipe.getType());
     origin.setText(recipe.getOriginCountry());
-    if (recipe.isVegan())
+    if (recipe.isVegan()) {
       vegan.setText("Yes");
-    else if (!recipe.isVegan())
-      vegan.setText("No");{
+    } else if (!recipe.isVegan()) {
+      vegan.setText("No");
     }
-    if (recipe.isLactoseFree())
+    if (recipe.isLactoseFree()) {
       lactosefree.setText("Yes");
-    else if (!recipe.isLactoseFree())
-      lactosefree.setText("No");{
+    } else if (!recipe.isLactoseFree()) {
+      lactosefree.setText("No");
     }
-    if (recipe.isGlutenFree())
+    if (recipe.isGlutenFree()) {
       glutenfree.setText("Yes");
-    else if (!recipe.isGlutenFree())
-      glutenfree.setText("No");{
+    } else if (!recipe.isGlutenFree()) {
+      glutenfree.setText("No");
     }
     //legger til liste med ingredienser
     for (Entry<String, String> ingredient : recipe.getIngredients().entrySet()) {
       String text = ingredients.getText();
-      ingredients.setText(text + "\n" + ingredient.getKey().toString() + ":  " + ingredient.getValue());
+      ingredients.setText(text + "\n" + ingredient.getKey().toString() 
+          + ":  " + ingredient.getValue());
     }
     ingredients.setText(ingredients.getText() + "\n");
   }
 
+  /**
+   * Switches the view back to the main cookbook scene.
+   *
+   * @param event The action event that triggered the switch.
+   * @throws IOException If the fxml file for the main scene cannot be loaded.
+   */
   public void switchToMainScene(final ActionEvent event) throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("CookbookApp.fxml"));
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -84,13 +102,18 @@ public class RecipeViewController {
     stage.show();
   }
 
+  /**
+   * Switches the view to the edit recipe scene, allowing the user to modify the recipe details.
+   *
+   * @param event The action event that triggered the switch.
+   * @throws IOException If the fxml file for the edit recipe scene cannot be loaded.
+   */
   public void switchToEditRecipeScene(ActionEvent event) throws IOException {
-    System.out.println("Pressed edit recipe");
     // load recipeview
     FXMLLoader loader = new FXMLLoader(getClass().getResource("EditRecipe.fxml"));
     Parent root = loader.load();
     // update scene
-    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
     stage.show();
@@ -99,12 +122,15 @@ public class RecipeViewController {
     editController.loadRecipe(recipe);
     System.out.println("Send" + cookbookAccess + "to edit recipe controller");
     editController.setCookbookAccess(cookbookAccess);
-    // get main scene controller to set cookbook access type
-    
-    System.out.println("Pressed edit recipe");
   } 
 
+  /**
+   * Sets the cookbook access for this controller.
+   *
+   * @param cookbookAccess The cookbook access to be used by this controller.
+   */
   public void setCookbookAccess(CookbookAccess cookbookAccess) {
     this.cookbookAccess = cookbookAccess;
   }
+
 }
