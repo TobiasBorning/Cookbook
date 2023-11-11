@@ -32,21 +32,6 @@
       "type": "Unknown"
     },
     {
-      "name": "Pasta",
-      "ingredients": {},
-      "favorite": false,
-      "isVegan": true,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Unknown"
-    },
-    {
       "name": "Salad",
       "ingredients": {},
       "favorite": false,

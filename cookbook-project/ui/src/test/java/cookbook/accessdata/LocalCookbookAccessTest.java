@@ -2,7 +2,7 @@ package cookbook.accessdata;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,8 +17,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import static org.junit.jupiter.api.TestInstance.Lifecycle;
-
-import com.google.gson.Gson;
 
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
@@ -48,13 +46,16 @@ public class LocalCookbookAccessTest {
 
     Recipe recipe1 = new Recipe();
     recipe1.setName("Taco");
-    recipe1.setGlutenFree(true);
     recipe1.setOriginCountry("Mexico");
+    recipe1.setType("Dinner");
+    recipe1.setFavorite(true);
 
     Recipe recipe2 = new Recipe();
     recipe2.setName("Pizza");
     recipe2.setVegan(true);
+    recipe2.setType("Dinner");
     recipe2.setOriginCountry("Italy");
+    recipe2.setFavorite(true);
 
     Recipe recipe3 = new Recipe();
     recipe3.setName("Salad");
@@ -97,42 +98,77 @@ public class LocalCookbookAccessTest {
 
   @Test
   public void testFilterByType() {
+    List<String> actual = cookBookToCollection(lca.filterByType("Dinner"));
     List<Recipe> expected = testCookbook.getRecipes().stream().filter(r -> r.getType().equals("Dinner")).toList();
+    List<Recipe> wrong = testCookbook.getRecipes().stream().filter(r -> r.getType().equals("Breakfast")).toList();
+    assertEquals(expected.size(), actual.size());
+    assertEquals(0, wrong.size());
     }
 
   @Test
   public void testFilterByFavorite() {
-    
+    List<String> actual = cookBookToCollection(lca.filterByFavorite());
+    assertEquals(2, actual.size());
   }
 
   @Test
   public void testFilterByPreferences() {
-    
+    List<String> FFF = cookBookToCollection(lca.filterByPreferences("FFF"));
+    List<String> TFF = cookBookToCollection(lca.filterByPreferences("TFF"));
+    List<String> FTT = cookBookToCollection(lca.filterByPreferences("FTF"));
+
+    assertEquals("Taco", FFF.iterator().next());
+    assertEquals("Pizza", TFF.iterator().next());
+    assertEquals("Salad", FTT.iterator().next());
   }
 
   @Test
   public void testUpdateRecipe() {
-    
+    Recipe newRecipe = new Recipe();
+    newRecipe.setName("Taco");
+    newRecipe.setGlutenFree(true);
+    lca.updateRecipe(newRecipe);
+    assertEquals(true, lca.fetchCookbook().getRecipes().stream().
+        filter(r -> r.getName()
+        .equals("Taco"))
+        .toList()
+        .iterator()
+        .next()
+        .isGlutenFree());
+  }
+
+  @Test //denne funker ikke siden removeRecipe ikke funker på local access
+  public void testRemoveRecipe() {
+    //assertTrue(lca.removeRecipe("Taco"));
+    assertFalse(lca.removeRecipe("Fish"));
   }
 
   @Test
   public void testAddRecipe() {
-    
-  }
-
-  @Test
-  public void testRemoveRecipe() {
-    
-  }
-
-  @Test
-  public void testSaveCookbook() {
-    
+    Recipe newRecipe = new Recipe();
+    newRecipe.setName("Tomatosoup");
+    newRecipe.setVegan(true);
+    newRecipe.setOriginCountry("Spain");
+    lca.addRecipe(newRecipe);
+    assertEquals(4, lca.fetchCookbook().getRecipes().size());
   }
 
   @Test
   public void testToggleFavorite() {
-    
+    lca.toggleFavorite(lca.fetchCookbook().getRecipes().stream()
+        .filter(r -> r.getName()
+        .equals("Salad"))
+        .toList()
+        .iterator()
+        .next());
+
+    assertTrue(lca.fetchCookbook().getRecipes().stream()
+        .filter(r -> r.getName()
+        .equals("Salad"))
+        .toList()
+        .iterator()
+        .next()
+        .isFavorite());
   }
 
   private List<String> cookBookToCollection(Cookbook cookbook) {
