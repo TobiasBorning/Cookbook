@@ -8,9 +8,6 @@ As we progress through the iterations, we will further develop the app to allow 
 
 In addition to this, users will be able to add and remove recipes from the cookbook.
 
-
-![Bildebeskrivelse](/assets/IllustrationOfApp.jpeg)
-
 ## _How to run the app_
 ---
 ```bash
@@ -26,9 +23,9 @@ In addition to this, users will be able to add and remove recipes from the cookb
 # run the app
 % mvn javafx:run
 ```
+---
 
 ## _Project Arcitecture_
----
 The the project buildt using maven.  
 It has three modules; _core_, _ui_ and _persistence_, each responsible for different parts of the application.  
 The _core module_ contains classes responsible for the internal representation of the cookbook.  
@@ -38,9 +35,10 @@ You can read more about the different modules below.
 
 PlantUML diagram of the project structure [here](../assets/diagram.puml)  
 
+---
 
 ## _Modules_
----
+
 ### ___core___
 Read about the __core__ module [here](/cookbook-project/core/readme.md)
 
@@ -53,27 +51,15 @@ Read about the __persistence__ module [here](/cookbook-project/persistence/readm
 ### ___springboot___
 Read about the __springboot__ module [here](/cookbook-project/springboot/readme.md)
 
+### ___integrationtest___
+Read about the __integrationtest__ module [here](/cookbook-project/integrationtest/readme.md)
 
-
-## _User stories_
 ---
-**User story 1**
+## _User stories_
 
-***Scrolling and description***
+Read about the _user stories_ [here](../docs/userstories.md)
 
-A student is finishing up her day at school, and is ready to go home. She is very tired, and can't be bothered to think of what to make for dinner. She opens the cookbook app, and scrolls until she finds something she likes. She decides to go for Spaghetti carbonara. She stops by the grocery store on her way home from school, and buys the ingredients she needs. Finally, she prepares dinner following the instructions that belongs to the recipe.
-
-**User story 2**
-
-***Add new recipe and remove***
-
-Frank is a professional chef and owns his own restaurant. He wants to implement a new recipe from the cookbook to his menu. He tries out the recipe tikka masala, but has a better recipe himself. Therefore he wants to remove the old tikka masala recipe and replace it with a new and improved recipe. 
-
-**User story 3**
-
-**S*øking and filtrering***
-
-Bert wants to impress his husband Ernie. Ernie is a fan of the italian cuisine. He filters the recipes in the cookbook app to view only italian recipes. He decides to make a pizza diavola. For dessert he wants to make a chocolate cake. He uses the search function to find the recipe.  
+---
 
 ## Workflow
 
