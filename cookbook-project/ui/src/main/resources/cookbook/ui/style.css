@@ -1,0 +1,33 @@
+
+.button {
+  -fx-background-color: #e1c8b8;
+  -fx-text-fill: rgb(62, 62, 62); 
+  -fx-font-size: 12px;
+  -fx-font-family: "Helvetica Neue";
+  -fx-border-color: #434343;
+  -fx-border-width: 2px;
+  -fx-border-style: solid;
+  -fx-border-radius: 2px;
+}
+.button:hover {
+  -fx-border-color: #99008f;
+  -fx-text-fill: #99008f;
+}
+
+.pane {
+  -fx-background-color: #f2e0d8;
+  -fx-font-family: "Helvetica Neue";
+}
+
+.label {
+  -fx-font-family: "Helvetica Neue";
+  -fx-font-weight: bold;
+}
+
+#cookbooktitle {
+  -fx-font-family: "Helvetica Neue";
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+  -fx-background-color: #e1c8b8;
+  ;
+}
