@@ -137,9 +137,9 @@ public class LocalCookbookAccessTest {
         .isGlutenFree());
   }
 
-  @Test //denne funker ikke siden removeRecipe ikke funker på local access
+  @Test 
   public void testRemoveRecipe() {
-    //assertTrue(lca.removeRecipe("Taco"));
+    assertTrue(lca.removeRecipe("Taco"));
     assertFalse(lca.removeRecipe("Fish"));
   }
 
