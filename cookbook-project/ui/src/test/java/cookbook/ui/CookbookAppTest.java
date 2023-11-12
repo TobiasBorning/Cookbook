@@ -66,6 +66,7 @@ public class CookbookAppTest extends ApplicationTest {
         } // kan alt være i én try catch?
         try {
             this.testCookbook = ch.readFromFile("../persistence/ui-test-cookbook.json");
+            System.out.println(testCookbook.getRecipes().size());
             ch.writeToFile(testCookbook, "../persistence/remote-cookbook.json");
             ch.writeToFile(testCookbook, "../persistence/cookbook.json");
         }
@@ -368,5 +369,4 @@ public class CookbookAppTest extends ApplicationTest {
         System.out.println("viewAllRecipes");
         searchRecipe("");
     }
-
 }

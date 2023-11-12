@@ -128,8 +128,7 @@ public class AddRecipeController {
   private void addRecipe(Recipe recipe) {
     try {
       cookbookAccess.addRecipe(recipe);
-    }
-    catch (RuntimeException e) {
+    } catch (RuntimeException e) {
       System.out.println("Error adding recipe: " + e.getMessage());
     }
   }

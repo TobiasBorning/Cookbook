@@ -177,7 +177,6 @@ public class EditRecipeController {
     for (Node node : ingredientsContainer.getChildren()) {
       if (node instanceof Pane) {
         Pane pane = (Pane) node;
-
         for (Node childNode : pane.getChildren()) {
           if (childNode instanceof TextField) {
             TextField textField = (TextField) childNode;
@@ -200,8 +199,7 @@ public class EditRecipeController {
 
     try {
       cookbookAccess.updateRecipe(newRecipe); 
-    }
-    catch (RuntimeException e) {
+    } catch (RuntimeException e) {
       System.out.println("Could not update cookbook \n" + e.getMessage());
     }
     switchToMainScene(event);

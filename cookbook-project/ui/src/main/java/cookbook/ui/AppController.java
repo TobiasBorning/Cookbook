@@ -227,8 +227,7 @@ public class AppController {
         // if search is empty, fill cookbook with all recipes
         fillCookbook(cookbookAccess.fetchCookbook());
         feedbackLabel.setText("");
-      } 
-      else {
+      } else {
         // if search is not empty, fill cookbook with matching recipes
         Cookbook searched = cookbookAccess.searchRecipe(search);
         if (searched == null || searched.getRecipes().isEmpty()) {
@@ -240,8 +239,7 @@ public class AppController {
           feedbackLabel.setText("");
         }
       }
-    }
-    catch (RuntimeException e) {
+    } catch (RuntimeException e) {
       feedbackLabel.setText("No recipes matching search");
       fillCookbook(new Cookbook());
     }
@@ -293,8 +291,7 @@ public class AppController {
         fillCookbook(cookbookAccess.filterByOrigin(filterValue));
       }
       filterOrigin.setValue(filterValue);
-    }
-    catch (RuntimeException e) {
+    } catch (RuntimeException e) {
       feedbackLabel.setText("No recipes matching the origin");
       fillCookbook(new Cookbook());
     }
@@ -341,8 +338,7 @@ public class AppController {
         fillCookbook(cookbookAccess.filterByType(filterValue));
       }
       typeFilter.setValue(filterValue);
-    }
-    catch (RuntimeException e) {
+    } catch (RuntimeException e) {
       feedbackLabel.setText("No recipes matching the type");
       fillCookbook(new Cookbook());
     }
@@ -362,8 +358,7 @@ public class AppController {
       } else {
         fillCookbook(cookbookAccess.fetchCookbook());
       }
-    }
-    catch (RuntimeException e) {
+    } catch (RuntimeException e) {
       feedbackLabel.setText("No recipes matching the favorites");
       fillCookbook(new Cookbook());
     }
@@ -393,8 +388,7 @@ public class AppController {
         fillCookbook(cookbookAccess.fetchCookbook());
       }
       fillCookbook(cookbookAccess.filterByPreferences(vlg));
-    }
-    catch (RuntimeException e) {
+    } catch (RuntimeException e) {
       feedbackLabel.setText("No recipes matching the preferences");
       fillCookbook(new Cookbook());
     }
@@ -461,8 +455,7 @@ public class AppController {
       } else {
         feedbackLabel.setText("Could not remove recipe");
       }
-    }
-    catch (RuntimeException e) {
+    } catch (RuntimeException e) {
       feedbackLabel.setText("Could not remove recipe");
     }
   }

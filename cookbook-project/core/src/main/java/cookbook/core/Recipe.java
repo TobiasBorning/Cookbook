@@ -55,6 +55,7 @@ public class Recipe {
    * Empty constructor for creating a Recipe object.
    */
   public Recipe() {
+    this.type = "Unknown";
   }
 
   /**
