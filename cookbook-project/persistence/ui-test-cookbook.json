@@ -3,7 +3,7 @@
     {
       "name": "Taco",
       "ingredients": {
-        "tomatoes": "55.0",
+        "tomatoes": "50.0",
         "groundBeef": "150.0",
         "lettuce": "50.0",
         "tacoShell": "2.0",
@@ -12,7 +12,7 @@
       },
       "originCountry": "Mexico",
       "description": "Begin by browning the beef, adding a blend of cumin, chili powder, garlic powder, oregano, and salt. Once browned, stir in tomato sauce, simmering until the mixture thickens slightly. Warm taco shells, fill with the savory meat, and top with cheese, lettuce, tomatoes, salsa, or your preferred toppings.",
-      "favorite": true,
+      "favorite": false,
       "isVegan": false,
       "isGlutenFree": false,
       "isLactoseFree": false,
@@ -31,7 +31,9 @@
         "mushrooms": "50.0",
         "onions": "30.0",
         "tomatoSauce": "150.0",
+        "ruccula": "100.0",
         "pepperoni": "100.0",
+        "aioli": "50.0",
         "cheese": "200.0"
       },
       "originCountry": "Italy",
@@ -100,16 +102,16 @@
       "name": "Caesar Salad",
       "ingredients": {
         "parmesanCheese": "30.0",
-        "caesarDressing": "40.0",
+        "caesarDressing": "50.0",
         "lettuce": "100.0",
         "chickenBreast": "200.0",
         "croutons": "50.0"
       },
       "originCountry": "Italy",
       "description": "Grill or pan-sear chicken breasts until fully cooked and then slice them. In a large bowl, combine lettuce, croutons, and parmesan cheese. Toss with caesar dressing and top with the cooked, sliced chicken breast.",
-      "favorite": false,
+      "favorite": true,
       "isVegan": false,
-      "isGlutenFree": false,
+      "isGlutenFree": true,
       "isLactoseFree": false,
       "types": [
         "Breakfast",
@@ -117,7 +119,7 @@
         "Dinner",
         "Dessert"
       ],
-      "type": "Dinner"
+      "type": "Lunch"
     },
     {
       "name": "Pasta Carbonara",
@@ -144,6 +146,29 @@
       "type": "Dinner"
     },
     {
+      "name": "Oatmeal",
+      "ingredients": {
+        "banana": "1.0",
+        "cinnamon": "5.0",
+        "honey": "20.0",
+        "milk": "200.0",
+        "rolledOats": "100.0"
+      },
+      "originCountry": "America",
+      "description": "In a pot, combine rolled oats and milk. Cook over medium heat, stirring frequently, until the oats are soft and have absorbed most of the milk. Add sliced banana and honey, stirring until combined. Sprinkle with cinnamon before serving.",
+      "favorite": false,
+      "isVegan": false,
+      "isGlutenFree": false,
+      "isLactoseFree": false,
+      "types": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Dessert"
+      ],
+      "type": "Breakfast"
+    },
+    {
       "name": "Vegetable Curry",
       "ingredients": {
         "potatoes": "200.0",
@@ -156,75 +181,7 @@
       "originCountry": "India",
       "description": "Saut?? chopped potatoes, carrots, and peas in a large pan. Once slightly tender, add curry paste and continue saut??ing for a few minutes. Add coconut milk and simmer until vegetables are cooked through. Serve with cooked rice.",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Dinner"
-    },
-    {
-      "name": "Mushroom Risotto",
-      "ingredients": {
-        "mushrooms": "150.0",
-        "whiteWine": "100.0",
-        "onions": "30.0",
-        "arborioRice": "200.02",
-        "vegetableBroth": "250.0"
-      },
-      "originCountry": "Italy",
-      "description": "Saut?? onions and mushrooms until browned. Add arborio rice and continue to saut?? for a few minutes. Gradually add vegetable broth, continuously stirring, until rice is fully cooked. Near the end of cooking, stir in white wine and cook until evaporated.",
-      "favorite": false,
       "isVegan": true,
-      "isGlutenFree": false,
-      "isLactoseFree": true,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Dinner"
-    },
-    {
-      "name": "Spinach and Feta Stuffed Chicken",
-      "ingredients": {
-        "lemonJuice": "20.0",
-        "garlic": "10.0",
-        "spinach": "100.0",
-        "fetaCheese": "50.0",
-        "chickenBreast": "300.0"
-      },
-      "originCountry": "Greece",
-      "description": "Preheat the oven to 375??F (190??C). In a pan, saut?? spinach and garlic until wilted, then mix with crumbled feta cheese. Slice a pocket into each chicken breast and stuff it with the spinach and feta mixture. Seal with toothpicks and bake until the chicken is cooked through. Drizzle with lemon juice before serving.",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": true,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Dinner"
-    },
-    {
-      "name": "Baked Salmon",
-      "ingredients": {
-        "lemon": "30.0",
-        "salmonFilet": "200.0",
-        "oliveOil": "20.0",
-        "dill": "5.0"
-      },
-      "originCountry": "Norway",
-      "description": "Preheat the oven to 375??F (190??C). Place the salmon filet on a baking sheet and drizzle with olive oil and freshly squeezed lemon juice, then sprinkle with dill. Bake until the salmon is cooked through and flakes easily with a fork.",
-      "favorite": false,
-      "isVegan": false,
       "isGlutenFree": true,
       "isLactoseFree": true,
       "types": [
@@ -256,116 +213,10 @@
         "Dinner",
         "Dessert"
       ],
-      "type": "Dinner"
+      "type": "Lunch"
     },
     {
-      "name": "Fruit Salad",
-      "ingredients": {
-        "kiwi": "50.0",
-        "honey": "20.0",
-        "strawberries": "100.0",
-        "grapes": "50.0"
-      },
-      "originCountry": "Brazil",
-      "description": "In a large bowl, combine chopped strawberries, kiwi, and grapes. Drizzle with honey and gently toss until all the fruit is coated. Serve immediately, or refrigerate for later use.",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Dessert"
-    },
-    {
-      "name": "Oatmeal",
-      "ingredients": {
-        "banana": "1.0",
-        "cinnamon": "5.0",
-        "honey": "20.0",
-        "milk": "200.0",
-        "rolledOats": "100.0"
-      },
-      "originCountry": "America",
-      "description": "In a pot, combine rolled oats and milk. Cook over medium heat, stirring frequently, until the oats are soft and have absorbed most of the milk. Add sliced banana and honey, stirring until combined. Sprinkle with cinnamon before serving.",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Breakfast"
-    },
-    {
-      "name": "Chicken alfredro",
-      "ingredients": {
-        "spaghetti": "10"
-      },
-      "originCountry": "Italia",
-      "description": "Yummt",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Dinner"
-    },
-    {
-      "name": "Karri kylling",
-      "ingredients": {
-        "Kylling": "400 g"
-      },
-      "originCountry": "India",
-      "description": "digg",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Dinner"
-    },
-    {
-      "name": "Pasta Carbonara",
-      "ingredients": {
-        "parmesanCheese": "30.0",
-        "bacon": "100.0",
-        "spaghetti": "215.0",
-        "egg": "2.0",
-        "heavyCream": "150.0",
-        "cheese": "50.0"
-      },
-      "originCountry": "Italy",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Dinner"
-    },
-    {
-      "name": "nachos",
+      "name": "Nachos",
       "ingredients": {
         "ost": "100g",
         "chips": "192"
@@ -382,27 +233,7 @@
         "Dinner",
         "Dessert"
       ],
-      "type": "Unknown"
-    },
-    {
-      "name": "Water",
-      "ingredients": {
-        "salt": "10g",
-        "water": "1l"
-      },
-      "originCountry": "Norway",
-      "description": "Water is good ad super healty",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Unknown"
+      "type": "Dinner"
     }
   ]
 }
