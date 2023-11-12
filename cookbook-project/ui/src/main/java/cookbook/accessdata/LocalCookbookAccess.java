@@ -153,7 +153,8 @@ public class LocalCookbookAccess implements CookbookAccess {
   @Override
   public boolean removeRecipe(String recipeName) {
     Cookbook tmpCookbook = fetchCookbook();
-    for (Recipe recipe : fetchCookbook().getRecipes()) {
+    Collection<Recipe> recipes = tmpCookbook.getRecipes();
+    for (Recipe recipe : recipes) {
       if (recipe.getName().equals(recipeName)) {
         tmpCookbook.removeRecipe(recipe);
         saveCookbook(tmpCookbook);

@@ -142,7 +142,7 @@ public class EditRecipeController {
    * @param e The event that triggered the save action.
    * @throws IOException If an I/O error occurs during saving or scene switching.
    */
-  public void saveChanges(ActionEvent e) throws IOException {
+  public void saveChanges(ActionEvent event) throws IOException {
 
     Map<String, String> ingredients = new HashMap<>();
     String descriptionString = null;
@@ -197,9 +197,14 @@ public class EditRecipeController {
     }
     this.newRecipe = new Recipe(oldRecipe.getName(), ingredients, inputOrigin, inputType, 
         descriptionString, newRecipe.isFavorite(), isVegan, isGlutenFree, isLactoseFree);
-    cookbookAccess.updateRecipe(newRecipe);
-    System.out.println(cookbookAccess instanceof RemoteCookbookAccess);
-    switchToMainScene(e);
+
+    try {
+      cookbookAccess.updateRecipe(newRecipe); 
+    }
+    catch (RuntimeException e) {
+      System.out.println("Could not update cookbook \n" + e.getMessage());
+    }
+    switchToMainScene(event);
   }
 
   /**

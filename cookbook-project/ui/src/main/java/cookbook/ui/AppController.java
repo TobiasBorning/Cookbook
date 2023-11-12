@@ -222,22 +222,29 @@ public class AppController {
    */
   public void search() {
     // get search string
-    String search = searchField.getText();
-    if (search.isEmpty()) {
-      // if search is empty, fill cookbook with all recipes
-      fillCookbook(cookbookAccess.fetchCookbook());
-      feedbackLabel.setText("");
-    } else {
-      // if search is not empty, fill cookbook with matching recipes
-      Cookbook searched = cookbookAccess.searchRecipe(search);
-      if (searched == null || searched.getRecipes().isEmpty()) {
-        // if no recipes match search, give feedback
-        feedbackLabel.setText("No recipes matching search");
-      } else {
-        // if recipes match search, make feedback empty and fill cookbook
-        fillCookbook(searched);
+    try {
+      String search = searchField.getText();
+      if (search.isEmpty()) {
+        // if search is empty, fill cookbook with all recipes
+        fillCookbook(cookbookAccess.fetchCookbook());
         feedbackLabel.setText("");
+      } 
+      else {
+        // if search is not empty, fill cookbook with matching recipes
+        Cookbook searched = cookbookAccess.searchRecipe(search);
+        if (searched == null || searched.getRecipes().isEmpty()) {
+          // if no recipes match search, give feedback
+          feedbackLabel.setText("No recipes matching search");
+        } else {
+          // if recipes match search, make feedback empty and fill cookbook
+          fillCookbook(searched);
+          feedbackLabel.setText("");
+        }
       }
+    }
+    catch (RuntimeException e) {
+      feedbackLabel.setText("No recipes matching search");
+      fillCookbook(new Cookbook());
     }
   }
 
@@ -274,18 +281,24 @@ public class AppController {
    * It deselects any active preferences and resets the filter if "All origins" is selected.
    */
   public void filterByOrigin() {
-    favoritesCheckBox.setSelected(false);
-    resetPreferences();
-    //get value from dropdown
-    String filterValue = (String) filterOrigin.getValue();
+    try {
+      favoritesCheckBox.setSelected(false);
+      resetPreferences();
+      //get value from dropdown
+      String filterValue = (String) filterOrigin.getValue();
 
-    //fill cookbook with filtered recipes
-    if (filterValue.equals("All origins")) {
-      fillCookbook(cookbook);
-    } else {
-      fillCookbook(cookbookAccess.filterByOrigin(filterValue));
+      //fill cookbook with filtered recipes
+      if (filterValue.equals("All origins")) {
+        fillCookbook(cookbook);
+      } else {
+        fillCookbook(cookbookAccess.filterByOrigin(filterValue));
+      }
+      filterOrigin.setValue(filterValue);
     }
-    filterOrigin.setValue(filterValue);
+    catch (RuntimeException e) {
+      feedbackLabel.setText("No recipes matching the origin");
+      fillCookbook(new Cookbook());
+    }
   }
 
   private void fillTypeFilterDropdown() {
@@ -316,18 +329,24 @@ public class AppController {
    * It adds an option for no filter and sets the default filter value to "All types".
    */
   public void filterByType() {
-    resetPreferences();
-    lactosefreeCheckBox.setSelected(false);
-    //get value from dropdown
-    String filterValue = (String) typeFilter.getValue();
+    try {
+      resetPreferences();
+      lactosefreeCheckBox.setSelected(false);
+      //get value from dropdown
+      String filterValue = (String) typeFilter.getValue();
 
-    //fill cookbook with filtered recipes
-    if (filterValue.equals("All types")) {
-      fillCookbook(cookbook);
-    } else {
-      fillCookbook(cookbookAccess.filterByType(filterValue));
+      //fill cookbook with filtered recipes
+      if (filterValue.equals("All types")) {
+        fillCookbook(cookbook);
+      } else {
+        fillCookbook(cookbookAccess.filterByType(filterValue));
+      }
+      typeFilter.setValue(filterValue);
     }
-    typeFilter.setValue(filterValue);
+    catch (RuntimeException e) {
+      feedbackLabel.setText("No recipes matching the type");
+      fillCookbook(new Cookbook());
+    }
   }
 
   /**
@@ -336,12 +355,18 @@ public class AppController {
    *
    * @param e the ActionEvent that triggered this method
    */
-  public void viewFavorites(ActionEvent e) {
-    resetPreferences();
-    if (favoritesCheckBox.isSelected()) {
-      fillCookbook(cookbookAccess.filterByFavorite());
-    } else {
-      fillCookbook(cookbookAccess.fetchCookbook());
+  public void viewFavorites(ActionEvent event) {
+    try {
+      resetPreferences();
+      if (favoritesCheckBox.isSelected()) {
+        fillCookbook(cookbookAccess.filterByFavorite());
+      } else {
+        fillCookbook(cookbookAccess.fetchCookbook());
+      }
+    }
+    catch (RuntimeException e) {
+      feedbackLabel.setText("No recipes matching the favorites");
+      fillCookbook(new Cookbook());
     }
   }
 
@@ -352,27 +377,30 @@ public class AppController {
    *
    * @param e the action event that triggered the method
    */
-  public void viewPreferences(ActionEvent e) {
-    favoritesCheckBox.setSelected(false);
-    String vlg = "FFF";
-    if (veganCheckBox.isSelected()) {
-      vlg = "T" + vlg.substring(1);
+  public void viewPreferences(ActionEvent event) {
+    try {
+      favoritesCheckBox.setSelected(false);
+      String vlg = "FFF";
+      if (veganCheckBox.isSelected()) {
+        vlg = "T" + vlg.substring(1);
+      }
+      if (lactosefreeCheckBox.isSelected()) {
+        vlg = vlg.substring(0, 1) + "T" + vlg.substring(2);
+      }
+      if (glutenFreeCheckBox.isSelected()) {
+        vlg = vlg.substring(0, 2) + "T";
+      }
+      if (vlg == "FFF") {
+        fillCookbook(cookbookAccess.fetchCookbook());
+      }
+      fillCookbook(cookbookAccess.filterByPreferences(vlg));
     }
-    if (lactosefreeCheckBox.isSelected()) {
-      vlg = vlg.substring(0, 1) + "T" + vlg.substring(2);
+    catch (RuntimeException e) {
+      feedbackLabel.setText("No recipes matching the preferences");
+      fillCookbook(new Cookbook());
     }
-    if (glutenFreeCheckBox.isSelected()) {
-      vlg = vlg.substring(0, 2) + "T";
-    }
-    if (vlg == "FFF") {
-      fillCookbook(cookbookAccess.fetchCookbook());
-    }
-    fillCookbook(cookbookAccess.filterByPreferences(vlg));
   }
   
-
-  
-
   /**
    * Switches the current view to the "Add Recipe" scene.
    * This method loads the AddRecipe.fxml layout, sets the scene, and passes the current
@@ -427,10 +455,15 @@ public class AppController {
    * @param recipe the recipe to be removed
    */
   public void removeRecipe(Recipe recipe) {
-    if (cookbookAccess.removeRecipe(recipe.getName())) {
-      fillCookbook(cookbookAccess.fetchCookbook());
-      feedbackLabel.setText("Removed recipe");
-    } else {
+    try {
+      if (cookbookAccess.removeRecipe(recipe.getName())) {
+        fillCookbook(cookbookAccess.fetchCookbook());
+        feedbackLabel.setText("Removed recipe");
+      } else {
+        feedbackLabel.setText("Could not remove recipe");
+      }
+    }
+    catch (RuntimeException e) {
       feedbackLabel.setText("Could not remove recipe");
     }
   }

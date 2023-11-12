@@ -39,7 +39,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * @return the cookbook, or null if the file is not found.
    */
   @Override
-  public Cookbook fetchCookbook() {
+  public Cookbook fetchCookbook() throws RuntimeException {
     connect();
     try {
       HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook"))
@@ -70,7 +70,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * @return a cookbook containing the matching recipes.
    */
   @Override
-  public Cookbook searchRecipe(String recipeName) {
+  public Cookbook searchRecipe(String recipeName) throws RuntimeException {
     connect();
     String encodedName;
     encodedName = recipeName.replace(" ", "%20");
@@ -102,7 +102,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * @return a cookbook containing the matching recipes.
    */
   @Override
-  public Cookbook filterByOrigin(String origin) {
+  public Cookbook filterByOrigin(String origin) throws RuntimeException {
     connect();
     try {
       HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/origin/" + origin))
@@ -133,7 +133,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * @return a cookbook containing the matching recipes.
    */
   @Override
-  public Cookbook filterByType(String type) {
+  public Cookbook filterByType(String type) throws RuntimeException {
     connect();
     try {
       HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/type/" + type))
@@ -163,7 +163,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * @return a cookbook containing the favorite recipes.
    */
   @Override
-  public Cookbook filterByFavorite() {
+  public Cookbook filterByFavorite() throws RuntimeException {
     connect();
     try {
       HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/favorites"))
@@ -194,7 +194,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * @return a cookbook containing the matching recipes.
    */
   @Override
-  public Cookbook filterByPreferences(String vlg) {
+  public Cookbook filterByPreferences(String vlg) throws RuntimeException {
     // String TTT if user is vegetarian, lactose intolerant and gluten intolerant
     // String TTF if the user is vegetarian and lactose intolerant but not gluten intolerant
     // ... and so on
@@ -227,7 +227,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * @param recipe the recipe to add.
    */
   @Override
-  public void updateRecipe(Recipe recipe) { //throws runtimeExceiption?
+  public void updateRecipe(Recipe recipe) throws RuntimeException { //throws runtimeExceiption?
     connect();
     try {
       String encodedName;
@@ -261,7 +261,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * @param recipeName the name of the recipe to remove.
    */
   @Override
-  public boolean removeRecipe(String recipeName) {
+  public boolean removeRecipe(String recipeName) throws RuntimeException {
     connect();
     try {
       String encodedName;
@@ -296,7 +296,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * @param recipe the recipe to add. 
    */
   @Override
-  public void addRecipe(Recipe recipe) {
+  public void addRecipe(Recipe recipe) throws RuntimeException {
     connect();
     try {
       HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook"))
@@ -324,7 +324,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    *
    * @param recipe the name of the recipe to toggle
    */
-  public void toggleFavorite(Recipe recipe) {
+  public void toggleFavorite(Recipe recipe) throws RuntimeException {
     connect();
     try {
       String encodedName;

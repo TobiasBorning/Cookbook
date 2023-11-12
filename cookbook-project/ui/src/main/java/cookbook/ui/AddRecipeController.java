@@ -115,11 +115,9 @@ public class AddRecipeController {
         }
       }
     }
-
     this.recipe = new Recipe(recipeNameString, ingredients, inputOrigin, inputType,
         descriptionString, false, isVegetarian, isGlutenFree, isLactoseFree);
     addRecipe(recipe);
-
     switchToMainScene(e);
   }
 
@@ -129,7 +127,12 @@ public class AddRecipeController {
    * @param recipe The recipe to add.
    */
   private void addRecipe(Recipe recipe) {
-    cookbookAccess.addRecipe(recipe);
+    try {
+      cookbookAccess.addRecipe(recipe);
+    }
+    catch (RuntimeException e) {
+      System.out.println("Error adding recipe: " + e.getMessage());
+    }
   }
 
   /**
