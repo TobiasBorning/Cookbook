@@ -83,10 +83,10 @@ public class EditRecipeController {
     origin.setText(recipe.getOriginCountry());
     type.setText(recipe.getType());
     title.setText("Edit " + recipe.getName());
-    newRecipe.setFavorite(oldRecipe.isFavorite());
-    veganCheckBox.setSelected(oldRecipe.isVegan());
-    lactosefreeCheckBox.setSelected(oldRecipe.isLactoseFree());
-    glutenFreeCheckBox.setSelected(oldRecipe.isGlutenFree());
+    newRecipe.setFavorite(oldRecipe.getFavorite());
+    veganCheckBox.setSelected(oldRecipe.getVegan());
+    lactosefreeCheckBox.setSelected(oldRecipe.getLactoseFree());
+    glutenFreeCheckBox.setSelected(oldRecipe.getGlutenFree());
     
     for (Map.Entry<String, String> ingredient : recipe.getIngredients()
         .entrySet()) {
@@ -150,9 +150,9 @@ public class EditRecipeController {
     TextField amount = null;
     String inputOrigin = null;
     String inputType = "Unknown";
-    Boolean isVegan = newRecipe.isVegan();
-    Boolean isLactoseFree = newRecipe.isLactoseFree();
-    Boolean isGlutenFree = newRecipe.isGlutenFree();
+    Boolean isVegan = newRecipe.getVegan();
+    Boolean isLactoseFree = newRecipe.getLactoseFree();
+    Boolean isGlutenFree = newRecipe.getGlutenFree();
     
     if (recipeDescription.getText() != null) {
       descriptionString = recipeDescription.getText();
@@ -196,7 +196,7 @@ public class EditRecipeController {
       }
     }
     this.newRecipe = new Recipe(oldRecipe.getName(), ingredients, inputOrigin, inputType, 
-        descriptionString, newRecipe.isFavorite(), isVegan, isGlutenFree, isLactoseFree);
+        descriptionString, newRecipe.getFavorite(), isVegan, isGlutenFree, isLactoseFree);
 
     try {
       cookbookAccess.updateRecipe(newRecipe); 
@@ -216,7 +216,8 @@ public class EditRecipeController {
    * @throws IOException If an I/O error occurs during the scene switching.
    */
   public void switchToMainScene(ActionEvent e) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("CookbookApp.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("CookbookApp.fxml"));
+    Parent root = loader.load();
     Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
     Scene scene = new Scene(root);
     stage.setScene(scene);

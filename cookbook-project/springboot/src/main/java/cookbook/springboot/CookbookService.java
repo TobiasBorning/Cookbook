@@ -155,7 +155,7 @@ public class CookbookService {
   public Cookbook filterByFavorite(final Cookbook cookbook) {
     Cookbook tmpCookbook = new Cookbook();
     for (Recipe recipe : cookbook.getRecipes()) {
-      if (recipe.isFavorite()) {
+      if (recipe.getFavorite()) {
         tmpCookbook.addRecipe(recipe);
       }
     }
@@ -177,8 +177,8 @@ public class CookbookService {
     boolean vegan = vlg.charAt(0) == 'T';
 
     for (Recipe recipe : cookbook.getRecipes()) {
-      if (!((!recipe.isGlutenFree() && gluten) || (!recipe.isLactoseFree() && lactose) 
-          || (!recipe.isVegan() && vegan))) {
+      if (!((!recipe.getGlutenFree() && gluten) || (!recipe.getLactoseFree() && lactose) 
+          || (!recipe.getVegan() && vegan))) {
         tmpCookbook.addRecipe(recipe);
       }
     }
@@ -196,7 +196,7 @@ public class CookbookService {
     Recipe tmpRecipe = null;
     for (Recipe recipe : cookbook.getRecipes()) {
       if (recipe.getName().equals(recipeName)) {
-        recipe.setFavorite(!recipe.isFavorite());
+        recipe.setFavorite(!recipe.getFavorite());
         tmpRecipe = recipe;
       }
     }
@@ -224,11 +224,11 @@ public class CookbookService {
         recipe.setOriginCountry(tmpRecipe.getOriginCountry());
         recipe.setType(tmpRecipe.getType());
         recipe.setIngredients(tmpRecipe.getIngredients());
-        recipe.setGlutenFree(tmpRecipe.isGlutenFree());
-        recipe.setLactoseFree(tmpRecipe.isLactoseFree());
-        System.out.println("Vegan:" + tmpRecipe.isVegan());
-        recipe.setVegan(tmpRecipe.isVegan());
-        recipe.setFavorite(tmpRecipe.isFavorite());
+        recipe.setGlutenFree(tmpRecipe.getGlutenFree());
+        recipe.setLactoseFree(tmpRecipe.getLactoseFree());
+        System.out.println("Vegan:" + tmpRecipe.getVegan());
+        recipe.setVegan(tmpRecipe.getVegan());
+        recipe.setFavorite(tmpRecipe.getFavorite());
       }
     }
     updateCookbook(cookbook);

@@ -134,7 +134,7 @@ public class LocalCookbookAccessTest {
         .toList()
         .iterator()
         .next()
-        .isGlutenFree());
+        .getGlutenFree());
   }
 
   @Test 
@@ -168,7 +168,7 @@ public class LocalCookbookAccessTest {
         .toList()
         .iterator()
         .next()
-        .isFavorite());
+        .getFavorite());
   }
 
   private List<String> cookBookToCollection(Cookbook cookbook) {

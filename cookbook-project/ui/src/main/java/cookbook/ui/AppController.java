@@ -100,7 +100,6 @@ public class AppController {
     // set remote or local cookbook access depending on connection, override = 
     // true always connects to local
     setAccessType(false);
-
     cookbook = cookbookAccess.fetchCookbook();
     // set Vbox height to fit all recipes
     recipeList.setMinHeight(cookbook.getRecipes().size() * 130);
@@ -130,9 +129,9 @@ public class AppController {
    *
    * @param cookbook The cookbook containing recipes to display in the list.
    */
-  private void fillCookbook(Cookbook cookbook) {
+  private void fillCookbook(Cookbook loadCookbook) {
     recipeList.getChildren().clear();
-    Collection<Recipe> cookbooklist = cookbook.getRecipes();
+    Collection<Recipe> cookbooklist = loadCookbook.getRecipes();
     for (Recipe recipe : cookbooklist) {
       //lager pane til å vise oppskrift
       Pane pane = new Pane();
@@ -176,7 +175,7 @@ public class AppController {
       buttonView.onActionProperty().set(e -> {
         //viewRecipe(recipe);
         try {
-          sendRecipe = recipe;
+          this.sendRecipe = recipe;
           switchToViewRecipe(e);
         } catch (IOException ex) {
           System.err.println(ex);
@@ -185,7 +184,7 @@ public class AppController {
 
       //Add favorite button
       Button buttonFavorite = new Button("★");
-      if (recipe.isFavorite()) {
+      if (recipe.getFavorite()) {
         buttonFavorite.setStyle("-fx-background-color: yellow;");
       } else {
         buttonFavorite.setStyle("-fx-background-color; ");

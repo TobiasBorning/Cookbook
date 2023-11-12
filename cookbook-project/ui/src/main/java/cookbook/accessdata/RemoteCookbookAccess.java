@@ -329,7 +329,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
     try {
       String encodedName;
       encodedName = recipe.getName().replace(" ", "%20");
-      String state = !recipe.isFavorite() + "";
+      String state = !recipe.getFavorite() + "";
       HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/favorite/" + encodedName))
           .header("Accept", "application/json")
           .header("Content-Type", "application/json")

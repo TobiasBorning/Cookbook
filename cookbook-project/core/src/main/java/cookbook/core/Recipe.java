@@ -17,14 +17,11 @@ public class Recipe {
   private String description;
 
   // Default value for the following variables is false
-  private boolean favorite = false;
-  private boolean isVegan = false;
-  private boolean isGlutenFree = false;
-  private boolean isLactoseFree = false;
-
-  private final Collection<String> types = new ArrayList<>(
-      Arrays.asList("Breakfast", "Lunch", "Dinner", "Dessert"));
-  private String type = "Unknown";
+  private boolean favorite;
+  private boolean vegan;
+  private boolean glutenFree;
+  private boolean lactoseFree;
+  private String type;
 
   /**
    * Constructor for creating a Recipe object with name, ingredients, origincountry and description.
@@ -48,9 +45,9 @@ public class Recipe {
     this.originCountry = originCountry;
     this.description = description;
     this.favorite = favorite;
-    this.isVegan = isVegan;
-    this.isGlutenFree = isGlutenFree;
-    this.isLactoseFree = isLactoseFree;
+    this.vegan = isVegan;
+    this.glutenFree = isGlutenFree;
+    this.lactoseFree = isLactoseFree;
     setType(type);
   }
 
@@ -129,6 +126,8 @@ public class Recipe {
     * @param type The new origin country for the Recipe.
     */
   public void setType(String type) {
+    Collection<String> types = new ArrayList<>(
+      Arrays.asList("Breakfast", "Lunch", "Dinner", "Dessert"));
     if (types.contains(type)) {
       this.type = type;
     } else {
@@ -186,7 +185,7 @@ public class Recipe {
    *
    * @return true if the recipe is a favorite, false otherwise.
    */
-  public boolean isFavorite() {
+  public boolean getFavorite() {
     return favorite;
   }
 
@@ -205,8 +204,8 @@ public class Recipe {
    *
    * @return true if the recipe is vegan, false otherwise.
    */
-  public boolean isVegan() {
-    return isVegan;
+  public boolean getVegan() {
+    return vegan;
   }
 
   /**
@@ -215,7 +214,7 @@ public class Recipe {
    * @param isVegan the vegan status to set.
    */
   public void setVegan(boolean isVegan) {
-    this.isVegan = isVegan;
+    this.vegan = isVegan;
   }
 
   /**
@@ -223,8 +222,8 @@ public class Recipe {
    *
    * @return true if the recipe is gluten-free, false otherwise.
    */
-  public boolean isGlutenFree() {
-    return isGlutenFree;
+  public boolean getGlutenFree() {
+    return glutenFree;
   }
 
   /**
@@ -233,7 +232,7 @@ public class Recipe {
    * @param isGlutenFree the gluten-free status to set.
    */
   public void setGlutenFree(boolean isGlutenFree) {
-    this.isGlutenFree = isGlutenFree;
+    this.glutenFree = isGlutenFree;
   }
 
   /**
@@ -241,8 +240,8 @@ public class Recipe {
    *
    * @return true if the recipe is lactose-free, false otherwise.
    */
-  public boolean isLactoseFree() {
-    return isLactoseFree;
+  public boolean getLactoseFree() {
+    return lactoseFree;
   }
 
   /**
@@ -251,6 +250,26 @@ public class Recipe {
    * @param isLactoseFree the lactose-free status to set
    */
   public void setLactoseFree(boolean isLactoseFree) {
-    this.isLactoseFree = isLactoseFree;
+    this.lactoseFree = isLactoseFree;
+  }
+
+  /**
+   * Returns a string representation of the recipe.
+   *
+   * @return a string representation of the recipe.
+   */
+  @Override
+  public String toString() {
+    return "Recipe{" +
+            "name='" + name + '\'' +
+            ", ingredients=" + ingredients +
+            ", originCountry='" + originCountry + '\'' +
+            ", type='" + type + '\'' +
+            ", description='" + description + '\'' +
+            ", favorite=" + favorite +
+            ", isVegan=" + vegan +
+            ", isGlutenFree=" + glutenFree +
+            ", isLactoseFree=" + lactoseFree +
+            '}';
   }
 }

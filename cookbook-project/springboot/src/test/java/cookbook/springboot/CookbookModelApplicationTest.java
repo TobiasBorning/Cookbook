@@ -161,8 +161,8 @@ public class CookbookModelApplicationTest {
     assertEquals("Taco", taco.getName());
     assertEquals("Breakfast", taco.getType());
     assertEquals("Norway", taco.getOriginCountry());
-    assertEquals(false, taco.isFavorite());
-    assertEquals(false, taco.isGlutenFree());
+    assertEquals(false, taco.getFavorite());
+    assertEquals(false, taco.getGlutenFree());
     //revert taco recipe
     mockMvc.perform(MockMvcRequestBuilders.put("/api/cookbook/recipe/" + this.recipe1.getName())
         .accept(MediaType.APPLICATION_JSON)

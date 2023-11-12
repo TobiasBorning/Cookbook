@@ -76,7 +76,7 @@ public class CookbookTest {
     Collection<Recipe> ingredient1recipes = cookbook.filterRecipies(ingredientFilter);
     assertEquals(2, ingredient1recipes.size());
 
-    Predicate<Recipe> isGlutenFree = r -> r.isGlutenFree();
+    Predicate<Recipe> isGlutenFree = r -> r.getGlutenFree();
     Collection<Recipe> glutenFreeRecipes = cookbook.filterRecipies(isGlutenFree);
     assertEquals(2, glutenFreeRecipes.size());
   }

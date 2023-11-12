@@ -2,7 +2,6 @@
 package cookbook.ui;
 
 import cookbook.accessdata.CookbookAccess;
-import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
 import java.io.IOException;
 import java.util.HashMap;
