@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class CookbookService {
 
   private Gson gson;
-  private static final String COOKBOOK_PATH = "../persistence/remote-cookbook.json";
+  private static final String COOKBOOK_PATH = "../persistence/storage/remote-cookbook.json";
 
   /**
    * Constructs a new CookbookService.

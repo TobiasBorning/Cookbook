@@ -58,17 +58,17 @@ public class CookbookAppTest extends ApplicationTest {
     @BeforeAll
     private void saveAndFillCookbook() {
         try{
-            savedRemoteCookbook = ch.readFromFile("../persistence/remote-cookbook.json");
-            savedLocalCookbook = ch.readFromFile( "../persistence/cookbook.json");
+            savedRemoteCookbook = ch.readFromFile("../persistence/storage/remote-cookbook.json");
+            savedLocalCookbook = ch.readFromFile( "../persistence/storage/local-cookbook.json");
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found");
         } // kan alt være i én try catch?
         try {
-            this.testCookbook = ch.readFromFile("../persistence/ui-test-cookbook.json");
+            this.testCookbook = ch.readFromFile("../persistence/storage/ui-test-cookbook.json");
             System.out.println(testCookbook.getRecipes().size());
-            ch.writeToFile(testCookbook, "../persistence/remote-cookbook.json");
-            ch.writeToFile(testCookbook, "../persistence/cookbook.json");
+            ch.writeToFile(testCookbook, "../persistence/storage/remote-cookbook.json");
+            ch.writeToFile(testCookbook, "../persistence/storage/local-cookbook.json");
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found");
@@ -78,9 +78,9 @@ public class CookbookAppTest extends ApplicationTest {
     @AfterAll
     private void writeSavedCookbook() {
         try {
-            ch.writeToFile(savedRemoteCookbook, "../persistence/remote-cookbook.json");
-            ch.writeToFile(savedLocalCookbook, "../persistence/cookbook.json");
-            ch.writeToFile(testCookbook, "../persistence/ui-test-cookbook.json");
+            ch.writeToFile(savedRemoteCookbook, "../persistence/storage/remote-cookbook.json");
+            ch.writeToFile(savedLocalCookbook, "../persistence/storage/local-cookbook.json");
+            ch.writeToFile(testCookbook, "../persistence/storage/ui-test-cookbook.json");
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found");

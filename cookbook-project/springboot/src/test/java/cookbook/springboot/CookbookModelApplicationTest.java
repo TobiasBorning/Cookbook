@@ -49,12 +49,12 @@ public class CookbookModelApplicationTest {
 
   @BeforeAll
   public void saveCookbook() throws IOException {
-    savedCookbook = handler.readFromFile("../persistence/remote-cookbook.json");
+    savedCookbook = handler.readFromFile("../persistence/storage/remote-cookbook.json");
   }
 
   @AfterAll
   public void loadSavedCookbook() throws IOException {
-    handler.writeToFile(savedCookbook, "../persistence/remote-cookbook.json");
+    handler.writeToFile(savedCookbook, "../persistence/storage/remote-cookbook.json");
   }
 
   @BeforeEach
