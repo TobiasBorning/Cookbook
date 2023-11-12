@@ -8,6 +8,7 @@ class Cookbook{
   +void addRecipe(Recipe recipe
   +void addRecipes(Collection<Recipe> recipes)
   +void removeRecipe(Recipe recipe)
+
   +Collection<Recipe> filterRecipies(Predicate<Recipe> pred)
   +Collection<Recipe> getRecipes()
 
@@ -26,9 +27,8 @@ class Recipe{
 
   -final Collection<String> types
 
-  +Recipe(String name, Map<String, String> ingredients, String originCountry, 
-      String type, String description, boolean favorite, boolean isVegan, 
-      boolean isGlutenFree, boolean isLactoseFree)
+  +Recipe(String name, Map<String, String> ingredients, String originCountry, String type, 
+      String description, boolean favorite, boolean isVegan, boolean isGlutenFree, boolean isLactoseFree)
   +Recipe()
 
   +void setName(String name)
