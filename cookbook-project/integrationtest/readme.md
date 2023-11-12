@@ -14,7 +14,7 @@ The Spring Boot Maven plugin is used to start the application in the pre-integra
 
 ---
 ### Link to the integration test class:  
-[CookbookAppIT](/cookbook-project/integrationtest/src/test/java/cookbook/integrationtest/CookbookAppIT.java)
+[CookbookAppIT](/cookbook-project/integrationtest/src/test/java/cookbook/integrationtest/CookbookAppIT.java) - Test that the modules work together as expected. 
 
 ---
 This module has its own pom.xml file, which is responsible for building the module with its respected dependencies and plugins, such as JaCoCo, Checkstyle and Spotbugs, as well as the Spring Boot Maven plugin and the Failsafe Maven plugin.

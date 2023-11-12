@@ -19,7 +19,15 @@ The ui module is responsible for the application's frontend. It is built using J
 
 ### _**Tests**_:  
 * **[CookbookAppTest](/gr2322/cookbook-project/ui/src/test/java/cookbook/ui/CookbookAppTest.java)** - Tests the App using FxRobot for UI testing.
+* **[LocalCookbookAccessTest](/gr2322/cookbook-project/ui/src/test/java/cookbook/ui/LocalCookbookAccessTes.java)** - Tests the LocalCookbookAccess class. 
+* **[RemoteCookbookAccessTest](/gr2322/cookbook-project/ui/src/test/java/cookbook/ui/RemoteCookBookAccessTest.java)** - Tests the RemoteCookbookAccess class.
+
 ---
+- The CookbookAppTest uses FxRobot for testing the apps GUI. It provides assurance that actions in the app lead to the correct outcome. What one presses in the app should correspond to what is expected to happen. The tests are performed by using the onClick() command with the elements' CSS ids. 
+- The LocalCookbookAccessTest tests all the methods in the LocalCookbookAccess class. In other words, it tests that the methods work properly on the local cookbook. 
+- The RemoteCookbookAccessTest 
+---
+
 This module has its own pom.xml file, which is responsible for building the module with its respected dependencies and plugins, such as JaCoCo, Checkstyle and Spotbugs.
 
 ---
