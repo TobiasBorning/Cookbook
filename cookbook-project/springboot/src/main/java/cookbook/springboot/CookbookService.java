@@ -71,10 +71,15 @@ public class CookbookService {
    * @param recipeJson the JSON representation of the recipe.
    * @param cookbook the cookbook to add the recipe to.
    */
-  public void addRecipe(final String recipeJson, final Cookbook cookbook) {
+  public boolean addRecipe(final String recipeJson, final Cookbook cookbook) {
     Recipe recipe = gson.fromJson(recipeJson, Recipe.class);
-    cookbook.addRecipe(recipe);
-    updateCookbook(cookbook);
+    try {
+      cookbook.addRecipe(recipe);
+      updateCookbook(cookbook);
+      return true;
+    } catch (IllegalArgumentException e) {
+      return false;
+    } 
   }
 
   /**

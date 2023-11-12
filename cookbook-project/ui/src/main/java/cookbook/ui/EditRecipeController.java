@@ -1,7 +1,6 @@
 package cookbook.ui;
 
 import cookbook.accessdata.CookbookAccess;
-import cookbook.accessdata.RemoteCookbookAccess;
 import cookbook.core.Recipe;
 import java.io.IOException;
 import java.util.HashMap;
@@ -139,7 +138,7 @@ public class EditRecipeController {
    * This method constructs a new recipe instance 
    * from the edited values and updates the recipe in the cookbook access.
    *
-   * @param e The event that triggered the save action.
+   * @param event The event that triggered the save action.
    * @throws IOException If an I/O error occurs during saving or scene switching.
    */
   public void saveChanges(ActionEvent event) throws IOException {
@@ -154,6 +153,9 @@ public class EditRecipeController {
     Boolean isLactoseFree = newRecipe.getLactoseFree();
     Boolean isGlutenFree = newRecipe.getGlutenFree();
     
+    isVegan = veganCheckBox.isSelected();
+    isLactoseFree = lactosefreeCheckBox.isSelected();
+    isGlutenFree = glutenFreeCheckBox.isSelected();
     if (recipeDescription.getText() != null) {
       descriptionString = recipeDescription.getText();
     }
@@ -164,15 +166,6 @@ public class EditRecipeController {
       newRecipe.setType(type.getText());
       inputType = newRecipe.getType();
     } 
-    if (veganCheckBox.isSelected()) { 
-      isVegan = true;
-    } 
-    if (lactosefreeCheckBox.isSelected()) { 
-      isLactoseFree = true; 
-    } 
-    if (glutenFreeCheckBox.isSelected()) { 
-      isGlutenFree = true; 
-    }
 
     for (Node node : ingredientsContainer.getChildren()) {
       if (node instanceof Pane) {

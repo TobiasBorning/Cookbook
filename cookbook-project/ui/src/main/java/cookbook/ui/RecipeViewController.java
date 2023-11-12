@@ -49,7 +49,7 @@ public class RecipeViewController {
   /**
    * Loads the recipe details into the view.
    *
-   * @param recipe The recipe object containing the details to be displayed.
+   * @param loadedRecipe The recipe object containing the details to be displayed.
    */
   public void loadRecipe(Recipe loadedRecipe) {
     this.recipe = loadedRecipe;

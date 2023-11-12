@@ -123,8 +123,11 @@ public class CookbookController {
    */
   @PostMapping("/cookbook")
   public ResponseEntity<String> addRecipe(@RequestBody String recipeJson) {
-    cookbookService.addRecipe(recipeJson, cookbookService.readCookbook());
-    return new ResponseEntity<String>(recipeJson, HttpStatus.OK);
+    if (cookbookService.addRecipe(recipeJson, cookbookService.readCookbook())) {
+      return new ResponseEntity<String>(recipeJson, HttpStatus.OK);
+    } else {
+      return new ResponseEntity<String>(recipeJson, HttpStatus.BAD_REQUEST);
+    }
   }
 
   /**

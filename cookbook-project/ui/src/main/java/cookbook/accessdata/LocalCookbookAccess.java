@@ -12,7 +12,7 @@ import java.util.Collection;
 public class LocalCookbookAccess implements CookbookAccess {
 
   private CookbookHandler ch = new CookbookHandler();
-  private final String path = "../persistence/cookbook.json";
+  private static final String path = "../persistence/cookbook.json";
 
   /**
    * Fetches the entire cookbook.
@@ -172,7 +172,14 @@ public class LocalCookbookAccess implements CookbookAccess {
   @Override
   public void addRecipe(Recipe recipe) {
     Cookbook tmpCookbook = fetchCookbook();
-    tmpCookbook.addRecipe(recipe);
+    if (recipe.getName().strip().isEmpty()) {
+      throw new IllegalArgumentException("Recipe name cannot be empty");
+    }
+    try {
+      tmpCookbook.addRecipe(recipe);
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("Recipe already exists");
+    }
     saveCookbook(tmpCookbook);
   }
 

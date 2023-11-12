@@ -5,8 +5,6 @@ import cookbook.accessdata.LocalCookbookAccess;
 import cookbook.accessdata.RemoteCookbookAccess;
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
-import cookbook.json.CookbookHandler;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -33,17 +31,17 @@ import javafx.stage.Stage;
 
 /**
  * Controller class for the main application view.
- * <p>
+ *<p>
  * This class is responsible for handling user interactions with the main application window.
  * It manages the display and manipulation of recipes within the cookbook, including searching,
  * filtering, and viewing individual recipes. It also handles navigation to other views such as
  * adding or viewing a specific recipe.
- * </p>
- * <p>
+ *</p>
+ *<p>
  * The controller initializes with the primary stage and scene of the application, setting up
  * the necessary bindings and event handlers. It also determines the access type for the cookbook,
  * choosing between local and remote access based on the availability of a network connection.
- * </p>
+ *</p>
  */
 public class AppController {
 
@@ -84,42 +82,25 @@ public class AppController {
 
   /**
    * Initializes the controller class.
-   * <p>
+   *<p>
    * This method sets up the initial state of the application's main view by determining the
    * access type for the cookbook (remote or local) and fetching the initial set of recipes.
    * It adjusts the UI components, such as setting the minimum height of the recipe list VBox
    * to accommodate all the recipes, and populates the view with the fetched recipes.
-   * </p>
-   * <p>
+   *</p>
+   *<p>
    * The method is called automatically after the FXML fields have been populated and is typically
-   * used to perform any necessary setup or initialization tasks for the controller.
-   * </p>
+   * used to perform any necessary setup or initialization tasks for the controller
+   *</p>
    */
   public void initialize() {
-    
     // set remote or local cookbook access depending on connection, override = 
     // true always connects to local
     setAccessType(false);
     cookbook = cookbookAccess.fetchCookbook();
     // set Vbox height to fit all recipes
-    recipeList.setMinHeight(cookbook.getRecipes().size() * 130);
+    recipeList.setMinHeight(cookbook.getRecipes().size() * 69.5);
     // fill cookbook with all recipes
-    fillCookbook(cookbook);
-  }
-
-  //TODO: Bruker vi egt. denne?
-  /**
-   * Loads the default cookbook from a JSON file and updates the recipe list.
-   * If the file is not found, sets the feedback label to indicate the error.
-   */
-  public void fillDefaultCookbook() {
-    Cookbook cookbook = new Cookbook();
-    CookbookHandler ch = new CookbookHandler();
-    try {
-      cookbook = ch.readFromFile("../persistence/default-cookbook.json");
-    } catch (FileNotFoundException e) { 
-      feedbackLabel.setText("File not found");
-    }
     fillCookbook(cookbook);
   }
 
@@ -132,6 +113,9 @@ public class AppController {
   private void fillCookbook(Cookbook loadCookbook) {
     recipeList.getChildren().clear();
     Collection<Recipe> cookbooklist = loadCookbook.getRecipes();
+    if (!cookbooklist.isEmpty()) {
+      feedbackLabel.setText("");
+    }
     for (Recipe recipe : cookbooklist) {
       //lager pane til å vise oppskrift
       Pane pane = new Pane();
@@ -187,7 +171,7 @@ public class AppController {
       if (recipe.getFavorite()) {
         buttonFavorite.setStyle("-fx-background-color: yellow;");
       } else {
-        buttonFavorite.setStyle("-fx-background-color; ");
+        buttonFavorite.setStyle("");
       }
       buttonFavorite.setId("favorite" + recipe.getName()); //ex: #removeTaco
 
@@ -348,9 +332,9 @@ public class AppController {
    * Handles the action of viewing favorite recipes. If the favorites checkbox is selected, 
    * it displays only the favorite recipes; otherwise, it displays all recipes.
    *
-   * @param e the ActionEvent that triggered this method
+   * @param event the ActionEvent that triggered this method
    */
-  public void viewFavorites(ActionEvent event) {
+  public void viewFavorites(final ActionEvent event) {
     try {
       resetPreferences();
       if (favoritesCheckBox.isSelected()) {
@@ -369,9 +353,9 @@ public class AppController {
    * Unchecks the favorites checkbox and updates the cookbook view with recipes
    * that match the selected vegan, lactose-free, and gluten-free options.
    *
-   * @param e the action event that triggered the method
+   * @param event the action event that triggered the method
    */
-  public void viewPreferences(ActionEvent event) {
+  public void viewPreferences(final ActionEvent event) {
     try {
       favoritesCheckBox.setSelected(false);
       String vlg = "FFF";
@@ -424,7 +408,7 @@ public class AppController {
    * @param event the action event that triggered the switch
    * @throws IOException if the FXML file cannot be loaded
    */
-  public void switchToViewRecipe(ActionEvent event) throws IOException {
+  public void switchToViewRecipe(final ActionEvent event) throws IOException {
     // load recipeview
     FXMLLoader loader = new FXMLLoader(getClass().getResource("RecipeView.fxml"));
     Parent root = loader.load();

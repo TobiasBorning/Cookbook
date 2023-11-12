@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -43,6 +44,9 @@ public class AddRecipeController {
   private CheckBox lactosefreeCheckBox;
   @FXML
   private CheckBox glutenFreeCheckBox;
+
+  @FXML
+  private Label feedbackLabel;
 
   private int ingredientCount = 0;
 
@@ -116,8 +120,11 @@ public class AddRecipeController {
     }
     this.recipe = new Recipe(recipeNameString, ingredients, inputOrigin, inputType,
         descriptionString, false, isVegetarian, isGlutenFree, isLactoseFree);
-    addRecipe(recipe);
-    switchToMainScene(e);
+    if (addRecipe(recipe)) {
+      switchToMainScene(e);
+    } else {
+      feedbackLabel.setText("Name already exists!");
+    }
   }
 
   /**
@@ -125,12 +132,16 @@ public class AddRecipeController {
    *
    * @param recipe The recipe to add.
    */
-  private void addRecipe(Recipe recipe) {
+  private boolean addRecipe(Recipe recipe) {
     try {
       cookbookAccess.addRecipe(recipe);
+      return true;
+    } catch (IllegalArgumentException e) {
+      return false;
     } catch (RuntimeException e) {
       System.out.println("Error adding recipe: " + e.getMessage());
-    }
+      return false;
+    } 
   }
 
   /**

@@ -12,7 +12,7 @@
       },
       "originCountry": "Mexico",
       "description": "Begin by browning the beef, adding a blend of cumin, chili powder, garlic powder, oregano, and salt. Once browned, stir in tomato sauce, simmering until the mixture thickens slightly. Warm taco shells, fill with the savory meat, and top with cheese, lettuce, tomatoes, salsa, or your preferred toppings.",
-      "favorite": true,
+      "favorite": false,
       "vegan": false,
       "glutenFree": false,
       "lactoseFree": false,
@@ -30,7 +30,7 @@
       },
       "originCountry": "Italy",
       "description": "Spread pizza dough onto a pan, applying a generous layer of tomato sauce. Sprinkle cheese uniformly and add toppings such as pepperoni, mushrooms, and onions. Bake until the crust turns golden and the cheese bubbles. Allow to cool slightly, slice, and serve.",
-      "favorite": false,
+      "favorite": true,
       "vegan": false,
       "glutenFree": false,
       "lactoseFree": false,
@@ -83,24 +83,6 @@
       },
       "originCountry": "Italy",
       "description": "Grill or pan-sear chicken breasts until fully cooked and then slice them. In a large bowl, combine lettuce, croutons, and parmesan cheese. Toss with caesar dressing and top with the cooked, sliced chicken breast.",
-      "favorite": false,
-      "vegan": false,
-      "glutenFree": false,
-      "lactoseFree": false,
-      "type": "Dinner"
-    },
-    {
-      "name": "Pasta Carbonara",
-      "ingredients": {
-        "parmesanCheese": "30.0",
-        "bacon": "100.0",
-        "spaghetti": "215.0",
-        "egg": "2.0",
-        "heavyCream": "150.0",
-        "cheese": "50.0"
-      },
-      "originCountry": "Italy",
-      "description": "Cook spaghetti until al dente. In a separate pan, cook bacon until crisp, then stir in garlic briefly. Beat eggs, parmesan, and heavy cream together, then combine with the hot, drained pasta, cooking slightly to create a creamy sauce. Add bacon, season, and serve with additional cheese.",
       "favorite": false,
       "vegan": false,
       "glutenFree": false,
@@ -277,24 +259,10 @@
       "originCountry": "mexico",
       "description": "yummy",
       "favorite": false,
-      "vegan": false,
+      "vegan": true,
       "glutenFree": false,
       "lactoseFree": false,
-      "type": "Unknown"
-    },
-    {
-      "name": "Water",
-      "ingredients": {
-        "salt": "10g",
-        "water": "1l"
-      },
-      "originCountry": "Norway",
-      "description": "Water is good ad super healty",
-      "favorite": true,
-      "vegan": false,
-      "glutenFree": false,
-      "lactoseFree": false,
-      "type": "Unknown"
+      "type": "Dinner"
     }
   ]
 }

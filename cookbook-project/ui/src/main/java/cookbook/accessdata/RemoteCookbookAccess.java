@@ -37,6 +37,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * Fetches the entire cookbook.
    *
    * @return the cookbook, or null if the file is not found.
+   * @throws RuntimeException if the cookbook could not be fetched.
    */
   @Override
   public Cookbook fetchCookbook() throws RuntimeException {
@@ -68,6 +69,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    *
    * @param recipeName the name or part of the name to search for.
    * @return a cookbook containing the matching recipes.
+   * @throws RuntimeException if the cookbook could not be fetched.
    */
   @Override
   public Cookbook searchRecipe(String recipeName) throws RuntimeException {
@@ -100,6 +102,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    *
    * @param origin the country of origin to filter by.
    * @return a cookbook containing the matching recipes.
+   * @throws RuntimeException if the cookbook could not be fetched.
    */
   @Override
   public Cookbook filterByOrigin(String origin) throws RuntimeException {
@@ -114,7 +117,6 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      // System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList()); breaks the tests
       if (response.statusCode() == 200) {
         return ut;
       } else {
@@ -131,6 +133,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    *
    * @param type the type to filter by.
    * @return a cookbook containing the matching recipes.
+   * @throws RuntimeException if the cookbook could not be fetched.
    */
   @Override
   public Cookbook filterByType(String type) throws RuntimeException {
@@ -161,6 +164,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * Filters recipes that are marked as favorite.
    *
    * @return a cookbook containing the favorite recipes.
+   * @throws RuntimeException if the cookbook could not be fetched.
    */
   @Override
   public Cookbook filterByFavorite() throws RuntimeException {
@@ -192,6 +196,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    *
    * @param vlg a string representing user preferences.
    * @return a cookbook containing the matching recipes.
+   * @throws RuntimeException if the request fails.
    */
   @Override
   public Cookbook filterByPreferences(String vlg) throws RuntimeException {
@@ -225,6 +230,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * Updates a recipe in the cookbook.
    *
    * @param recipe the recipe to add.
+   * @throws RuntimeException if the recipe could not be updated.
    */
   @Override
   public void updateRecipe(Recipe recipe) throws RuntimeException { //throws runtimeExceiption?
@@ -254,11 +260,12 @@ public class RemoteCookbookAccess implements CookbookAccess {
     }
   }
 
-  //TODO add throws RuntimeException
   /**
    * Removes a recipe from the cookbook.
    *
    * @param recipeName the name of the recipe to remove.
+   * @return true if the recipe was removed, false otherwise.
+   * @throws RuntimeException if the recipe could not be removed.
    */
   @Override
   public boolean removeRecipe(String recipeName) throws RuntimeException {
@@ -294,10 +301,15 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * Adds a recipe to the cookbook.
    *
    * @param recipe the recipe to add. 
+   * @throws RuntimeException if the recipe could not be added.
+   * @throws IllegalArgumentException if the recipe name is empty or in cookbook.
    */
   @Override
-  public void addRecipe(Recipe recipe) throws RuntimeException {
+  public void addRecipe(Recipe recipe) throws RuntimeException, IllegalArgumentException {
     connect();
+    if (recipe.getName().strip().isEmpty()) {
+      throw new IllegalArgumentException("Recipe name cannot be empty");
+    }
     try {
       HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook"))
           .header("Accept", "application/json")
@@ -312,7 +324,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
       if (response.statusCode() == 200) {
         System.out.println("Added recipe");
       } else {
-        throw new RuntimeException("Error adding recipe");
+        throw new IllegalArgumentException("Could not add recipe");
       }
     } catch (InterruptedException | IOException e) {
       throw new RuntimeException("Error adding recipe");
@@ -323,6 +335,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * Adds a recipe to the favorites.
    *
    * @param recipe the name of the recipe to toggle
+   * @throws RuntimeException if the recipe could not be toggled.
    */
   public void toggleFavorite(Recipe recipe) throws RuntimeException {
     connect();
@@ -350,7 +363,12 @@ public class RemoteCookbookAccess implements CookbookAccess {
     }
   }
 
+  /**
+   * Sets the URI of the server.
+   *
+   * @param uri the URI of the server.
+   */ 
   public void setUri(URI uri) {
-      this.uri = uri;
+    this.uri = uri;
   }
 }

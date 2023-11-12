@@ -14,16 +14,28 @@ import org.junit.jupiter.api.Test;
 public class CookbookTest {
   
   private Cookbook cookbook;
+  private Recipe recipe1;
+  private Recipe recipe2;
+  private Recipe recipe3;
+  private Recipe recipe;
 
   @BeforeEach
   public void setUp(){
     cookbook = new Cookbook(); //creating a new cookbook object 
+    recipe = new Recipe(); //creates recipe
+    recipe.setName("Taco");
+    recipe1 = new Recipe(); 
+    recipe2 = new Recipe();
+    recipe3 = new Recipe();
+    recipe1.setName("Pasta");
+    recipe2.setName("Pizza");
+    recipe3.setName("Pancakes");
   }
 
   @Test
   @DisplayName("Test if the addRecipe method works properly.")
   public void testAddRecipe(){
-    Recipe recipe = new Recipe(); //creates recipe
+    System.out.println(cookbook.getRecipes().stream().map(r->r.getName()).toList());
     cookbook.addRecipe(recipe); //add recipe på cookbook
     assertTrue(cookbook.getRecipes().contains(recipe)); //asserts that the cookbook contains the recipe
     assertThrows(IllegalArgumentException.class, () -> cookbook.addRecipe(null)); //tests adding null
@@ -34,9 +46,6 @@ public class CookbookTest {
   @Test
   @DisplayName("Test if the addRecipes method works properly.")
   public void testAddRecipes(){
-    Recipe recipe1 = new Recipe(); 
-    Recipe recipe2 = new Recipe();
-    Recipe recipe3 = new Recipe();
     Collection<Recipe> recipes = new ArrayList<>(Arrays.asList(recipe1, recipe2, recipe3));
     cookbook.addRecipes(recipes); //add recipe på cookbook
 
@@ -48,7 +57,6 @@ public class CookbookTest {
   @Test
   @DisplayName("Test if the removeRecipe method works properly.")
   public void testRemoveRecipe() {
-    Recipe recipe = new Recipe(); //creates recipe
     cookbook.addRecipe(recipe); //adds recipe
     cookbook.removeRecipe(recipe); //removes recipe
     assertFalse(cookbook.getRecipes().contains(recipe)); // tests that cookbook is empty
@@ -59,15 +67,18 @@ public class CookbookTest {
   @DisplayName("Test if the filterRecipes method works properly.")
   public void testFilterRecipes() {
     Recipe testRecipe1 = new Recipe();
+    testRecipe1.setName("Pasta");
     testRecipe1.setGlutenFree(true);
     testRecipe1.addIngredient("ingredient1", "200.0");
     cookbook.addRecipe(testRecipe1);
         
     Recipe testRecipe2 = new Recipe();
+    testRecipe2.setName("Pizza");
     testRecipe2.addIngredient("ingredient1", "100.0");
     cookbook.addRecipe(testRecipe2);
         
     Recipe testRecipe3 = new Recipe();
+    testRecipe3.setName("Pancakes");
     testRecipe3.setGlutenFree(true);
     testRecipe3.addIngredient("ingredient2", "150.0");
     cookbook.addRecipe(testRecipe3);
