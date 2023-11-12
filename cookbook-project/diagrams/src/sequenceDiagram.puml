@@ -1,0 +1,26 @@
+@startuml sequenceDiagram
+
+title Sequence diagram for adding Recipe to Cookbook
+
+    actor User1
+    User1 -> UI
+    UI -> AppController: opens app
+    AppController -> AddRecipeController: Switches scene to Add Recipe
+    AddRecipeController -> "CookbookAccess : RemoteCookbookAccess": setCookbookAccess(CookbookAccess cookbookAccess)
+    UI -> AddRecipeController : addIngredient(final ActionEvent e)
+    "CookbookAccess : RemoteCookbookAccess" -> RESTAPI: POST(localhost:8080/api/cookbook) body: json recipe
+    RESTAPI -> DATABASE : addRecipe(recipe as json)
+    DATABASE -> RESTAPI: Ingenting?
+    RESTAPI -> "CookbookAccess : RemoteCookbookAccess": HTTP status code
+    AddRecipeController -> AppController : switchToMainScene(e)
+
+    AppController -> "CookbookAccess : RemoteCookbookAccess": initialize()
+    "CookbookAccess : RemoteCookbookAccess" -> RESTAPI: fetchCookbook()
+    RESTAPI -> DATABASE : getCookbook()
+    DATABASE -> RESTAPI: Ingenting?
+    RESTAPI -> "CookbookAccess : RemoteCookbookAccess": HTTP status code
+    "CookbookAccess : RemoteCookbookAccess" -> AppController: sets Cookbook as Cookbook object
+    AppController -> UI: visualisation over current Cookbook with the new recipe
+    UI -> User1
+    
+@enduml

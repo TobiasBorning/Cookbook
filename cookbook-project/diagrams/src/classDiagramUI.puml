@@ -1,0 +1,114 @@
+@startuml classDiagramUI
+
+title Class diagram for the UI module
+
+class AddRecipeController{
+  -Recipe recipe
+  -CookbookAccess cookbookAccess
+  -VBox ingredientsContainer
+  -TextField recipeName
+  -TextArea recipeDescription
+  -TextField origin
+  -TextField type
+  -CheckBox veganCheckBox
+  -CheckBox lactosefreeCheckBox
+  -CheckBox glutenFreeCheckBox
+  -int ingredientCount
+
+  +void addIngredient(final ActionEvent e)
+  +void addToCookbook(final ActionEvent e)
+  +void addRecipe(Recipe recipe)
+  +void switchToMainScene(ActionEvent e)
+  +void setCookbookAccess(CookbookAccess cookbookAccess)
+}
+
+class AppController{
+  -VBox recipeList
+  -TextField searchField
+  -Button searchButton
+  -Label feedbackLabel
+  -ChoiceBox<String> filterOrigin
+  -Button applyFilterButton
+  -Button allRecipesButton
+  -ChoiceBox<String> typeFilter
+  -Button applyTypeFilterButton
+  -CheckBox favoritesCheckBox
+  -CheckBox veganCheckBox
+  -CheckBox lactosefreeCheckBox
+  -CheckBox glutenFreeCheckBox
+  -int ingredientCount
+
+  +void initialize()
+  +void fillDefaultCookbook()
+  +void fillCookbook(Cookbook cookbook)
+  +void search()
+  +void fillFilterDropdown()
+  +void filterByOrigin()
+  +void fillTypeFilterDropdown()
+  +void filterByType()
+  +void viewFavorites(ActionEvent e)
+  +void viewPreferences(ActionEvent e)
+  +void switchToAddRecipe(final ActionEvent event)
+  +void switchToViewRecipe(ActionEvent event)
+  +void removeRecipe(Recipe recipe)
+  +void setFeedbackLabel(String feedback
+  +int getCookbookSize()
+  +CookbookAccess getCookbookAccess()
+  +void setAccessType(boolean override)
+  +void resetPreferences()
+
+}
+
+class CookbookApp{
+  +void start(Stage stage)
+}
+
+class EditRecipeController{
+  -Stage stage
+  -Scene scene
+  -Recipe oldRecipe
+  -Recipe newRecipe
+  -CookbookAccess cookbookAccess
+
+  -VBox ingredientsContainer
+  -TextArea recipeDescription
+  -TextField origin
+  -TextField type
+  -Button back
+  -Button addIngredientButton
+  -Button saveChangesButton
+  -Label title
+  -CheckBox veganCheckBox
+  -CheckBox lactosefreeCheckBox
+  -CheckBox glutenFreeCheckBox
+  -int ingredientCount
+
+  +void loadRecipe(Recipe recipe)
+  +void addIngredient()
+  +void saveChanges(ActionEvent e) throws IOException
+  +void switchToMainScene(ActionEvent e)
+  +void setCookbookAccess(CookbookAccess cookbookAccess)
+  +void switchToViewRecipe(ActionEvent event)
+}
+
+class RecipeViewController{
+  -Stage stage
+  -Scene scene
+  -CookbookAccess cookbookAccess
+  -Recipe recipe
+  -Label recipeName
+  -Label description
+  -Label ingredients
+  -Label origin
+  -Label type
+  -Label vegan
+  -Label lactosefree
+  -Label glutenfree
+
+  +void loadRecipe(Recipe recipe)
+  +void switchToMainScene(final ActionEvent event)
+  +void switchToEditRecipeScene(ActionEvent event)
+  +void setCookbookAccess(CookbookAccess cookbookAccess)
+}
+
+@enduml
