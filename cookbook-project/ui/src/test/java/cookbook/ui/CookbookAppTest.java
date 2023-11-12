@@ -175,12 +175,28 @@ public class CookbookAppTest extends ApplicationTest {
         assertEquals(9, getCookbookSize());
         assertFalse(containsRecipe("Pizza"));
     }
+    @Test
+    public void addExistingRecipeTest(){
+        clickOn("#addRecipeButton");
+        sleep(1000);
+        //Add Taco recipe
+        clickOn("#addRecipeName").write("Taco");
+        //add ingredient 1
+        clickOn("#addIngredientButton");
+        clickOn("#ingredientName1").write("Taco ingredients");
+        clickOn("#ingredientAmount1").write("1");
+        // add description and origin
+        clickOn("#addRecipeDescription").write("Tacos are great");
+        clickOn("#addRecipeOrigin").write("Mexico");
+        clickOn("#addRecipeButton");
+        assertEquals("Name already exists!", ((Labeled)lookup("#feedbackLabel").query()).getText());
+    }
 
     @Test
     public void addAndRemoveRecipeTest() {
         // navigate to add recipe scene
         clickOn("#addRecipeButton");
-        sleep(1000);
+        sleep(500);
 
         //Check that the add recipe pane is loaded
         Node addNode = lookup("#addRecipePane").query();
@@ -284,19 +300,19 @@ public class CookbookAppTest extends ApplicationTest {
     @Test
     public void typeFilterTest(){
         clickOn("#typeFilter");
-        sleep(1000);
+        sleep(200);
         clickOn("Dinner");
         clickOn("#filterByType");
         assertEquals(7, getCookbookSize());
         assertEquals(List.of("Taco", "Pizza", "Spaghetti Bolognese", "Chicken Stir-Fry", "Pasta Carbonara", "Vegetable Curry", "Nachos"), getRecipeNames());
         clickOn("#typeFilter");
-        sleep(1000);
+        sleep(200);
         clickOn("Lunch");
         clickOn("#filterByType");
         assertEquals(2, getCookbookSize());
         assertEquals(List.of("Caesar Salad", "Veggie Wrap"), getRecipeNames());
         clickOn("#typeFilter");
-        sleep(1000);
+        sleep(200);
         clickOn("Breakfast");
         clickOn("#filterByType");
         assertEquals(1, getCookbookSize());
@@ -307,7 +323,7 @@ public class CookbookAppTest extends ApplicationTest {
         // clickOn("#filterByType");
         // assertEquals(0, getCookbookSize());
         clickOn("#typeFilter");
-        sleep(1000);
+        sleep(200);
         clickOn("All types");
         clickOn("#filterByType");
         assertEquals(10, getCookbookSize());
