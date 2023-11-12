@@ -221,7 +221,6 @@ public class CookbookAppTest extends ApplicationTest {
         viewAllRecipes();
         assertEquals(10, getCookbookSize());
         assertFalse(containsRecipe("Water"));
-        
     }
 
     @Test

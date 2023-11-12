@@ -111,7 +111,6 @@ public class LocalCookbookAccess implements CookbookAccess {
     boolean gluten = vlg.charAt(2) == 'T';
     boolean lactose = vlg.charAt(1) == 'T';
     boolean vegan = vlg.charAt(0) == 'T';
-
     for (Recipe recipe : fetchCookbook().getRecipes()) {
       if (!((!recipe.getGlutenFree() && gluten) || (!recipe.getLactoseFree() && lactose)
           || (!recipe.getVegan() && vegan))) {

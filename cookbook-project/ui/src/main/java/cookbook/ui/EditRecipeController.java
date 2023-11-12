@@ -156,6 +156,7 @@ public class EditRecipeController {
     isVegan = veganCheckBox.isSelected();
     isLactoseFree = lactosefreeCheckBox.isSelected();
     isGlutenFree = glutenFreeCheckBox.isSelected();
+    
     if (recipeDescription.getText() != null) {
       descriptionString = recipeDescription.getText();
     }
