@@ -1,6 +1,6 @@
 # Integrationtest module
 
-This module is responsile for running an integration test. It ensures that the modules work together as expected. The test fills a cookbook with three recipes, then writes it to the [remote-cookbook.json](/cookbook-project/persistence/remote-cookbook.json) file. After that, it reads the cookbook from the file, fetches it from the API, UI and through the CookbookAccess object linked to the UI controller. At last, it checks that the recipes are the same as the ones that were written to the file.
+This module is responsile for running an integration test. It ensures that the modules work together as expected. The test fills a cookbook with three recipes, then writes it to the [remote-cookbook.json](/cookbook-project/persistence/storage/remote-cookbook.json) file. After that, it reads the cookbook from the file, fetches it from the API, UI and through the CookbookAccess object linked to the UI controller. At last, it checks that the recipes are the same as the ones that were written to the file.
 
 ---
 ```bash

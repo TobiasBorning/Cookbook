@@ -12,7 +12,7 @@ import java.util.Collection;
 public class LocalCookbookAccess implements CookbookAccess {
 
   private CookbookHandler ch = new CookbookHandler();
-  private final String path = "../persistence/cookbook.json";
+  private static final String path = "../persistence/storage/local-cookbook.json";
 
   /**
    * Fetches the entire cookbook.
@@ -24,7 +24,7 @@ public class LocalCookbookAccess implements CookbookAccess {
     try {
       return ch.readFromFile(path);
     } catch (FileNotFoundException e) { 
-      return null;
+      return new Cookbook();
     }
   }
 
@@ -90,7 +90,7 @@ public class LocalCookbookAccess implements CookbookAccess {
   @Override
   public Cookbook filterByFavorite() {
     Collection<Recipe> searched = fetchCookbook()
-        .filterRecipies(recipe -> recipe.isFavorite() == true);
+        .filterRecipies(recipe -> recipe.getFavorite() == true);
     Cookbook tmpCookbook = new Cookbook();
     for (Recipe recipe : searched) {
       tmpCookbook.addRecipe(recipe);
@@ -111,10 +111,9 @@ public class LocalCookbookAccess implements CookbookAccess {
     boolean gluten = vlg.charAt(2) == 'T';
     boolean lactose = vlg.charAt(1) == 'T';
     boolean vegan = vlg.charAt(0) == 'T';
-
     for (Recipe recipe : fetchCookbook().getRecipes()) {
-      if (!((!recipe.isGlutenFree() && gluten) || (!recipe.isLactoseFree() && lactose)
-          || (!recipe.isVegan() && vegan))) {
+      if (!((!recipe.getGlutenFree() && gluten) || (!recipe.getLactoseFree() && lactose)
+          || (!recipe.getVegan() && vegan))) {
         tmpCookbook.addRecipe(recipe);
       }
     }
@@ -137,10 +136,10 @@ public class LocalCookbookAccess implements CookbookAccess {
           r.setDescription(recipe.getDescription());
           r.setOriginCountry(recipe.getOriginCountry());
           r.setType(recipe.getType());
-          r.setVegan(recipe.isVegan());
-          r.setLactoseFree(recipe.isLactoseFree());
-          r.setGlutenFree(recipe.isGlutenFree());
-          r.setFavorite(recipe.isFavorite());
+          r.setVegan(recipe.getVegan());
+          r.setLactoseFree(recipe.getLactoseFree());
+          r.setGlutenFree(recipe.getGlutenFree());
+          r.setFavorite(recipe.getFavorite());
         });
     saveCookbook(tmpCookbook);
   }
@@ -153,7 +152,8 @@ public class LocalCookbookAccess implements CookbookAccess {
   @Override
   public boolean removeRecipe(String recipeName) {
     Cookbook tmpCookbook = fetchCookbook();
-    for (Recipe recipe : fetchCookbook().getRecipes()) {
+    Collection<Recipe> recipes = tmpCookbook.getRecipes();
+    for (Recipe recipe : recipes) {
       if (recipe.getName().equals(recipeName)) {
         tmpCookbook.removeRecipe(recipe);
         saveCookbook(tmpCookbook);
@@ -171,7 +171,14 @@ public class LocalCookbookAccess implements CookbookAccess {
   @Override
   public void addRecipe(Recipe recipe) {
     Cookbook tmpCookbook = fetchCookbook();
-    tmpCookbook.addRecipe(recipe);
+    if (recipe.getName().strip().isEmpty()) {
+      throw new IllegalArgumentException("Recipe name cannot be empty");
+    }
+    try {
+      tmpCookbook.addRecipe(recipe);
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("Recipe already exists");
+    }
     saveCookbook(tmpCookbook);
   }
 
@@ -197,7 +204,7 @@ public class LocalCookbookAccess implements CookbookAccess {
     Cookbook tmpCookbook = fetchCookbook();
     for (Recipe r : tmpCookbook.getRecipes()) {
       if (r.getName().equals(recipe.getName())) {
-        r.setFavorite(!recipe.isFavorite());
+        r.setFavorite(!recipe.getFavorite());
         saveCookbook(tmpCookbook);
         return;
       }

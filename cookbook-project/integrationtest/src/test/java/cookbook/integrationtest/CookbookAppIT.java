@@ -47,12 +47,12 @@ public class CookbookAppIT extends ApplicationTest{
 
   @BeforeAll
   public void saveCookbook() throws IOException {
-    savedCookbook = ch.readFromFile("../persistence/remote-cookbook.json");
+    savedCookbook = ch.readFromFile("../persistence/storage/remote-cookbook.json");
   }
 
   @AfterAll
   public void loadSavedCookbook() throws IOException {
-    ch.writeToFile(savedCookbook, "../persistence/remote-cookbook.json");
+    ch.writeToFile(savedCookbook, "../persistence/storage/remote-cookbook.json");
   }
 
   private void setup() throws FileNotFoundException {
@@ -67,7 +67,7 @@ public class CookbookAppIT extends ApplicationTest{
     testCookbook.addRecipe(recipe1);
     testCookbook.addRecipe(recipe2);
     testCookbook.addRecipe(recipe3);
-    ch.writeToFile(testCookbook, "../persistence/remote-cookbook.json");
+    ch.writeToFile(testCookbook, "../persistence/storage/remote-cookbook.json");
   }
 
   @Override
@@ -97,7 +97,7 @@ public class CookbookAppIT extends ApplicationTest{
 
   private List<String> recipesFromPersistence() {
     try {
-      return recipesInCookbook(ch.readFromFile("../persistence/remote-cookbook.json"));
+      return recipesInCookbook(ch.readFromFile("../persistence/storage/remote-cookbook.json"));
     }
     catch (IOException e) {
       return null;

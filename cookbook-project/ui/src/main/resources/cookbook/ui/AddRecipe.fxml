@@ -32,5 +32,6 @@
       <CheckBox id="lactosefreeCheckBox" fx:id="lactosefreeCheckBox" layoutX="349.0" layoutY="185.0" mnemonicParsing="false" text="Gluten free" />
       <CheckBox id="glutenFreeCheckBox" fx:id="glutenFreeCheckBox" layoutX="349.0" layoutY="210.0" mnemonicParsing="false" text="Lactose free" />
       <CheckBox id="veganCheckBox" fx:id="veganCheckBox" layoutX="350.0" layoutY="158.0" mnemonicParsing="false" text="Vegan" />
+      <Label id="feedbackLabel" fx:id="feedbackLabel" layoutX="177.0" layoutY="366.0" prefHeight="16.0" prefWidth="207.0" />
    </children>
 </Pane>

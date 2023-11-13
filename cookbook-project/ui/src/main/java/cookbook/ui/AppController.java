@@ -5,8 +5,6 @@ import cookbook.accessdata.LocalCookbookAccess;
 import cookbook.accessdata.RemoteCookbookAccess;
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
-import cookbook.json.CookbookHandler;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -33,17 +31,17 @@ import javafx.stage.Stage;
 
 /**
  * Controller class for the main application view.
- * <p>
+ *<p>
  * This class is responsible for handling user interactions with the main application window.
  * It manages the display and manipulation of recipes within the cookbook, including searching,
  * filtering, and viewing individual recipes. It also handles navigation to other views such as
  * adding or viewing a specific recipe.
- * </p>
- * <p>
+ *</p>
+ *<p>
  * The controller initializes with the primary stage and scene of the application, setting up
  * the necessary bindings and event handlers. It also determines the access type for the cookbook,
  * choosing between local and remote access based on the availability of a network connection.
- * </p>
+ *</p>
  */
 public class AppController {
 
@@ -84,44 +82,26 @@ public class AppController {
 
   /**
    * Initializes the controller class.
-   * <p>
+   *<p>
    * This method sets up the initial state of the application's main view by determining the
    * access type for the cookbook (remote or local) and fetching the initial set of recipes.
    * It adjusts the UI components, such as setting the minimum height of the recipe list VBox
    * to accommodate all the recipes, and populates the view with the fetched recipes.
-   * </p>
-   * <p>
+   *</p>
+   *<p>
    * The method is called automatically after the FXML fields have been populated and is typically
-   * used to perform any necessary setup or initialization tasks for the controller.
-   * </p>
+   * used to perform any necessary setup or initialization tasks for the controller
+   *</p>
    */
   public void initialize() {
-    
     // set remote or local cookbook access depending on connection, override = 
     // true always connects to local
     setAccessType(false);
-
-    cookbook = cookbookAccess.fetchCookbook();
+    this.cookbook = cookbookAccess.fetchCookbook();
     // set Vbox height to fit all recipes
-    recipeList.setMinHeight(cookbook.getRecipes().size() * 130);
+    recipeList.setMinHeight(this.cookbook.getRecipes().size() * 69.5);
     // fill cookbook with all recipes
-    fillCookbook(cookbook);
-  }
-
-  //TODO: Bruker vi egt. denne?
-  /**
-   * Loads the default cookbook from a JSON file and updates the recipe list.
-   * If the file is not found, sets the feedback label to indicate the error.
-   */
-  public void fillDefaultCookbook() {
-    Cookbook cookbook = new Cookbook();
-    CookbookHandler ch = new CookbookHandler();
-    try {
-      cookbook = ch.readFromFile("../persistence/default-cookbook.json");
-    } catch (FileNotFoundException e) { 
-      feedbackLabel.setText("File not found");
-    }
-    fillCookbook(cookbook);
+    fillCookbook(this.cookbook);
   }
 
   /**
@@ -130,9 +110,12 @@ public class AppController {
    *
    * @param cookbook The cookbook containing recipes to display in the list.
    */
-  private void fillCookbook(Cookbook cookbook) {
+  private void fillCookbook(Cookbook loadCookbook) {
     recipeList.getChildren().clear();
-    Collection<Recipe> cookbooklist = cookbook.getRecipes();
+    Collection<Recipe> cookbooklist = loadCookbook.getRecipes();
+    if (!cookbooklist.isEmpty()) {
+      feedbackLabel.setText("");
+    }
     for (Recipe recipe : cookbooklist) {
       //lager pane til å vise oppskrift
       Pane pane = new Pane();
@@ -176,7 +159,7 @@ public class AppController {
       buttonView.onActionProperty().set(e -> {
         //viewRecipe(recipe);
         try {
-          sendRecipe = recipe;
+          this.sendRecipe = recipe;
           switchToViewRecipe(e);
         } catch (IOException ex) {
           System.err.println(ex);
@@ -185,10 +168,10 @@ public class AppController {
 
       //Add favorite button
       Button buttonFavorite = new Button("★");
-      if (recipe.isFavorite()) {
+      if (recipe.getFavorite()) {
         buttonFavorite.setStyle("-fx-background-color: yellow;");
       } else {
-        buttonFavorite.setStyle("-fx-background-color; ");
+        buttonFavorite.setStyle("");
       }
       buttonFavorite.setId("favorite" + recipe.getName()); //ex: #removeTaco
 
@@ -222,22 +205,27 @@ public class AppController {
    */
   public void search() {
     // get search string
-    String search = searchField.getText();
-    if (search.isEmpty()) {
-      // if search is empty, fill cookbook with all recipes
-      fillCookbook(cookbookAccess.fetchCookbook());
-      feedbackLabel.setText("");
-    } else {
-      // if search is not empty, fill cookbook with matching recipes
-      Cookbook searched = cookbookAccess.searchRecipe(search);
-      if (searched == null || searched.getRecipes().isEmpty()) {
-        // if no recipes match search, give feedback
-        feedbackLabel.setText("No recipes matching search");
-      } else {
-        // if recipes match search, make feedback empty and fill cookbook
-        fillCookbook(searched);
+    try {
+      String search = searchField.getText();
+      if (search.isEmpty()) {
+        // if search is empty, fill cookbook with all recipes
+        fillCookbook(cookbookAccess.fetchCookbook());
         feedbackLabel.setText("");
+      } else {
+        // if search is not empty, fill cookbook with matching recipes
+        Cookbook searched = cookbookAccess.searchRecipe(search);
+        if (searched == null || searched.getRecipes().isEmpty()) {
+          // if no recipes match search, give feedback
+          feedbackLabel.setText("No recipes matching search");
+        } else {
+          // if recipes match search, make feedback empty and fill cookbook
+          fillCookbook(searched);
+          feedbackLabel.setText("");
+        }
       }
+    } catch (RuntimeException e) {
+      feedbackLabel.setText("No recipes matching search");
+      fillCookbook(new Cookbook());
     }
   }
 
@@ -274,18 +262,23 @@ public class AppController {
    * It deselects any active preferences and resets the filter if "All origins" is selected.
    */
   public void filterByOrigin() {
-    favoritesCheckBox.setSelected(false);
-    resetPreferences();
-    //get value from dropdown
-    String filterValue = (String) filterOrigin.getValue();
+    try {
+      favoritesCheckBox.setSelected(false);
+      resetPreferences();
+      //get value from dropdown
+      String filterValue = (String) filterOrigin.getValue();
 
-    //fill cookbook with filtered recipes
-    if (filterValue.equals("All origins")) {
-      fillCookbook(cookbook);
-    } else {
-      fillCookbook(cookbookAccess.filterByOrigin(filterValue));
+      //fill cookbook with filtered recipes
+      if (filterValue.equals("All origins")) {
+        fillCookbook(cookbook);
+      } else {
+        fillCookbook(cookbookAccess.filterByOrigin(filterValue));
+      }
+      filterOrigin.setValue(filterValue);
+    } catch (RuntimeException e) {
+      feedbackLabel.setText("No recipes matching the origin");
+      fillCookbook(new Cookbook());
     }
-    filterOrigin.setValue(filterValue);
   }
 
   private void fillTypeFilterDropdown() {
@@ -316,32 +309,42 @@ public class AppController {
    * It adds an option for no filter and sets the default filter value to "All types".
    */
   public void filterByType() {
-    resetPreferences();
-    lactosefreeCheckBox.setSelected(false);
-    //get value from dropdown
-    String filterValue = (String) typeFilter.getValue();
+    try {
+      resetPreferences();
+      lactosefreeCheckBox.setSelected(false);
+      //get value from dropdown
+      String filterValue = (String) typeFilter.getValue();
 
-    //fill cookbook with filtered recipes
-    if (filterValue.equals("All types")) {
-      fillCookbook(cookbook);
-    } else {
-      fillCookbook(cookbookAccess.filterByType(filterValue));
+      //fill cookbook with filtered recipes
+      if (filterValue.equals("All types")) {
+        fillCookbook(cookbook);
+      } else {
+        fillCookbook(cookbookAccess.filterByType(filterValue));
+      }
+      typeFilter.setValue(filterValue);
+    } catch (RuntimeException e) {
+      feedbackLabel.setText("No recipes matching the type");
+      fillCookbook(new Cookbook());
     }
-    typeFilter.setValue(filterValue);
   }
 
   /**
    * Handles the action of viewing favorite recipes. If the favorites checkbox is selected, 
    * it displays only the favorite recipes; otherwise, it displays all recipes.
    *
-   * @param e the ActionEvent that triggered this method
+   * @param event the ActionEvent that triggered this method
    */
-  public void viewFavorites(ActionEvent e) {
-    resetPreferences();
-    if (favoritesCheckBox.isSelected()) {
-      fillCookbook(cookbookAccess.filterByFavorite());
-    } else {
-      fillCookbook(cookbookAccess.fetchCookbook());
+  public void viewFavorites(final ActionEvent event) {
+    try {
+      resetPreferences();
+      if (favoritesCheckBox.isSelected()) {
+        fillCookbook(cookbookAccess.filterByFavorite());
+      } else {
+        fillCookbook(cookbookAccess.fetchCookbook());
+      }
+    } catch (RuntimeException e) {
+      feedbackLabel.setText("No recipes matching the favorites");
+      fillCookbook(new Cookbook());
     }
   }
 
@@ -350,29 +353,31 @@ public class AppController {
    * Unchecks the favorites checkbox and updates the cookbook view with recipes
    * that match the selected vegan, lactose-free, and gluten-free options.
    *
-   * @param e the action event that triggered the method
+   * @param event the action event that triggered the method
    */
-  public void viewPreferences(ActionEvent e) {
-    favoritesCheckBox.setSelected(false);
-    String vlg = "FFF";
-    if (veganCheckBox.isSelected()) {
-      vlg = "T" + vlg.substring(1);
+  public void viewPreferences(final ActionEvent event) {
+    try {
+      favoritesCheckBox.setSelected(false);
+      String vlg = "FFF";
+      if (veganCheckBox.isSelected()) {
+        vlg = "T" + vlg.substring(1);
+      }
+      if (lactosefreeCheckBox.isSelected()) {
+        vlg = vlg.substring(0, 1) + "T" + vlg.substring(2);
+      }
+      if (glutenFreeCheckBox.isSelected()) {
+        vlg = vlg.substring(0, 2) + "T";
+      }
+      if (vlg == "FFF") {
+        fillCookbook(cookbookAccess.fetchCookbook());
+      }
+      fillCookbook(cookbookAccess.filterByPreferences(vlg));
+    } catch (RuntimeException e) {
+      feedbackLabel.setText("No recipes matching the preferences");
+      fillCookbook(new Cookbook());
     }
-    if (lactosefreeCheckBox.isSelected()) {
-      vlg = vlg.substring(0, 1) + "T" + vlg.substring(2);
-    }
-    if (glutenFreeCheckBox.isSelected()) {
-      vlg = vlg.substring(0, 2) + "T";
-    }
-    if (vlg == "FFF") {
-      fillCookbook(cookbookAccess.fetchCookbook());
-    }
-    fillCookbook(cookbookAccess.filterByPreferences(vlg));
   }
   
-
-  
-
   /**
    * Switches the current view to the "Add Recipe" scene.
    * This method loads the AddRecipe.fxml layout, sets the scene, and passes the current
@@ -403,7 +408,7 @@ public class AppController {
    * @param event the action event that triggered the switch
    * @throws IOException if the FXML file cannot be loaded
    */
-  public void switchToViewRecipe(ActionEvent event) throws IOException {
+  public void switchToViewRecipe(final ActionEvent event) throws IOException {
     // load recipeview
     FXMLLoader loader = new FXMLLoader(getClass().getResource("RecipeView.fxml"));
     Parent root = loader.load();
@@ -427,10 +432,14 @@ public class AppController {
    * @param recipe the recipe to be removed
    */
   public void removeRecipe(Recipe recipe) {
-    if (cookbookAccess.removeRecipe(recipe.getName())) {
-      fillCookbook(cookbookAccess.fetchCookbook());
-      feedbackLabel.setText("Removed recipe");
-    } else {
+    try {
+      if (cookbookAccess.removeRecipe(recipe.getName())) {
+        fillCookbook(cookbookAccess.fetchCookbook());
+        feedbackLabel.setText("Removed recipe");
+      } else {
+        feedbackLabel.setText("Could not remove recipe");
+      }
+    } catch (RuntimeException e) {
       feedbackLabel.setText("Could not remove recipe");
     }
   }

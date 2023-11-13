@@ -8,8 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -104,28 +102,28 @@ public class RecipeTest {
     @DisplayName("Test if the setFavorite method for recipes works properly.")
     public void testSetFavorite() {
         recipe.setFavorite(true);
-        assertEquals(true, recipe.isFavorite());
+        assertEquals(true, recipe.getFavorite());
     }
 
     @Test
     @DisplayName("Test if the setVegan method for recipes works properly.")
     public void testSetVegan() {
         recipe.setVegan(true);
-        assertEquals(true, recipe.isVegan());
+        assertEquals(true, recipe.getVegan());
     }
 
     @Test
     @DisplayName("Test if the setLactoseFree method for recipes works properly.")
     public void testSetLactoseFree() {
         recipe.setLactoseFree(true);
-        assertEquals(true, recipe.isLactoseFree());
+        assertEquals(true, recipe.getLactoseFree());
     }
 
     @Test
     @DisplayName("Test if the setGlutenFree method for recipes works properly.")
     public void testSetGlutenFree() {
         recipe.setGlutenFree(true);
-        assertEquals(true, recipe.isGlutenFree());
+        assertEquals(true, recipe.getGlutenFree());
     }
 
     @Test
@@ -138,10 +136,10 @@ public class RecipeTest {
         assertEquals(null, recipe2.getOriginCountry());
         assertEquals("Unknown", recipe2.getType());
         assertEquals(null, recipe2.getDescription());
-        assertFalse(recipe2.isFavorite());
-        assertFalse(recipe2.isVegan());
-        assertFalse(recipe2.isGlutenFree());
-        assertFalse(recipe2.isLactoseFree());
+        assertFalse(recipe2.getFavorite());
+        assertFalse(recipe2.getVegan());
+        assertFalse(recipe2.getGlutenFree());
+        assertFalse(recipe2.getLactoseFree());
 
     }
 
@@ -156,10 +154,10 @@ public class RecipeTest {
         assertEquals("Italy", recipe2.getOriginCountry());
         assertEquals("Dinner", recipe2.getType());
         assertEquals("A classic Italian pasta dish", recipe2.getDescription());
-        assertTrue(recipe2.isFavorite());
-        assertTrue(recipe2.isVegan());
-        assertFalse(recipe2.isGlutenFree());
-        assertFalse(recipe2.isLactoseFree());
+        assertTrue(recipe2.getFavorite());
+        assertTrue(recipe2.getVegan());
+        assertFalse(recipe2.getGlutenFree());
+        assertFalse(recipe2.getLactoseFree());
     }
 }
 

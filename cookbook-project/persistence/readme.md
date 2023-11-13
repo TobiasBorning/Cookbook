@@ -1,6 +1,6 @@
 # Persistence module
 
-This module is responsible for reading and writing the cookbook to a JSON file. It contains the cookbook.json package, which contains the [CookbookHandler](/cookbook-project/persistence/src/main/java/cookbook/json/CookbookHandler.java) class. This class is responsible for reading and writing to the internal representation of the cookbook to the [_cookbook.json_](/cookbook-project/persistence/cookbook.json) file, located in the root of this module.  
+This module is responsible for reading and writing the cookbook to a JSON file. It contains the cookbook.json package, which contains the [CookbookHandler](/cookbook-project/persistence/src/main/java/cookbook/json/CookbookHandler.java) class. This class is responsible for reading and writing to the internal representation of the cookbook to the [_cookbook.json_](/cookbook-project/persistence/storage/local-cookbook.json) file, located in the root of this module.  
 The peristence module requires access to the core module in order to function properly.
 
 ### Gson

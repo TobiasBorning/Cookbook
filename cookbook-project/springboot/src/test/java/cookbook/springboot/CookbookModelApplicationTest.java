@@ -49,12 +49,12 @@ public class CookbookModelApplicationTest {
 
   @BeforeAll
   public void saveCookbook() throws IOException {
-    savedCookbook = handler.readFromFile("../persistence/remote-cookbook.json");
+    savedCookbook = handler.readFromFile("../persistence/storage/remote-cookbook.json");
   }
 
   @AfterAll
   public void loadSavedCookbook() throws IOException {
-    handler.writeToFile(savedCookbook, "../persistence/remote-cookbook.json");
+    handler.writeToFile(savedCookbook, "../persistence/storage/remote-cookbook.json");
   }
 
   @BeforeEach
@@ -161,8 +161,8 @@ public class CookbookModelApplicationTest {
     assertEquals("Taco", taco.getName());
     assertEquals("Breakfast", taco.getType());
     assertEquals("Norway", taco.getOriginCountry());
-    assertEquals(false, taco.isFavorite());
-    assertEquals(false, taco.isGlutenFree());
+    assertEquals(false, taco.getFavorite());
+    assertEquals(false, taco.getGlutenFree());
     //revert taco recipe
     mockMvc.perform(MockMvcRequestBuilders.put("/api/cookbook/recipe/" + this.recipe1.getName())
         .accept(MediaType.APPLICATION_JSON)

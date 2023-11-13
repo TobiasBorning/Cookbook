@@ -11,15 +11,9 @@
         "cheese": "200.0"
       },
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": false,
+      "glutenFree": false,
+      "lactoseFree": false,
       "type": "Unknown"
     }
   ]

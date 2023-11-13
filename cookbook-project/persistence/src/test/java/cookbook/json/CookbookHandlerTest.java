@@ -34,7 +34,7 @@ public class CookbookHandlerTest {
     pizzaRecipe.addIngredient("mushrooms", "50.0");
     pizzaRecipe.addIngredient("onions", "30.0");
     cookbook.addRecipe(pizzaRecipe); 
-    path = "test.json";     
+    path = "storage/persistence-test-cookbook.json";     
   }
 
   @Test
