@@ -32,12 +32,12 @@ public class LocalCookbookAccessTest {
 
   @BeforeAll
   public void saveCookbook() throws IOException {
-    savedCookbook = ch.readFromFile("../persistence/cookbook.json");
+    savedCookbook = ch.readFromFile("../persistence/storage/local-cookbook.json");
   }
 
   @AfterAll
   public void loadSavedCookbook() throws IOException {
-    ch.writeToFile(savedCookbook, "../persistence/cookbook.json");
+    ch.writeToFile(savedCookbook, "../persistence/storage/local-cookbook.json");
   }
 
   @BeforeEach
@@ -69,7 +69,7 @@ public class LocalCookbookAccessTest {
     cookbook.addRecipe(recipe2);
     cookbook.addRecipe(recipe3);
     this.testCookbook = cookbook;
-    ch.writeToFile(testCookbook, "../persistence/cookbook.json");
+    ch.writeToFile(testCookbook, "../persistence/storage/local-cookbook.json");
   }
 
   
@@ -134,7 +134,7 @@ public class LocalCookbookAccessTest {
         .toList()
         .iterator()
         .next()
-        .isGlutenFree());
+        .getGlutenFree());
   }
 
   @Test 
@@ -168,7 +168,7 @@ public class LocalCookbookAccessTest {
         .toList()
         .iterator()
         .next()
-        .isFavorite());
+        .getFavorite());
   }
 
   private List<String> cookBookToCollection(Cookbook cookbook) {

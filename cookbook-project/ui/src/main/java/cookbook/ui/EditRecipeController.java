@@ -1,7 +1,6 @@
 package cookbook.ui;
 
 import cookbook.accessdata.CookbookAccess;
-import cookbook.accessdata.RemoteCookbookAccess;
 import cookbook.core.Recipe;
 import java.io.IOException;
 import java.util.HashMap;
@@ -83,10 +82,10 @@ public class EditRecipeController {
     origin.setText(recipe.getOriginCountry());
     type.setText(recipe.getType());
     title.setText("Edit " + recipe.getName());
-    newRecipe.setFavorite(oldRecipe.isFavorite());
-    veganCheckBox.setSelected(oldRecipe.isVegan());
-    lactosefreeCheckBox.setSelected(oldRecipe.isLactoseFree());
-    glutenFreeCheckBox.setSelected(oldRecipe.isGlutenFree());
+    newRecipe.setFavorite(oldRecipe.getFavorite());
+    veganCheckBox.setSelected(oldRecipe.getVegan());
+    lactosefreeCheckBox.setSelected(oldRecipe.getLactoseFree());
+    glutenFreeCheckBox.setSelected(oldRecipe.getGlutenFree());
     
     for (Map.Entry<String, String> ingredient : recipe.getIngredients()
         .entrySet()) {
@@ -139,10 +138,10 @@ public class EditRecipeController {
    * This method constructs a new recipe instance 
    * from the edited values and updates the recipe in the cookbook access.
    *
-   * @param e The event that triggered the save action.
+   * @param event The event that triggered the save action.
    * @throws IOException If an I/O error occurs during saving or scene switching.
    */
-  public void saveChanges(ActionEvent e) throws IOException {
+  public void saveChanges(ActionEvent event) throws IOException {
 
     Map<String, String> ingredients = new HashMap<>();
     String descriptionString = null;
@@ -150,9 +149,13 @@ public class EditRecipeController {
     TextField amount = null;
     String inputOrigin = null;
     String inputType = "Unknown";
-    Boolean isVegan = newRecipe.isVegan();
-    Boolean isLactoseFree = newRecipe.isLactoseFree();
-    Boolean isGlutenFree = newRecipe.isGlutenFree();
+    Boolean isVegan = newRecipe.getVegan();
+    Boolean isLactoseFree = newRecipe.getLactoseFree();
+    Boolean isGlutenFree = newRecipe.getGlutenFree();
+    
+    isVegan = veganCheckBox.isSelected();
+    isLactoseFree = lactosefreeCheckBox.isSelected();
+    isGlutenFree = glutenFreeCheckBox.isSelected();
     
     if (recipeDescription.getText() != null) {
       descriptionString = recipeDescription.getText();
@@ -164,20 +167,10 @@ public class EditRecipeController {
       newRecipe.setType(type.getText());
       inputType = newRecipe.getType();
     } 
-    if (veganCheckBox.isSelected()) { 
-      isVegan = true;
-    } 
-    if (lactosefreeCheckBox.isSelected()) { 
-      isLactoseFree = true; 
-    } 
-    if (glutenFreeCheckBox.isSelected()) { 
-      isGlutenFree = true; 
-    }
 
     for (Node node : ingredientsContainer.getChildren()) {
       if (node instanceof Pane) {
         Pane pane = (Pane) node;
-
         for (Node childNode : pane.getChildren()) {
           if (childNode instanceof TextField) {
             TextField textField = (TextField) childNode;
@@ -186,7 +179,7 @@ public class EditRecipeController {
             } else if (textField.getPromptText().equals("amount")) {
               amount = textField;
             }
-            if (ingredientName != null && amount != null) {
+            if (ingredientName != null && amount != null  && !ingredientName.getText().equals("")) {
               String ingredientNameString = ingredientName.getText();
               String amountString = amount.getText();
               ingredients.put(ingredientNameString, amountString);
@@ -196,10 +189,14 @@ public class EditRecipeController {
       }
     }
     this.newRecipe = new Recipe(oldRecipe.getName(), ingredients, inputOrigin, inputType, 
-        descriptionString, newRecipe.isFavorite(), isVegan, isGlutenFree, isLactoseFree);
-    cookbookAccess.updateRecipe(newRecipe);
-    System.out.println(cookbookAccess instanceof RemoteCookbookAccess);
-    switchToMainScene(e);
+        descriptionString, newRecipe.getFavorite(), isVegan, isGlutenFree, isLactoseFree);
+
+    try {
+      cookbookAccess.updateRecipe(newRecipe); 
+    } catch (RuntimeException e) {
+      System.out.println("Could not update cookbook \n" + e.getMessage());
+    }
+    switchToMainScene(event);
   }
 
   /**
@@ -211,7 +208,8 @@ public class EditRecipeController {
    * @throws IOException If an I/O error occurs during the scene switching.
    */
   public void switchToMainScene(ActionEvent e) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("CookbookApp.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("CookbookApp.fxml"));
+    Parent root = loader.load();
     Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
     Scene scene = new Scene(root);
     stage.setScene(scene);

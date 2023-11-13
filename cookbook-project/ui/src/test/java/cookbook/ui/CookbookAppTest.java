@@ -58,16 +58,17 @@ public class CookbookAppTest extends ApplicationTest {
     @BeforeAll
     private void saveAndFillCookbook() {
         try{
-            savedRemoteCookbook = ch.readFromFile("../persistence/remote-cookbook.json");
-            savedLocalCookbook = ch.readFromFile( "../persistence/cookbook.json");
+            savedRemoteCookbook = ch.readFromFile("../persistence/storage/remote-cookbook.json");
+            savedLocalCookbook = ch.readFromFile( "../persistence/storage/local-cookbook.json");
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found");
         } // kan alt være i én try catch?
         try {
-            this.testCookbook = ch.readFromFile("../persistence/ui-test-cookbook.json");
-            ch.writeToFile(testCookbook, "../persistence/remote-cookbook.json");
-            ch.writeToFile(testCookbook, "../persistence/cookbook.json");
+            this.testCookbook = ch.readFromFile("../persistence/storage/ui-test-cookbook.json");
+            System.out.println(testCookbook.getRecipes().size());
+            ch.writeToFile(testCookbook, "../persistence/storage/remote-cookbook.json");
+            ch.writeToFile(testCookbook, "../persistence/storage/local-cookbook.json");
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found");
@@ -77,9 +78,9 @@ public class CookbookAppTest extends ApplicationTest {
     @AfterAll
     private void writeSavedCookbook() {
         try {
-            ch.writeToFile(savedRemoteCookbook, "../persistence/remote-cookbook.json");
-            ch.writeToFile(savedLocalCookbook, "../persistence/cookbook.json");
-            ch.writeToFile(testCookbook, "../persistence/ui-test-cookbook.json");
+            ch.writeToFile(savedRemoteCookbook, "../persistence/storage/remote-cookbook.json");
+            ch.writeToFile(savedLocalCookbook, "../persistence/storage/local-cookbook.json");
+            ch.writeToFile(testCookbook, "../persistence/storage/ui-test-cookbook.json");
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found");
@@ -174,12 +175,28 @@ public class CookbookAppTest extends ApplicationTest {
         assertEquals(9, getCookbookSize());
         assertFalse(containsRecipe("Pizza"));
     }
+    @Test
+    public void addExistingRecipeTest(){
+        clickOn("#addRecipeButton");
+        sleep(1000);
+        //Add Taco recipe
+        clickOn("#addRecipeName").write("Taco");
+        //add ingredient 1
+        clickOn("#addIngredientButton");
+        clickOn("#ingredientName1").write("Taco ingredients");
+        clickOn("#ingredientAmount1").write("1");
+        // add description and origin
+        clickOn("#addRecipeDescription").write("Tacos are great");
+        clickOn("#addRecipeOrigin").write("Mexico");
+        clickOn("#addRecipeButton");
+        assertEquals("Name already exists!", ((Labeled)lookup("#feedbackLabel").query()).getText());
+    }
 
     @Test
     public void addAndRemoveRecipeTest() {
         // navigate to add recipe scene
         clickOn("#addRecipeButton");
-        sleep(1000);
+        sleep(500);
 
         //Check that the add recipe pane is loaded
         Node addNode = lookup("#addRecipePane").query();
@@ -220,7 +237,6 @@ public class CookbookAppTest extends ApplicationTest {
         viewAllRecipes();
         assertEquals(10, getCookbookSize());
         assertFalse(containsRecipe("Water"));
-        
     }
 
     @Test
@@ -284,19 +300,19 @@ public class CookbookAppTest extends ApplicationTest {
     @Test
     public void typeFilterTest(){
         clickOn("#typeFilter");
-        sleep(1000);
+        sleep(200);
         clickOn("Dinner");
         clickOn("#filterByType");
         assertEquals(7, getCookbookSize());
         assertEquals(List.of("Taco", "Pizza", "Spaghetti Bolognese", "Chicken Stir-Fry", "Pasta Carbonara", "Vegetable Curry", "Nachos"), getRecipeNames());
         clickOn("#typeFilter");
-        sleep(1000);
+        sleep(200);
         clickOn("Lunch");
         clickOn("#filterByType");
         assertEquals(2, getCookbookSize());
         assertEquals(List.of("Caesar Salad", "Veggie Wrap"), getRecipeNames());
         clickOn("#typeFilter");
-        sleep(1000);
+        sleep(200);
         clickOn("Breakfast");
         clickOn("#filterByType");
         assertEquals(1, getCookbookSize());
@@ -307,7 +323,7 @@ public class CookbookAppTest extends ApplicationTest {
         // clickOn("#filterByType");
         // assertEquals(0, getCookbookSize());
         clickOn("#typeFilter");
-        sleep(1000);
+        sleep(200);
         clickOn("All types");
         clickOn("#filterByType");
         assertEquals(10, getCookbookSize());
@@ -368,5 +384,4 @@ public class CookbookAppTest extends ApplicationTest {
         System.out.println("viewAllRecipes");
         searchRecipe("");
     }
-
 }

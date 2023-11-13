@@ -52,7 +52,7 @@ public class RemoteCookbookAccessTest {
 
   @BeforeAll
   public void saveCookbook() throws IOException {
-    savedCookbook = handler.readFromFile("../persistence/remote-cookbook.json");
+    savedCookbook = handler.readFromFile("../persistence/storage/remote-cookbook.json");
     wireMockServer = new WireMockServer(options().port(7070));
     wireMockServer.start(); 
     WireMock.configureFor("localhost", wireMockServer.port());
@@ -66,7 +66,7 @@ public class RemoteCookbookAccessTest {
   
   @AfterAll
   public void loadSavedCookbook() throws IOException {
-    handler.writeToFile(savedCookbook, "../persistence/remote-cookbook.json");
+    handler.writeToFile(savedCookbook, "../persistence/storage/remote-cookbook.json");
     wireMockServer.stop();
   }
 
