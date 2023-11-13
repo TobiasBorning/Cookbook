@@ -179,7 +179,7 @@ public class EditRecipeController {
             } else if (textField.getPromptText().equals("amount")) {
               amount = textField;
             }
-            if (ingredientName != null && amount != null) {
+            if (ingredientName != null && amount != null  && !ingredientName.getText().equals("")) {
               String ingredientNameString = ingredientName.getText();
               String amountString = amount.getText();
               ingredients.put(ingredientNameString, amountString);

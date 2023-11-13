@@ -24,7 +24,7 @@ public class LocalCookbookAccess implements CookbookAccess {
     try {
       return ch.readFromFile(path);
     } catch (FileNotFoundException e) { 
-      return null;
+      return new Cookbook();
     }
   }
 

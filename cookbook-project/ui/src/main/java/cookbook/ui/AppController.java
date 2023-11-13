@@ -97,11 +97,11 @@ public class AppController {
     // set remote or local cookbook access depending on connection, override = 
     // true always connects to local
     setAccessType(false);
-    cookbook = cookbookAccess.fetchCookbook();
+    this.cookbook = cookbookAccess.fetchCookbook();
     // set Vbox height to fit all recipes
-    recipeList.setMinHeight(cookbook.getRecipes().size() * 69.5);
+    recipeList.setMinHeight(this.cookbook.getRecipes().size() * 69.5);
     // fill cookbook with all recipes
-    fillCookbook(cookbook);
+    fillCookbook(this.cookbook);
   }
 
   /**

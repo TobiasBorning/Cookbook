@@ -111,7 +111,7 @@ public class AddRecipeController {
             } else if ("amount".equals(textField.getPromptText())) {
               amount = textField;
             }
-            if (ingredientName != null && amount != null) {
+            if (ingredientName != null && amount != null && !ingredientName.getText().equals("")) {
               ingredients.put(ingredientName.getText(), amount.getText());
             }
           }
