@@ -11,6 +11,7 @@ This is group 22's IT1901 project. We have made a cookbook app that helps people
 ---
 Documentation for release 1 can be found [here](/docs/release1.md)  
 Documentation for release 2 can be found [here](/docs/release2.md) 
+Documentation for release 3 can be found [here](/docs/release3.md)
 
 ## _Running the application_
 ---
