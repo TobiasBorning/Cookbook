@@ -6,22 +6,16 @@
         "tomatoes": "55.0",
         "groundBeef": "150.0",
         "lettuce": "50.0",
-        "tacoShell": "20.0",
+        "tacoShell": "2.0",
         "salsa": "30.0",
         "cheese": "100.0"
       },
       "originCountry": "Mexico",
       "description": "Begin by browning the beef, adding a blend of cumin, chili powder, garlic powder, oregano, and salt. Once browned, stir in tomato sauce, simmering until the mixture thickens slightly. Warm taco shells, fill with the savory meat, and top with cheese, lettuce, tomatoes, salsa, or your preferred toppings.",
       "favorite": false,
-      "isVegan": true,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": false,
+      "glutenFree": false,
+      "lactoseFree": true,
       "type": "Dinner"
     },
     {
@@ -36,16 +30,10 @@
       },
       "originCountry": "Italy",
       "description": "Spread pizza dough onto a pan, applying a generous layer of tomato sauce. Sprinkle cheese uniformly and add toppings such as pepperoni, mushrooms, and onions. Bake until the crust turns golden and the cheese bubbles. Allow to cool slightly, slice, and serve.",
-      "favorite": true,
-      "isVegan": true,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "favorite": false,
+      "vegan": false,
+      "glutenFree": true,
+      "lactoseFree": true,
       "type": "Dinner"
     },
     {
@@ -55,45 +43,33 @@
         "spaghetti": "200.0",
         "onions": "30.0",
         "tomatoSauce": "150.0",
-        "oregano": "59.0 g",
+        "oregano": "5.0",
         "groundBeef": "250.0"
       },
       "originCountry": "Italy",
       "description": "Cook the spaghetti according to package instructions until al dente. In a separate pan, saut?? onions and garlic until translucent. Add ground beef and cook until browned. Combine with tomato sauce and simmer. Season with oregano and serve atop the cooked spaghetti.",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": true,
+      "glutenFree": false,
+      "lactoseFree": false,
       "type": "Dinner"
     },
     {
       "name": "Chicken Stir-Fry",
       "ingredients": {
         "bellPeppers": "100.0",
-        "ginger": "100.0 g",
+        "ginger": "10.0",
         "broccoli": "150.0",
         "soySauce": "30.0",
         "rice": "200.0",
-        "chickenBreast": "700.0"
+        "chickenBreast": "300.0"
       },
       "originCountry": "China",
       "description": "In a wok or large pan, saut?? diced chicken breast until fully cooked. Remove from pan and stir-fry bell peppers and broccoli until slightly tender. Add cooked chicken back to the pan, stir in soy sauce and ginger, and continue cooking for a few more minutes. Serve with cooked rice.",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": true,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": false,
+      "glutenFree": true,
+      "lactoseFree": false,
       "type": "Dinner"
     },
     {
@@ -108,15 +84,9 @@
       "originCountry": "Italy",
       "description": "Grill or pan-sear chicken breasts until fully cooked and then slice them. In a large bowl, combine lettuce, croutons, and parmesan cheese. Toss with caesar dressing and top with the cooked, sliced chicken breast.",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": false,
+      "glutenFree": false,
+      "lactoseFree": false,
       "type": "Dinner"
     },
     {
@@ -132,15 +102,9 @@
       "originCountry": "Italy",
       "description": "Cook spaghetti until al dente. In a separate pan, cook bacon until crisp, then stir in garlic briefly. Beat eggs, parmesan, and heavy cream together, then combine with the hot, drained pasta, cooking slightly to create a creamy sauce. Add bacon, season, and serve with additional cheese.",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": true,
+      "glutenFree": false,
+      "lactoseFree": true,
       "type": "Dinner"
     },
     {
@@ -156,15 +120,9 @@
       "originCountry": "India",
       "description": "Saut?? chopped potatoes, carrots, and peas in a large pan. Once slightly tender, add curry paste and continue saut??ing for a few minutes. Add coconut milk and simmer until vegetables are cooked through. Serve with cooked rice.",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": true,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": false,
+      "glutenFree": false,
+      "lactoseFree": false,
       "type": "Dinner"
     },
     {
@@ -179,15 +137,9 @@
       "originCountry": "Italy",
       "description": "Saut?? onions and mushrooms until browned. Add arborio rice and continue to saut?? for a few minutes. Gradually add vegetable broth, continuously stirring, until rice is fully cooked. Near the end of cooking, stir in white wine and cook until evaporated.",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": false,
+      "glutenFree": false,
+      "lactoseFree": false,
       "type": "Dinner"
     },
     {
@@ -202,15 +154,9 @@
       "originCountry": "Greece",
       "description": "Preheat the oven to 375??F (190??C). In a pan, saut?? spinach and garlic until wilted, then mix with crumbled feta cheese. Slice a pocket into each chicken breast and stuff it with the spinach and feta mixture. Seal with toothpicks and bake until the chicken is cooked through. Drizzle with lemon juice before serving.",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": false,
+      "glutenFree": false,
+      "lactoseFree": false,
       "type": "Dinner"
     },
     {
@@ -224,15 +170,9 @@
       "originCountry": "Norway",
       "description": "Preheat the oven to 375??F (190??C). Place the salmon filet on a baking sheet and drizzle with olive oil and freshly squeezed lemon juice, then sprinkle with dill. Bake until the salmon is cooked through and flakes easily with a fork.",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": false,
+      "glutenFree": false,
+      "lactoseFree": false,
       "type": "Dinner"
     },
     {
@@ -247,15 +187,9 @@
       "originCountry": "America",
       "description": "Lay out a tortilla and spread a generous layer of hummus over the entire surface. Add slices of cucumber and bell peppers, then top with lettuce. Roll the tortilla tightly, slice in half, and serve.",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": false,
+      "glutenFree": false,
+      "lactoseFree": false,
       "type": "Dinner"
     },
     {
@@ -269,15 +203,9 @@
       "originCountry": "Brazil",
       "description": "In a large bowl, combine chopped strawberries, kiwi, and grapes. Drizzle with honey and gently toss until all the fruit is coated. Serve immediately, or refrigerate for later use.",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": false,
+      "glutenFree": false,
+      "lactoseFree": false,
       "type": "Dessert"
     },
     {
@@ -292,15 +220,9 @@
       "originCountry": "America",
       "description": "In a pot, combine rolled oats and milk. Cook over medium heat, stirring frequently, until the oats are soft and have absorbed most of the milk. Add sliced banana and honey, stirring until combined. Sprinkle with cinnamon before serving.",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": false,
+      "glutenFree": false,
+      "lactoseFree": false,
       "type": "Breakfast"
     },
     {
@@ -311,15 +233,9 @@
       "originCountry": "Italia",
       "description": "Yummt",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": false,
+      "glutenFree": false,
+      "lactoseFree": false,
       "type": "Dinner"
     },
     {
@@ -330,15 +246,9 @@
       "originCountry": "India",
       "description": "digg",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": false,
+      "glutenFree": false,
+      "lactoseFree": false,
       "type": "Dinner"
     },
     {
@@ -353,15 +263,9 @@
       },
       "originCountry": "Italy",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": true,
+      "glutenFree": false,
+      "lactoseFree": true,
       "type": "Dinner"
     },
     {
@@ -373,176 +277,25 @@
       "originCountry": "mexico",
       "description": "yummy",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": false,
+      "glutenFree": false,
+      "lactoseFree": false,
       "type": "Unknown"
     },
     {
       "name": "Water",
       "ingredients": {
+        "minerals": "10000g",
         "salt": "10g",
         "water": "1l"
       },
       "originCountry": "Norway",
       "description": "Water is good ad super healty",
       "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Unknown"
-    },
-    {
-      "name": "Tomatsuppe",
-      "ingredients": {
-        "Macaroni": "4 dl ",
-        "Tomatos": "1 kg"
-      },
-      "originCountry": "Norway",
-      "description": "With eggs and macaroni",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": true,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
+      "vegan": false,
+      "glutenFree": true,
+      "lactoseFree": true,
       "type": "Dinner"
-    },
-    {
-      "name": "Water",
-      "ingredients": {
-        "salt": "10g",
-        "water": "1l"
-      },
-      "originCountry": "Norway",
-      "description": "Water is good ad super healty",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Unknown"
-    },
-    {
-      "name": "Water",
-      "ingredients": {
-        "salt": "10g",
-        "water": "1l"
-      },
-      "originCountry": "Norway",
-      "description": "Water is good ad super healty",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Unknown"
-    },
-    {
-      "name": "Water",
-      "ingredients": {
-        "salt": "10g",
-        "water": "1l"
-      },
-      "originCountry": "Norway",
-      "description": "Water is good ad super healty",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Unknown"
-    },
-    {
-      "name": "Water",
-      "ingredients": {
-        "salt": "10g",
-        "water": "1l"
-      },
-      "originCountry": "Norway",
-      "description": "Water is good ad super healty",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Unknown"
-    },
-    {
-      "name": "Water",
-      "ingredients": {
-        "salt": "10g",
-        "water": "1l"
-      },
-      "originCountry": "Norway",
-      "description": "Water is good ad super healty",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Unknown"
-    },
-    {
-      "name": "Water",
-      "ingredients": {
-        "salt": "10g",
-        "water": "1l"
-      },
-      "originCountry": "Norway",
-      "description": "Water is good ad super healty",
-      "favorite": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isLactoseFree": false,
-      "types": [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Dessert"
-      ],
-      "type": "Unknown"
     }
   ]
 }

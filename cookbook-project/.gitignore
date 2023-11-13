@@ -9,3 +9,5 @@ org.eclipse.*.prefs
 .DS_Store
 checkstyle-results.txt
 cookbook.json
+
+storage/

@@ -23,7 +23,10 @@ public class Cookbook {
     if (recipe == null) {
       throw new IllegalArgumentException("Invalid recipe");
     }
-    if (recipes.contains(recipe)) {
+    else if (recipes.stream().map(r -> r.getName().strip().toLowerCase())
+        .collect(Collectors.toList())
+        .contains(recipe.getName().strip().toLowerCase())) {
+      System.out.println("Recipe already in cookbook");
       throw new IllegalArgumentException("Recipe already in cookbook");
     }
     recipes.add(recipe);

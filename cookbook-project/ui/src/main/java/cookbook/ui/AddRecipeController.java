@@ -2,7 +2,6 @@
 package cookbook.ui;
 
 import cookbook.accessdata.CookbookAccess;
-import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
 import java.io.IOException;
 import java.util.HashMap;
@@ -14,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -44,6 +44,9 @@ public class AddRecipeController {
   private CheckBox lactosefreeCheckBox;
   @FXML
   private CheckBox glutenFreeCheckBox;
+
+  @FXML
+  private Label feedbackLabel;
 
   private int ingredientCount = 0;
 
@@ -108,19 +111,20 @@ public class AddRecipeController {
             } else if ("amount".equals(textField.getPromptText())) {
               amount = textField;
             }
-            if (ingredientName != null && amount != null) {
+            if (ingredientName != null && amount != null && !ingredientName.getText().equals("")) {
               ingredients.put(ingredientName.getText(), amount.getText());
             }
           }
         }
       }
     }
-
     this.recipe = new Recipe(recipeNameString, ingredients, inputOrigin, inputType,
         descriptionString, false, isVegetarian, isGlutenFree, isLactoseFree);
-    addRecipe(recipe);
-
-    switchToMainScene(e);
+    if (addRecipe(recipe)) {
+      switchToMainScene(e);
+    } else {
+      feedbackLabel.setText("Name already exists!");
+    }
   }
 
   /**
@@ -128,8 +132,16 @@ public class AddRecipeController {
    *
    * @param recipe The recipe to add.
    */
-  private void addRecipe(Recipe recipe) {
-    cookbookAccess.addRecipe(recipe);
+  private boolean addRecipe(Recipe recipe) {
+    try {
+      cookbookAccess.addRecipe(recipe);
+      return true;
+    } catch (IllegalArgumentException e) {
+      return false;
+    } catch (RuntimeException e) {
+      System.out.println("Error adding recipe: " + e.getMessage());
+      return false;
+    } 
   }
 
   /**

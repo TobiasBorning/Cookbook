@@ -16,7 +16,7 @@ import java.net.http.HttpResponse;
 public class RemoteCookbookAccess implements CookbookAccess {
   
   private Gson gson = new Gson();
-  private URI uri;
+  private URI uri = null;
 
   /**
    * Connects to the springboot-server. 
@@ -24,7 +24,9 @@ public class RemoteCookbookAccess implements CookbookAccess {
    */
   private void connect() {
     try {
-      this.uri = new URI("http://localhost:8080/api/");
+      if (uri == null) {
+        this.uri = new URI("http://localhost:8080/api/");
+      }
     } catch (Exception e) {
       System.out.println("URI not found");
       this.uri = null;
@@ -35,9 +37,10 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * Fetches the entire cookbook.
    *
    * @return the cookbook, or null if the file is not found.
+   * @throws RuntimeException if the cookbook could not be fetched.
    */
   @Override
-  public Cookbook fetchCookbook() {
+  public Cookbook fetchCookbook() throws RuntimeException {
     connect();
     try {
       HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook"))
@@ -49,11 +52,15 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      //System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
-      return ut;
+      //System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());  breaks the test
+      if (response.statusCode() == 200) {
+        return ut;
+      } else {
+        throw new RuntimeException("Failed to fetch cookbook");
+      }
     } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
-      return new Cookbook(); //returns empty cookbook in case of error
+      throw new RuntimeException("Failed to fetch cookbook");
     }
   }
 
@@ -62,9 +69,10 @@ public class RemoteCookbookAccess implements CookbookAccess {
    *
    * @param recipeName the name or part of the name to search for.
    * @return a cookbook containing the matching recipes.
+   * @throws RuntimeException if the cookbook could not be fetched.
    */
   @Override
-  public Cookbook searchRecipe(String recipeName) {
+  public Cookbook searchRecipe(String recipeName) throws RuntimeException {
     connect();
     String encodedName;
     encodedName = recipeName.replace(" ", "%20");
@@ -77,11 +85,15 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
-      return ut;
+      // System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());  Breaks tests
+      if (response.statusCode() == 200) {
+        return ut;
+      } else {
+        throw new RuntimeException("Failed to search for recipe");
+      }
     } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
-      return new Cookbook(); //returns empty cookbook in case of error
+      throw new RuntimeException("Failed to search for recipe");
     }
   }
 
@@ -90,9 +102,10 @@ public class RemoteCookbookAccess implements CookbookAccess {
    *
    * @param origin the country of origin to filter by.
    * @return a cookbook containing the matching recipes.
+   * @throws RuntimeException if the cookbook could not be fetched.
    */
   @Override
-  public Cookbook filterByOrigin(String origin) {
+  public Cookbook filterByOrigin(String origin) throws RuntimeException {
     connect();
     try {
       HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/origin/" + origin))
@@ -104,11 +117,14 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
-      return ut;
+      if (response.statusCode() == 200) {
+        return ut;
+      } else {
+        throw new RuntimeException("Failed to filter by origin");
+      }
     } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
-      return new Cookbook(); //returns empty cookbook in case of error
+      throw new RuntimeException("Failed to filter by origin");
     }
   }
 
@@ -117,9 +133,10 @@ public class RemoteCookbookAccess implements CookbookAccess {
    *
    * @param type the type to filter by.
    * @return a cookbook containing the matching recipes.
+   * @throws RuntimeException if the cookbook could not be fetched.
    */
   @Override
-  public Cookbook filterByType(String type) {
+  public Cookbook filterByType(String type) throws RuntimeException {
     connect();
     try {
       HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/type/" + type))
@@ -131,11 +148,15 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
-      return ut;
+      // System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList()); breaks the test
+      if (response.statusCode() == 200) {
+        return ut;
+      } else {
+        throw new RuntimeException("Failed to filter by type");
+      }
     } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
-      return new Cookbook(); //returns empty cookbook in case of error
+      throw new RuntimeException("Failed to filter by type");
     }
   }
 
@@ -143,9 +164,10 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * Filters recipes that are marked as favorite.
    *
    * @return a cookbook containing the favorite recipes.
+   * @throws RuntimeException if the cookbook could not be fetched.
    */
   @Override
-  public Cookbook filterByFavorite() {
+  public Cookbook filterByFavorite() throws RuntimeException {
     connect();
     try {
       HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/favorites"))
@@ -157,11 +179,15 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
-      return ut;
+      // System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList()); breaks the test
+      if (response.statusCode() == 200) {
+        return ut;
+      } else {
+        throw new RuntimeException("Failed to filter by favorite");
+      }
     } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
-      return new Cookbook(); //returns empty cookbook in case of error
+      throw new RuntimeException("Failed to filter by favorite");
     }
   }
 
@@ -170,9 +196,10 @@ public class RemoteCookbookAccess implements CookbookAccess {
    *
    * @param vlg a string representing user preferences.
    * @return a cookbook containing the matching recipes.
+   * @throws RuntimeException if the request fails.
    */
   @Override
-  public Cookbook filterByPreferences(String vlg) {
+  public Cookbook filterByPreferences(String vlg) throws RuntimeException {
     // String TTT if user is vegetarian, lactose intolerant and gluten intolerant
     // String TTF if the user is vegetarian and lactose intolerant but not gluten intolerant
     // ... and so on
@@ -187,11 +214,15 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
-      return ut;
+      // System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList()); breaks the test
+      if (response.statusCode() == 200) {
+        return ut;
+      } else {
+        throw new RuntimeException("Failed to filter by preferences");
+      }
     } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
-      return new Cookbook(); //returns empty cookbook in case of error
+      throw new RuntimeException("Failed to filter by preferences");
     }
   }
 
@@ -199,9 +230,10 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * Updates a recipe in the cookbook.
    *
    * @param recipe the recipe to add.
+   * @throws RuntimeException if the recipe could not be updated.
    */
   @Override
-  public void updateRecipe(Recipe recipe) {
+  public void updateRecipe(Recipe recipe) throws RuntimeException { //throws runtimeExceiption?
     connect();
     try {
       String encodedName;
@@ -221,10 +253,10 @@ public class RemoteCookbookAccess implements CookbookAccess {
       if (response.statusCode() == 200) {
         System.out.println("Updated recipe");
       } else {
-        System.out.println("Error updating recipe");
+        throw new RuntimeException("Failed to update recipe");
       }
     } catch (InterruptedException | IOException e) {
-      System.out.println(e.getMessage());
+      throw new RuntimeException("Failed to update recipe");
     }
   }
 
@@ -232,9 +264,11 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * Removes a recipe from the cookbook.
    *
    * @param recipeName the name of the recipe to remove.
+   * @return true if the recipe was removed, false otherwise.
+   * @throws RuntimeException if the recipe could not be removed.
    */
   @Override
-  public boolean removeRecipe(String recipeName) {
+  public boolean removeRecipe(String recipeName) throws RuntimeException {
     connect();
     try {
       String encodedName;
@@ -259,8 +293,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
         return false;
       }
     } catch (InterruptedException | IOException e) {
-      System.out.println("Error sending request");
-      return false;
+      throw new RuntimeException();
     }
   }
 
@@ -268,10 +301,15 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * Adds a recipe to the cookbook.
    *
    * @param recipe the recipe to add. 
+   * @throws RuntimeException if the recipe could not be added.
+   * @throws IllegalArgumentException if the recipe name is empty or in cookbook.
    */
   @Override
-  public void addRecipe(Recipe recipe) {
+  public void addRecipe(Recipe recipe) throws RuntimeException, IllegalArgumentException {
     connect();
+    if (recipe.getName().strip().isEmpty()) {
+      throw new IllegalArgumentException("Recipe name cannot be empty");
+    }
     try {
       HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook"))
           .header("Accept", "application/json")
@@ -286,10 +324,10 @@ public class RemoteCookbookAccess implements CookbookAccess {
       if (response.statusCode() == 200) {
         System.out.println("Added recipe");
       } else {
-        System.out.println("Error adding recipe");
+        throw new IllegalArgumentException("Could not add recipe");
       }
     } catch (InterruptedException | IOException e) {
-      System.out.println("Error sending request");
+      throw new RuntimeException("Error adding recipe");
     }
   }
 
@@ -297,13 +335,14 @@ public class RemoteCookbookAccess implements CookbookAccess {
    * Adds a recipe to the favorites.
    *
    * @param recipe the name of the recipe to toggle
+   * @throws RuntimeException if the recipe could not be toggled.
    */
-  public void toggleFavorite(Recipe recipe) {
+  public void toggleFavorite(Recipe recipe) throws RuntimeException {
     connect();
     try {
       String encodedName;
       encodedName = recipe.getName().replace(" ", "%20");
-      String state = !recipe.isFavorite() + "";
+      String state = !recipe.getFavorite() + "";
       HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/favorite/" + encodedName))
           .header("Accept", "application/json")
           .header("Content-Type", "application/json")
@@ -317,10 +356,19 @@ public class RemoteCookbookAccess implements CookbookAccess {
       if (response.statusCode() == 200) {
         System.out.println(recipe.getName() + " is favorite: " + state);
       } else {
-        System.out.println("Error updating recipe");
+        throw new RuntimeException("Error favoriting recipe");
       }
     } catch (InterruptedException | IOException e) {
-      System.out.println(e.getMessage());
+      throw new RuntimeException("Error favoriting recipe");
     }
+  }
+
+  /**
+   * Sets the URI of the server.
+   *
+   * @param uri the URI of the server.
+   */ 
+  public void setUri(URI uri) {
+    this.uri = uri;
   }
 }

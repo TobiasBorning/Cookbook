@@ -1,0 +1,55 @@
+@startuml cookbook
+title "Cookbook project structure" 
+
+component "Core Module" as core {
+  package cookbook.core {
+    card "Class Recipe"
+    card "Class Cookbook"   
+}
+}
+
+component "Persistence Module" as persistence {
+  package cookbook.json {
+      card "Class Cookbookhandler"
+  }
+  folder storage {
+    file "local-cookbook.json"
+    file "remote-cookbook.json"
+    file "ui-test-cookbook.json"
+    file "persistence-test-cookbook.json"
+    file "default-cookbook.json"
+  }
+}
+
+component "Ui Module" as ui {
+  package cookbook.ui {
+      card "Class AddRecipeController"
+      card "Class RecipeViewController"
+      card "Class CookbookApp"
+      card "Class Appcontroller"
+      card "Class EditRecipeController"
+  }
+  package cookbook.accessdata {
+      card "Class CookbookAccess"
+      card "Class LocalCookbookAccess"
+      card "Class RemoteCookbookAccess"
+  }
+}
+
+component "Springboot module" as springboot {
+  package cookbook.springboot {
+      card "Class CookbookModelApplication"
+      card "Class CookbookController"
+      card "Class CookbookService"
+  }
+}
+
+ui -up-> core : UI depends on Core
+persistence -up-> core : Persistence depends on Core
+ui -right-> persistence : UI depends on Persistence
+ui -down-> springboot : UI depends on Springboot
+springboot -right-> core : Springboot depends on Core
+springboot -up-> persistence : Springboot depends on Persistence
+
+
+@enduml

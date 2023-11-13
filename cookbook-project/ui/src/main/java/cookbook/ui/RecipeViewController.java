@@ -49,34 +49,32 @@ public class RecipeViewController {
   /**
    * Loads the recipe details into the view.
    *
-   * @param recipe The recipe object containing the details to be displayed.
+   * @param loadedRecipe The recipe object containing the details to be displayed.
    */
-  public void loadRecipe(Recipe recipe) {
-    this.recipe = recipe;
-
+  public void loadRecipe(Recipe loadedRecipe) {
+    this.recipe = loadedRecipe;
     origin.setFont(new Font("Arial", 16));
     description.setFont(new Font("Arial", 14));
     type.setFont(new Font("Arial", 14));
     ingredients.setFont(new Font("Arial", 14));
-
     recipeName.setText(recipe.getName());
     description.setWrapText(true);
     description.setText(recipe.getDescription());
     type.setText(recipe.getType());
     origin.setText(recipe.getOriginCountry());
-    if (recipe.isVegan()) {
+    if (recipe.getVegan()) {
       vegan.setText("Yes");
-    } else if (!recipe.isVegan()) {
+    } else if (!recipe.getVegan()) {
       vegan.setText("No");
     }
-    if (recipe.isLactoseFree()) {
+    if (recipe.getLactoseFree()) {
       lactosefree.setText("Yes");
-    } else if (!recipe.isLactoseFree()) {
+    } else if (!recipe.getLactoseFree()) {
       lactosefree.setText("No");
     }
-    if (recipe.isGlutenFree()) {
+    if (recipe.getGlutenFree()) {
       glutenfree.setText("Yes");
-    } else if (!recipe.isGlutenFree()) {
+    } else if (!recipe.getGlutenFree()) {
       glutenfree.setText("No");
     }
     //legger til liste med ingredienser
