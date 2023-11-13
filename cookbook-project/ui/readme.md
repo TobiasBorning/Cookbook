@@ -1,4 +1,4 @@
-# Ui module
+# __Ui module__
 
 The ui module is responsible for the application's frontend. It is built using JavaFX and FXML. It uses FXML files and their respected controller for navigating between scenes. The frontend is responsible for displaying the recipes in the cookbook, adding a recipe, editing a recipe and deleting a recipe. The ui module requires access to the core, springboot and persistence module in order to function properly. It is set up to work with either a localy stored cookbook file or using requests to a REST-API.
 
@@ -26,6 +26,11 @@ The ui module is responsible for the application's frontend. It is built using J
 - The CookbookAppTest uses FxRobot for testing the apps GUI. It provides assurance that actions in the app lead to the correct outcome. What one presses in the app should correspond to what is expected to happen. The tests are performed by using the onClick() command with the elements' CSS ids. 
 - The LocalCookbookAccessTest tests all the methods in the LocalCookbookAccess class. In other words, it tests that the methods work properly on the local cookbook. 
 - The RemoteCookbookAccessTest 
+---
+
+### _**Class Diagram**_:
+![Class Diagram](../../diagrams/resources/classDiagramUI.png)
+
 ---
 
 This module has its own pom.xml file, which is responsible for building the module with its respected dependencies and plugins, such as JaCoCo, Checkstyle and Spotbugs.

@@ -1,0 +1,31 @@
+@startuml cookbook
+title "Cookbook project structure" 
+
+[Core Module] -down-> [Ui Module] : Depends
+[Core Module] -down-> [Persistence Module] : Depends
+[Persistence Module] -down-> [Ui Module] : Depends
+
+
+package cookbook.core {
+    card "Class Recipe"
+    card "Class Cookbook"   
+}
+
+package cookbook.json {
+    card "Class Cookbookhandler"
+    file "cookbook.json file"  
+}
+
+package cookbook.ui {
+    card "Class AddRecipeController"
+    card "Class RecipeViewController"
+    card "Class CookbookApp"
+    card "Class Appcontroller"
+}
+
+
+[Ui Module] -right- cookbook.ui
+[Persistence Module] -right- cookbook.json
+[Core Module] -right- cookbook.core
+
+@enduml

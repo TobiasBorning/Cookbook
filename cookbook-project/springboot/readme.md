@@ -1,4 +1,4 @@
-# Springboot module
+# __Springboot module__
 
 This module is responsible for creating a REST API, which can be used by multiple frontends by using the proper REST API calls. The REST API is created using the Springboot framework. The frontend is set up to be able to use the REST API created by this module. To fetch data from the API, you can use different REST HTTP-requests when connected to http://localhost:8080/api  
 
@@ -59,6 +59,12 @@ To start the springboot server, you need to navigate to the springboot module an
 
 ### _**Tests**_
 * [CookbookModelApplicationTest](/cookbook-project/springboot/src/test/java/cookbook/springboot/CookbookModelApplicationTest.java) - Tests the REST API using HTTP-requests with Mockito.
+
+---
+
+### **Testing the REST API**
+We use Mockito to test the REST-API. Mockito is a Java based framwork for mocking objects. We use it to mock the HTTP-requests and test the REST-API using MockMvc. The MockMvc object is given the context of the classes in the _cookbook.springboot_ package, as well as a _GsonHttpMessageConverter_ for parsing Cookbook objects. We use the _@AutoConfigureMockMvc_ to create the MockMvc. The MockMvc mocks _localhost:8080/api_, making it possible to test the api without actually running the server.
+
 
 ---
 This module has its own pom.xml file, which is responsible for building the module with its respected dependencies and plugins, such as Springboot, JaCoCo, Checkstyle, Spotbugs and Gson.

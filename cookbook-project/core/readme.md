@@ -1,6 +1,6 @@
-# Core module
+# __Core module__
 
-The core module is responsible for the logic of the cookbook app, also knows as the model domain. It is responsible for the internal representation of the cookbook and recipe objects. **//TODO link til klassediagram**
+The core module is responsible for the logic of the cookbook app, also knows as the model domain. It is responsible for the internal representation of the cookbook and recipe objects.
 
 ---
 ### _**Packages**_:
@@ -13,6 +13,10 @@ The core module is responsible for the logic of the cookbook app, also knows as 
 ### _**Tests**_  
 * **[RecipeTest](/gr2322/cookbook-project/core/src/test/java/cookbook/core/RecipeTest.java)** - Tests the Recipe class.
 * **[CookbookTest](/gr2322/cookbook-project/core/src/test/java/cookbook/core/CookbookTest.java)** - Tests the Cookbook class.
+
+---
+### _**Class Diagram**_:
+![Class Diagram](../../diagrams/resources/classDiagramCore.png)
 
 ---
 This module has its own pom.xml file, which is responsible for building the module with its respected dependencies and plugins, such as JaCoCo, Checkstyle and Spotbugs.
