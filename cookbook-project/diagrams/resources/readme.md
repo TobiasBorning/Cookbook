@@ -1,5 +1,5 @@
 ## Package diagram
-A package diagram for our application.
+A package diagram for our application. This package diagram shows how the modules interacts with eachother
 
 ![package](packageDiagram.png)
 
@@ -13,12 +13,7 @@ This class diagram is an overview of the classes in the UI module and shows whic
 
 ![class](classDiagramUI.png)
 
-## Sequense Diagram 1
-This sequense diagram shows the initialization of the application. This diagram apllies when the server is live. 
-
-![sequence](sequenseDiagram1.png)
-
 ## Sequense Diagram
-This sequense diagram shows an user adding an recipe to his cookbook.  This diagram applies when the server is up and running.
+This sequense diagram shows an user adding an recipe to his cookbook. This diagram applies when the server is up and running.
 
 ![sequence](sequenseDiagram2.png)

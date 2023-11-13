@@ -3,8 +3,9 @@
 title Package diagram
 
 component core{
-    folder cookbook.core   
+    folder cookbook.core
 }
+cookbook.core ..> GSON
 
 component persistence{
     folder cookbook.json
@@ -20,9 +21,9 @@ component ui{
     folder cookbook.accessdata
 }
 
-component javafx {
-	component fxml {
-	}
+component javafx {	
+}
+component fxml {
 }
 
 ui ..> javafx
@@ -30,20 +31,23 @@ ui ..> fxml
 cookbook.ui ..> cookbook.accessdata
 
 
-component "springboot" as springboot.restserver  {
+component "springboot" as springboot {
     folder cookbook.springboot
 }
 
-component "Spring Boot" as springboot{
+component "springboot" as springbootdependency{
 }
 
 cookbook.accessdata ..> cookbook.json
 cookbook.accessdata ..> cookbook.core
 cookbook.accessdata ..> cookbook.springboot
+cookbook.accessdata ..> GSON
+
 cookbook.springboot ..> cookbook.core
 cookbook.springboot ..> cookbook.json
+cookbook.springboot ..> GSON
 
-springboot.restserver ..> springboot
+cookbook.springboot ..> springbootdependency
 
 skinparam folder{
     BackgroundColor Yellow
