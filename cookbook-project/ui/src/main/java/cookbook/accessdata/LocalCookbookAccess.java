@@ -38,7 +38,7 @@ public class LocalCookbookAccess implements CookbookAccess {
   @Override
   public Cookbook searchRecipe(String recipeName) {
     Collection<Recipe> searched = fetchCookbook()
-        .filterRecipies(recipe -> recipe.getName()
+        .filterRecipes(recipe -> recipe.getName()
         .toLowerCase().contains(recipeName.toLowerCase()));
     Cookbook tmpCookbook = new Cookbook();
     for (Recipe recipe : searched) {
@@ -57,7 +57,7 @@ public class LocalCookbookAccess implements CookbookAccess {
   @Override
   public Cookbook filterByOrigin(String origin) {
     Collection<Recipe> searched = fetchCookbook()
-        .filterRecipies(recipe -> recipe.getOriginCountry().equals(origin));
+        .filterRecipes(recipe -> recipe.getOriginCountry().equals(origin));
     Cookbook tmpCookbook = new Cookbook();
     for (Recipe recipe : searched) {
       tmpCookbook.addRecipe(recipe);
@@ -74,7 +74,7 @@ public class LocalCookbookAccess implements CookbookAccess {
   @Override
   public Cookbook filterByType(String type) {
     Collection<Recipe> searched = fetchCookbook()
-        .filterRecipies(recipe -> recipe.getType().equals(type));
+        .filterRecipes(recipe -> recipe.getType().equals(type));
     Cookbook tmpCookbook = new Cookbook();
     for (Recipe recipe : searched) {
       tmpCookbook.addRecipe(recipe);
@@ -90,7 +90,7 @@ public class LocalCookbookAccess implements CookbookAccess {
   @Override
   public Cookbook filterByFavorite() {
     Collection<Recipe> searched = fetchCookbook()
-        .filterRecipies(recipe -> recipe.getFavorite() == true);
+        .filterRecipes(recipe -> recipe.getFavorite() == true);
     Cookbook tmpCookbook = new Cookbook();
     for (Recipe recipe : searched) {
       tmpCookbook.addRecipe(recipe);

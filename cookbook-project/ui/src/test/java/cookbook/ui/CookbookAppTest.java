@@ -112,7 +112,6 @@ public class CookbookAppTest extends ApplicationTest {
         assertEquals(List.of("Pasta Carbonara"), getRecipeNames());
     
         searchRecipe("");
-        sleep(1000);
         assertEquals(10, getCookbookSize());
 
         searchRecipe("unavaliable");
@@ -153,32 +152,21 @@ public class CookbookAppTest extends ApplicationTest {
 
     @Test
     public void filterOriginTest(){
-        clickOn("#filter");
-        sleep(500);
+        clickOn("#originFilter");
         clickOn("America");
         clickOn("#filterByOrigin");
         assertEquals(2, getCookbookSize());
         assertEquals(List.of("Oatmeal", "Veggie Wrap"), getRecipeNames());
-        clickOn("#filter");
-        sleep(500);
+        clickOn("#originFilter");
         clickOn("All origins");
         clickOn("#filterByOrigin");
         assertEquals(10, getCookbookSize());
         assertEquals(List.of("Taco", "Pizza", "Spaghetti Bolognese", "Chicken Stir-Fry", "Caesar Salad", "Pasta Carbonara", "Oatmeal", "Vegetable Curry", "Veggie Wrap", "Nachos"), getRecipeNames());
     }
 
-    // @Test - should remove this test as it make other tests fail AND remove is tested in another test
-    public void removeRecipeTest(){
-        assertEquals(10, getCookbookSize());
-        assertTrue(containsRecipe("Pizza"));
-        clickOn("#removePizza");
-        assertEquals(9, getCookbookSize());
-        assertFalse(containsRecipe("Pizza"));
-    }
     @Test
     public void addExistingRecipeTest(){
         clickOn("#addRecipeButton");
-        sleep(1000);
         //Add Taco recipe
         clickOn("#addRecipeName").write("Taco");
         //add ingredient 1
@@ -196,7 +184,6 @@ public class CookbookAppTest extends ApplicationTest {
     public void addAndRemoveRecipeTest() {
         // navigate to add recipe scene
         clickOn("#addRecipeButton");
-        sleep(500);
 
         //Check that the add recipe pane is loaded
         Node addNode = lookup("#addRecipePane").query();
@@ -244,7 +231,6 @@ public class CookbookAppTest extends ApplicationTest {
         // navigate to edit recipe scene
         clickOn("#viewPizza");
         clickOn("#editRecipeButton");
-        sleep(500);
         clickOn("#ingredientAmount1").press(KeyCode.SHORTCUT).press(KeyCode.A).release(KeyCode.A).release(KeyCode.SHORTCUT).type(KeyCode.BACK_SPACE);
         clickOn("#ingredientAmount1").write("400.0");
         clickOn("#saveChangesButton");
@@ -300,30 +286,25 @@ public class CookbookAppTest extends ApplicationTest {
     @Test
     public void typeFilterTest(){
         clickOn("#typeFilter");
-        sleep(200);
         clickOn("Dinner");
         clickOn("#filterByType");
         assertEquals(7, getCookbookSize());
         assertEquals(List.of("Taco", "Pizza", "Spaghetti Bolognese", "Chicken Stir-Fry", "Pasta Carbonara", "Vegetable Curry", "Nachos"), getRecipeNames());
         clickOn("#typeFilter");
-        sleep(200);
         clickOn("Lunch");
         clickOn("#filterByType");
         assertEquals(2, getCookbookSize());
         assertEquals(List.of("Caesar Salad", "Veggie Wrap"), getRecipeNames());
         clickOn("#typeFilter");
-        sleep(200);
         clickOn("Breakfast");
         clickOn("#filterByType");
         assertEquals(1, getCookbookSize());
         assertEquals(List.of("Oatmeal"), getRecipeNames());
-        // clickOn("#typeFilter");
-        // sleep(1000);
-        // clickOn("Dessert");
-        // clickOn("#filterByType");
-        // assertEquals(0, getCookbookSize());
         clickOn("#typeFilter");
-        sleep(200);
+        clickOn("Dessert");
+        clickOn("#filterByType");
+        assertEquals(0, getCookbookSize());
+        clickOn("#typeFilter");
         clickOn("All types");
         clickOn("#filterByType");
         assertEquals(10, getCookbookSize());

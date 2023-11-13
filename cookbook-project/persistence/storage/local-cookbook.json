@@ -90,24 +90,6 @@
       "type": "Dinner"
     },
     {
-      "name": "Pasta Carbonara",
-      "ingredients": {
-        "parmesanCheese": "30.0",
-        "bacon": "100.0",
-        "spaghetti": "215.0",
-        "egg": "2.0",
-        "heavyCream": "150.0",
-        "cheese": "50.0"
-      },
-      "originCountry": "Italy",
-      "description": "Cook spaghetti until al dente. In a separate pan, cook bacon until crisp, then stir in garlic briefly. Beat eggs, parmesan, and heavy cream together, then combine with the hot, drained pasta, cooking slightly to create a creamy sauce. Add bacon, season, and serve with additional cheese.",
-      "favorite": false,
-      "vegan": true,
-      "glutenFree": false,
-      "lactoseFree": true,
-      "type": "Dinner"
-    },
-    {
       "name": "Vegetable Curry",
       "ingredients": {
         "potatoes": "200.0",
@@ -230,7 +212,7 @@
       "ingredients": {
         "spaghetti": "10"
       },
-      "originCountry": "Italia",
+      "originCountry": "Italy",
       "description": "Yummt",
       "favorite": false,
       "vegan": false,
@@ -274,7 +256,7 @@
         "ost": "100g",
         "chips": "192"
       },
-      "originCountry": "mexico",
+      "originCountry": "Mexico",
       "description": "yummy",
       "favorite": false,
       "vegan": false,

@@ -84,11 +84,11 @@ public class CookbookTest {
     cookbook.addRecipe(testRecipe3);
         
     Predicate<Recipe> ingredientFilter = r -> r.getIngredients().containsKey("ingredient1");
-    Collection<Recipe> ingredient1recipes = cookbook.filterRecipies(ingredientFilter);
+    Collection<Recipe> ingredient1recipes = cookbook.filterRecipes(ingredientFilter);
     assertEquals(2, ingredient1recipes.size());
 
     Predicate<Recipe> isGlutenFree = r -> r.getGlutenFree();
-    Collection<Recipe> glutenFreeRecipes = cookbook.filterRecipies(isGlutenFree);
+    Collection<Recipe> glutenFreeRecipes = cookbook.filterRecipes(isGlutenFree);
     assertEquals(2, glutenFreeRecipes.size());
   }
 }

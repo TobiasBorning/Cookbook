@@ -68,7 +68,7 @@ public class Cookbook {
    *             can filter on origin countries of different dishes, or on certain grocery items
    * @return a Collection of Recipe objects
    */
-  public Collection<Recipe> filterRecipies(Predicate<Recipe> pred) {
+  public Collection<Recipe> filterRecipes(Predicate<Recipe> pred) {
     return recipes.stream().filter(pred).collect(Collectors.toList());
   }
   

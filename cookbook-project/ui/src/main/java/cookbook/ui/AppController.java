@@ -8,8 +8,11 @@ import cookbook.core.Recipe;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,15 +65,15 @@ public class AppController {
   @FXML
   private Label feedbackLabel;
   @FXML
-  private ChoiceBox<String> filterOrigin;
+  private ChoiceBox<String> originFilter;
   @FXML
-  private Button applyFilterButton;
+  private Button filterByOrigin;
   @FXML
   private Button allRecipesButton;
   @FXML
   private ChoiceBox<String> typeFilter;
   @FXML
-  private Button applyTypeFilterButton;
+  private Button filterByType;
   @FXML
   private CheckBox favoritesCheckBox;
   @FXML
@@ -205,6 +208,7 @@ public class AppController {
    */
   public void search() {
     // get search string
+    resetPreferences();
     try {
       String search = searchField.getText();
       if (search.isEmpty()) {
@@ -248,12 +252,12 @@ public class AppController {
     }
     //Add origins to the dropdown menu, if not duplicate
     for (String origin : origins) {
-      if (!filterOrigin.getItems().contains(origin) && origin != null) {
-        filterOrigin.getItems().add(origin);
+      if (!originFilter.getItems().contains(origin) && origin != null) {
+        originFilter.getItems().add(origin);
       }
     }
     //Set default value of dropdown
-    filterOrigin.setValue("All origins");
+    originFilter.setValue("All origins");
 
   }
 
@@ -266,7 +270,7 @@ public class AppController {
       favoritesCheckBox.setSelected(false);
       resetPreferences();
       //get value from dropdown
-      String filterValue = (String) filterOrigin.getValue();
+      String filterValue = (String) originFilter.getValue();
 
       //fill cookbook with filtered recipes
       if (filterValue.equals("All origins")) {
@@ -274,7 +278,7 @@ public class AppController {
       } else {
         fillCookbook(cookbookAccess.filterByOrigin(filterValue));
       }
-      filterOrigin.setValue(filterValue);
+      originFilter.setValue(filterValue);
     } catch (RuntimeException e) {
       feedbackLabel.setText("No recipes matching the origin");
       fillCookbook(new Cookbook());
@@ -283,23 +287,31 @@ public class AppController {
 
   private void fillTypeFilterDropdown() {
     //create empty set to add types to
-    Set<String> types = new HashSet<>();
-    //get recipes
-    Collection<Recipe> recipes = cookbook.getRecipes();
-
-    //Add no filter option
-    types.add("All types");
-
-    //Add all types from the recipes in cookbook
-    for (Recipe recipe : recipes) {
-      types.add(recipe.getType());
-    }
-    //Add types to the dropdown menu, if not duplicate
-    for (String type : types) {
+    //Set<String> types = new HashSet<>();
+    Set<String> validTypes = new HashSet<>(Arrays.asList(null, "Breakfast", "Lunch", "Dinner", "Dessert", "Unknown", "All types"));
+    
+    for (String type : validTypes) {
       if (!typeFilter.getItems().contains(type) && type != null) {
         typeFilter.getItems().add(type);
       }
     }
+
+    // //get recipes
+    // Collection<Recipe> recipes = cookbook.getRecipes();
+
+    // //Add no filter option
+    // types.add("All types");
+
+    // //Add all types from the recipes in cookbook
+    // for (Recipe recipe : recipes) {
+    //   types.add(recipe.getType());
+    // }
+    // //Add types to the dropdown menu, if not duplicate
+    // for (String type : types) {
+    //   if (!typeFilter.getItems().contains(type) && type != null) {
+    //     typeFilter.getItems().add(type);
+    //   }
+    // }
     //Set default value of dropdown
     typeFilter.setValue("All types");
   }
@@ -500,7 +512,7 @@ public class AppController {
       // Disconnect after checking
       connection.disconnect();
     } catch (IOException exception) {
-      System.out.println("Error occured fetching cookbook");
+      System.out.println("Error occured fetching remote cookbook");
     }
 
     if (remote && !override) {

@@ -36,12 +36,12 @@
          <children>
             <TextField fx:id="searchField" layoutX="9.0" layoutY="40.0" prefHeight="26.0" prefWidth="125.0" />
             <Button fx:id="searchButton" layoutX="130.0" layoutY="40.0" mnemonicParsing="false" onAction="#search" text="Search" />
-            <ChoiceBox id="filter" fx:id="filterOrigin" layoutX="9.0" layoutY="88.0" prefHeight="26.0" prefWidth="126.0" />
+            <ChoiceBox id="originFilter" fx:id="originFilter" layoutX="9.0" layoutY="88.0" prefHeight="26.0" prefWidth="126.0" />
             <Button fx:id="addRecipeButton" layoutX="8.0" layoutY="174.0" mnemonicParsing="false" onAction="#switchToAddRecipe" prefHeight="26.0" prefWidth="176.0" text="Add new recipe" />
             <Label id="feedbackLabel" fx:id="feedbackLabel" layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="155.0" />
             <Button id="filterByOrigin" fx:id="applyFilterButton" layoutX="130.0" layoutY="88.0" mnemonicParsing="false" onAction="#filterByOrigin" prefHeight="26.0" prefWidth="55.0" text="Filter" />
             <ChoiceBox id="typeFilter" fx:id="typeFilter" layoutX="9.0" layoutY="134.0" prefHeight="26.0" prefWidth="126.0" />
-            <Button id="filterByType" fx:id="applyTypeFilterButton" layoutX="130.0" layoutY="134.0" mnemonicParsing="false" onAction="#filterByType" prefWidth="55.0" text="Filter" />
+            <Button id="filterByType" fx:id="filterByType" layoutX="130.0" layoutY="134.0" mnemonicParsing="false" onAction="#filterByType" prefWidth="55.0" text="Filter" />
             <CheckBox id="favoritesCheckBox" fx:id="favoritesCheckBox" layoutX="8.0" layoutY="212.0" mnemonicParsing="false" onAction="#viewFavorites" prefHeight="26.0" prefWidth="175.0" text="View favorites" />
             <CheckBox id="veganCheckBox" fx:id="veganCheckBox" layoutX="8.0" layoutY="277.0" mnemonicParsing="false" onAction="#viewPreferences" text="Vegan" />
             <CheckBox id="lactosefreeCheckBox" fx:id="lactosefreeCheckBox" layoutX="8.0" layoutY="299.0" mnemonicParsing="false" onAction="#viewPreferences" text="Lactose free" />
