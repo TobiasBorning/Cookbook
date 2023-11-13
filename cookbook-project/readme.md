@@ -2,14 +2,14 @@
 
 ## **_Project description_**
 
-The Cookbook is an application containing recipes, along with the ingredients needed for each respective recipe. The app will provide inspiration concerning what meals to make. On the app's homepage, the user can scroll through the list of recipes. When clicking the recipes, you get a more detailed description on how to make the dish.
+The Cookbook is an application containing recipes, along with the ingredients needed for each respective recipe. The app will provide inspiration concerning what meals to make. On the app's homepage, the user can scroll through the list of recipes. When clicking a recipe, you get a more detailed description on how to make the dish. As well as a list of ingredients needed to make the dish, the origin country, type, and preferences such as vegan, lactose and gluten- free.
 
-As we progress through the iterations, we will further develop the app to allow users to filter recipes based on different cuisines, such as Italian og Mexican. Additionally, users will also be able to search for desired recipes.
+The app has a search function that allows the user to search for recipes based name. The user is also able to filter by origin and type using drop-down menus. The ui contains checkboxes for filtering by preferences. A user can favorite a recipe by clicking the star icon, yellow stars indicate a favorite recipe. The user can also use the favorites checkbox to show only favorite recipes. In addition to this, users will be able to add, remove and edit recipes from the cookbook.
 
-In addition to this, users will be able to add and remove recipes from the cookbook.
+---
 
 ## **_How to run the app_**
----
+
 ```bash
 # navigate to the cookbook-project directory:
 % cd cookbook-project
@@ -25,35 +25,35 @@ In addition to this, users will be able to add and remove recipes from the cookb
 ```
 ---
 
-## **_Project Arcitecture_**
+## **_Project Architecture_**
 The the project buildt using maven.  
-It has four modules; _core_, _ui_, _persistence_ and _springboot_, each responsible for different parts of the application. 
+It has four modules; ___core_, _ui_, _persistence_ and _springboot___, each responsible for different parts of the applications functionality. As well as a ___integrationtest___ module for testing that the modules work together as intended. 
 
 ![Project Arcitecture](../diagrams/resources/projectStructure_3.png)
 
 ### ___Core___
-The core module is responsible for the internal representation of the cookbook and recipe objects.  
+- The core module is responsible for the internal representation of the cookbook and recipe objects.  
 Read about the __core__ module [_here_](/cookbook-project/core/readme.md)
 
 ### ___UI___
-The ui module is responsible for the user interface, it is able to fetch cookboos from local files and Rest API's.  
+- The ui module is responsible for the user interface, it is able to fetch cookboos from local files and Rest API's.  
 Read about the __ui__ module [_here_](/cookbook-project/ui/readme.md)
 
 ### ___Persistence___
-The persistence module is responsible for reading and writing the cookbook to a local json file.  
+- The persistence module is responsible for reading and writing the cookbook to a local json file.  
 Read about the __persistence__ module [_here_](/cookbook-project/persistence/readme.md)
 
 ### ___Springboot___
-The springboot module is responsible for the REST API.  
+- The springboot module is responsible for the REST API.  
 Read about the __springboot__ module [_here_](/cookbook-project/springboot/readme.md)
 
 ### ___Integrationtest___
-The integrationtest module is responsible for testing that the modules work together as intended.  
+- The integrationtest module is responsible for testing that the modules work together as intended.  
 Read about the __integrationtest__ module [_here_](/cookbook-project/integrationtest/readme.md)
 
 ---
-## **_User stories_**
 
+## **_User stories_**
 Read about the _user stories_ [_here_](../docs/userstories.md)
 
 [_**<** Return to gr2322_](../readme.md)

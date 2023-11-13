@@ -33,7 +33,7 @@ Meredith wakes up in the morning and want to cook herself a simple breakfast. Sh
 
 ---
 
-**User story 6: A*llergy checkboxes***
+***User story 6: Allergy checkboxes***
 
 Sophie is allergic to gluten. Carl is a vegan, and Susan is lactose intolerant. They all want to filter recipes based on their preferences
 
@@ -42,3 +42,7 @@ Sophie is allergic to gluten. Carl is a vegan, and Susan is lactose intolerant. 
 **User story 7: *Editing existing recipes*** 
 
 Tony has recently tried out the pizza recipe. He liked the recipe really well, but after making pizza several times, he realized that he wants to make an improvement to the recipe. Therefore, he presses the edit button to the pizza recipe to make the changes he wants.
+
+---
+
+[< Return to _Cookbook Project_](/cookbook-project/readme.md)

@@ -9,7 +9,9 @@ Moreover, each recipe now includes a 'favorite' button, represented by a star ic
 
 Finally, we've implemented a 'filter by type' feature, enabling users to sort recipes into categories such as Breakfast, Lunch, Dinner, Dessert, and an 'Unknown' category for recipes that don't fit the standard classifications. These enhancements are designed to make the cooking experience more personalized and enjoyable.
 
-SKRIVE OM REST-API!!^^
+Read about the REST-API [here](/cookbook-project/springboot/readme.md)
+
+---
 
 ## Task managment
 In Release 3, we structured the further development into two distinct parts: Developing a REST-API and enhancing the application with additional features based on new user stories.
@@ -20,12 +22,16 @@ The tasks were assigned by spinning a wheel, due to the high interest in the cre
 
 In addition to our structured approach to task distribution and pair programming, our team adopted the Scrum framework to enhance our project management and workflow. Scrum was very helpful in our development process because it focuses on being flexible, making steady progress, and working well as a team. We organized our work into sprints, each with a set of defined goals and tasks, allowing us to focus on delivering specific features or improvements in a time-boxed manner. Regularly meetings ensured continuous communication and quick resolution of impediments, while sprint reviews and retrospectives at the end of each sprint provided opportunities for reflection and adaptation. We, as a group, decided together in our meetings when each issue should be completed. This approach not only improved our efficiency and adaptability in the face of changing requirements but also fostered a strong sense of teamwork and shared responsibility.
 
+---
+
 ## Methods for code quality 
 GitLab has significantly improved our workflow in various ways, including the enhancement of code quality. Now, merge requests undergo approval and completion exclusively by team members who are tasked with reviewing them. They ensure that the author's code meets all necessary requirements. This process not only elevates code quality through rigorous bug and defect checks but also promotes a deeper understanding of the code among team members, thereby fostering a comprehensive grasp of the entire project.
 
 To improve each other's code we have implemented code reviews in our work habits. This practice allows us to directly comment on specific parts of the code, facilitating more targeted and effective feedback. By engaging in code reviews, team members can pinpoint areas that need refinement, suggest improvements, and share insights that might not be immediately apparent to the original author. This collaborative approach not only enhances the overall quality of our code but also fosters a culture of continuous learning and mutual support within our team.
 
 "Checkstyle," "Spotbugs," and "JaCoCo" have all been instrumental in maintaining high code quality within our project. The use of Checkstyle, along with Javadoc, has significantly enhanced the readability of our code, making it more accessible and understandable, even for those not intimately familiar with the project. Jacoco and Spotbugs have emerged as invaluable for monitoring test coverage and facilitating debugging, respectively. Spotbugs has been exceptionally helpful in identifying elusive bugs or for its ability to present error messages clearly and understandably. Therefore, it’s advisable to integrate Spotbugs early in the development process to effectively detect bugs, although its implementation might require some effort. We have also used checkstyle to improve the consistency and quality of your codebase, make code reviews more efficient, and help maintain a high standard of coding across a team.
+
+---
 
 ## Tests 
 In this release, we have expanded our test classes to ensure comprehensive coverage across our entire codebase, encompassing both existing and new code. As previously noted, we employed JaCoCo to gauge the extent of our code coverage. We've achieved nearly 100% test coverage, meticulously testing all relevant portions of the code to ensure robustness and reliability. SpotBugs is great because it shows us exactly where problems are in the code, using a simple GUI, instead of making us look through complicated error messages. JaCoCo gives us a clear picture of which parts of our app have been tested and which haven't. This helps our developers know where to write more tests, making sure our app works well.
@@ -34,6 +40,7 @@ We have also implemented an integration test to assess the collective functional
 
 Additionally, we have developed the test classes LocalCookbookAccessTest and RemoteCookbookAccessTest. Furthermore, we have expanded our UI tests to cover the new functionalities added to our user interface.
 
+---
 
 ## Using Gitlab as a tool for management and workflow 
 Initially, all members of our team were relatively unfamiliar with GitLab, which initially limited our development workflow. Our limited experience with Git and branching further compounded this challenge, leading us to work directly on the master branch during the first release. We soon recognized that this approach was suboptimal.
@@ -43,3 +50,13 @@ By the time we commenced work on Release 2, we had significantly improved our wo
 As we progressed, the team's proficiency with GitLab's functionalities grew. We adopted a systematic approach for creating milestones and issues within GitLab, and we standardized our commit message format. This structured approach carried us through Releases 2 and 3 more smoothly.
 
 Furthermore, the code review feature in GitLab's merge requests became an invaluable tool. It allowed us to thoroughly review each other's code, ensuring quality and consistency before any merges into the master branch. This process not only enhanced our code quality but also fostered a collaborative and learning-centric environment within the team.
+
+---
+
+## Release 3 user interface
+We decided to attach a stylesheet to the fxml files to give the user interface a graphical improvement. We also added filters for recipe type. Favorite, Vegan, Lactose free og Gluten free.  
+
+![](/assets/Release3App.png)
+
+
+[_**<** Return to gr2322_](../readme.md)

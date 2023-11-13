@@ -23,9 +23,11 @@ The ui module is responsible for the application's frontend. It is built using J
 * **[RemoteCookbookAccessTest](/gr2322/cookbook-project/ui/src/test/java/cookbook/ui/RemoteCookBookAccessTest.java)** - Tests the RemoteCookbookAccess class.
 
 ---
-- The CookbookAppTest uses FxRobot for testing the apps GUI. It provides assurance that actions in the app lead to the correct outcome. What one presses in the app should correspond to what is expected to happen. The tests are performed by using the onClick() command with the elements' CSS ids. 
-- The LocalCookbookAccessTest tests all the methods in the LocalCookbookAccess class. In other words, it tests that the methods work properly on the local cookbook. 
-- The RemoteCookbookAccessTest 
+## **Testing the UI**
+* The CookbookAppTest uses FxRobot for testing the apps GUI. It provides assurance that actions in the app lead to the correct outcome. What one presses in the app should correspond to what is expected to happen. The tests are performed by using the onClick() command with the elements' CSS ids.  
+* The LocalCookbookAccessTest tests that the methods defined in the CookbookAccess interface works, and can be implemented using the CookbookHandler class from the persistence module together with some additional logic. This test ensures that we can safely use the LocalCookbookAccess object if the app fails to connect to the REST-API
+* In RemoteCookbookAccessTest we use **WireMock** to mock the server, defining the expected requests and responses. This test ensures that the RemoteCookbookAccess exception handling in works as intended. This test primary focus is to ensure that the RemoteCookbookAccess throws a **RuntimeException** if it recives a non **200(OK)** response from the server. It also checks that the RemoteCookbookAccess class is able to fetch a json cookbook from the server and convert it to the right Cookbook object.
+
 ---
 
 ### _**Class Diagram**_:

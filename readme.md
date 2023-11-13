@@ -25,37 +25,52 @@ More info about the cookbook project can be found [here](/cookbook-project/readm
 ---
 
 ## _Release Documentation_
-Documentation for release 1 can be found [here](/docs/release1.md)  
-Documentation for release 2 can be found [here](/docs/release2.md)  
-Documentation for release 3 can be found [here](/docs/release3.md)
+__[- Release 1 -](/docs/release1.md)  
+[- Release 2 -](/docs/release2.md)  
+[- Release 3 -](/docs/release3.md)__
 
 ---
 
 ## _Running the application_
-A guide on how to run the application can be found [here](/cookbook-project/readme.md)
+A guide on how to run the application can be found in the _cookbook-project_ [readme file](/cookbook-project/readme.md)
 
 ---
 
 ## _Testing_
-This project uses JUNIT 5 for testing. To run the tests follow the steps below:
+This project uses JUNIT 5 for testing.  
+To run the tests follow the steps below:
 ```bash
 # make sure you are in the cookbook-project directory
 cd cookbook-project #(if not)
 
-# navigate to the ui or core directory
+# run all tests (including integration test)
+mvn clean install
+
+# if you want to run tests in a specific module, navigate to a desired directory:
 cd ui 
 # or
 cd core
+# or
+cd persistence
+# or 
+cd springboot
 
 # run tests
 mvn test
 
+# to run integration test
+cd integrationtest
+# run test
+mvn verify
+
 ```
+Test coverage reports can be found in the `target/site/jacoco` directory inside each module(except for the integration test module which has no classes).
+More information about the individual test are found inside the module readme files.
 
 ## _Contributors_
 ---
-Aurora Johansen \
-Birk Strand Bjørnaa \
-Hanna Jacobsen \
+Aurora Johansen  
+Birk Strand Bjørnaa  
+Hanna Jacobsen  
 Tobias Borning
 
