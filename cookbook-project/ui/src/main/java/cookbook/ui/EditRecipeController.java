@@ -223,11 +223,9 @@ public class EditRecipeController {
   }
 
   /**
-   * Sets the access point for cookbook data.
-   * This method allows for the dependency injection 
-   * of a cookbook access object to interact with the cookbook data.
+   * Sets the cookbook access.
    *
-   * @param cookbookAccess The cookbook access object to be used for data retrieval and storage.
+   * @param cookbookAccess The cookbook access.
    */
   public void setCookbookAccess(CookbookAccess cookbookAccess) {
     this.cookbookAccess = cookbookAccess;
