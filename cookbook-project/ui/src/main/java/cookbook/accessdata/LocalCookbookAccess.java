@@ -127,11 +127,9 @@ public class LocalCookbookAccess implements CookbookAccess {
    */
   @Override
   public void updateRecipe(Recipe recipe) {
-    System.out.println("Updating recipe local cookbook access");
     Cookbook tmpCookbook = fetchCookbook();
     tmpCookbook.getRecipes().stream().filter(r -> r.getName()
         .equals(recipe.getName())).forEach(r -> {
-          System.out.println(r.getName());
           r.setIngredients(recipe.getIngredients());
           r.setDescription(recipe.getDescription());
           r.setOriginCountry(recipe.getOriginCountry());

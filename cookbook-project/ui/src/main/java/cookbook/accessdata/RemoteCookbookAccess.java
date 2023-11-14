@@ -52,7 +52,6 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      //System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());  breaks the test
       if (response.statusCode() == 200) {
         return ut;
       } else {
@@ -85,7 +84,6 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      // System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());  Breaks tests
       if (response.statusCode() == 200) {
         return ut;
       } else {
@@ -148,7 +146,6 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      // System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList()); breaks the test
       if (response.statusCode() == 200) {
         return ut;
       } else {
@@ -179,7 +176,6 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      // System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList()); breaks the test
       if (response.statusCode() == 200) {
         return ut;
       } else {
@@ -214,7 +210,6 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      // System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList()); breaks the test
       if (response.statusCode() == 200) {
         return ut;
       } else {
@@ -239,7 +234,6 @@ public class RemoteCookbookAccess implements CookbookAccess {
       String encodedName;
       encodedName = recipe.getName().replace(" ", "%20");
       String json = gson.toJson(recipe);
-      System.out.println("Recipe:" + json);
       HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/recipe/" + encodedName))
           .header("Accept", "application/json")
           .header("Content-Type", "application/json")
@@ -250,9 +244,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
 
-      if (response.statusCode() == 200) {
-        System.out.println("Updated recipe");
-      } else {
+      if (response.statusCode() != 200) {
         throw new RuntimeException("Failed to update recipe");
       }
     } catch (InterruptedException | IOException e) {
@@ -274,7 +266,6 @@ public class RemoteCookbookAccess implements CookbookAccess {
       String encodedName;
       encodedName = recipeName.replace(" ", "%20");
 
-      System.out.println(encodedName);
       HttpRequest request = HttpRequest.newBuilder(uri.resolve("cookbook/recipe/" + encodedName))
           .header("Accept", "application/json")
           .header("Content-Type", "application/json")
@@ -321,9 +312,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
         
-      if (response.statusCode() == 200) {
-        System.out.println("Added recipe");
-      } else {
+      if (response.statusCode() != 200) {
         throw new IllegalArgumentException("Could not add recipe");
       }
     } catch (InterruptedException | IOException e) {
@@ -353,9 +342,7 @@ public class RemoteCookbookAccess implements CookbookAccess {
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
 
-      if (response.statusCode() == 200) {
-        System.out.println(recipe.getName() + " is favorite: " + state);
-      } else {
+      if (response.statusCode() != 200) {
         throw new RuntimeException("Error favoriting recipe");
       }
     } catch (InterruptedException | IOException e) {

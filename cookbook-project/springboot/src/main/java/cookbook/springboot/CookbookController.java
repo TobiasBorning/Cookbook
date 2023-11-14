@@ -30,7 +30,6 @@ public class CookbookController {
    */
   @Autowired
   public CookbookController(CookbookService service) {
-    System.out.println("CookbookController constructor");
     this.cookbookService = service;
   }
 
@@ -138,7 +137,6 @@ public class CookbookController {
    */
   @DeleteMapping("/cookbook/recipe/{name}")
   public ResponseEntity<Void> deleteRecipe(@PathVariable("name") String name) {
-    System.out.println("Running delteRecipe in CookbookController");
     return cookbookService.deleteRecipe(name, cookbookService.readCookbook());
   }
 

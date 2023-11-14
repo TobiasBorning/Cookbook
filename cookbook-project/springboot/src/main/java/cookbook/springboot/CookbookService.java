@@ -24,7 +24,6 @@ public class CookbookService {
    * Constructs a new CookbookService.
    */
   public CookbookService() {
-    System.out.println("CookbookService constructor");
     this.gson = new GsonBuilder().setPrettyPrinting().create();
     readCookbook();
   }
@@ -89,7 +88,6 @@ public class CookbookService {
    * @param cookbook the cookbook to remove the recipe from.
    */
   public ResponseEntity<Void> deleteRecipe(final String recipeName, final Cookbook cookbook) {
-    System.out.println("Running deleteRecipe in CookbookService");
     for (Recipe recipe : cookbook.getRecipes()) {
       if (recipe.getName().equals(recipeName)) {
         cookbook.removeRecipe(recipe);
@@ -223,7 +221,6 @@ public class CookbookService {
     String recipeNameFormated = recipeName.replace("%20", " ");
     for (Recipe recipe : cookbook.getRecipes()) {
       if (recipe.getName().equals(recipeNameFormated)) {
-        System.out.println(recipeNameFormated + " = " + recipe.getName());
         tmpRecipe = gson.fromJson(recipeJson, Recipe.class);
         recipe.setName(tmpRecipe.getName());
         recipe.setOriginCountry(tmpRecipe.getOriginCountry());
@@ -231,7 +228,6 @@ public class CookbookService {
         recipe.setIngredients(tmpRecipe.getIngredients());
         recipe.setGlutenFree(tmpRecipe.getGlutenFree());
         recipe.setLactoseFree(tmpRecipe.getLactoseFree());
-        System.out.println("Vegan:" + tmpRecipe.getVegan());
         recipe.setVegan(tmpRecipe.getVegan());
         recipe.setFavorite(tmpRecipe.getFavorite());
       }

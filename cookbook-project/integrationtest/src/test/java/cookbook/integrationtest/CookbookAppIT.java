@@ -116,7 +116,6 @@ public class CookbookAppIT extends ApplicationTest{
           .build()
           .send(request, HttpResponse.BodyHandlers.ofString());
       Cookbook ut = gson.fromJson(response.body(), Cookbook.class);
-      //System.out.println(ut.getRecipes().stream().map(Recipe::getName).toList());
       return recipesInCookbook(ut);
     } catch (Exception e) {
       throw new RuntimeException("Failed loading springboot cookbook");

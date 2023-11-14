@@ -35,7 +35,6 @@ public class CookbookTest {
   @Test
   @DisplayName("Test if the addRecipe method works properly.")
   public void testAddRecipe(){
-    System.out.println(cookbook.getRecipes().stream().map(r->r.getName()).toList());
     cookbook.addRecipe(recipe); //add recipe på cookbook
     assertTrue(cookbook.getRecipes().contains(recipe)); //asserts that the cookbook contains the recipe
     assertThrows(IllegalArgumentException.class, () -> cookbook.addRecipe(null)); //tests adding null
