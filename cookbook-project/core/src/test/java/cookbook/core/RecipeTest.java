@@ -74,7 +74,7 @@ public class RecipeTest {
     public void testAddDuplicateIngredient() {
         recipe.addIngredient("spaghetti", "200.0");
         assertThrows(IllegalArgumentException.class, () -> {
-            recipe.addIngredient("spaghetti", "150.0"); // This should throw an exception
+            recipe.addIngredient("spaghetti", "150.0"); 
         });
         
     }
@@ -83,7 +83,7 @@ public class RecipeTest {
     @DisplayName("Test if the removeIngredient method throws IllegalArgumentException if the recipe doesn´t contain the ingredient it wants to remove")
     public void testRemoveNonexistentIngredient() {
       assertThrows(IllegalArgumentException.class, () -> {
-        recipe.removeIngredient("cheese"); // "cheese" should not be in the ingredients
+        recipe.removeIngredient("cheese"); 
       });
         
     }

@@ -21,8 +21,8 @@ public class CookbookTest {
 
   @BeforeEach
   public void setUp(){
-    cookbook = new Cookbook(); //creating a new cookbook object 
-    recipe = new Recipe(); //creates recipe
+    cookbook = new Cookbook(); 
+    recipe = new Recipe(); 
     recipe.setName("Taco");
     recipe1 = new Recipe(); 
     recipe2 = new Recipe();
@@ -35,31 +35,31 @@ public class CookbookTest {
   @Test
   @DisplayName("Test if the addRecipe method works properly.")
   public void testAddRecipe(){
-    cookbook.addRecipe(recipe); //add recipe på cookbook
-    assertTrue(cookbook.getRecipes().contains(recipe)); //asserts that the cookbook contains the recipe
-    assertThrows(IllegalArgumentException.class, () -> cookbook.addRecipe(null)); //tests adding null
-    assertThrows(IllegalArgumentException.class, () -> cookbook.addRecipe(recipe)); //test adding already existing recipe
-    assertEquals(1, cookbook.getRecipes().size()); // tests cookbook size
+    cookbook.addRecipe(recipe); 
+    assertTrue(cookbook.getRecipes().contains(recipe)); 
+    assertThrows(IllegalArgumentException.class, () -> cookbook.addRecipe(null)); 
+    assertThrows(IllegalArgumentException.class, () -> cookbook.addRecipe(recipe)); 
+    assertEquals(1, cookbook.getRecipes().size()); 
   }
 
   @Test
   @DisplayName("Test if the addRecipes method works properly.")
   public void testAddRecipes(){
     Collection<Recipe> recipes = new ArrayList<>(Arrays.asList(recipe1, recipe2, recipe3));
-    cookbook.addRecipes(recipes); //add recipe på cookbook
+    cookbook.addRecipes(recipes); 
 
-    assertTrue(cookbook.getRecipes().contains(recipe2)); //asserts that the cookbook contains the recipe
+    assertTrue(cookbook.getRecipes().contains(recipe2)); 
     assertThrows(IllegalArgumentException.class, () -> cookbook.addRecipes(new ArrayList<>()));
-    assertEquals(3, cookbook.getRecipes().size()); // tests cookbook size
+    assertEquals(3, cookbook.getRecipes().size()); 
   }
 
   @Test
   @DisplayName("Test if the removeRecipe method works properly.")
   public void testRemoveRecipe() {
-    cookbook.addRecipe(recipe); //adds recipe
-    cookbook.removeRecipe(recipe); //removes recipe
-    assertFalse(cookbook.getRecipes().contains(recipe)); // tests that cookbook is empty
-    assertThrows(IllegalArgumentException.class, () -> cookbook.removeRecipe(recipe)); //cannot remove 'nonexisting' recipe
+    cookbook.addRecipe(recipe); 
+    cookbook.removeRecipe(recipe); 
+    assertFalse(cookbook.getRecipes().contains(recipe)); 
+    assertThrows(IllegalArgumentException.class, () -> cookbook.removeRecipe(recipe)); 
   }
 
   @Test
