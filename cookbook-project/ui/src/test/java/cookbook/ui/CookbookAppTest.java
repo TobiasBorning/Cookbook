@@ -339,7 +339,6 @@ public class CookbookAppTest extends ApplicationTest {
                 }
             }
         }
-        System.out.println(outList);
         return outList;
     }
 
@@ -358,7 +357,6 @@ public class CookbookAppTest extends ApplicationTest {
     
     // views all recipes in the VBox
     private void viewAllRecipes() {
-        System.out.println("viewAllRecipes");
         searchRecipe("");
     }
 }
