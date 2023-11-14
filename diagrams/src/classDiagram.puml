@@ -1,0 +1,176 @@
+@startuml classDiagram
+
+title Diagram of interacting classes when starting the main scene
+
+package cookbook.accessdata{
+
+  interface CookbookAccess{
+    +Cookbook fetchCookbook()
+    +Cookbook searchRecipe(String recipeName)
+    +Cookbook filterByOrigin(String origin)
+    +Cookbook filterByType(String type)
+    +Cookbook filterByFavorite()
+    +Cookbook filterByPreferences(String vlg)
+    +void updateRecipe(Recipe recipe)
+    +boolean removeRecipe(String recipeName)
+    +void addRecipe(Recipe recipe)
+    +void toggleFavorite(Recipe recipe)
+  }
+
+  class LocalCookbookAccess{
+    -CookbookHandler ch
+    -static final String path
+
+    +Cookbook fetchCookbook()
+    +Cookbook searchRecipe(String recipeName)
+    +Cookbook filterByOrigin(String origin)
+    +Cookbook filterByType(String type)
+    +Cookbook filterByFavorite()
+    +Cookbook filterByPreferences(String vlg)
+    +void updateRecipe(Recipe recipe)
+    +boolean removeRecipe(String recipeName)
+    +void addRecipe(Recipe recipe)
+    +void saveCookbook(Cookbook cookbook)
+    +void toggleFavorite(Recipe recipe)
+  }
+
+  class RemoteCookbookAccess{
+    -Gson gson
+    -URI uri
+
+    +void connect
+    +Cookbook fetchCookbook()
+    +Cookbook searchRecipe(String recipeName)
+    +Cookbook filterByOrigin(String origin)
+    +Cookbook filterByType(String type)
+    +Cookbook filterByFavorite()
+    +Cookbook filterByPreferences(String vlg)
+    +void updateRecipe(Recipe recipe)
+    +boolean removeRecipe(String recipeName)
+    +void addRecipe(Recipe recipe)
+    +void toggleFavorite(Recipe recipe)
+    +void setUri(URI uri)
+  }
+
+  LocalCookbookAccess ..|> CookbookAccess
+  RemoteCookbookAccess ..|> CookbookAccess
+
+}
+
+package cookbook.ui {
+
+  class AppController{
+    -Stage stage
+    -Scene scene
+    -Recipe sendRecipe
+    -Cookbook cookbook
+    -CookbookAccess cookbookAccess
+    -boolean remote
+
+    -VBox recipeList
+    -TextField searchField
+    -Button searchButton
+    -Label feedbackLabel
+    -ChoiceBox<String> filterOrigin
+    -Button applyFilterButton
+    -Button allRecipesButton
+    -ChoiceBox<String> typeFilter
+    -Button applyTypeFilterButton
+    -CheckBox favoritesCheckBox
+    -CheckBox veganCheckBox
+    -CheckBox lactosefreeCheckBox
+    -CheckBox glutenFreeCheckBox
+
+    +void initialize()
+    +void fillDefaultCookbook()
+    +void fillCookbook(Cookbook cookbook)
+    +void search()
+    +void fillFilterDropdown()
+    +void filterByOrigin()
+    +void fillTypeFilterDropdown()
+    +void filterByType()
+    +void viewFavorites(ActionEvent e)
+    +void viewPreferences(ActionEvent e)
+    +void switchToAddRecipe(final ActionEvent event)
+    +void switchToViewRecipe(ActionEvent event)
+    +void removeRecipe(Recipe recipe)
+    +void setFeedbackLabel(String feedback
+    +int getCookbookSize()
+    +CookbookAccess getCookbookAccess()
+    +void setAccessType(boolean override)
+    +void resetPreferences()
+  }
+}
+
+package cookbook.json{
+
+  class CookbookHandler{
+    +void writeToFile(Cookbook cookbook, String path)
+    +Cookbook readFromFile(String path)
+  }
+}
+
+package cookbook.core{
+  class Cookbook{
+  -Collection<Recipe> recipes
+
+  +void addRecipe(Recipe recipe
+  +void addRecipes(Collection<Recipe> recipes)
+  +void removeRecipe(Recipe recipe)
+
+  +Collection<Recipe> filterRecipies(Predicate<Recipe> pred)
+  +Collection<Recipe> getRecipes()
+
+  }
+
+  class Recipe{
+    -String name
+    -Map<String, String> ingredients
+    -String originCountry
+    -String description
+
+    -boolean favorite
+    -boolean isVegan
+    -boolean isGlutenFree
+    -boolean isLactoseFree
+
+    -final Collection<String> types
+
+    +Recipe(String name, Map<String, String> ingredients, String originCountry, String type, 
+        String description, boolean favorite, boolean isVegan, boolean isGlutenFree, boolean isLactoseFree)
+    +Recipe()
+
+    +void setName(String name)
+    +void setIngredients(Map<String, String> ingredients)
+
+    +String getOriginCountry()
+    +String getDescription()
+    +String getName()
+
+    +Map<String, String> getIngredients()
+    +void setOriginCountry(String originCountry)
+    +void setType(String type)
+    +String getType()
+
+    +void setDescription(String description)
+    +void addIngredient(String ingredient, String amount)
+    +void removeIngredient(String ingredient)
+
+    +boolean isFavorite()
+    +void setFavorite(boolean favorite)
+    +boolean isVegan()
+    +void setVegan(boolean isVegan)
+    +boolean isGlutenFree()
+    +setGlutenFree(boolean isGlutenFree)
+    +boolean isLactoseFree()
+    +void setLactoseFree(boolean isLactoseFree)
+  }
+}
+
+AppController --> "1" CookbookAccess
+CookbookHandler --> "1" LocalCookbookAccess
+Cookbook "1" --> "*" Recipe : "Contains"
+Cookbook -right-> "1" AppController
+Recipe -right-> "1" AppController
+
+@enduml

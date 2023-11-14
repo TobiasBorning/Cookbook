@@ -8,10 +8,10 @@ This class diagram is an overview of the classes in the core module and shows wh
 
 ![class](resources/classDiagramCore.png)
 
-## Class Diagram UI
-This class diagram is an overview of the classes in the UI module and shows which classes are related to eachother.
+## Class Diagram
+This class diagram is an overview of classes in the UI, core and persistence module and shows which classes are related to eachother when starting the main scene
 
-![class](resources/classDiagramUI.png)
+![class](resources/classDiagram.png)
 
 ## Sequense Diagram
 This sequense diagram shows an user adding an recipe to his cookbook. This diagram applies when the server is up and running.
