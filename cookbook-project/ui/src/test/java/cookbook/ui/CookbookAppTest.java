@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
@@ -23,39 +22,32 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.testfx.framework.junit5.ApplicationTest;
 
-import cookbook.accessdata.CookbookAccess;
-import cookbook.accessdata.RemoteCookbookAccess;
 import cookbook.core.Cookbook;
-import cookbook.core.Recipe;
 import cookbook.json.CookbookHandler;
 
 /**
  * TestFX App test
  */
-@TestInstance(TestInstance.Lifecycle.PER_CLASS) //for å kunne bruke @beforeAll non static
+@TestInstance(TestInstance.Lifecycle.PER_CLASS) //to be able to use @beforeAll non static
 public class CookbookAppTest extends ApplicationTest {
 
     private AppController controller;
     private Parent root;
     private Scene scene;
-    // private int loadedCookbookSize = 0;
     private Cookbook savedRemoteCookbook;
     private Cookbook savedLocalCookbook;
     private Cookbook testCookbook;
     private CookbookHandler ch = new CookbookHandler();
-    // private String path;
     private FXMLLoader fxmlLoader;
 
-    @BeforeAll
+    @BeforeAll //kan alt være i én try-catch, siden begge skal håndteres av FileNotFoundException?
     private void saveAndFillCookbook() {
         try{
             savedRemoteCookbook = ch.readFromFile("../persistence/storage/remote-cookbook.json");
@@ -63,10 +55,9 @@ public class CookbookAppTest extends ApplicationTest {
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found");
-        } // kan alt være i én try catch?
+        }
         try {
             this.testCookbook = ch.readFromFile("../persistence/storage/ui-test-cookbook.json");
-            System.out.println(testCookbook.getRecipes().size());
             ch.writeToFile(testCookbook, "../persistence/storage/remote-cookbook.json");
             ch.writeToFile(testCookbook, "../persistence/storage/local-cookbook.json");
         }
@@ -89,30 +80,21 @@ public class CookbookAppTest extends ApplicationTest {
 
     public void start(Stage stage) throws IOException {
         this.fxmlLoader = new FXMLLoader(this.getClass().getResource("CookbookApp.fxml"));
-        this.root = fxmlLoader.load(); //endrer fra root til final Parent parent
+        this.root = fxmlLoader.load(); //switchj from root to final Parent parent
         this.controller = fxmlLoader.getController();
         this.scene = new Scene(root);
-        stage.setScene(this.scene); // bytter ut root med parent
+        stage.setScene(this.scene); // replaces root with parent
         stage.show();
     }
-
-    // @BeforeEach
-    // public void setLoadedCookbookSize() {
-    //     if (this.loadedCookbookSize == 0) {
-    //         this.loadedCookbookSize = controller.getCookbookSize();
-    //     }
-    // }    
-/* */
+   
     @Test
     public void testSearch(){
-        // controller.fillDefaultCookbook();
         searchRecipe("Pasta Carbonara");
         assertTrue(containsRecipe("Pasta Carbonara"));
         assertEquals(1, getCookbookSize());
         assertEquals(List.of("Pasta Carbonara"), getRecipeNames());
     
         searchRecipe("");
-        sleep(1000);
         assertEquals(10, getCookbookSize());
 
         searchRecipe("unavaliable");
@@ -126,22 +108,20 @@ public class CookbookAppTest extends ApplicationTest {
     public void testViewClick() {
         //make sure nachos is viewable
         searchRecipe("Nachos");
-        //click on view button
         clickOn("#viewNachos");
 
-        //check that the view pane is loaded
+        //assert view pane is loaded
         Node viewNode = lookup("#recipeViewPane").query();
         assertTrue(viewNode.getId().equals("recipeViewPane"));
 
         String originString = ((Labeled)lookup("#origin").query()).getText();
         String descriptionString = ((Labeled)lookup("#description").query()).getText();
         String ingredientsString = ((Labeled)lookup("#ingredients").query()).getText();
-        assertEquals("mexico", originString);
+        assertEquals("Mexico", originString);
         assertEquals("yummy", descriptionString);
         assertEquals('\n'+"ost:  100g"+'\n'+"chips:  192"+'\n', ingredientsString);
-        
 
-        //check that title is correct
+        //assert title is correct
         Label title = lookup("#recipeName").query();
         assertEquals("Nachos", title.getText());
 
@@ -153,32 +133,23 @@ public class CookbookAppTest extends ApplicationTest {
 
     @Test
     public void filterOriginTest(){
-        clickOn("#filter");
-        sleep(500);
+        clickOn("#originFilter");
         clickOn("America");
         clickOn("#filterByOrigin");
         assertEquals(2, getCookbookSize());
         assertEquals(List.of("Oatmeal", "Veggie Wrap"), getRecipeNames());
-        clickOn("#filter");
-        sleep(500);
+        clickOn("#originFilter");
         clickOn("All origins");
         clickOn("#filterByOrigin");
         assertEquals(10, getCookbookSize());
-        assertEquals(List.of("Taco", "Pizza", "Spaghetti Bolognese", "Chicken Stir-Fry", "Caesar Salad", "Pasta Carbonara", "Oatmeal", "Vegetable Curry", "Veggie Wrap", "Nachos"), getRecipeNames());
+        assertEquals(List.of("Taco", "Pizza", "Spaghetti Bolognese", "Chicken Stir-Fry", 
+                "Caesar Salad", "Pasta Carbonara", "Oatmeal", "Vegetable Curry", 
+                "Veggie Wrap", "Nachos"), getRecipeNames());
     }
 
-    // @Test - should remove this test as it make other tests fail AND remove is tested in another test
-    public void removeRecipeTest(){
-        assertEquals(10, getCookbookSize());
-        assertTrue(containsRecipe("Pizza"));
-        clickOn("#removePizza");
-        assertEquals(9, getCookbookSize());
-        assertFalse(containsRecipe("Pizza"));
-    }
     @Test
     public void addExistingRecipeTest(){
         clickOn("#addRecipeButton");
-        sleep(1000);
         //Add Taco recipe
         clickOn("#addRecipeName").write("Taco");
         //add ingredient 1
@@ -187,43 +158,52 @@ public class CookbookAppTest extends ApplicationTest {
         clickOn("#ingredientAmount1").write("1");
         // add description and origin
         clickOn("#addRecipeDescription").write("Tacos are great");
-        clickOn("#addRecipeOrigin").write("Mexico");
+        clickOn("#originTextField").write("Mexico");
         clickOn("#addRecipeButton");
+        sleep(2000);
         assertEquals("Name already exists!", ((Labeled)lookup("#feedbackLabel").query()).getText());
+        sleep(200);
+        clickOn("#back");
+    }
+
+    @Test
+    public void addWithoutOriginTest(){
+        clickOn("#addRecipeButton");
+        clickOn("#addRecipeName").write("Noodles");
+        clickOn("#addIngredientButton");
+        clickOn("#ingredientName1").write("Noodles");
+        clickOn("#ingredientAmount1").write("1");
+        clickOn("#addRecipeDescription").write("Noodles are great");
+        clickOn("#addRecipeButton");
+        sleep(200);
+        assertEquals("Origin is required!", ((Labeled)lookup("#feedbackLabel").query()).getText());
+        sleep(200);
+        clickOn("#back");
     }
 
     @Test
     public void addAndRemoveRecipeTest() {
-        // navigate to add recipe scene
         clickOn("#addRecipeButton");
-        sleep(500);
 
         //Check that the add recipe pane is loaded
         Node addNode = lookup("#addRecipePane").query();
         assertTrue(addNode.getId().equals("addRecipePane"));
 
-        //Add water recipe
         clickOn("#addRecipeName").write("Water");
-        //add ingredient 1
         clickOn("#addIngredientButton");
         clickOn("#ingredientName1").write("water");
         clickOn("#ingredientAmount1").write("1l");
-        // add description and origin
         clickOn("#addRecipeDescription").write("Water is good and super healthy");
-        clickOn("#addRecipeOrigin").write("Norway");
-        //add ingredient 2
+        clickOn("#originTextField").write("Norway");
         clickOn("#addIngredientButton");
         clickOn("#ingredientName2").write("salt");
         clickOn("#ingredientAmount2").write("10g");
-        // add allergies
         clickOn("#veganCheckBox");
-        clickOn("#lactosefreeCheckBox"); //må skrive likt - camelcase
-        clickOn("#glutenFreeCheckBox"); //lactosefree og glutenFree
-        // add recipe to cookbook
+        clickOn("#glutenFreeCheckBox");
+        clickOn("#lactoseFreeCheckBox");
         clickOn("#addRecipeButton");
         
-        //Check that the recipe is added
-        viewAllRecipes();
+        //viewAllRecipes();
         assertEquals(11, getCookbookSize());
         assertTrue(containsRecipe("Water"));
 
@@ -233,7 +213,6 @@ public class CookbookAppTest extends ApplicationTest {
         String feedbackLabelText = ((Labeled)lookup("#feedbackLabel").query()).getText();
         assertEquals("Removed recipe", feedbackLabelText);
 
-        //Check that the recipe is removed
         viewAllRecipes();
         assertEquals(10, getCookbookSize());
         assertFalse(containsRecipe("Water"));
@@ -244,9 +223,12 @@ public class CookbookAppTest extends ApplicationTest {
         // navigate to edit recipe scene
         clickOn("#viewPizza");
         clickOn("#editRecipeButton");
-        sleep(500);
         clickOn("#ingredientAmount1").press(KeyCode.SHORTCUT).press(KeyCode.A).release(KeyCode.A).release(KeyCode.SHORTCUT).type(KeyCode.BACK_SPACE);
         clickOn("#ingredientAmount1").write("400.0");
+        clickOn("#originTextField").press(KeyCode.SHORTCUT).press(KeyCode.A).release(KeyCode.A).release(KeyCode.SHORTCUT).type(KeyCode.BACK_SPACE);
+        clickOn("#saveChangesButton");
+        assertEquals("Origin is required!", ((Labeled)lookup("#feedbackLabel").query()).getText());
+        clickOn("#originTextField").write("Italy");
         clickOn("#saveChangesButton");
         clickOn("#viewPizza");
         String ingredientsString = ((Labeled)lookup("#ingredients").query()).getText();
@@ -262,19 +244,19 @@ public class CookbookAppTest extends ApplicationTest {
         clickOn("#glutenFreeCheckBox");
         assertEquals(1, getCookbookSize());
         assertEquals(List.of("Vegetable Curry"), getRecipeNames());
-        clickOn("#lactosefreeCheckBox");
+        clickOn("#lactoseFreeCheckBox");
         assertEquals(1, getCookbookSize());
         clickOn("#veganCheckBox");
         assertEquals(1, getCookbookSize());
         assertEquals(List.of("Vegetable Curry"), getRecipeNames());
-        clickOn("#lactosefreeCheckBox");
+        clickOn("#lactoseFreeCheckBox");
         assertEquals(2, getCookbookSize());
         assertEquals(List.of("Caesar Salad", "Vegetable Curry"), getRecipeNames());
         clickOn("#glutenFreeCheckBox");
         assertEquals(10, getCookbookSize());
-        assertEquals(List.of("Taco", "Pizza", "Spaghetti Bolognese", "Chicken Stir-Fry", "Caesar Salad", "Pasta Carbonara", "Oatmeal", "Vegetable Curry", "Veggie Wrap", "Nachos"), 
-            getRecipeNames());
-        clickOn("#lactosefreeCheckBox");
+        assertEquals(List.of("Taco", "Pizza", "Spaghetti Bolognese", "Chicken Stir-Fry", "Caesar Salad", 
+            "Pasta Carbonara", "Oatmeal", "Vegetable Curry", "Veggie Wrap", "Nachos"), getRecipeNames());
+        clickOn("#lactoseFreeCheckBox");
         assertEquals(1, getCookbookSize());
         assertEquals(List.of("Vegetable Curry"), getRecipeNames());
         clickOn("#veganCheckBox");
@@ -300,30 +282,25 @@ public class CookbookAppTest extends ApplicationTest {
     @Test
     public void typeFilterTest(){
         clickOn("#typeFilter");
-        sleep(200);
         clickOn("Dinner");
         clickOn("#filterByType");
         assertEquals(7, getCookbookSize());
         assertEquals(List.of("Taco", "Pizza", "Spaghetti Bolognese", "Chicken Stir-Fry", "Pasta Carbonara", "Vegetable Curry", "Nachos"), getRecipeNames());
         clickOn("#typeFilter");
-        sleep(200);
         clickOn("Lunch");
         clickOn("#filterByType");
         assertEquals(2, getCookbookSize());
         assertEquals(List.of("Caesar Salad", "Veggie Wrap"), getRecipeNames());
         clickOn("#typeFilter");
-        sleep(200);
         clickOn("Breakfast");
         clickOn("#filterByType");
         assertEquals(1, getCookbookSize());
         assertEquals(List.of("Oatmeal"), getRecipeNames());
-        // clickOn("#typeFilter");
-        // sleep(1000);
-        // clickOn("Dessert");
-        // clickOn("#filterByType");
-        // assertEquals(0, getCookbookSize());
         clickOn("#typeFilter");
-        sleep(200);
+        clickOn("Dessert");
+        clickOn("#filterByType");
+        assertEquals(0, getCookbookSize());
+        clickOn("#typeFilter");
         clickOn("All types");
         clickOn("#filterByType");
         assertEquals(10, getCookbookSize());

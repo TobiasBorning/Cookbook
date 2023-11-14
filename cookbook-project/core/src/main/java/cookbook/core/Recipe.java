@@ -128,7 +128,7 @@ public class Recipe {
     */
   public void setType(String type) {
     Collection<String> types = new ArrayList<>(
-      Arrays.asList("Breakfast", "Lunch", "Dinner", "Dessert"));
+        Arrays.asList("Breakfast", "Lunch", "Dinner", "Dessert"));
     if (types.contains(type)) {
       this.type = type;
     } else {
@@ -261,16 +261,26 @@ public class Recipe {
    */
   @Override
   public String toString() {
-    return "Recipe{" +
-            "name='" + name + '\'' +
-            ", ingredients=" + ingredients +
-            ", originCountry='" + originCountry + '\'' +
-            ", type='" + type + '\'' +
-            ", description='" + description + '\'' +
-            ", favorite=" + favorite +
-            ", isVegan=" + vegan +
-            ", isGlutenFree=" + glutenFree +
-            ", isLactoseFree=" + lactoseFree +
+    return "Recipe{" 
+            +
+            "name='" + name + '\'' 
+            +
+            ", ingredients=" + ingredients 
+            +
+            ", originCountry='" + originCountry + '\'' 
+            +
+            ", type='" + type + '\'' 
+            +
+            ", description='" + description + '\'' 
+            +
+            ", favorite=" + favorite 
+            +
+            ", isVegan=" + vegan 
+            +
+            ", isGlutenFree=" + glutenFree 
+            +
+            ", isLactoseFree=" + lactoseFree 
+            +
             '}';
   }
 }

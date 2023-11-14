@@ -26,11 +26,11 @@
          </content>
       </ScrollPane>
       <Button id="addIngredientButton" fx:id="addIngredientButton" layoutX="39.0" layoutY="361.0" mnemonicParsing="false" onAction="#addIngredient" text="Add ingredient" />
-      <TextField id="addRecipeOrigin" fx:id="origin" layoutX="349.0" layoutY="90.0" promptText="Origin" />
-      <Button id="backFromAddRecipeButton" fx:id="back" layoutX="41.0" layoutY="22.0" mnemonicParsing="false" onAction="#switchToMainScene" text="Back" />
-      <TextField fx:id="type" layoutX="349.0" layoutY="124.0" prefHeight="26.0" prefWidth="159.0" promptText="Type" />
-      <CheckBox id="lactosefreeCheckBox" fx:id="lactosefreeCheckBox" layoutX="349.0" layoutY="185.0" mnemonicParsing="false" text="Gluten free" />
-      <CheckBox id="glutenFreeCheckBox" fx:id="glutenFreeCheckBox" layoutX="349.0" layoutY="210.0" mnemonicParsing="false" text="Lactose free" />
+      <TextField id="originTextField" fx:id="originTextField" layoutX="349.0" layoutY="90.0" promptText="Origin" />
+      <Button id="back" fx:id="back" layoutX="41.0" layoutY="22.0" mnemonicParsing="false" onAction="#switchToMainScene" text="Back" />
+      <TextField id="typeTextField" fx:id="typeTextField" layoutX="349.0" layoutY="124.0" prefHeight="26.0" prefWidth="159.0" promptText="Type" />
+      <CheckBox id="glutenFreeCheckBox" fx:id="glutenFreeCheckBox" layoutX="349.0" layoutY="185.0" mnemonicParsing="false" text="Gluten free" />
+      <CheckBox id="lactoseFreeCheckBox" fx:id="lactoseFreeCheckBox" layoutX="349.0" layoutY="210.0" mnemonicParsing="false" text="Lactose free" />
       <CheckBox id="veganCheckBox" fx:id="veganCheckBox" layoutX="350.0" layoutY="158.0" mnemonicParsing="false" text="Vegan" />
       <Label id="feedbackLabel" fx:id="feedbackLabel" layoutX="177.0" layoutY="366.0" prefHeight="16.0" prefWidth="207.0" />
    </children>

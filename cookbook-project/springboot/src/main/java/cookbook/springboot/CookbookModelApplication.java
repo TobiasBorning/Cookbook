@@ -4,21 +4,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Hovedklassen for oppstart av CookbookModel-applikasjonen.
- * 
- * <p>Denne klassen inneholder oppstartsmetoden for en Spring Boot-applikasjon.
+ * This class contains a main method to start the spring boot server application.
  */
 @SpringBootApplication
 public class CookbookModelApplication {
     
   /**
-   * Hovedmetoden som brukes til å starte Spring Boot-applikasjonen.
+   * Main method for staring the spring boot server application..
    *
-   * @param args kommandolinjeargumenter som kan brukes til å konfigurere applikasjonen.
+   * @param args command line arguments
    */
-
   public static void main(String[] args) {
-    System.out.println("App running");
     SpringApplication.run(CookbookModelApplication.class, args);
   }
 }

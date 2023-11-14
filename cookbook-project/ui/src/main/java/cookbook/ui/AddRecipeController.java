@@ -1,4 +1,3 @@
-
 package cookbook.ui;
 
 import cookbook.accessdata.CookbookAccess;
@@ -12,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -35,18 +35,19 @@ public class AddRecipeController {
   @FXML
   private TextArea recipeDescription;
   @FXML
-  private TextField origin;
+  private TextField originTextField;
   @FXML
-  private TextField type;
+  private TextField typeTextField;
   @FXML
   private CheckBox veganCheckBox;
   @FXML
-  private CheckBox lactosefreeCheckBox;
+  private CheckBox lactoseFreeCheckBox;
   @FXML
   private CheckBox glutenFreeCheckBox;
-
   @FXML
   private Label feedbackLabel;
+  @FXML
+  private Button addIngredientButton;
 
   private int ingredientCount = 0;
 
@@ -92,10 +93,10 @@ public class AddRecipeController {
     Map<String, String> ingredients = new HashMap<>();
     String recipeNameString = recipeName.getText();
     String descriptionString = recipeDescription.getText();
-    String inputOrigin = origin.getText();
-    String inputType = type.getText().equals("") ? "Unknown" : type.getText();
+    String inputOrigin = originTextField.getText();
+    String inputType = typeTextField.getText().equals("") ? "Unknown" : typeTextField.getText();
     boolean isVegetarian = veganCheckBox.isSelected();
-    boolean isLactoseFree = lactosefreeCheckBox.isSelected();
+    boolean isLactoseFree = lactoseFreeCheckBox.isSelected();
     boolean isGlutenFree = glutenFreeCheckBox.isSelected();
 
     for (Node node : ingredientsContainer.getChildren()) {
@@ -120,7 +121,11 @@ public class AddRecipeController {
     }
     this.recipe = new Recipe(recipeNameString, ingredients, inputOrigin, inputType,
         descriptionString, false, isVegetarian, isGlutenFree, isLactoseFree);
-    if (addRecipe(recipe)) {
+    
+    if (inputOrigin.equals("")) {
+      feedbackLabel.setText("Origin is required!");
+      return;
+    } else if (addRecipe(recipe)) {
       switchToMainScene(e);
     } else {
       feedbackLabel.setText("Name already exists!");

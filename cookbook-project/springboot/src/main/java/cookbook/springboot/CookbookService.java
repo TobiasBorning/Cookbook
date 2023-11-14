@@ -24,7 +24,6 @@ public class CookbookService {
    * Constructs a new CookbookService.
    */
   public CookbookService() {
-    System.out.println("CookbookService constructor");
     this.gson = new GsonBuilder().setPrettyPrinting().create();
     readCookbook();
   }
@@ -33,6 +32,7 @@ public class CookbookService {
    * Reads the cookbook from the file.
    *
    * @return the cookbook.
+   * @throws RuntimeException if the cookbook file cannot be found.
    */
   public Cookbook readCookbook() {
     try (FileReader reader = new FileReader(COOKBOOK_PATH)) {
@@ -46,6 +46,7 @@ public class CookbookService {
    * Writes the cookbook to the file.
    *
    * @param cookbook the cookbook to write.
+   * @throws RuntimeException if the cookbook file cannot be written to.
    */
   public void writeCookbook(final Cookbook cookbook) {
     try (FileWriter writer = new FileWriter(COOKBOOK_PATH)) {
@@ -70,6 +71,7 @@ public class CookbookService {
    *
    * @param recipeJson the JSON representation of the recipe.
    * @param cookbook the cookbook to add the recipe to.
+   * @return true if the recipe was added, false otherwise.
    */
   public boolean addRecipe(final String recipeJson, final Cookbook cookbook) {
     Recipe recipe = gson.fromJson(recipeJson, Recipe.class);
@@ -87,9 +89,9 @@ public class CookbookService {
    *
    * @param recipeName the name of the recipe to remove.
    * @param cookbook the cookbook to remove the recipe from.
+   * @return a response entity with status OK if the recipe was removed, NOT_FOUND otherwise.
    */
   public ResponseEntity<Void> deleteRecipe(final String recipeName, final Cookbook cookbook) {
-    System.out.println("Running deleteRecipe in CookbookService");
     for (Recipe recipe : cookbook.getRecipes()) {
       if (recipe.getName().equals(recipeName)) {
         cookbook.removeRecipe(recipe);
@@ -195,7 +197,7 @@ public class CookbookService {
    *
    * @param recipeName the name of the recipe to set as favorite.
    * @param cookbook the cookbook to update.
-   * @return the updated Recipe.
+   * @return the updated Recipe, null if it was not found.
    */
   public Recipe toggleFavorite(final String recipeName, final Cookbook cookbook) {
     Recipe tmpRecipe = null;
@@ -215,7 +217,7 @@ public class CookbookService {
    * @param recipeName the name of the recipe to update.
    * @param recipeJson the updated recipe.
    * @param cookbook the cookbook to update
-   * @return the updated Recipe.
+   * @return the updated Recipe, null if it was not found.
    */
   public Recipe updateRecipe(final String recipeName, 
       final String recipeJson, final Cookbook cookbook) {
@@ -223,7 +225,6 @@ public class CookbookService {
     String recipeNameFormated = recipeName.replace("%20", " ");
     for (Recipe recipe : cookbook.getRecipes()) {
       if (recipe.getName().equals(recipeNameFormated)) {
-        System.out.println(recipeNameFormated + " = " + recipe.getName());
         tmpRecipe = gson.fromJson(recipeJson, Recipe.class);
         recipe.setName(tmpRecipe.getName());
         recipe.setOriginCountry(tmpRecipe.getOriginCountry());
@@ -231,7 +232,6 @@ public class CookbookService {
         recipe.setIngredients(tmpRecipe.getIngredients());
         recipe.setGlutenFree(tmpRecipe.getGlutenFree());
         recipe.setLactoseFree(tmpRecipe.getLactoseFree());
-        System.out.println("Vegan:" + tmpRecipe.getVegan());
         recipe.setVegan(tmpRecipe.getVegan());
         recipe.setFavorite(tmpRecipe.getFavorite());
       }

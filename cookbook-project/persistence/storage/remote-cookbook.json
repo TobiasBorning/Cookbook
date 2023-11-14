@@ -252,29 +252,12 @@
       "type": "Dinner"
     },
     {
-      "name": "Pasta Carbonara",
-      "ingredients": {
-        "parmesanCheese": "30.0",
-        "bacon": "100.0",
-        "spaghetti": "215.0",
-        "egg": "2.0",
-        "heavyCream": "150.0",
-        "cheese": "50.0"
-      },
-      "originCountry": "Italy",
-      "favorite": false,
-      "vegan": true,
-      "glutenFree": false,
-      "lactoseFree": true,
-      "type": "Dinner"
-    },
-    {
       "name": "nachos",
       "ingredients": {
         "ost": "100g",
         "chips": "192"
       },
-      "originCountry": "mexico",
+      "originCountry": "Mexico",
       "description": "yummy",
       "favorite": false,
       "vegan": false,

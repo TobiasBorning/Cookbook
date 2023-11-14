@@ -22,11 +22,9 @@ public class Cookbook {
   public void addRecipe(Recipe recipe) {
     if (recipe == null) {
       throw new IllegalArgumentException("Invalid recipe");
-    }
-    else if (recipes.stream().map(r -> r.getName().strip().toLowerCase())
+    } else if (recipes.stream().map(r -> r.getName().strip().toLowerCase())
         .collect(Collectors.toList())
         .contains(recipe.getName().strip().toLowerCase())) {
-      System.out.println("Recipe already in cookbook");
       throw new IllegalArgumentException("Recipe already in cookbook");
     }
     recipes.add(recipe);
@@ -68,7 +66,7 @@ public class Cookbook {
    *             can filter on origin countries of different dishes, or on certain grocery items
    * @return a Collection of Recipe objects
    */
-  public Collection<Recipe> filterRecipies(Predicate<Recipe> pred) {
+  public Collection<Recipe> filterRecipes(Predicate<Recipe> pred) {
     return recipes.stream().filter(pred).collect(Collectors.toList());
   }
   
