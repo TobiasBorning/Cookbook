@@ -35,7 +35,7 @@ The the project buildt using maven.
 It has four modules; ___core_, _ui_, _persistence_ and _springboot___, each responsible for different parts of the applications functionality.  
 As well as a ___integrationtest___ module for testing that the modules work together as intended. Links to the individual modules can be found below.
 
-![Project Arcitecture](../diagrams/resources/projectStructure_3.png)
+![Project Arcitecture](../docs/release3/diagrams/resources/projectStructure_3.png)
 
 ### ___Core___
 - The core module is responsible for the internal representation of the cookbook and recipe objects.  

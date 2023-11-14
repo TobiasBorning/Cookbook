@@ -31,7 +31,7 @@ The ui module is responsible for the application's frontend. It is built using J
 ---
 
 ### _**Class Diagram**_:
-![Class Diagram](../../diagrams/resources/classDiagram.png)
+![Class Diagram](../../docs/release3/diagrams/resources/classDiagram.png)
 
 ---
 ## Important Dependecies
