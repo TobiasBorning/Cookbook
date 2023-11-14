@@ -12,4 +12,7 @@
         <!-- To use FileReader and FileWriter  -->
         <Bug pattern="DM_DEFAULT_ENCODING" />
     </Match>
+    <Match>
+        <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE" />
+    </Match>
 </FindBugsFilter>

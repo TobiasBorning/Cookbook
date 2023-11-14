@@ -3,16 +3,6 @@
     "[java]": {
         "editor.tabSize": 2
     },
-    "java.test.config": [
-        {
-            "name": "coreTesting",
-            "vmArgs": []
-        },
-        {
-            "name": "modules-template testing",
-            "vmArgs": ["--add-opens", "ui/cookbook.ui=ALL-UNNAMED", "--add-exports", "javafx.graphics/com.sun.javafx.application=ALL-UNNAMED"]
-        }
-    ],
     "java.compile.nullAnalysis.mode": "automatic",
     "java.debug.settings.onBuildFailureProceed": true
 }
