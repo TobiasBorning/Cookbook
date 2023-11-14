@@ -32,6 +32,7 @@ public class CookbookService {
    * Reads the cookbook from the file.
    *
    * @return the cookbook.
+   * @throws RuntimeException if the cookbook file cannot be found.
    */
   public Cookbook readCookbook() {
     try (FileReader reader = new FileReader(COOKBOOK_PATH)) {
@@ -45,6 +46,7 @@ public class CookbookService {
    * Writes the cookbook to the file.
    *
    * @param cookbook the cookbook to write.
+   * @throws RuntimeException if the cookbook file cannot be written to.
    */
   public void writeCookbook(final Cookbook cookbook) {
     try (FileWriter writer = new FileWriter(COOKBOOK_PATH)) {
@@ -69,6 +71,7 @@ public class CookbookService {
    *
    * @param recipeJson the JSON representation of the recipe.
    * @param cookbook the cookbook to add the recipe to.
+   * @return true if the recipe was added, false otherwise.
    */
   public boolean addRecipe(final String recipeJson, final Cookbook cookbook) {
     Recipe recipe = gson.fromJson(recipeJson, Recipe.class);
@@ -86,6 +89,7 @@ public class CookbookService {
    *
    * @param recipeName the name of the recipe to remove.
    * @param cookbook the cookbook to remove the recipe from.
+   * @return a response entity with status OK if the recipe was removed, NOT_FOUND otherwise.
    */
   public ResponseEntity<Void> deleteRecipe(final String recipeName, final Cookbook cookbook) {
     for (Recipe recipe : cookbook.getRecipes()) {
@@ -193,7 +197,7 @@ public class CookbookService {
    *
    * @param recipeName the name of the recipe to set as favorite.
    * @param cookbook the cookbook to update.
-   * @return the updated Recipe.
+   * @return the updated Recipe, null if it was not found.
    */
   public Recipe toggleFavorite(final String recipeName, final Cookbook cookbook) {
     Recipe tmpRecipe = null;
@@ -213,7 +217,7 @@ public class CookbookService {
    * @param recipeName the name of the recipe to update.
    * @param recipeJson the updated recipe.
    * @param cookbook the cookbook to update
-   * @return the updated Recipe.
+   * @return the updated Recipe, null if it was not found.
    */
   public Recipe updateRecipe(final String recipeName, 
       final String recipeJson, final Cookbook cookbook) {
