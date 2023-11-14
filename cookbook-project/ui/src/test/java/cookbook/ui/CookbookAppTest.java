@@ -58,7 +58,6 @@ public class CookbookAppTest extends ApplicationTest {
         }
         try {
             this.testCookbook = ch.readFromFile("../persistence/storage/ui-test-cookbook.json");
-            System.out.println(testCookbook.getRecipes().size());
             ch.writeToFile(testCookbook, "../persistence/storage/remote-cookbook.json");
             ch.writeToFile(testCookbook, "../persistence/storage/local-cookbook.json");
         }
