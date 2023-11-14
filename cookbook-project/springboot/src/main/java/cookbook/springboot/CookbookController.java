@@ -133,35 +133,43 @@ public class CookbookController {
    * Removes a recipe from the cookbook.
    *
    * @param name the name of the recipe to remove.
-   *
+   * @return ResponseEntity containing status code.
    */
   @DeleteMapping("/cookbook/recipe/{name}")
   public ResponseEntity<Void> deleteRecipe(@PathVariable("name") String name) {
     return cookbookService.deleteRecipe(name, cookbookService.readCookbook());
   }
 
+  /**
+   * Toggles the favorite status of a recipe.
+   *
+   * @param name
+   * @return ResponseEntity containing ok status code.
+   */
   @PutMapping("/cookbook/favorite/{name}")
   public ResponseEntity<Recipe> toggleFavorite(@PathVariable("name") String name) {
     Recipe recipe = cookbookService.toggleFavorite(name, cookbookService.readCookbook());
+    if (recipe == null) {
+      return new ResponseEntity<Recipe>(recipe, HttpStatus.BAD_REQUEST);
+    }
     return new ResponseEntity<Recipe>(recipe, HttpStatus.OK);
   }
 
   /**
- * Oppdaterer en oppskrift i kokeboken basert på det oppgitte navnet.
- * 
- * <p>Denne metoden tar imot en oppskrift i JSON-format og oppdaterer den eksisterende
- * oppskriften med det samme navnet i kokeboken. Hvis oppskriften med det navnet
- * ikke finnes, kan en ny oppskrift bli opprettet, avhengig av implementasjonen.
+ * Updates a recipe in the cookbook based on the name.
  *
- * @param name Navnet på oppskriften som skal oppdateres.
- * @param updatedRecipeJson Oppskriften i JSON-format som inneholder oppdateringene.
- * @return En ResponseEntity som inneholder den oppdaterte oppskriften og HTTP-statusen OK.
+ * @param name name of the recipe.
+ * @param updatedRecipeJson recipe in json format that contains the updates
+ * @return ResponseEntity containing the updated recipe's JSON.
  */
   @PutMapping("/cookbook/recipe/{name}")
   public ResponseEntity<Recipe> updateRecipe(@PathVariable("name") String name, 
       @RequestBody String updatedRecipeJson) {
     Recipe recipe = cookbookService.updateRecipe(name, updatedRecipeJson, 
         cookbookService.readCookbook());
+    if (recipe == null) {
+      return new ResponseEntity<Recipe>(recipe, HttpStatus.BAD_REQUEST);
+    }
     return new ResponseEntity<Recipe>(recipe, HttpStatus.OK);
   }   
 }
