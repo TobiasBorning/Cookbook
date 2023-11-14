@@ -7,6 +7,11 @@ The Cookbook is an application containing recipes, along with the ingredients ne
 The app has a search function that allows the user to search for recipes based name. The user is also able to filter by origin and type using drop-down menus. The ui contains checkboxes for filtering by preferences. A user can favorite a recipe by clicking the star icon, yellow stars indicate a favorite recipe. The user can also use the favorites checkbox to show only favorite recipes. In addition to this, users will be able to add, remove and edit recipes from the cookbook.
 
 ---
+## ___Sequence diagram___
+Below is a sequence diagram illustrating what happens when a user adds a recipe to the cookbook when the app is connected to the REST-API.
+![Sequence diagram](../diagrams/resources/sequenceDiagram.png)
+
+---
 
 ## **_How to run the app_**
 
@@ -27,7 +32,8 @@ The app has a search function that allows the user to search for recipes based n
 
 ## **_Project Architecture_**
 The the project buildt using maven.  
-It has four modules; ___core_, _ui_, _persistence_ and _springboot___, each responsible for different parts of the applications functionality. As well as a ___integrationtest___ module for testing that the modules work together as intended. 
+It has four modules; ___core_, _ui_, _persistence_ and _springboot___, each responsible for different parts of the applications functionality.  
+As well as a ___integrationtest___ module for testing that the modules work together as intended. Links to the individual modules can be found below.
 
 ![Project Arcitecture](../diagrams/resources/projectStructure_3.png)
 

@@ -34,6 +34,12 @@ The ui module is responsible for the application's frontend. It is built using J
 ![Class Diagram](../../diagrams/resources/classDiagramUI.png)
 
 ---
+## Important Dependecies
+* __Core__
+* __Persistence__
+* __WireMock__
+
+---
 
 This module has its own pom.xml file, which is responsible for building the module with its respected dependencies and plugins, such as JaCoCo, Checkstyle and Spotbugs.
 

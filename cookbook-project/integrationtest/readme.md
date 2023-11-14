@@ -18,6 +18,13 @@ mvn verify
 The Spring Boot Maven plugin is used to start the application in the pre-integration-test phase, and stop it in the post-integration-test phase. The tests in CookbookAppIT is run by the Failsafe Maven plugin in the integration-test phase.
 
 ---
+## Important Dependecies
+* __Core__
+* __Persistence__
+* __UI__
+* __Springboot__
+
+---
 ### Link to the integration test class:  
 [CookbookAppIT](/cookbook-project/integrationtest/src/test/java/cookbook/integrationtest/CookbookAppIT.java) - Test that the modules work together as expected. 
 
