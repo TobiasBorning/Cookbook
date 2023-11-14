@@ -14,6 +14,7 @@ More info about the cookbook project can be found [here](/cookbook-project/readm
 - [**_JavaFX_ 17.0.8**](https://mvnrepository.com/artifact/org.openjfx)
 - [**_Failsafe_ 3.0.0-M1**](https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-failsafe-plugin)
 - [**_Spring Boot_ 3.1.4**](https://mvnrepository.com/search?q=spring+boot)
+- [**_Jpackage_ 1.4.0**](https://github.com/petr-panteleyev/jpackage-maven-plugin)
 
 <div style="display: flex; align-items: center;">
     <a href="https://che.stud.ntnu.no/#https:/gitlab.stud.idi.ntnu.no/it1901/groups-2023/gr2322/gr2322">
