@@ -125,11 +125,9 @@ public class AddRecipeController {
     if (inputOrigin.equals("")) {
       feedbackLabel.setText("Origin is required!");
       return;
-    }
-    else if (addRecipe(recipe)) {
+    } else if (addRecipe(recipe)) {
       switchToMainScene(e);
-    } 
-    else {
+    } else {
       feedbackLabel.setText("Name already exists!");
     }
   }

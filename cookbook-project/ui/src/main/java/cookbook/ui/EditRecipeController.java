@@ -166,8 +166,7 @@ public class EditRecipeController {
     if (originTextField.getText().equals("")) {
       feedbackLabel.setText("Origin is required!");
       return;
-    }
-    else {
+    } else {
       inputOrigin = originTextField.getText();
     }
     if (typeTextField.getText() != null) {
