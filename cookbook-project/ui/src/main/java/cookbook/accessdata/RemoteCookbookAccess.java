@@ -55,11 +55,11 @@ public class RemoteCookbookAccess implements CookbookAccess {
       if (response.statusCode() == 200) {
         return ut;
       } else {
-        throw new RuntimeException("Failed to fetch cookbook");
+        throw new RuntimeException("Failed to fetch remote cookbook");
       }
     } catch (InterruptedException | IOException e) {
       System.out.println(e.getMessage());
-      throw new RuntimeException("Failed to fetch cookbook");
+      throw new RuntimeException("Failed to fetch remote cookbook");
     }
   }
 
