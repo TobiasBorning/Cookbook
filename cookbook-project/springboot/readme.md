@@ -65,6 +65,11 @@ To start the springboot server, you need to navigate to the springboot module an
 ### **Testing the REST API**
 We use Mockito to test the REST-API. Mockito is a Java based framwork for mocking objects. We use it to mock the HTTP-requests and test the REST-API using MockMvc. The MockMvc object is given the context of the classes in the _cookbook.springboot_ package, as well as a _GsonHttpMessageConverter_ for parsing Cookbook objects. We use the _@AutoConfigureMockMvc_ to create the MockMvc. The MockMvc mocks _localhost:8080/api_, making it possible to test the api without actually running the server.
 
+---
+## Important Dependecies
+* __Core__
+* __Persistence__
+* __GSON__
 
 ---
 This module has its own pom.xml file, which is responsible for building the module with its respected dependencies and plugins, such as Springboot, JaCoCo, Checkstyle, Spotbugs and Gson.

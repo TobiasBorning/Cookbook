@@ -52,21 +52,23 @@ As we progressed, the team's proficiency with GitLab's functionalities grew. We 
 
 Furthermore, GitLab's merge requests became an invaluable tool. Making us able to comment on dodgy code or defect functionality. It allowed us to thoroughly review each other's code, ensuring quality and consistency before any merges into the master branch. This process not only enhanced our code quality but also fostered a collaborative and learning-centric environment within the team.
 
----
-
-## Reflection of the project and further development 
-Our journey with GitLab as a management and workflow tool was a new experience for all of the group members. Throughout this course, we have gained new knowledge and skills. We have been introduced to new technologies like Eclipse Che, JaCoCo, and Gson. Additionally, our competence in GitLab, particularly regarding collaboration, handling commits, branching, and issue management, has grown significantly.
-
-After the third release the Cookbook app is well functioning. Looking ahead, if we were to have another iteration, our primary focus would be on enhancing the graphical user interface. For instance, we'd redesign the Recipe View scene to be more visually appealing. Another potential improvement could be introducing a log in feature, allowing users to access a personalized cookbook. We would also refine the code to ensure all ingredient names are consistently capitalized and other similar improvements in the GUI.
-
-In conclusion, we are proud of what we have achieved after the third release and are satisfied with our educational progress. The experience of working collaboratively as a team on this project has been especially rewarding.
-
---- 
 
 ## Release 3 user interface
 We decided to attach a stylesheet to the fxml files to give the user interface a graphical improvement. We also added filters for recipe type. Favorite, Vegan, Lactose free og Gluten free.  
 
 ![](/assets/Release3App.png)
 
+---
+
+## Reflection of the project and further development 
+Our journey with GitLab as a management and workflow tool was a new experience for all of the group members. Throughout this course, we have gained new knowledge and skills. We have been introduced to new technologies like Maven, Spring boot, JaCoCo and different testing frameworks. Additionally, our competence in GitLab and Git, particularly regarding collaboration, handling commits, branching, and issue management, has grown significantly.
+
+After the third release the Cookbook app is well functioning. Looking ahead, if we were to have another iteration, our primary focus would be on enhancing the graphical user interface. For instance, we'd redesign the Recipe View scene to be more visually appealing. Another potential improvement could be introducing a log in feature, allowing users to access a personalized cookbook. We would also refine the code to ensure all ingredient names are consistently capitalized and other similar improvements in the GUI.
+
+Looking back at our workflow from release 1, we have improved massively, especially with the use of branching and merge requests. This has improved the stability of our project and has made it a lot easier to split up and focus on different tasks. Using Gitlabs **_issue_** feature, along with the **_issue board_** has made structuring the project a lot easier. After making this workflow change, we have been able to work more efficiently and have been able to focus on the tasks at hand, we would never go back to our release 1 workflow without branches and issues.
+
+In conclusion, we are proud of what we have achieved after the third release and are satisfied with our educational progress. The experience of working collaboratively as a team on this project has been especially rewarding.
+
+--- 
 
 [_**<** Return to gr2322_](../readme.md)

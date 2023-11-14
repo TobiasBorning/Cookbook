@@ -22,6 +22,11 @@ The CookbookHandler class uses the Gson library to read and write to the json fi
 The Persistence module tests reading and writing the cookbook to the persistence-test-cookbok.json file. Ensuring that the cookbook that is read from the file, contains the same information as the cookbook written to the file. There is also a test checking that the CookbookhHandler class throws a **FileNotFoundException** if the file is not found.
 
 ---
+## Important Dependecies
+* __Core__
+* __GSON__
+
+---
 This module has its own pom.xml file, which is responsible for building the module with its respected dependencies and plugins, such as JaCoCo, Checkstyle, Spotbugs and Gson.
 
 ---
