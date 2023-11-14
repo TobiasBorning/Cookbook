@@ -105,9 +105,44 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>cookbook.ui.CookbookApp</mainClass>
+                    <!-- Jlink -->
+                    <compress>2</compress>
+                    <noHeaderFiles>true</noHeaderFiles>
+                    <stripDebug>true</stripDebug>
+                    <launcher>cookbook</launcher>
+                    <jlinkImageName>cookbook</jlinkImageName>
+                    <jlinkZipName>cookbook</jlinkZipName>
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.panteleyev</groupId>
+                <artifactId>jpackage-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <configuration>
+                    <name>CookbookAppFX</name>
+                    <appVersion>1.0.0</appVersion>
+                    <vendor>it1901</vendor>
+                    <destination>target/dist</destination>
+                    <module>ui/cookbook.ui.CookbookApp</module>
+                    <runtimeImage>target/cookbook</runtimeImage>
+                    <javaOptions>
+                        <option>-Dfile.encoding=UTF-8</option>
+                    </javaOptions>
+                    <!-- linux options --> 
+                    <linuxShortcut>true</linuxShortcut>
+                    <linuxMenuGroup>TodoListFX</linuxMenuGroup>
+                    <!-- windows options --> 
+                    <winDirChooser>true</winDirChooser>
+                    <winShortcut>true</winShortcut>
+                    <winMenu>true</winMenu>
+                    <winMenuGroup>TodoListFX</winMenuGroup>
+                    <!-- mac icon -->
+                    <icon>src/main/resources/cookbook/ui/cookbookIcon.icns</icon>
+
+                </configuration>
+            </plugin>
+            
             <!-- Test reporting with JaCoCo -->
             <plugin>
                 <groupId>org.jacoco</groupId>
