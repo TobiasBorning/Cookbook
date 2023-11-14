@@ -58,6 +58,10 @@ Read about the __springboot__ module [_here_](/cookbook-project/springboot/readm
 Read about the __integrationtest__ module [_here_](/cookbook-project/integrationtest/readme.md)
 
 ---
+## **_Diagrams_**
+Link to all diagrams related to the project [here](/diagrams/readme.md)
+
+---
 
 ## **_User stories_**
 Read about the _user stories_ [_here_](../docs/userstories.md)
