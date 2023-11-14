@@ -101,7 +101,6 @@ public class AppController {
     this.cookbook = cookbookAccess.fetchCookbook();
     // set Vbox height to fit all recipes
     recipeList.setMinHeight(this.cookbook.getRecipes().size() * 69.5);
-    // fill cookbook with all recipes
     fillCookbook(this.cookbook);
   }
 

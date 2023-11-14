@@ -8,10 +8,19 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * JavaFX App.
+ * The main entry point for the Cookbook application.
+ * This class extends Application and sets up the primary stage
+ * for the JavaFX user interface.
  */
 public class CookbookApp extends Application {
 
+  /**
+   * Starts the application by loading the primary stage with the
+   * specified FXML layout.
+   *
+   * @param stage The primary stage for this application.
+   * @throws IOException If the FXML file cannot be loaded.
+   */
   @Override
   public void start(Stage stage) throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("CookbookApp.fxml"));
@@ -22,6 +31,11 @@ public class CookbookApp extends Application {
     stage.show();
   }
 
+  /**
+   * The main method that launches the JavaFX application.
+   *
+   * @param args Command line arguments.
+   */
   public static void main(String[] args) {
     launch();
   }
