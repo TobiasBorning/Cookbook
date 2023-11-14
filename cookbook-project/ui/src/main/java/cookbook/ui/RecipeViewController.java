@@ -77,7 +77,6 @@ public class RecipeViewController {
     } else if (!recipe.getGlutenFree()) {
       glutenfree.setText("No");
     }
-    //legger til liste med ingredienser
     for (Entry<String, String> ingredient : recipe.getIngredients().entrySet()) {
       String text = ingredients.getText();
       ingredients.setText(text + "\n" + ingredient.getKey().toString() 

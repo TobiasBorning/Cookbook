@@ -39,10 +39,10 @@ public class EditRecipeController {
   private TextArea recipeDescription;
 
   @FXML
-  private TextField origin;
+  private TextField originTextField;
 
   @FXML 
-  private TextField type;
+  private TextField typeTextField;
 
   @FXML
   private Button back;
@@ -60,10 +60,13 @@ public class EditRecipeController {
   private CheckBox veganCheckBox;
 
   @FXML
-  private CheckBox lactosefreeCheckBox;
+  private CheckBox lactoseFreeCheckBox;
 
   @FXML
   private CheckBox glutenFreeCheckBox;
+
+  @FXML
+  private Label feedbackLabel;
 
   private int ingredientCount = 0;
 
@@ -79,12 +82,12 @@ public class EditRecipeController {
     this.oldRecipe = recipe;
     this.newRecipe.setName(oldRecipe.getName());
     recipeDescription.setText(recipe.getDescription());
-    origin.setText(recipe.getOriginCountry());
-    type.setText(recipe.getType());
+    originTextField.setText(recipe.getOriginCountry());
+    typeTextField.setText(recipe.getType());
     title.setText("Edit " + recipe.getName());
     newRecipe.setFavorite(oldRecipe.getFavorite());
     veganCheckBox.setSelected(oldRecipe.getVegan());
-    lactosefreeCheckBox.setSelected(oldRecipe.getLactoseFree());
+    lactoseFreeCheckBox.setSelected(oldRecipe.getLactoseFree());
     glutenFreeCheckBox.setSelected(oldRecipe.getGlutenFree());
     
     for (Map.Entry<String, String> ingredient : recipe.getIngredients()
@@ -154,17 +157,21 @@ public class EditRecipeController {
     Boolean isGlutenFree = newRecipe.getGlutenFree();
     
     isVegan = veganCheckBox.isSelected();
-    isLactoseFree = lactosefreeCheckBox.isSelected();
+    isLactoseFree = lactoseFreeCheckBox.isSelected();
     isGlutenFree = glutenFreeCheckBox.isSelected();
     
     if (recipeDescription.getText() != null) {
       descriptionString = recipeDescription.getText();
     }
-    if (origin.getText() != null) {
-      inputOrigin = origin.getText();
+    if (originTextField.getText().equals("")) {
+      feedbackLabel.setText("Origin is required!");
+      return;
     }
-    if (type.getText() != null) {
-      newRecipe.setType(type.getText());
+    else {
+      inputOrigin = originTextField.getText();
+    }
+    if (typeTextField.getText() != null) {
+      newRecipe.setType(typeTextField.getText());
       inputType = newRecipe.getType();
     } 
 

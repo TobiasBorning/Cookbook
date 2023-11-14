@@ -8,11 +8,9 @@ import cookbook.core.Recipe;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -79,7 +77,7 @@ public class AppController {
   @FXML
   private CheckBox veganCheckBox;
   @FXML
-  private CheckBox lactosefreeCheckBox;
+  private CheckBox lactoseFreeCheckBox;
   @FXML
   private CheckBox glutenFreeCheckBox;
 
@@ -97,8 +95,8 @@ public class AppController {
    *</p>
    */
   public void initialize() {
-    // set remote or local cookbook access depending on connection, override = 
-    // true always connects to local
+    // set remote or local cookbook access depending on connection, override 
+    // == true always connects to local
     setAccessType(false);
     this.cookbook = cookbookAccess.fetchCookbook();
     // set Vbox height to fit all recipes
@@ -120,7 +118,7 @@ public class AppController {
       feedbackLabel.setText("");
     }
     for (Recipe recipe : cookbooklist) {
-      //lager pane til å vise oppskrift
+      //creates pane to display recipe
       Pane pane = new Pane();
       pane.setMinWidth(330);
       pane.setMaxWidth(400);
@@ -128,10 +126,10 @@ public class AppController {
       pane.setStyle("-fx-padding: 10 10 10 10;" 
           + "-fx-border-width: 0px 0px 3px 0px; -fx-border-color: #000000;");
 
-      //overskrift med navn på recipe
+      //heading for recipe name
       Label recipeName = new Label(recipe.getName());
-      //satt label CSS id for testing
-      recipeName.setId(recipe.getName() + "Recipe"); //ex: #TacoRecipe
+      //set label CSS id for testing
+      recipeName.setId(recipe.getName() + "Recipe");
       Font font = Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 16);
       recipeName.setFont(font);
       recipeName.setMaxWidth(200);
@@ -140,7 +138,7 @@ public class AppController {
 
       // Add remove button
       Button buttonRemove = new Button("Remove");
-      //satt button CSS id for testing
+      //set button CSS id for testing
       buttonRemove.setId("remove" + recipe.getName()); //ex: #removeTaco
       // Adjust the x-coordinate as needed
       buttonRemove.setLayoutX(pane.getMinWidth() - buttonRemove.getMinWidth());
@@ -151,7 +149,7 @@ public class AppController {
     
       // Add view button
       Button buttonView = new Button("View");
-      //satt button CSS id for testing
+      //set button CSS id for testing
       buttonView.setId("view" + recipe.getName()); //ex: #viewTaco
 
       // Adjust the x-coordinate as needed
@@ -160,7 +158,6 @@ public class AppController {
       
       buttonView.setLayoutY(10); // Adjust the y-coordinate as needed
       buttonView.onActionProperty().set(e -> {
-        //viewRecipe(recipe);
         try {
           this.sendRecipe = recipe;
           switchToViewRecipe(e);
@@ -195,7 +192,7 @@ public class AppController {
     }
 
     //Fill filter dropdown menu with origins from cookbook
-    fillFilterDropdown();
+    fillOriginFilterDropdown();
     //Fill filter dropdown menu with types from cookbook
     fillTypeFilterDropdown();
   }
@@ -207,22 +204,17 @@ public class AppController {
    * If there are matches, the recipe list is updated to show only those recipes.
    */
   public void search() {
-    // get search string
     resetPreferences();
     try {
       String search = searchField.getText();
       if (search.isEmpty()) {
-        // if search is empty, fill cookbook with all recipes
         fillCookbook(cookbookAccess.fetchCookbook());
         feedbackLabel.setText("");
       } else {
-        // if search is not empty, fill cookbook with matching recipes
         Cookbook searched = cookbookAccess.searchRecipe(search);
         if (searched == null || searched.getRecipes().isEmpty()) {
-          // if no recipes match search, give feedback
           feedbackLabel.setText("No recipes matching search");
         } else {
-          // if recipes match search, make feedback empty and fill cookbook
           fillCookbook(searched);
           feedbackLabel.setText("");
         }
@@ -237,28 +229,21 @@ public class AppController {
    * Populates the filter dropdown menu with unique origin countries from the recipes.
    * It adds an "All origins" option to allow users to remove the filter.
    */
-  private void fillFilterDropdown() {
-    //create empty set to add origins to
+  private void fillOriginFilterDropdown() {
     Set<String> origins = new HashSet<>();
-    //get recipes
     Collection<Recipe> recipes = cookbook.getRecipes();
 
-    //Add no filter option
     origins.add("All origins");
 
-    //Add all origin countries from the recipes in cookbook
     for (Recipe recipe : recipes) {
       origins.add(recipe.getOriginCountry());
     }
-    //Add origins to the dropdown menu, if not duplicate
     for (String origin : origins) {
       if (!originFilter.getItems().contains(origin) && origin != null) {
         originFilter.getItems().add(origin);
       }
     }
-    //Set default value of dropdown
     originFilter.setValue("All origins");
-
   }
 
   /**
@@ -269,10 +254,8 @@ public class AppController {
     try {
       favoritesCheckBox.setSelected(false);
       resetPreferences();
-      //get value from dropdown
       String filterValue = (String) originFilter.getValue();
 
-      //fill cookbook with filtered recipes
       if (filterValue.equals("All origins")) {
         fillCookbook(cookbook);
       } else {
@@ -286,9 +269,8 @@ public class AppController {
   }
 
   private void fillTypeFilterDropdown() {
-    //create empty set to add types to
-    //Set<String> types = new HashSet<>();
-    Set<String> validTypes = new HashSet<>(Arrays.asList(null, "Breakfast", "Lunch", "Dinner", "Dessert", "Unknown", "All types"));
+    Set<String> validTypes = new HashSet<>(Arrays.asList(null, "Breakfast", "Lunch",
+        "Dinner", "Dessert", "Unknown", "All types"));
     
     for (String type : validTypes) {
       if (!typeFilter.getItems().contains(type) && type != null) {
@@ -296,23 +278,6 @@ public class AppController {
       }
     }
 
-    // //get recipes
-    // Collection<Recipe> recipes = cookbook.getRecipes();
-
-    // //Add no filter option
-    // types.add("All types");
-
-    // //Add all types from the recipes in cookbook
-    // for (Recipe recipe : recipes) {
-    //   types.add(recipe.getType());
-    // }
-    // //Add types to the dropdown menu, if not duplicate
-    // for (String type : types) {
-    //   if (!typeFilter.getItems().contains(type) && type != null) {
-    //     typeFilter.getItems().add(type);
-    //   }
-    // }
-    //Set default value of dropdown
     typeFilter.setValue("All types");
   }
 
@@ -323,11 +288,8 @@ public class AppController {
   public void filterByType() {
     try {
       resetPreferences();
-      lactosefreeCheckBox.setSelected(false);
-      //get value from dropdown
       String filterValue = (String) typeFilter.getValue();
 
-      //fill cookbook with filtered recipes
       if (filterValue.equals("All types")) {
         fillCookbook(cookbook);
       } else {
@@ -374,7 +336,7 @@ public class AppController {
       if (veganCheckBox.isSelected()) {
         vlg = "T" + vlg.substring(1);
       }
-      if (lactosefreeCheckBox.isSelected()) {
+      if (lactoseFreeCheckBox.isSelected()) {
         vlg = vlg.substring(0, 1) + "T" + vlg.substring(2);
       }
       if (glutenFreeCheckBox.isSelected()) {
@@ -530,6 +492,6 @@ public class AppController {
   private void resetPreferences() {
     veganCheckBox.setSelected(false);
     glutenFreeCheckBox.setSelected(false);
-    lactosefreeCheckBox.setSelected(false);
+    lactoseFreeCheckBox.setSelected(false);
   }
 }
