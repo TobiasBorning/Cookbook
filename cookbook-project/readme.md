@@ -22,7 +22,7 @@ Below is a sequence diagram illustrating what happens when a user adds a recipe 
 # maven install:
 % mvn clean install # -DskipTests if you want to skip the tests
 # note: 
-# spring boot server can not be running when using mvn install
+# spring boot server can not be running when using mvn install without -DskipTests tag
 # this will cause the integration test to fail because
 # localhost:8080 is already in use when it tries to start the server
 
