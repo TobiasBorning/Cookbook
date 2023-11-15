@@ -2,6 +2,22 @@
 
 In release 1, our primary focus was creating the initial user interface, and creating the recipes. In release 1, the only functionality is scrolling through the list on the homepage to view the avaliable recipes. The information in the listview is stored in a json-file, providing insurance that the data will not be lost if the application is closed.
 
+---
+
+## __New classes__ 
+
+### __Core__
+* `Recipe`
+* `Cookbook`
+* `CookbookHandler`
+
+### __UI__
+* `AppController`
+* `CookbookApp`
+
+
+---
+
 ## __Release 1 user interface:__
 ![Bildebeskrivelse](/assets/Release1App.jpeg)
 
