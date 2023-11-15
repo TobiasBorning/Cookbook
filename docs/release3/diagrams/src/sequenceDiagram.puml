@@ -11,16 +11,16 @@ title Sequence diagram for adding Recipe to Cookbook
     User1 -> AddRecipeController : Fills in recipe fields and clicks "add recipe" button
     AddRecipeController -> "CookbookAccess : RemoteCookbookAccess" : addRecipe(recipe obejct) 
     "CookbookAccess : RemoteCookbookAccess" -> RESTAPI: POST(localhost:8080/api/cookbook) body: json recipe
-    RESTAPI -> DATABASE : addRecipe(recipe as json)
-    DATABASE -> RESTAPI: true (Sucessfully added recipe)
+    RESTAPI -> "remote-cookbook.json file" : addRecipe(recipe as json)
+    "remote-cookbook.json file" -> RESTAPI: true (Sucessfully added recipe)
     RESTAPI -> "CookbookAccess : RemoteCookbookAccess": HTTP response
     "CookbookAccess : RemoteCookbookAccess" -> AddRecipeController: true (does not throw exception)
     AddRecipeController -> AppController : switchToMainScene(e)
 
     AppController -> "CookbookAccess : RemoteCookbookAccess": initialize()
     "CookbookAccess : RemoteCookbookAccess" -> RESTAPI: fetchCookbook()
-    RESTAPI -> DATABASE : getCookbook()
-    DATABASE -> RESTAPI: Cookbook object
+    RESTAPI -> "remote-cookbook.json file" : getCookbook()
+    "remote-cookbook.json file" -> RESTAPI: Cookbook object
     RESTAPI -> "CookbookAccess : RemoteCookbookAccess": HTTP response
     "CookbookAccess : RemoteCookbookAccess" -> AppController: sets this.cookbook attribute to the fetched cookbook
     AppController -> User1: visualisation over current Cookbook with the new recipe
