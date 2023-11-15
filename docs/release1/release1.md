@@ -6,5 +6,5 @@ In release 1, our primary focus was creating the initial user interface, and cre
 ![Bildebeskrivelse](/assets/Release1App.jpeg)
 
 
-[_**<** Return to gr2322_](../readme.md)
+[_**<** Return to gr2322_](../../readme.md)
 

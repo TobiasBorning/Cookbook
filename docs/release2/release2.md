@@ -36,9 +36,15 @@ We have installed the SpotBugs and Checkstyle plugins to help us notice inconsis
 
 ---
 
+## Release 2 project structure
+Here is a diagram showing the project structure at release 2:
+![Project structure](diagrams/projectStructure_2.png)
+
+---
+
 ## Release 2 user interface
 View and remove buttons were added to each recipe pane, as well.
 
 ![](/assets/Release2App.png)
 
-[_**<** Return to gr2322_](../readme.md)
+[_**<** Return to gr2322_](../../readme.md)

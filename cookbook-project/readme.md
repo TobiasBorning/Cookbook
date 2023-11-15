@@ -9,7 +9,7 @@ The app has a search function that allows the user to search for recipes based n
 ---
 ## ___Sequence diagram___
 Below is a sequence diagram illustrating what happens when a user adds a recipe to the cookbook when the app is connected to the REST-API.
-![Sequence diagram](../diagrams/resources/sequenceDiagram.png)
+![Sequence diagram](../docs/release3/diagrams/resources/sequenceDiagram.png)
 
 ---
 
@@ -32,8 +32,8 @@ Below is a sequence diagram illustrating what happens when a user adds a recipe 
 
 ## **_Project Architecture_**
 The the project buildt using maven.  
-It has four modules; ___core_, _ui_, _persistence_ and _springboot___, each responsible for different parts of the applications functionality.  
-As well as a ___integrationtest___ module for testing that the modules work together as intended. Links to the individual modules can be found below.
+It has four modules; `core, ui, persistence` and `springboot`, each responsible for different parts of the applications functionality.  
+As well as a `integrationtest` module for testing that the modules work together as intended. Links to the individual modules can be found below.
 
 ![Project Arcitecture](../docs/release3/diagrams/resources/projectStructure_3.png)
 
@@ -60,6 +60,24 @@ Read about the __integrationtest__ module [_here_](/cookbook-project/integration
 ---
 ## **_Diagrams_**
 Link to all diagrams related to the project [here](/diagrams/readme.md)
+
+---
+
+## Shippable product
+This project is able to be shipped as a standalone application using jlink and jpackage. To ship the project, follow theese steps, assuming you have allready buildt the project.
+```bash
+# Navigate to the ui folder
+cd cookbook-project/ui
+
+# Jlink
+mvn javafx:jlink -f pom.xml
+
+# Jpackage
+mvn jpackage:jpackage -f pom.xml
+
+# The application installer should now be located in the ui/target/dist folder
+```
+
 
 ---
 

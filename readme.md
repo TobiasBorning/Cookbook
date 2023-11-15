@@ -26,9 +26,9 @@ More info about the cookbook project can be found [here](/cookbook-project/readm
 ---
 
 ## _Release Documentation_
-__[- Release 1 -](/docs/release1.md)  
-[- Release 2 -](/docs/release2.md)  
-[- Release 3 -](/docs/release3.md)__
+__[- Release 1 -](docs/release1/release1.md)  
+[- Release 2 -](docs/release2/release2.md)  
+[- Release 3 -](docs/release3/release3.md)__
 
 ---
 
@@ -67,6 +67,7 @@ mvn verify
 ```
 Test coverage reports can be found in the `target/site/jacoco` directory inside each module(except for the integration test module which has no classes).
 More information about the individual test are found inside the module readme files.
+
 
 ## _Contributors_
 ---

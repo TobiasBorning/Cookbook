@@ -4,27 +4,27 @@ This module is responsible for creating a REST API, which can be used by multipl
 
 **_We have implemented the following HTTP-requests:_**
 
-* **GET _/cookbook_** - Returns the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json)
+* **GET _/cookbook_** - Returns the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json). Will return status **_code 200 OK_** as well as the Cookbook.
 
-* **GET _/cookbook/search/{searchString}_** - Returns a cookbook with recipes from the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) with a name containg the {searchString}.
+* **GET _/cookbook/search/{searchString}_** - Returns a cookbook with recipes from the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) with a name containg the {searchString}. Will return status **_code 200 OK_** as well as the Cookbook containg the recipes matching the _searchString_. If no recipes match the preferences, the Cookbook will be empty.
 
-* **GET _/cookbook/origin/{origin}_** - Returns all recipes from the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) with an origin matching {origin}.
+* **GET _/cookbook/origin/{origin}_** - Returns all recipes from the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) with an origin matching {origin}. Will return status **_code 200 OK_** as well as the Cookbook containg the recipes matching the origin. If no recipes match the preferences, the Cookbook will be empty.
 
-* **GET _/cookbook/type/{type}_**_ - Returns all recipes from the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) with an type matching {type}.
+* **GET _/cookbook/type/{type}_**_ - Returns all recipes from the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) with an type matching {type}. Will return status **_code 200 OK_** as well as the Cookbook containg the recipes matching the type. If no recipes match the preferences, the Cookbook will be empty.
 
-* **GET _/cookbook/preferences/{vlgString}_** - Returns all recipes from the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) with an preferences matching {vlgString}. vlg: Vegan, Lactosefree, Glutenfree. Ex: if you are vegan, but not lactose or gluten intolerant, the vlgString is TFF(True,False,False)
+* **GET _/cookbook/preferences/{vlgString}_** - Returns all recipes from the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) with an preferences matching {vlgString}. vlg: Vegan, Lactosefree, Glutenfree. Ex: if you are vegan, but not lactose or gluten intolerant, the vlgString is TFF(True,False,False). Will return status **_code 200 OK_** as well as the Cookbook containg the recipes matching the preferences. If no recipes match the preferences, the Cookbook will be empty.
 
-* **GET _/cookbook/favorites_** - Returns all recipes from the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) that are marked as favorite.
+* **GET _/cookbook/favorites_** - Returns all recipes from the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) that are marked as favorite. Will return status **_code 200 OK_** as well as the Cookbook containg the recipes are favorited. If no recipes match the preferences, the Cookbook will be empty.
 
-* **POST _/cookbook_** - Adds a recipe to the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json). The recipe is sent as a JSON object in the body of the request.
+* **POST _/cookbook_** - Adds a recipe to the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json). The recipe is sent as a JSON object in the body of the request. Returns status code **_200 (OK)_** if successful. Returns status code **_400 (Bad Request)_** if the recipe already exists in the cookbook.
 
 * **POST _/cookbook/new_** - Overwrites the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) to contain an empty cookbook.
 
-* **PUT _/cookbook/favorite/{recipeName}_** - Marks a recipe from the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) as favorite.
+* **PUT _/cookbook/favorite/{recipeName}_** - Marks a recipe from the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) as favorite. Returns status code **_200 (OK)_** if successful. Returns status code **_400 (Bad Request)_** if the recipe does not exist.
 
-* **PUT _/cookbook/recipe/{recipeName}_** - Updates a recipe from the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) to contain the information from the recipe sent as a JSON object in the body of the request.
+* **PUT _/cookbook/recipe/{recipeName}_** - Updates a recipe from the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) to contain the information from the recipe sent as a JSON object in the body of the request. Returns status code **_200 (OK)_** if successful. Returns status code **_400 (Bad Request)_** if the recipe does not exist.
 
-* **DELETE _/cookbook/recipe/{recipeName}_** - Deletes a recipe from the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) if matching {recipeName}.
+* **DELETE _/cookbook/recipe/{recipeName}_** - Deletes a recipe from the [remote cookbook](/cookbook-project/persistence/remote-cookbook.json) if matching {recipeName}. Returns status code **_200 (OK)_** if successful. Returns status code **_400 (Bad Request)_** if the recipe does not exist. 
 
 ---
 ### **The Springboot framework**
@@ -63,7 +63,7 @@ To start the springboot server, you need to navigate to the springboot module an
 ---
 
 ### **Testing the REST API**
-We use Mockito to test the REST-API. Mockito is a Java based framwork for mocking objects. We use it to mock the HTTP-requests and test the REST-API using MockMvc. The MockMvc object is given the context of the classes in the _cookbook.springboot_ package, as well as a _GsonHttpMessageConverter_ for parsing Cookbook objects. We use the _@AutoConfigureMockMvc_ to create the MockMvc. The MockMvc mocks _localhost:8080/api_, making it possible to test the api without actually running the server.
+We use `Mockito` to test the REST-API. Mockito is a Java based framwork for mocking objects. We use it to mock the HTTP-requests and test the REST-API using `MockMvc`. The `MockMvc` object is given the context of the classes in the _cookbook.springboot_ package, as well as a `GsonHttpMessageConverter` for parsing Cookbook objects. We use the _@AutoConfigureMockMvc_ to create the MockMvc. The `MockMvc` mocks _localhost:8080/api_, making it possible to test the api without actually running the server.
 
 ---
 ## Important Dependecies
