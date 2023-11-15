@@ -59,7 +59,7 @@ Read about the __integrationtest__ module [_here_](/cookbook-project/integration
 
 ---
 ## **_Diagrams_**
-Link to all diagrams related to the project [here](/diagrams/readme.md)
+Link to all diagrams related to the project [here](../docs/release3/diagrams/readme.md)
 
 ---
 
