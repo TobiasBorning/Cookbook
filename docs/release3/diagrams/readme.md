@@ -22,3 +22,5 @@ This sequense diagram shows an user adding an recipe to his cookbook. This diagr
 This diagrams shows the modules in the project, along with their dependencies. Notice that the Integrationtest module is not included, this is because its only purpose is to run an integration test, checking that the other modules work together. As excpected
 
 ![project](resources/projectStructure_3.png)
+
+[< Return to cookbook project](../../../cookbook-project/readme.md)
