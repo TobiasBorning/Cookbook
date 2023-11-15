@@ -47,7 +47,7 @@ public class CookbookAppTest extends ApplicationTest {
     private CookbookHandler ch = new CookbookHandler();
     private FXMLLoader fxmlLoader;
 
-    @BeforeAll //kan alt være i én try-catch, siden begge skal håndteres av FileNotFoundException?
+    @BeforeAll 
     private void saveAndFillCookbook() {
         try{
             savedRemoteCookbook = ch.readFromFile("../persistence/storage/remote-cookbook.json");
@@ -80,7 +80,7 @@ public class CookbookAppTest extends ApplicationTest {
 
     public void start(Stage stage) throws IOException {
         this.fxmlLoader = new FXMLLoader(this.getClass().getResource("CookbookApp.fxml"));
-        this.root = fxmlLoader.load(); //switchj from root to final Parent parent
+        this.root = fxmlLoader.load(); //switch from root to final Parent parent
         this.controller = fxmlLoader.getController();
         this.scene = new Scene(root);
         stage.setScene(this.scene); // replaces root with parent
