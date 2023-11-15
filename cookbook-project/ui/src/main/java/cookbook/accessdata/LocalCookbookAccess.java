@@ -3,7 +3,11 @@ package cookbook.accessdata;
 import cookbook.core.Cookbook;
 import cookbook.core.Recipe;
 import cookbook.json.CookbookHandler;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 
 /**
@@ -12,7 +16,37 @@ import java.util.Collection;
 public class LocalCookbookAccess implements CookbookAccess {
 
   private CookbookHandler ch = new CookbookHandler();
-  private static final String path = "../persistence/storage/local-cookbook.json";
+  private String path = "";
+
+  /**
+   * Creates a new instance of the class.
+   * Sets the path to the cookbook file.
+   */
+  public LocalCookbookAccess() {
+    Path testPath = Paths.get("../persistence/storage/local-cookbook.json");
+    boolean setPath = false;
+    if (Files.exists(testPath)) {
+      this.path = testPath.toString();
+      setPath = true;
+    }
+    if (!setPath) {
+      testPath = Paths.get(System.getProperty("user.home") + File.separator
+          + "local-cookbook.json");
+      if (Files.exists(testPath)) {
+        this.path = testPath.toString();
+        setPath = true;
+      }
+    }
+    if (!setPath) {
+      String writePath = System.getProperty("user.home") + File.separator + "local-cookbook.json";
+      try {
+        ch.writeToFile(new Cookbook(), writePath);
+        this.path = writePath;
+      } catch (FileNotFoundException e) {
+        throw new RuntimeException("Could not create file");
+      }
+    }
+  }
 
   /**
    * Fetches the entire cookbook.
@@ -21,11 +55,13 @@ public class LocalCookbookAccess implements CookbookAccess {
    */
   @Override
   public Cookbook fetchCookbook() {
+    Cookbook cookbook = new Cookbook();
     try {
-      return ch.readFromFile(path);
-    } catch (FileNotFoundException e) { 
-      return new Cookbook();
+      cookbook = ch.readFromFile(this.path);
+    } catch (FileNotFoundException e) {
+      System.out.println("File not found!");
     }
+    return cookbook;
   }
 
   /**

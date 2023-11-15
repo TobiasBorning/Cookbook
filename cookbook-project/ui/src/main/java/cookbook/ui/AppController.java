@@ -475,13 +475,16 @@ public class AppController {
     } catch (IOException exception) {
       System.out.println("Error occured fetching remote cookbook");
     }
-
-    if (remote && !override) {
-      cookbookAccess = new RemoteCookbookAccess();
-      System.out.println("Successfully fetched cookbook, using remote access");
-    } else {
-      cookbookAccess = new LocalCookbookAccess();
-      System.out.println("Using local access");
+    try {
+      if (remote && !override) {
+        cookbookAccess = new RemoteCookbookAccess();
+        System.out.println("Successfully fetched cookbook, using remote access");
+      } else {
+        cookbookAccess = new LocalCookbookAccess();
+        System.out.println("Using local access");
+      }
+    } catch (RuntimeException e) {
+      feedbackLabel.setText("Error occured loading or creating cookbook");
     }
   }
   

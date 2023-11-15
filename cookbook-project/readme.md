@@ -20,7 +20,11 @@ Below is a sequence diagram illustrating what happens when a user adds a recipe 
 % cd cookbook-project
 
 # maven install:
-% mvn clean install -DskipTests
+% mvn clean install # -DskipTests if you want to skip the tests
+# note: 
+# spring boot server can not be running when using mvn install
+# this will cause the integration test to fail because
+# localhost:8080 is already in use when it tries to start the server
 
 # navigate to the ui directory:
 % cd ui
