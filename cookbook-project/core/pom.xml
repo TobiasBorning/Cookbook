@@ -26,14 +26,6 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
         </dependency>
-        
-        <!-- json writing with gson -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.9.1</version>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -69,7 +61,7 @@
     
     <properties>
         <!-- Skip SpotBugs when running -->
-        <skipSpotbugs>true</skipSpotbugs>
+        <skipSpotbugs>false</skipSpotbugs>
     </properties>
 
 </project>

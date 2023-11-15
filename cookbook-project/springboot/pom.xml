@@ -126,23 +126,12 @@
                     <mainClass>cookbook.springboot.CookbookModelApplication</mainClass>
                 </configuration>
             </plugin>
-
-            <!-- Maven Exec Plugin for running TempRest --> 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <mainClass>cookbook.springboot.TempRest</mainClass>
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
 
     <properties>
         <!-- Skip SpotBugs when running -->
-        <skipSpotbugs>true</skipSpotbugs>
+        <skipSpotbugs>false</skipSpotbugs>
     </properties>
 
 </project>

@@ -76,7 +76,7 @@
     
     <properties>
         <!-- Skip SpotBugs when running -->
-        <skipSpotbugs>true</skipSpotbugs>
+        <skipSpotbugs>false</skipSpotbugs>
     </properties>
 
 </project>

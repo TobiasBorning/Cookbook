@@ -1,18 +1,20 @@
-# __Cookbook__
+# __Cookbook-project__
 
-## _Project description_
+## **_Project description_**
 
-The Cookbook is an application containing recipes, along with the ingredients needed for each respective recipe. The app will provide inspiration concerning what meals to make. On the app's homepage, the user can scroll through the list of recipes. When clicking the recipes, you get a more detailed description on how to make the dish.
+The Cookbook is an application containing recipes, along with the ingredients needed for each respective recipe. The app will provide inspiration concerning what meals to make. On the app's homepage, the user can scroll through the list of recipes. When clicking a recipe, you get a more detailed description on how to make the dish. As well as a list of ingredients needed to make the dish, the origin country, type, and preferences such as vegan, lactose and gluten- free.
 
-As we progress through the iterations, we will further develop the app to allow users to filter recipes based on different cuisines, such as Italian og Mexican. Additionally, users will also be able to search for desired recipes.
+The app has a search function that allows the user to search for recipes based name. The user is also able to filter by origin and type using drop-down menus. The ui contains checkboxes for filtering by preferences. A user can favorite a recipe by clicking the star icon, yellow stars indicate a favorite recipe. The user can also use the favorites checkbox to show only favorite recipes. In addition to this, users will be able to add, remove and edit recipes from the cookbook.
 
-In addition to this, users will be able to add and remove recipes from the cookbook.
-
-
-![Bildebeskrivelse](/assets/IllustrationOfApp.jpeg)
-
-## _How to run the app_
 ---
+## ___Sequence diagram___
+Below is a sequence diagram illustrating what happens when a user adds a recipe to the cookbook when the app is connected to the REST-API.
+![Sequence diagram](../docs/release3/diagrams/resources/sequenceDiagram.png)
+
+---
+
+## **_How to run the app_**
+
 ```bash
 # navigate to the cookbook-project directory:
 % cd cookbook-project
@@ -26,76 +28,60 @@ In addition to this, users will be able to add and remove recipes from the cookb
 # run the app
 % mvn javafx:run
 ```
-
-## _Project Arcitecture_
 ---
+
+## **_Project Architecture_**
 The the project buildt using maven.  
-It has three modules; _core_, _ui_ and _persistence_, each responsible for different parts of the application.  
-The _core module_ contains classes responsible for the internal representation of the cookbook.  
-The _ui module_ contains classes responsible for the user interface.  
-The _persistence module_ is responsible for reading and writing the cookbook to a json file.  
-You can read more about the different modules below.
+It has four modules; `core, ui, persistence` and `springboot`, each responsible for different parts of the applications functionality.  
+As well as a `integrationtest` module for testing that the modules work together as intended. Links to the individual modules can be found below.
 
-PlantUML diagram of the project structure [here](../assets/diagram.puml)  
+![Project Arcitecture](../docs/release3/diagrams/resources/projectStructure_3.png)
 
+### ___Core___
+- The core module is responsible for the internal representation of the cookbook and recipe objects.  
+Read about the __core__ module [_here_](/cookbook-project/core/readme.md)
 
-## _Modules_
+### ___UI___
+- The ui module is responsible for the user interface, it is able to fetch cookboos from local files and Rest API's.  
+Read about the __ui__ module [_here_](/cookbook-project/ui/readme.md)
+
+### ___Persistence___
+- The persistence module is responsible for reading and writing the cookbook to a local json file.  
+Read about the __persistence__ module [_here_](/cookbook-project/persistence/readme.md)
+
+### ___Springboot___
+- The springboot module is responsible for the REST API.  
+Read about the __springboot__ module [_here_](/cookbook-project/springboot/readme.md)
+
+### ___Integrationtest___
+- The integrationtest module is responsible for testing that the modules work together as intended.  
+Read about the __integrationtest__ module [_here_](/cookbook-project/integrationtest/readme.md)
+
 ---
-### ___core___
-Read about the __core__ module [here](/cookbook-project/core/readme.md)
+## **_Diagrams_**
+Link to all diagrams related to the project [here](../docs/release3/diagrams/readme.md)
 
-### ___ui___
-Read about the __ui__ module [here](/cookbook-project/ui/readme.md)
+---
 
-### ___persistence___
-Read about the __persistence__ module [here](/cookbook-project/persistence/readme.md)
+## Shippable product
+This project is able to be shipped as a standalone application using jlink and jpackage. To ship the project, follow theese steps, assuming you have allready buildt the project.
+```bash
+# Navigate to the ui folder
+cd cookbook-project/ui
 
+# Jlink
+mvn javafx:jlink -f pom.xml
 
-## _User stories_
+# Jpackage
+mvn jpackage:jpackage -f pom.xml
 
-**User story 1**
-
-***Scrolling and description***
-
-A student is finishing up her day at school, and is ready to go home. She is very tired, and can't be bothered to think of what to make for dinner. She opens the cookbook app, and scrolls until she finds something she likes. She decides to go for Spaghetti carbonara. She stops by the grocery store on her way home from school, and buys the ingredients she needs. Finally, she prepares dinner following the instructions that belongs to the recipe.
-
-**User story 2**
-
-***Add new recipe and remove***
-
-Frank is a professional chef and owns his own restaurant. He wants to implement a new recipe from the cookbook to his menu. He tries out the recipe tikka masala, but has a better recipe himself. Therefore he wants to remove the old tikka masala recipe and replace it with a new and improved recipe. 
-
-**User story 3**
-
-**S*øking and filtrering***
-
-Bert wants to impress his husband Ernie. Ernie is a fan of the italian cuisine. He filters the recipes in the cookbook app to view only italian recipes. He decides to make a pizza diavola. For dessert he wants to make a chocolate cake. He uses the search function to find the recipe.  
-
-## Workflow
-
-In this release, our team has prioritized focusing on productive work habits, achieving a significantly enhanced workflow by utilizing issues for the release. We've done so by making a milestone for each release. For the milestone we have created issues which show up as 'open', 'in progress' or 'closed' on the issue board, showcasing the tasks in progress and those that have been concluded. Each issue is assigned to its respective milestone and user story if relevant. The issues har also labeled appropriately, ensuring developers are aware of the development stage to which the issues pertain. Adopting this approach affords us several advantages. Primarily, it facilitates the allocation of developers to diverse areas of the development, enabling each member in the group to work on different type of tasks. Secondly, it provides a clear visual representation of the remaining work for each project component, potentially leading to more effective delegation within the team.
-
-**_Brancing on issue:_**  
-Moreover, each issue possesses an associated branch where we have implemented changes pertinent to that specific issue, ensuring structured and transparent traceability of modifications back to their respective tasks. Each branch is is named in following template for issue x - (user story y):  
-x-(us-y-)short description. This provides a clear and logical system, whereby any adjustments or enhancements can be easily attributed and traced to their originating issues, enhancing both accountability and clarity in our developmental workflow. This also makes merging the different branches into the master branch easier, as we can easily see which branches are ready to be merged.
-
-**_Commit messages:_**  
-In programming and software development, it is essential to maintain a clear and concise log of changes, or 'commits,' in the source code. This practice allows developers to track and understand the history and development of a project. A good 'commit' message should provide clear, concise, and useful notes about what, why, and how changes have been made. We have used the following template for commit messages:
-
-[ID] description of task done
-
-Slightly more detailed description
-
-Closes #issue
-
-Co-authored by: co-author
-
-**_Merging branches to master:_**  
-We have also ensured that every merge request is reviewed by a secondary part. This layer of oversight ensures the master branch maintains its integrity and safeguarding against potential errors.
-
-**_Pair programming:_**  
-In this release, we have been pair programming. We've found that by working closely together, we have not only enhanced our collective knowledge and skills, but also gained good insight into every part of the applications functionality.
+# The application installer should now be located in the ui/target/dist folder
+```
 
 
-## Code quality
-We have installed the SpotBugs and Checkstyle plugins to help us notice inconsistensies in our code. We have also written JavaDoc comments for methods in the core module. We have created test for all the modules. We have also used the Jacoco plugin to check the test coverage of our code. We also try to write comments in our code to make it easier to understand.
+---
+
+## **_User stories_**
+Read about the _user stories_ [_here_](../docs/userstories.md)
+
+[_**<** Return to gr2322_](../readme.md)
