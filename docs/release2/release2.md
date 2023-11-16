@@ -15,13 +15,15 @@ x-(us-y-)short description. This provides a clear and logical system, whereby an
 **_Commit messages:_**  
 In programming and software development, it is essential to maintain a clear and concise log of changes, or 'commits,' in the source code. This practice allows developers to track and understand the history and development of a project. A good 'commit' message should provide clear, concise, and useful notes about what, why, and how changes have been made. We have used the following template for commit messages:
 
-[ID] description of task done
+[TOPIC] description of task done
 
-Slightly more detailed description
+Detailed description of changes
 
-Closes #issue
+Closes #issue _(if commit closes issue)_
 
-Co-authored by: co-author
+Co-authored by: co-author  
+
+**Topics** can be [FIX], [ADD], [DOCUMENTATION] etc..
 
 **_Merging branches to master:_**  
 We have also ensured that every merge request is reviewed by a secondary part. This layer of oversight ensures the master branch maintains its integrity and safeguarding against potential errors.
