@@ -65,7 +65,7 @@ cd integrationtest
 mvn verify
 
 ```
-Test coverage reports can be found in the `target/site/jacoco` directory inside each module(except for the integration test module which has no classes).
+Test coverage reports can be found in the `target/site/jacoco` directory inside each module(except for the integration test module which has no classes). Our approach to testing has been to use JaCoCo to get overview of which methods are being covered by the tests. We aim to cover all methods and scenarios critical to the app's functionality. This will result in a high degree of test coverage, but not neccessarily 100%.
 More information about the individual test are found inside the module readme files.
 
 
